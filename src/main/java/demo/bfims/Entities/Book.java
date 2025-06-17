@@ -10,6 +10,7 @@ import java.util.List;
 public class Book extends Publication{
     private Date date_published;
     private String edition;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<Author> authors = new ArrayList<>();
 

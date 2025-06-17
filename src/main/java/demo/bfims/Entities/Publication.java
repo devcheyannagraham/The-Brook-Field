@@ -3,6 +3,8 @@ package demo.bfims.Entities;
 import demo.bfims.Enums.Genre;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,6 +20,9 @@ public abstract class Publication {
     private Genre genre;
     private String isbn;
     private Integer quantity = 0;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<PublicationItem> copies = new ArrayList<>();
 
     public Long getPublicationId() {
         return publicationId;
@@ -53,6 +58,11 @@ public abstract class Publication {
 
     public Integer getQuantity() {
         return quantity;
+    }
+
+    public void addCopy(PublicationItem copy) {
+        copy.setPublication(this);
+        copies.add(copy);
     }
 
     public void setQuantity(Integer quantity) {

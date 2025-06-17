@@ -1,16 +1,13 @@
 package demo.bfims;
 
-import demo.bfims.Entities.Author;
-import demo.bfims.Entities.Book;
-import demo.bfims.Entities.LiteraryPiece;
-import demo.bfims.Entities.PublicationItem;
+import demo.bfims.Entities.*;
 import demo.bfims.Enums.Genre;
 import demo.bfims.Enums.LiteraryType;
 import demo.bfims.Enums.PublicationFormat;
 import demo.bfims.Enums.PublicationStatus;
 import demo.bfims.Repo.BookRepo;
+import demo.bfims.Repo.JournalRepo;
 import demo.bfims.Repo.LiteraryPieceRepo;
-import demo.bfims.Repo.PublicationItemRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,17 +20,42 @@ public class BfimsApplication {
     private BookRepo bookRepo;
 
     @Autowired
-    private PublicationItemRepo publicationItemRepo;
-
-    @Autowired
     private LiteraryPieceRepo literaryPieceRepo;
 
+    @Autowired
+    private JournalRepo journalRepo;
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(BfimsApplication.class, args);
         BfimsApplication app = (BfimsApplication) context.getBean("bfimsApplication");
         app.addBook();
         app.addLiteraryPiece();
+        app.addJournal();
+
+    }
+
+    private void addJournal() {
+        Journal journal = new Journal();
+        journal.setTitle("Journal 1");
+        journal.setIssueDate(new Date());
+        journal.setIssueName("I Have ISSUES");
+        journal.setIssueNumber(31);
+        journal.setVolume("II");
+        journal.setGenre(Genre.SCIFI);
+        journal.increaseQuantity();
+
+        Author author = new Author();
+        author.setFirstName("First Author");
+        author.setLastName("Last Author");
+        journal.addPublisher(author);
+
+        PublicationItem publicationItem = new PublicationItem();
+        publicationItem.setStatus(PublicationStatus.PURCHASED);
+        publicationItem.setFormat(PublicationFormat.EBOOK);
+        journal.addCopy(publicationItem);
+        journalRepo.save(journal);
+
+
 
     }
 
@@ -49,16 +71,13 @@ public class BfimsApplication {
         author.setFirstName("Author First Name goes here");
         author.setLastName("Author Last Name goes here");
 
-        book.addAuthor(author);
-        bookRepo.save(book);
-
         PublicationItem publicationItem = new PublicationItem();
         publicationItem.setFormat(PublicationFormat.HARDCOPY);
         publicationItem.setStatus(PublicationStatus.AVAILABLE);
-        publicationItem.setPublicationId(book.getPublicationId());
 
-        publicationItemRepo.save(publicationItem);
-
+        book.addAuthor(author);
+        book.addCopy(publicationItem);
+        bookRepo.save(book);
     }
 
     public void addLiteraryPiece(){
@@ -75,15 +94,12 @@ public class BfimsApplication {
         author.setLastName("Author Last Name goes here");
         literaryPiece.addAuthor(author);
 
-        literaryPieceRepo.save(literaryPiece);
-
-
         PublicationItem publicationItem = new PublicationItem();
         publicationItem.setFormat(PublicationFormat.AUDIOBOOK);
         publicationItem.setStatus(PublicationStatus.RENTED);
-        publicationItem.setPublicationId(literaryPiece.getPublicationId());
-        publicationItemRepo.save(publicationItem);
+        literaryPiece.addCopy(publicationItem);
 
+        literaryPieceRepo.save(literaryPiece);
     }
 
 }

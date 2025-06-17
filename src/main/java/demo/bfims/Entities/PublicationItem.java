@@ -15,8 +15,9 @@ public class PublicationItem {
 
     @Enumerated(EnumType.STRING)
     private PublicationStatus status;
-    // This uses the id instead of the object since the parent class (Publication) cannot be a type
-    private Long publicationId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Publication publication;
 
     public Long getId() {
         return id;
@@ -42,12 +43,11 @@ public class PublicationItem {
         this.format = format;
     }
 
-    public Long getPublicationId() {
-        return publicationId;
+    public Publication getPublication() {
+        return publication;
     }
 
-    public void setPublicationId(Long publicationId) {
-        this.publicationId = publicationId;
-        System.out.println("PublicationItem setPublicationId " + publicationId);
+    public void setPublication(Publication publication) {
+        this.publication = publication;
     }
 }
