@@ -6,9 +6,10 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @MappedSuperclass
-public abstract class Publication {
+public class Publication {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "publication_id_generator")
+    @TableGenerator(name = "publication_id_generator")
     protected Long publicationId;
     protected String title;
 
