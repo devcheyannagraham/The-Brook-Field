@@ -5,18 +5,19 @@ import jakarta.persistence.*;
 
 import java.util.Objects;
 
-@MappedSuperclass
-public class Publication {
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Publication {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "publication_id_generator")
     @TableGenerator(name = "publication_id_generator")
-    protected Long publicationId;
-    protected String title;
+    private Long publicationId;
+    private String title;
 
     @Enumerated(EnumType.STRING)
-    protected Genre genre;
-    protected String isbn;
-    protected Integer quantity = 0;
+    private Genre genre;
+    private String isbn;
+    private Integer quantity = 0;
 
     public Long getPublicationId() {
         return publicationId;

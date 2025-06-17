@@ -40,13 +40,4 @@ public class Book extends Publication{
     public void addAuthor(Author author) {
         authors.add(author);
     }
-
-    public Long getId() {
-        return this.publicationId;
-    }
-
-    public void setId(Long id) {
-        this.publicationId = id;
-    }
-
 }
