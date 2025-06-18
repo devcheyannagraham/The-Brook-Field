@@ -5,9 +5,7 @@ import demo.bfims.Enums.Genre;
 import demo.bfims.Enums.LiteraryType;
 import demo.bfims.Enums.PublicationFormat;
 import demo.bfims.Enums.PublicationStatus;
-import demo.bfims.Repo.BookRepo;
-import demo.bfims.Repo.JournalRepo;
-import demo.bfims.Repo.LiteraryPieceRepo;
+import demo.bfims.Repo.PublicationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,13 +15,7 @@ import java.util.Date;
 @SpringBootApplication
 public class BfimsApplication {
     @Autowired
-    private BookRepo bookRepo;
-
-    @Autowired
-    private LiteraryPieceRepo literaryPieceRepo;
-
-    @Autowired
-    private JournalRepo journalRepo;
+    private PublicationRepo publicationRepo;
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(BfimsApplication.class, args);
@@ -53,7 +45,7 @@ public class BfimsApplication {
         publicationItem.setStatus(PublicationStatus.PURCHASED);
         publicationItem.setFormat(PublicationFormat.EBOOK);
         journal.addCopy(publicationItem);
-        journalRepo.save(journal);
+        publicationRepo.save(journal);
 
 
 
@@ -77,7 +69,7 @@ public class BfimsApplication {
 
         book.addAuthor(author);
         book.addCopy(publicationItem);
-        bookRepo.save(book);
+        publicationRepo.save(book);
     }
 
     public void addLiteraryPiece(){
@@ -99,7 +91,7 @@ public class BfimsApplication {
         publicationItem.setStatus(PublicationStatus.RENTED);
         literaryPiece.addCopy(publicationItem);
 
-        literaryPieceRepo.save(literaryPiece);
+        publicationRepo.save(literaryPiece);
     }
 
 }
