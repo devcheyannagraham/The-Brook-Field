@@ -1,4 +1,4 @@
-package demo.bfims.Entities;
+package demo.bfims.Entities.Inventory;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package demo.bfims.Entities;
+package demo.bfims.Entities.Inventory;
 
 import demo.bfims.Enums.PublicationFormat;
 import demo.bfims.Enums.PublicationStatus;

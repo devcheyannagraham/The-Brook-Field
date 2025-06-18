@@ -1,6 +1,6 @@
 package demo.bfims;
 
-import demo.bfims.Entities.*;
+import demo.bfims.Entities.Inventory.*;
 import demo.bfims.Enums.Genre;
 import demo.bfims.Enums.LiteraryType;
 import demo.bfims.Enums.PublicationFormat;
