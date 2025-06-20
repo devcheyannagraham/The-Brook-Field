@@ -1,22 +1,51 @@
 package demo.bfims.Entities.Inventory;
 
-import demo.bfims.Entities.Orders.Item;
 import demo.bfims.Enums.Genre;
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
 @Entity
-public abstract class Publication extends Item {
-    private String title;
-
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Publication{
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "publication_generator")
+    @TableGenerator(name="Publication_generator")
+    private Long publicationId;
     @Enumerated(EnumType.STRING)
     private Genre genre;
+    @Temporal(TemporalType.DATE)
+    private LocalDate date_published;
+    private int quantity;
+    private String title;
     private String isbn;
-    private Integer quantity = 0;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<PublicationItem> copies = new ArrayList<>();
+    public LocalDate getDate_published() {
+        return date_published;
+    }
+
+    public void setDate_published(LocalDate date_published) {
+        this.date_published = date_published;
+    }
+
+    public Long getPublicationId() {
+        return publicationId;
+    }
+
+    public void setPublicationId(Long publicationId) {
+        this.publicationId = publicationId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void increaseQuantity(){
+        this.quantity++;
+    }
 
     public String getTitle() {
         return title;
@@ -42,21 +71,7 @@ public abstract class Publication extends Item {
         this.isbn = isbn;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
 
-    public void addCopy(PublicationItem copy) {
-        copy.setPublication(this);
-        copies.add(copy);
-    }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public void increaseQuantity() {
-        this.quantity++;
-    }
 
 }

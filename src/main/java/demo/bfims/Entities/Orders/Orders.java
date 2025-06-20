@@ -3,6 +3,8 @@ package demo.bfims.Entities.Orders;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,16 +14,14 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
-    private Double orderTotal;
-
     @CreationTimestamp
-    private Date orderDate;
-
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime orderDate;
     @OneToMany(cascade = CascadeType.ALL)
-    List<OrderItem> orderItems = new ArrayList<>();
+    private List<OrderItem> orderItems = new ArrayList<>();
+    private Double orderTotal;
 
     public Long getId() {
         return id;
@@ -47,14 +47,6 @@ public class Orders {
         this.orderTotal = orderTotal;
     }
 
-    public Date getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
-    }
-
     public List<OrderItem> getOrderItems() {
         return orderItems;
     }
@@ -67,5 +59,12 @@ public class Orders {
         this.orderItems.add(orderItem);
     }
 
+    public LocalDateTime getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
+    }
 
 }

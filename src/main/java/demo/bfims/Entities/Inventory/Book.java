@@ -2,25 +2,16 @@ package demo.bfims.Entities.Inventory;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Book extends Publication{
-    private Date date_published;
-    private String edition;
-
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private PublicationItem publicationItem;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Author> authors = new ArrayList<>();
-
-    public Date getDate_published() {
-        return date_published;
-    }
-
-    public void setDate_published(Date date_published) {
-        this.date_published = date_published;
-    }
+    private String edition;
 
     public String getEdition() {
         return edition;
@@ -41,4 +32,15 @@ public class Book extends Publication{
     public void addAuthor(Author author) {
         authors.add(author);
     }
+
+    public PublicationItem getPublicationItem() {
+        return publicationItem;
+    }
+
+    public void setPublicationItem(PublicationItem publicationItem) {
+        this.publicationItem = publicationItem;
+    }
+
+
+
 }

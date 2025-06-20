@@ -1,4 +1,4 @@
-package demo.bfims.Entities.Orders;
+package demo.bfims.Entities.Inventory;
 
 import demo.bfims.Enums.ItemType;
 import jakarta.persistence.*;
@@ -9,16 +9,17 @@ public abstract class Item {
     // Common interface for publications and bookmarks and mugs etc. lets see...
     //Individual item, not class of item
 
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator="item_generator")
-    @TableGenerator(name="item_generator")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "item_generator")
+    @TableGenerator(name = "item_generator")
     private Long itemId;
-
     private ItemType itemType;
 
     public Long getItemId() {
         return itemId;
     }
+
     public void setItemId(Long itemId) {
         this.itemId = itemId;
     }

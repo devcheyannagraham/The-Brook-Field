@@ -1,8 +1,6 @@
 package demo.bfims.Entities.Inventory;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,13 +8,16 @@ import java.util.List;
 
 @Entity
 public class Journal extends Publication {
+    @ManyToMany()
+    private List<Author> publishers = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private PublicationItem publicationItem;
+    @Temporal(TemporalType.DATE)
+    private Date issueDate;
     private int issueNumber;
     private String issueName;
     private String volume;
-    private Date issueDate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    List<Author> publishers = new ArrayList<>();
 
     public int getIssueNumber() {
         return issueNumber;
@@ -61,4 +62,15 @@ public class Journal extends Publication {
     public void addPublisher(Author publisher){
         publishers.add(publisher);
     }
+
+    public PublicationItem getPublicationItem() {
+        return publicationItem;
+    }
+
+    public void setPublicationItem(PublicationItem publicationItem) {
+        this.publicationItem = publicationItem;
+    }
+
+
+
 }

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 
@@ -20,9 +22,9 @@ public class BfimsApplication {
         ApplicationContext context = SpringApplication.run(BfimsApplication.class, args);
         BfimsApplication app = (BfimsApplication) context.getBean("bfimsApplication");
 //        app.addRental();
-//        app.addBook();
-//        app.addLiteraryPiece();
-//        app.addJournal();
+        app.addBook();
+        app.addLiteraryPiece();
+        app.addJournal();
 
     }
 
@@ -34,7 +36,6 @@ public class BfimsApplication {
         journal.setIssueNumber(31);
         journal.setVolume("II");
         journal.setGenre(Genre.SCIFI);
-        journal.increaseQuantity();
 
         Author author = new Author();
         author.setFirstName("First Author");
@@ -44,19 +45,14 @@ public class BfimsApplication {
         PublicationItem publicationItem = new PublicationItem();
         publicationItem.setStatus(PublicationStatus.PURCHASED);
         publicationItem.setFormat(PublicationFormat.EBOOK);
-        journal.addCopy(publicationItem);
         publicationRepo.save(journal);
-
-
-
     }
 
     public void addBook(){
         Book book = new Book();
         book.setTitle("Book Title goes here");
         book.setEdition("Book Edition goes here");
-        book.setDate_published(new Date());
-        book.increaseQuantity();
+        book.setDate_published(LocalDate.now());
         book.setGenre(Genre.COMEDY);
 
         Author author = new Author();
@@ -68,7 +64,6 @@ public class BfimsApplication {
         publicationItem.setStatus(PublicationStatus.AVAILABLE);
 
         book.addAuthor(author);
-        book.addCopy(publicationItem);
         publicationRepo.save(book);
     }
 
@@ -76,7 +71,7 @@ public class BfimsApplication {
         LiteraryPiece literaryPiece = new LiteraryPiece();
         literaryPiece.setTitle("LiteraryPieceRepo Piece goes here");
         literaryPiece.setEdition("LiteraryPieceRepo Piece goes here");
-        literaryPiece.setDate_published(new Date());
+        literaryPiece.setDate_published(LocalDate.now());
         literaryPiece.increaseQuantity();
         literaryPiece.setGenre(Genre.COMEDY);
         literaryPiece.setType(LiteraryType.POEM);
@@ -89,14 +84,31 @@ public class BfimsApplication {
         PublicationItem publicationItem = new PublicationItem();
         publicationItem.setFormat(PublicationFormat.AUDIOBOOK);
         publicationItem.setStatus(PublicationStatus.RENTED);
-        literaryPiece.addCopy(publicationItem);
 
         publicationRepo.save(literaryPiece);
     }
 
     public void addRental(){
-//        Rental rental = new Rental();
-//        rental.setTitle("Rental goes here");
+        Book book = new Book();
+        book.setTitle("Book Title goes here");
+        book.setEdition("Book Edition goes here");
+        book.setDate_published(LocalDate.now());
+        book.setGenre(Genre.COMEDY);
+
+        Author author = new Author();
+        author.setFirstName("Author First Name goes here");
+        author.setLastName("Author Last Name goes here");
+
+        PublicationItem publicationItem = new PublicationItem();
+        publicationItem.setFormat(PublicationFormat.HARDCOPY);
+        publicationItem.setStatus(PublicationStatus.AVAILABLE);
+
+        book.addAuthor(author);
+
+        Rental rental = new Rental();
+//        rental.
+
+//        rental.setItemId("Rental goes here");
 //        rental.setGenre(Genre.COMEDY);
 //        rental.setStatus(RentalStatus.RENTED);
 //

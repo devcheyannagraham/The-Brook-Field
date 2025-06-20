@@ -75,4 +75,5 @@ public class Rental extends OrderItem { //is publication
                 ", status=" + status +
                 "} " + super.toString();
     }
+
 }

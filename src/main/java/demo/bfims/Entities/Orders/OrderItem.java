@@ -1,5 +1,6 @@
 package demo.bfims.Entities.Orders;
 
+import demo.bfims.Entities.Inventory.Item;
 import jakarta.persistence.*;
 
 
@@ -8,18 +9,15 @@ import jakarta.persistence.*;
  * the order records in rental and purchase tables
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class OrderItem extends Item {
     @ManyToOne(cascade = CascadeType.ALL)
     Customer customer;
-
     @ManyToOne(cascade = CascadeType.ALL)
     Orders orders;
 
     public Customer getCustomer() {
         return customer;
     }
-
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
@@ -32,4 +30,6 @@ public abstract class OrderItem extends Item {
     public void setOrders(Orders orders) {
         this.orders = orders;
     }
+
+
 }

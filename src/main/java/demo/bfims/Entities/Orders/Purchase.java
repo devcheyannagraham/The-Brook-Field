@@ -28,4 +28,5 @@ public class Purchase extends OrderItem {
     public void setPurchasePrice(Double purchasePrice) {
         this.purchasePrice = purchasePrice;
     }
+
 }
