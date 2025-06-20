@@ -10,4 +10,10 @@ class BfimsApplicationTests {
     void contextLoads() {
     }
 
+    @Test
+    void rentalDueDateisAfterStartDate() {
+//        assert rent
+
+    }
+
 }

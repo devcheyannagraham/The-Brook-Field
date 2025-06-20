@@ -1,19 +1,13 @@
 package demo.bfims.Entities.Inventory;
 
+import demo.bfims.Entities.Orders.Item;
 import demo.bfims.Enums.Genre;
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Publication {
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "publication_id_generator")
-    @TableGenerator(name = "publication_id_generator")
-    private Long publicationId;
+public abstract class Publication extends Item {
     private String title;
 
     @Enumerated(EnumType.STRING)
@@ -23,14 +17,6 @@ public abstract class Publication {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<PublicationItem> copies = new ArrayList<>();
-
-    public Long getPublicationId() {
-        return publicationId;
-    }
-
-    public void setPublicationId(Long id) {
-        this.publicationId = id;
-    }
 
     public String getTitle() {
         return title;
@@ -73,14 +59,4 @@ public abstract class Publication {
         this.quantity++;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Publication that)) return false;
-        return Objects.equals(publicationId, that.publicationId) && Objects.equals(title, that.title) && genre == that.genre && Objects.equals(isbn, that.isbn);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(publicationId, title, genre, isbn);
-    }
 }

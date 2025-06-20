@@ -1,16 +1,15 @@
 package demo.bfims;
 
 import demo.bfims.Entities.Inventory.*;
-import demo.bfims.Enums.Genre;
-import demo.bfims.Enums.LiteraryType;
-import demo.bfims.Enums.PublicationFormat;
-import demo.bfims.Enums.PublicationStatus;
+import demo.bfims.Entities.Orders.Rental;
+import demo.bfims.Enums.*;
 import demo.bfims.Repo.PublicationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import java.util.Date;
+import java.util.Optional;
 
 @SpringBootApplication
 public class BfimsApplication {
@@ -20,9 +19,10 @@ public class BfimsApplication {
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(BfimsApplication.class, args);
         BfimsApplication app = (BfimsApplication) context.getBean("bfimsApplication");
-        app.addBook();
-        app.addLiteraryPiece();
-        app.addJournal();
+//        app.addRental();
+//        app.addBook();
+//        app.addLiteraryPiece();
+//        app.addJournal();
 
     }
 
@@ -93,5 +93,20 @@ public class BfimsApplication {
 
         publicationRepo.save(literaryPiece);
     }
+
+    public void addRental(){
+//        Rental rental = new Rental();
+//        rental.setTitle("Rental goes here");
+//        rental.setGenre(Genre.COMEDY);
+//        rental.setStatus(RentalStatus.RENTED);
+//
+//        publicationRepo.save(rental);
+//
+//        System.out.println("RENTAL" + rental);
+//        Optional<Publication> r = publicationRepo.findById(1L);
+//        r.ifPresent(System.out::println);
+    }
+
+
 
 }
