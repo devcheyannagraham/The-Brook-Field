@@ -1,5 +1,6 @@
 package demo.bfims.Entities.Orders;
 
+import demo.bfims.Entities.Inventory.Item;
 import demo.bfims.Enums.RentalStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -7,10 +8,15 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDate;
 
 @Entity
-public class Rental extends OrderItem { //is publication
+public class Rental{ //is publication
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long rentalId;
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
     private LocalDate startDate;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Item item;
 
     @Temporal(TemporalType.DATE)
     private LocalDate dueDate;
@@ -20,10 +26,16 @@ public class Rental extends OrderItem { //is publication
 
     private Double rentalRate;
 
-    //Calculate due date when the record is persisted
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Orders order;
+
     @PrePersist
-    private void calculateRentalDueDate(){
-        this.setDueDate(LocalDate.now().minusWeeks(2));
+    private void setup(){
+        //Calculate due date when the record is persisted
+        this.setDueDate(LocalDate.now().plusWeeks(2));
+
+        // set initial rental status
+        this.setStatus(RentalStatus.RENTED);
     }
 
     // update rental status when retrieving record
@@ -67,6 +79,30 @@ public class Rental extends OrderItem { //is publication
         this.rentalRate = rentalRate;
     }
 
+    public Long getRentalId() {
+        return rentalId;
+    }
+
+    public void setRentalId(Long rentalId) {
+        this.rentalId = rentalId;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public Orders getOrder() {
+        return order;
+    }
+
+    public void setOrder(Orders order) {
+        this.order = order;
+    }
+
     @Override
     public String toString() {
         return "Rental{" +
@@ -75,5 +111,7 @@ public class Rental extends OrderItem { //is publication
                 ", status=" + status +
                 "} " + super.toString();
     }
+
+
 
 }

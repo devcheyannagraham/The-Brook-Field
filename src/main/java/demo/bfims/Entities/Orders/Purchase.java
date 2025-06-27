@@ -6,7 +6,10 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDate;
 
 @Entity
-public class Purchase extends OrderItem {
+public class Purchase {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int purchaseId;
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
     private LocalDate purchaseDate;

@@ -7,17 +7,12 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Journal extends Publication {
-    @ManyToMany()
-    private List<Author> publishers = new ArrayList<>();
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    private PublicationItem publicationItem;
+public class Journal extends PublicationItem {
     @Temporal(TemporalType.DATE)
     private Date issueDate;
     private int issueNumber;
     private String issueName;
     private String volume;
-
 
     public int getIssueNumber() {
         return issueNumber;
@@ -51,26 +46,6 @@ public class Journal extends Publication {
         this.issueDate = issueDate;
     }
 
-    public List<Author> getPublishers() {
-        return publishers;
-    }
-
-    public void setPublishers(List<Author> publishers) {
-        this.publishers = publishers;
-    }
-
-    public void addPublisher(Author publisher){
-        publishers.add(publisher);
-    }
-
-    public PublicationItem getPublicationItem() {
-        return publicationItem;
-    }
-
-    public void setPublicationItem(PublicationItem publicationItem) {
-        this.publicationItem = publicationItem;
-    }
-
-
+    
 
 }

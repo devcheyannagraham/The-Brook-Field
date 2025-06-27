@@ -4,4 +4,5 @@ public enum Genre {
     COMEDY,
     FANTASY,
     SCIFI,
+    YOUTH
     }

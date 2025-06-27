@@ -3,19 +3,20 @@ package demo.bfims.Entities.Inventory;
 import demo.bfims.Enums.Genre;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Publication{
+public class Publication{
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "publication_generator")
-    @TableGenerator(name="Publication_generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long publicationId;
     @Enumerated(EnumType.STRING)
     private Genre genre;
     @Temporal(TemporalType.DATE)
     private LocalDate date_published;
-    private int quantity;
+    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    private List<Author> authors = new ArrayList<>();private int publicationQuantity;
     private String title;
     private String isbn;
 
@@ -35,16 +36,16 @@ public abstract class Publication{
         this.publicationId = publicationId;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getPublicationQuantity() {
+        return publicationQuantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setPublicationQuantity(int quantity) {
+        this.publicationQuantity = quantity;
     }
 
     public void increaseQuantity(){
-        this.quantity++;
+        this.publicationQuantity++;
     }
 
     public String getTitle() {
@@ -71,6 +72,17 @@ public abstract class Publication{
         this.isbn = isbn;
     }
 
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
+
+    public void addAuthor(Author author){
+        this.authors.add(author);
+    }
 
 
 

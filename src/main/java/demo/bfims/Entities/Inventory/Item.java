@@ -9,11 +9,11 @@ public abstract class Item {
     // Common interface for publications and bookmarks and mugs etc. lets see...
     //Individual item, not class of item
 
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "item_generator")
     @TableGenerator(name = "item_generator")
     private Long itemId;
+    @Enumerated(EnumType.STRING)
     private ItemType itemType;
 
     public Long getItemId() {
@@ -31,6 +31,8 @@ public abstract class Item {
     public void setItemType(ItemType itemType) {
         this.itemType = itemType;
     }
+
+
 
 
 }

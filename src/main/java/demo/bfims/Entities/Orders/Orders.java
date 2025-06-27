@@ -1,5 +1,6 @@
 package demo.bfims.Entities.Orders;
 
+import demo.bfims.Entities.Inventory.Item;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -20,7 +21,7 @@ public class Orders {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime orderDate;
     @OneToMany(cascade = CascadeType.ALL)
-    private List<OrderItem> orderItems = new ArrayList<>();
+    private List<Item> orderItems = new ArrayList<>();
     private Double orderTotal;
 
     public Long getId() {
@@ -47,15 +48,15 @@ public class Orders {
         this.orderTotal = orderTotal;
     }
 
-    public List<OrderItem> getOrderItems() {
+    public List<Item> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
+    public void setOrderItems(List<Item> orderItems) {
         this.orderItems = orderItems;
     }
 
-    public void addOrderItem(OrderItem orderItem) {
+    public void addOrderItem(Item orderItem) {
         this.orderItems.add(orderItem);
     }
 
@@ -66,5 +67,7 @@ public class Orders {
     public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
+
+
 
 }
