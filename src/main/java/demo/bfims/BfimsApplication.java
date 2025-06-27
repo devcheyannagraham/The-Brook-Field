@@ -3,12 +3,10 @@ package demo.bfims;
 import demo.bfims.Entities.Inventory.*;
 import demo.bfims.Entities.Orders.Customer;
 import demo.bfims.Entities.Orders.Orders;
+import demo.bfims.Entities.Orders.Purchase;
 import demo.bfims.Entities.Orders.Rental;
 import demo.bfims.Enums.*;
-import demo.bfims.Repo.ItemRepo;
-import demo.bfims.Repo.OrderRepo;
-import demo.bfims.Repo.PublicationRepo;
-import demo.bfims.Repo.RentalRepo;
+import demo.bfims.Repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,6 +26,9 @@ public class BfimsApplication {
 
     @Autowired
     private RentalRepo rentalRepo;
+
+    @Autowired
+    private PurchaseRepo purchaseRepo;
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(BfimsApplication.class, args);
@@ -70,18 +71,24 @@ public class BfimsApplication {
 
         order.addOrderItem(book);
 
-        Rental rental = new Rental();
-        rental.setItem(book);
-        rental.setRentalRate(book.getRentalRate());
-        rental.setOrder(order);
+//        Rental rental = new Rental();
+//        rental.setItem(book);
+//        rental.setRentalRate(book.getRentalRate());
+//        rental.setOrder(order);
+//        rentalRepo.save(rental);
+
+        Purchase purchase = new Purchase();
+        purchase.setPurchasePrice(book.getPurchasePrice());
+        purchase.setItem(book);
+        purchase.setOrder(order);
+        purchaseRepo.save(purchase);
 
 
         publicationRepo.save(publication);
 
-        //rental saves order and book
+        //rental/purchase saves order and book
         //book saves publication and author
         // order saves customer
-        rentalRepo.save(rental);
 
 //        orderRepo.save(order);
 //        itemRepo.save(book);
