@@ -11,7 +11,7 @@ public abstract class PublicationItem extends Item {
     private PublicationFormat format;
     @Enumerated(EnumType.STRING)
     private PublicationStatus status;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
     Publication publication;
     private Double purchasePrice;
     private Double rentalRate;
