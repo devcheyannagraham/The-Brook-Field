@@ -32,7 +32,11 @@ public abstract class Item {
         this.itemType = itemType;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Item{" +
+                "itemId=" + itemId +
+                ", itemType=" + itemType +
+                '}';
+    }
 }

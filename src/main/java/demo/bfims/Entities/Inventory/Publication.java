@@ -16,7 +16,8 @@ public class Publication{
     @Temporal(TemporalType.DATE)
     private LocalDate date_published;
     @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    private List<Author> authors = new ArrayList<>();private int publicationQuantity;
+    private List<Author> authors = new ArrayList<>();
+    private int publicationQuantity;
     private String title;
     private String isbn;
 
@@ -84,6 +85,16 @@ public class Publication{
         this.authors.add(author);
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Publication{" +
+                "publicationId=" + publicationId +
+                ", genre=" + genre +
+                ", date_published=" + date_published +
+                ", authors=" + authors +
+                ", publicationQuantity=" + publicationQuantity +
+                ", title='" + title + '\'' +
+                ", isbn='" + isbn + '\'' +
+                '}';
+    }
 }

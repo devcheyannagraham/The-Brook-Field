@@ -19,7 +19,7 @@ public abstract class PublicationItem extends Item {
 
 
     public PublicationItem() {
-        setItemType(ItemType.PUBLICATION);
+        this.setItemType(ItemType.PUBLICATION);
     }
 
     public PublicationStatus getStatus() {
@@ -44,6 +44,8 @@ public abstract class PublicationItem extends Item {
 
     public void setPublication(Publication publication) {
         this.publication = publication;
+        // assuming a new publication item is being added
+        this.getPublication().increaseQuantity();
     }
 
     public Double getPurchasePrice() {
@@ -70,5 +72,15 @@ public abstract class PublicationItem extends Item {
         this.edition = edition;
     }
 
-
+    @Override
+    public String toString() {
+        return "PublicationItem{" +
+                "format=" + format +
+                ", status=" + status +
+                ", publication=" + publication +
+                ", purchasePrice=" + purchasePrice +
+                ", rentalRate=" + rentalRate +
+                ", edition='" + edition + '\'' +
+                "} " + super.toString();
+    }
 }
