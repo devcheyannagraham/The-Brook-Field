@@ -19,7 +19,6 @@ public class PublicationItemService {
     @Autowired
     PublicationRepo publicationRepo;
 
-
     // Attatch existing publication to book if exists or create new publication
     @Transactional
     public void newPublicationItem(PublicationItem publicationItem){
@@ -32,8 +31,15 @@ public class PublicationItemService {
         itemRepo.save(publicationItem);
     }
 
-    public void updateItem(Item item){
-        itemRepo.save(item);
+    @Transactional
+    public void updatePublicationItem(PublicationItem publicationItem){
+        if(publicationItem.getPublication().getPublicationId() != null){
+            Publication publication = publicationRepo.findById(publicationItem.getPublication().getPublicationId()).orElse(null);
+            publicationItem.setPublication(publication);
+        }
+
+        //New Publication Group or existing publication group not found
+        itemRepo.save(publicationItem);
     }
 
     public List<Item> getAll(){

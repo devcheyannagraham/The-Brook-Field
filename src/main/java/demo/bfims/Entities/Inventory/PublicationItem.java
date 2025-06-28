@@ -1,21 +1,35 @@
 package demo.bfims.Entities.Inventory;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.PublicationFormat;
+import demo.bfims.Enums.PublicationItemType;
 import demo.bfims.Enums.PublicationStatus;
 import jakarta.persistence.*;
 
 @Entity
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "publicationItemType"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Book.class, name = "BOOK")
+})
 public abstract class PublicationItem extends Item {
     @Enumerated(EnumType.STRING)
     private PublicationFormat format;
     @Enumerated(EnumType.STRING)
     private PublicationStatus status;
     @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
+    @JoinColumn(name = "publication_id")
     Publication publication;
     private Double purchasePrice;
     private Double rentalRate;
     private String edition;
+    @Enumerated(EnumType.STRING)
+    private PublicationItemType publicationItemType;
 
 
     public PublicationItem() {
@@ -45,7 +59,8 @@ public abstract class PublicationItem extends Item {
     public void setPublication(Publication publication) {
         this.publication = publication;
         // assuming a new publication item is being added
-        this.getPublication().increaseQuantity();
+        if(this.getPublication() != null)
+            this.publication.increaseQuantity();
     }
 
     public Double getPurchasePrice() {
@@ -72,6 +87,14 @@ public abstract class PublicationItem extends Item {
         this.edition = edition;
     }
 
+    public PublicationItemType getPublicationItemType() {
+        return publicationItemType;
+    }
+
+    public void setPublicationItemType(PublicationItemType publicationItemType) {
+        this.publicationItemType = publicationItemType;
+    }
+
     @Override
     public String toString() {
         return "PublicationItem{" +
@@ -81,6 +104,7 @@ public abstract class PublicationItem extends Item {
                 ", purchasePrice=" + purchasePrice +
                 ", rentalRate=" + rentalRate +
                 ", edition='" + edition + '\'' +
+                ", publicationItemType=" + publicationItemType +
                 "} " + super.toString();
     }
 }
