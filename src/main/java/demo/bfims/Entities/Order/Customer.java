@@ -1,4 +1,4 @@
-package demo.bfims.Entities.Orders;
+package demo.bfims.Entities.Order;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

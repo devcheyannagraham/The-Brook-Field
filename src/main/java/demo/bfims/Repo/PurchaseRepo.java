@@ -1,6 +1,6 @@
 package demo.bfims.Repo;
 
-import demo.bfims.Entities.Orders.Purchase;
+import demo.bfims.Entities.Order.Purchase;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

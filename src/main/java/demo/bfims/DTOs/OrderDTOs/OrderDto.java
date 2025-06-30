@@ -1,26 +1,18 @@
-package demo.bfims.Entities.Orders;
+package demo.bfims.DTOs.OrderDTOs;
 
 import demo.bfims.Entities.Inventory.Item;
+import demo.bfims.Entities.Order.Customer;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-@Entity
-public class Orders {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class OrderDto {
     private Long id;
-    @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime orderDate;
-    @OneToMany(cascade = CascadeType.ALL)
     private List<Item> orderItems = new ArrayList<>();
     private Double orderTotal;
 
@@ -40,12 +32,12 @@ public class Orders {
         this.customer = customer;
     }
 
-    public Double getOrderTotal() {
-        return orderTotal;
+    public LocalDateTime getOrderDate() {
+        return orderDate;
     }
 
-    public void setOrderTotal(Double orderTotal) {
-        this.orderTotal = orderTotal;
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
     }
 
     public List<Item> getOrderItems() {
@@ -56,18 +48,11 @@ public class Orders {
         this.orderItems = orderItems;
     }
 
-    public void addOrderItem(Item orderItem) {
-        this.orderItems.add(orderItem);
+    public Double getOrderTotal() {
+        return orderTotal;
     }
 
-    public LocalDateTime getOrderDate() {
-        return orderDate;
+    public void setOrderTotal(Double orderTotal) {
+        this.orderTotal = orderTotal;
     }
-
-    public void setOrderDate(LocalDateTime orderDate) {
-        this.orderDate = orderDate;
-    }
-
-
-
 }

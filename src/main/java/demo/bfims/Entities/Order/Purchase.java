@@ -1,4 +1,4 @@
-package demo.bfims.Entities.Orders;
+package demo.bfims.Entities.Order;
 
 import demo.bfims.Entities.Inventory.Item;
 import jakarta.persistence.*;
@@ -17,7 +17,7 @@ public class Purchase {
     @OneToOne(cascade = CascadeType.ALL)
     private Item item;
     @ManyToOne(cascade = CascadeType.ALL)
-    private Orders order;
+    private Order order;
 
     private Double purchasePrice;
 
@@ -53,11 +53,11 @@ public class Purchase {
         this.item = item;
     }
 
-    public Orders getOrder() {
+    public Order getOrder() {
         return order;
     }
 
-    public void setOrder(Orders order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 }

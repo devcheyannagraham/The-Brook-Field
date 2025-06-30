@@ -1,4 +1,4 @@
-package demo.bfims.Entities.Orders;
+package demo.bfims.Entities.Order;
 
 import demo.bfims.Entities.Inventory.Item;
 import demo.bfims.Enums.RentalStatus;
@@ -27,7 +27,7 @@ public class Rental{ //is publication
     private Double rentalRate;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private Orders order;
+    private Order order;
 
     @PrePersist
     private void setup(){
@@ -95,11 +95,11 @@ public class Rental{ //is publication
         this.item = item;
     }
 
-    public Orders getOrder() {
+    public Order getOrder() {
         return order;
     }
 
-    public void setOrder(Orders order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 
