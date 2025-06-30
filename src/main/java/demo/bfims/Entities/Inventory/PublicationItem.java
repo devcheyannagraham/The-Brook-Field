@@ -15,7 +15,9 @@ import jakarta.persistence.*;
         property = "publicationItemType"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = Book.class, name = "BOOK")
+        @JsonSubTypes.Type(value = Book.class, name = "BOOK"),
+        @JsonSubTypes.Type(value = LiteraryPiece.class, name = "LITERARY_PIECE"),
+        @JsonSubTypes.Type(value = Journal.class, name = "JOURNAL")
 })
 public abstract class PublicationItem extends Item {
     @Enumerated(EnumType.STRING)
