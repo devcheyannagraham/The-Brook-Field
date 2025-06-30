@@ -1,12 +1,17 @@
 package demo.bfims.Entities.Inventory;
 
 import demo.bfims.Enums.LiteraryType;
+import demo.bfims.Enums.PublicationItemType;
 import jakarta.persistence.*;
 
 @Entity
-public class LiteraryPiece extends Book {
+public class LiteraryPiece extends PublicationItem {
     @Enumerated(EnumType.STRING)
     LiteraryType type;
+
+    public LiteraryPiece() {
+        this.setPublicationItemType(PublicationItemType.LITERARY_PIECE);
+    }
 
     public LiteraryType getType() {
         return type;

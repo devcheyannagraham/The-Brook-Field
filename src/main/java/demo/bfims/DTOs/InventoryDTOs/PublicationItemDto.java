@@ -1,47 +1,30 @@
-package demo.bfims.Entities.Inventory;
+package demo.bfims.DTOs.InventoryDTOs;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.PublicationFormat;
 import demo.bfims.Enums.PublicationItemType;
 import demo.bfims.Enums.PublicationStatus;
-import jakarta.persistence.*;
 
-@Entity
+
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
         property = "publicationItemType"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = Book.class, name = "BOOK")
+        @JsonSubTypes.Type(value = BookDto.class, name = "BOOK")
 })
-public abstract class PublicationItem extends Item {
-    @Enumerated(EnumType.STRING)
+public abstract class PublicationItemDto extends ItemDto {
     private PublicationFormat format;
-    @Enumerated(EnumType.STRING)
     private PublicationStatus status;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},  fetch = FetchType.LAZY)
-    @JoinColumn(name = "publication_id")
-    Publication publication;
+    private PublicationDto publicationDto;
     private Double purchasePrice;
     private Double rentalRate;
     private String edition;
-    @Enumerated(EnumType.STRING)
     private PublicationItemType publicationItemType;
 
-
-    public PublicationItem() {
-        this.setItemType(ItemType.PUBLICATION);
-    }
-
-    public PublicationStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(PublicationStatus status) {
-        this.status = status;
+    public PublicationItemDto() {
     }
 
     public PublicationFormat getFormat() {
@@ -52,15 +35,20 @@ public abstract class PublicationItem extends Item {
         this.format = format;
     }
 
-    public Publication getPublication() {
-        return publication;
+    public PublicationStatus getStatus() {
+        return status;
     }
 
-    public void setPublication(Publication publication) {
-        this.publication = publication;
-        // assuming a new publication item is being added
-        if(this.getPublication() != null)
-            this.publication.increaseQuantity();
+    public void setStatus(PublicationStatus status) {
+        this.status = status;
+    }
+
+    public PublicationDto getPublicationDto() {
+        return publicationDto;
+    }
+
+    public void setPublicationDto(PublicationDto publicationDto) {
+        this.publicationDto = publicationDto;
     }
 
     public Double getPurchasePrice() {
@@ -93,18 +81,5 @@ public abstract class PublicationItem extends Item {
 
     public void setPublicationItemType(PublicationItemType publicationItemType) {
         this.publicationItemType = publicationItemType;
-    }
-
-    @Override
-    public String toString() {
-        return "PublicationItem{" +
-                "format=" + format +
-                ", status=" + status +
-                ", publication=" + publication +
-                ", purchasePrice=" + purchasePrice +
-                ", rentalRate=" + rentalRate +
-                ", edition='" + edition + '\'' +
-                ", publicationItemType=" + publicationItemType +
-                "} " + super.toString();
     }
 }
