@@ -8,6 +8,7 @@ import demo.bfims.Repo.OrderRepo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,26 +21,34 @@ public class OrderService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<OrderDto> getAllOrders(){
-        List<Order> orders =  orderRepo.findAll();
+    public List<OrderDto> getAllOrders() {
+        List<Order> orders = orderRepo.findAll();
+        System.out.println("Order List: " + orders);
         return orders.stream().map(order -> modelMapper.map(order, OrderDto.class)).toList();
     }
 
-    public OrderDto getOrder(Long id){
-        return modelMapper.map(orderRepo.findById(id).orElse(null), OrderDto.class);
+    public OrderDto getOrder(Long id) {
+        Order order = orderRepo.findById(id).orElse(null);
+        System.out.println("Order: " + order);
+        if (order != null) {
+            return modelMapper.map(order, OrderDto.class);
+        }
+        return null;
     }
 
-    public List<OrderDto> getCustomerOrders(Long id){
+    public List<OrderDto> getCustomerOrders(Long id) {
         return orderRepo.getOrdersByCustomerId(id)
-                .stream().map(order -> modelMapper.map(order,OrderDto.class)).toList();
+                .stream().map(order -> modelMapper.map(order, OrderDto.class)).toList();
     }
 
     //needs to add order to customer without creating new customer
     //only create new customer if not signed in(email w/o id maybe?)
-    public OrderDto newOrder(Order order){
+    @Transactional
+    public OrderDto newOrder(Order order) {
         Customer customer = customerRepo.getCustomerByEmail(order.getCustomer().getEmail()).orElse(null);
-        order.setCustomer(customer);
-
-        return modelMapper.map(orderRepo.save(order),OrderDto.class);
+        if (customer != null) {
+            order.getCustomer().setId(customer.getId());
+        }
+        return modelMapper.map(orderRepo.save(order), OrderDto.class);
     }
 }

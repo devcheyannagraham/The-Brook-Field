@@ -67,6 +67,14 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", orderDate=" + orderDate +
+                ", orderItems=" + orderItems +
+                ", orderTotal=" + orderTotal +
+                '}';
+    }
 }

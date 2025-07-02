@@ -1,9 +1,6 @@
 package demo.bfims.DTOs.OrderDTOs;
 
-import demo.bfims.Entities.Inventory.Item;
-import demo.bfims.Entities.Order.Customer;
-import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
+import demo.bfims.DTOs.InventoryDTOs.ItemDto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,9 +8,9 @@ import java.util.List;
 
 public class OrderDto {
     private Long id;
-    private Customer customer;
+    private CustomerDto customer;
     private LocalDateTime orderDate;
-    private List<Item> orderItems = new ArrayList<>();
+    private List<ItemDto> orderItems = new ArrayList<>();
     private Double orderTotal;
 
     public Long getId() {
@@ -24,11 +21,11 @@ public class OrderDto {
         this.id = id;
     }
 
-    public Customer getCustomer() {
+    public CustomerDto getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(CustomerDto customer) {
         this.customer = customer;
     }
 
@@ -40,11 +37,11 @@ public class OrderDto {
         this.orderDate = orderDate;
     }
 
-    public List<Item> getOrderItems() {
+    public List<ItemDto> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(List<Item> orderItems) {
+    public void setOrderItems(List<ItemDto> orderItems) {
         this.orderItems = orderItems;
     }
 
@@ -54,5 +51,16 @@ public class OrderDto {
 
     public void setOrderTotal(Double orderTotal) {
         this.orderTotal = orderTotal;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDto{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", orderDate=" + orderDate +
+                ", orderItems=" + orderItems +
+                ", orderTotal=" + orderTotal +
+                '}';
     }
 }
