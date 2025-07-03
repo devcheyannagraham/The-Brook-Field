@@ -1,6 +1,7 @@
 package demo.bfims.Entities.Order;
 
 import demo.bfims.Entities.Inventory.Item;
+import demo.bfims.Enums.ItemOrderType;
 import demo.bfims.Enums.RentalStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,15 +9,10 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDate;
 
 @Entity
-public class Rental{ //is publication
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long rentalId;
+public class Rental extends Transaction { //is publication
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
     private LocalDate startDate;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Item item;
 
     @Temporal(TemporalType.DATE)
     private LocalDate dueDate;
@@ -26,11 +22,8 @@ public class Rental{ //is publication
 
     private Double rentalRate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Order order;
-
     @PrePersist
-    private void setup(){
+    private void setup() {
         //Calculate due date when the record is persisted
         this.setDueDate(LocalDate.now().plusWeeks(2));
 
@@ -41,8 +34,8 @@ public class Rental{ //is publication
     // update rental status when retrieving record
     // Not sure if it will be persisted
     @PostLoad
-    private void updateRentalStatus(){
-        if(this.status != RentalStatus.RETURNED && LocalDate.now().isAfter(this.dueDate)){
+    private void updateRentalStatus() {
+        if (this.status != RentalStatus.RETURNED && LocalDate.now().isAfter(this.dueDate)) {
             this.setStatus(RentalStatus.OVERDUE);
         }
     }
@@ -79,29 +72,6 @@ public class Rental{ //is publication
         this.rentalRate = rentalRate;
     }
 
-    public Long getRentalId() {
-        return rentalId;
-    }
-
-    public void setRentalId(Long rentalId) {
-        this.rentalId = rentalId;
-    }
-
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 
     @Override
     public String toString() {
@@ -109,9 +79,11 @@ public class Rental{ //is publication
                 "startDate=" + startDate +
                 ", dueDate=" + dueDate +
                 ", status=" + status +
+                ", rentalRate=" + rentalRate +
                 "} " + super.toString();
     }
 
-
-
+    public Rental() {
+        this.setTransactionType(ItemOrderType.RENTAL);
+    }
 }

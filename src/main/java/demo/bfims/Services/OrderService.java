@@ -1,10 +1,11 @@
 package demo.bfims.Services;
 
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
-import demo.bfims.Entities.Order.Customer;
-import demo.bfims.Entities.Order.Order;
+import demo.bfims.Entities.Order.*;
+import demo.bfims.Enums.ItemOrderType;
 import demo.bfims.Repo.CustomerRepo;
 import demo.bfims.Repo.OrderRepo;
+import demo.bfims.Repo.TransactionRepo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,8 @@ public class OrderService {
     private CustomerRepo customerRepo;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private TransactionRepo transactionRepo;
 
     public List<OrderDto> getAllOrders() {
         List<Order> orders = orderRepo.findAll();
@@ -47,8 +50,31 @@ public class OrderService {
     public OrderDto newOrder(Order order) {
         Customer customer = customerRepo.getCustomerByEmail(order.getCustomer().getEmail()).orElse(null);
         if (customer != null) {
+            System.out.println("FOUND CUSTOMER: " + customer);
             order.getCustomer().setId(customer.getId());
         }
-        return modelMapper.map(orderRepo.save(order), OrderDto.class);
+
+        Order savedOrder = orderRepo.save(order);
+        System.out.println("HERE" + savedOrder.getId());
+
+        // save rentals and purchases for reporting and records
+        savedOrder.getOrderItems().forEach(orderItem -> {
+            System.out.println("ORDER ITEM: " + orderItem);
+            Transaction trans = null;
+            //Or add entry to rental records
+            if (orderItem.getItemOrderType().equals(ItemOrderType.RENTAL)) {
+                trans = new Rental();
+            }
+            // Add entry to purchase records
+            else if (orderItem.getItemOrderType().equals(ItemOrderType.PURCHASE)) {
+                trans = new Purchase();
+            }
+            if (trans != null) {
+                trans.setOrderItem(orderItem);
+                trans.setOrder(order);
+                transactionRepo.save(trans);
+            }
+        });
+        return modelMapper.map(savedOrder, OrderDto.class);
     }
 }

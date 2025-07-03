@@ -1,4 +1,4 @@
-package demo.bfims.Controllers.InventoryControllers;
+package demo.bfims.Controllers;
 
 import demo.bfims.DTOs.InventoryDTOs.PublicationItemDto;
 import demo.bfims.Entities.Inventory.PublicationItem;

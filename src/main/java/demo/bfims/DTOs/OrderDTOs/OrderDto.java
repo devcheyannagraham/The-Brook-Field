@@ -10,7 +10,7 @@ public class OrderDto {
     private Long id;
     private CustomerDto customer;
     private LocalDateTime orderDate;
-    private List<ItemDto> orderItems = new ArrayList<>();
+    private List<OrderItemDto> orderItems = new ArrayList<>();
     private Double orderTotal;
 
     public Long getId() {
@@ -37,11 +37,11 @@ public class OrderDto {
         this.orderDate = orderDate;
     }
 
-    public List<ItemDto> getOrderItems() {
+    public List<OrderItemDto> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(List<ItemDto> orderItems) {
+    public void setOrderItems(List<OrderItemDto> orderItems) {
         this.orderItems = orderItems;
     }
 

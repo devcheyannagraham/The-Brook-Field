@@ -1,10 +1,9 @@
-package demo.bfims.Controllers.OrderControllers;
+package demo.bfims.Controllers;
 
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
 import demo.bfims.Entities.Order.Order;
 import demo.bfims.Services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

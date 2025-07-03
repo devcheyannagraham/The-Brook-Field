@@ -14,13 +14,13 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Customer customer;
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime orderDate;
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Item> orderItems = new ArrayList<>();
+    private List<OrderItem> orderItems = new ArrayList<>();
     private Double orderTotal;
 
     public Long getId() {
@@ -47,15 +47,15 @@ public class Order {
         this.orderTotal = orderTotal;
     }
 
-    public List<Item> getOrderItems() {
+    public List<OrderItem> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(List<Item> orderItems) {
+    public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
 
-    public void addOrderItem(Item orderItem) {
+    public void addOrderItem(OrderItem orderItem) {
         this.orderItems.add(orderItem);
     }
 
