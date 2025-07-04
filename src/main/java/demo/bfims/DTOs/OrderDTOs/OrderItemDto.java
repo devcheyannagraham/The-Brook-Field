@@ -33,4 +33,13 @@ public class OrderItemDto {
     public void setItem(Item item) {
         this.item = item;
     }
+
+    @Override
+    public String toString() {
+        return "OrderItemDto{" +
+                "orderItemId=" + orderItemId +
+                ", itemOrderType=" + itemOrderType +
+                ", item=" + item +
+                '}';
+    }
 }

@@ -1,9 +1,19 @@
 package demo.bfims.Entities.Inventory;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import demo.bfims.Enums.ItemType;
 import jakarta.persistence.*;
 
 @Entity
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "itemType"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = PublicationItem.class, name = "PUBLICATION"),
+})
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Item {
     // Common interface for publications and bookmarks and mugs etc. lets see...

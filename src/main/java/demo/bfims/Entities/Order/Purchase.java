@@ -8,7 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDate;
 
 @Entity
-public class Purchase extends Transaction{
+public class Purchase extends Transaction {
     private Double purchasePrice;
 
         public Double getPurchasePrice() {

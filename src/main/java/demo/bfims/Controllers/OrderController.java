@@ -1,7 +1,13 @@
 package demo.bfims.Controllers;
 
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
+import demo.bfims.Entities.Inventory.Book;
+import demo.bfims.Entities.Inventory.Item;
+import demo.bfims.Entities.Inventory.PublicationItem;
+import demo.bfims.Entities.Order.Customer;
 import demo.bfims.Entities.Order.Order;
+import demo.bfims.Entities.Order.OrderItem;
+import demo.bfims.Repo.ItemRepo;
 import demo.bfims.Services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,26 +18,54 @@ import java.util.List;
 public class OrderController {
 
     @Autowired
-    OrderService orderService;
+    private OrderService orderService;
+
+    @Autowired
+    private ItemRepo itemRepo;
 
     @GetMapping("/orders")
-    public List<OrderDto> getAllOrders(){
+    public List<OrderDto> getAllOrders() {
         return orderService.getAllOrders();
     }
 
     @GetMapping("/order/{id}")
-    public OrderDto getOrder(@PathVariable Long id){
+    public OrderDto getOrder(@PathVariable Long id) {
         return orderService.getOrder(id);
     }
 
     @GetMapping("/orders/{customerid}")
-    public List<OrderDto> getCustomerOrders(Long id){
+    public List<OrderDto> getCustomerOrders(Long id) {
         return orderService.getCustomerOrders(id);
     }
 
     @PostMapping("/order")
-    public OrderDto newOrder(@RequestBody Order order){
+    public OrderDto newOrder(@RequestBody Order order) {
         return orderService.newOrder(order);
+    }
+
+    @PostMapping("/testorder")
+    public void testOrder() {
+        Customer customer = new Customer();
+        customer.setEmail("btuhhddiilh");
+
+        Order order = new Order();
+        order.setCustomer(customer);
+
+        Item item = itemRepo.findById(1L).orElse(null);
+        System.out.println("ITEM class:" + item.getClass());
+        OrderItem orderItem = new OrderItem();
+//        orderItem.setItem(book);
+        if(PublicationItem.class.isAssignableFrom(item.getClass())) {
+            PublicationItem publicationItem = (PublicationItem)  item;
+            System.out.println("Publication Item: " + publicationItem);
+            orderItem.setItem(publicationItem);
+        }
+        // cant get price
+        order.addOrderItem(orderItem);
+
+        System.out.println("RESULT: " + orderService.newOrder(order));
+
+
     }
 
 }

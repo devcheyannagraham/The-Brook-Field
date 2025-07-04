@@ -3,14 +3,14 @@ package demo.bfims.DTOs.InventoryDTOs;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import demo.bfims.Enums.PublicationFormat;
-import demo.bfims.Enums.PublicationItemType;
+import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.PublicationStatus;
 
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
-        property = "publicationItemType"
+        property = "itemType"
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = BookDto.class, name = "BOOK")
@@ -22,7 +22,7 @@ public abstract class PublicationItemDto extends ItemDto {
     private Double purchasePrice;
     private Double rentalRate;
     private String edition;
-    private PublicationItemType publicationItemType;
+    private ItemType itemType;
 
     public PublicationItemDto() {
     }
@@ -75,11 +75,11 @@ public abstract class PublicationItemDto extends ItemDto {
         this.edition = edition;
     }
 
-    public PublicationItemType getPublicationItemType() {
-        return publicationItemType;
+    public ItemType getItemType() {
+        return itemType;
     }
 
-    public void setPublicationItemType(PublicationItemType publicationItemType) {
-        this.publicationItemType = publicationItemType;
+    public void setItemType(ItemType itemType) {
+        this.itemType = itemType;
     }
 }

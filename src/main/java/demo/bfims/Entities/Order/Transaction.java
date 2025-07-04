@@ -26,6 +26,7 @@ public abstract class Transaction {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "transaction_generator")
     @TableGenerator(name = "transaction_generator")
     private Long transactionId;
+    @Enumerated(EnumType.STRING)
     private ItemOrderType transactionType;
     @CreationTimestamp
     @Temporal(TemporalType.DATE)

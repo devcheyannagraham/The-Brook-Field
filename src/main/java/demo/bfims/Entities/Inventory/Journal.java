@@ -1,6 +1,6 @@
 package demo.bfims.Entities.Inventory;
 
-import demo.bfims.Enums.PublicationItemType;
+import demo.bfims.Enums.ItemType;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -14,7 +14,7 @@ public class Journal extends PublicationItem {
     private String volume;
 
     public Journal() {
-        this.setPublicationItemType(PublicationItemType.JOURNAL);
+        this.setItemType(ItemType.JOURNAL);
     }
 
     public int getIssueNumber() {

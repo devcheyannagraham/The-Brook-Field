@@ -10,8 +10,9 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderItemId;
+    @Enumerated(EnumType.STRING)
     private ItemOrderType itemOrderType;
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.PERSIST}, orphanRemoval = true)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.PERSIST})
     private Item item;
 
     public Item getItem() {
@@ -37,5 +38,14 @@ public class OrderItem {
 
     public void setOrderItemId(Long orderItemId) {
         this.orderItemId = orderItemId;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "orderItemId=" + orderItemId +
+                ", itemOrderType=" + itemOrderType +
+                ", item=" + item +
+                '}';
     }
 }

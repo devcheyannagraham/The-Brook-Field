@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.PublicationFormat;
-import demo.bfims.Enums.PublicationItemType;
+//import demo.bfims.Enums.PublicationItemType;
 import demo.bfims.Enums.PublicationStatus;
 import jakarta.persistence.*;
 
@@ -12,7 +12,7 @@ import jakarta.persistence.*;
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
-        property = "publicationItemType"
+        property = "itemType"
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Book.class, name = "BOOK"),
@@ -30,8 +30,8 @@ public abstract class PublicationItem extends Item {
     private Double purchasePrice;
     private Double rentalRate;
     private String edition;
-    @Enumerated(EnumType.STRING)
-    private PublicationItemType publicationItemType;
+//    @Enumerated(EnumType.STRING)
+//    private ItemType itemType;
 
 
     public PublicationItem() {
@@ -89,13 +89,13 @@ public abstract class PublicationItem extends Item {
         this.edition = edition;
     }
 
-    public PublicationItemType getPublicationItemType() {
-        return publicationItemType;
-    }
+//    public PublicationItemType getItemType() {
+//        return itemType;
+//    }
 
-    public void setPublicationItemType(PublicationItemType publicationItemType) {
-        this.publicationItemType = publicationItemType;
-    }
+//    public void setItemType(ItemType itemType) {
+//        this.itemType = itemType;
+//    }
 
     @Override
     public String toString() {
@@ -106,7 +106,7 @@ public abstract class PublicationItem extends Item {
                 ", purchasePrice=" + purchasePrice +
                 ", rentalRate=" + rentalRate +
                 ", edition='" + edition + '\'' +
-                ", publicationItemType=" + publicationItemType +
+//                ", itemType=" + itemType +
                 "} " + super.toString();
     }
 }

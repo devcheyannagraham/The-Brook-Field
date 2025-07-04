@@ -25,7 +25,7 @@ public class Rental extends Transaction { //is publication
     @PrePersist
     private void setup() {
         //Calculate due date when the record is persisted
-        this.setDueDate(LocalDate.now().plusWeeks(2));
+        this.setDueDate(LocalDate.now().plusWeeks(3));
 
         // set initial rental status
         this.setStatus(RentalStatus.RENTED);
@@ -39,6 +39,11 @@ public class Rental extends Transaction { //is publication
             this.setStatus(RentalStatus.OVERDUE);
         }
     }
+
+    public Rental() {
+        this.setTransactionType(ItemOrderType.RENTAL);
+    }
+
 
     public LocalDate getStartDate() {
         return startDate;
@@ -83,7 +88,4 @@ public class Rental extends Transaction { //is publication
                 "} " + super.toString();
     }
 
-    public Rental() {
-        this.setTransactionType(ItemOrderType.RENTAL);
-    }
 }

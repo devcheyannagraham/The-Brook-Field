@@ -4,5 +4,8 @@ public enum ItemType {
     PUBLICATION,
     BOOKMARK,
     MUG,
-    STATIONARY
+    STATIONARY,
+    BOOK,
+    JOURNAL,
+    LITERARY_PIECE
 }
