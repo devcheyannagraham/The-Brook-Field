@@ -1,5 +1,6 @@
 package demo.bfims.Services;
 
+import demo.bfims.DTOs.OrderDTOs.CustomerDto;
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
 import demo.bfims.Entities.Inventory.Item;
 import demo.bfims.Entities.Inventory.PublicationItem;
@@ -54,21 +55,19 @@ public class OrderService {
     @Transactional
     public OrderDto newOrder(OrderDto order) {
         System.out.println("Order: " + order);
-//        Order newOrder = new Order();
+        Customer customer;
 
-//        //Get Customer
-//        if (order.getCustomer().getId() == null) {
-//            // Check if customer exists
-//            Customer customer = customerRepo.getCustomerByEmail(order.getCustomer().getEmail()).orElse(null);
-//            if (customer == null) {
-//                newOrder.setCustomer(modelMapper.map(order.getCustomer(), Customer.class));
-//            }
-//            else newOrder.setCustomer(customer);
-//        }
-//        else {
-//            // add the customer to the newOrder
-//            newOrder.getCustomer().setId(order.getCustomer().getId());
-//        }
+//        Get Customer
+        if (order.getCustomer().getId() == null) {
+//            // Check if customer exists by email
+            customer = customerRepo.getCustomerByEmail(order.getCustomer().getEmail()).orElse(null);
+        } else {
+            //ID provided
+            customer = customerRepo.findById(order.getCustomer().getId()).orElse(null);
+        }
+        if (customer != null) {
+            order.setCustomer(modelMapper.map(customer, CustomerDto.class));
+        }
 
 
         // Handle order items
@@ -124,7 +123,7 @@ public class OrderService {
 //            }
 //        });
 
-        Order savedOrder = orderRepo.save(modelMapper.map(order,Order.class));
+        Order savedOrder = orderRepo.save(modelMapper.map(order, Order.class));
 //        return modelMapper.map(savedOrder, OrderDto.class);
         return new OrderDto();
     }
