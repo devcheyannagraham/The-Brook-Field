@@ -14,6 +14,9 @@ public class OrderItem {
     private ItemOrderType itemOrderType;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.PERSIST})
     private Item item;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name="order_id")
+    private Order order;
 
     public Item getItem() {
         return item;
@@ -40,12 +43,21 @@ public class OrderItem {
         this.orderItemId = orderItemId;
     }
 
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
     @Override
     public String toString() {
         return "OrderItem{" +
                 "orderItemId=" + orderItemId +
                 ", itemOrderType=" + itemOrderType +
                 ", item=" + item +
+                ", order=" + order +
                 '}';
     }
 }

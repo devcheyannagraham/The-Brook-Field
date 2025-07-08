@@ -2,6 +2,7 @@ package demo.bfims.Services;
 
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
 import demo.bfims.Entities.Inventory.Item;
+import demo.bfims.Entities.Inventory.PublicationItem;
 import demo.bfims.Entities.Order.*;
 import demo.bfims.Enums.ItemOrderType;
 import demo.bfims.Repo.CustomerRepo;
@@ -51,13 +52,47 @@ public class OrderService {
     //needs to add order to customer without creating new customer
     //only create new customer if not signed in(email w/o id maybe?)
     @Transactional
-    public OrderDto newOrder(Order order) {
+    public OrderDto newOrder(OrderDto order) {
         System.out.println("Order: " + order);
-        Customer customer = customerRepo.getCustomerByEmail(order.getCustomer().getEmail()).orElse(null);
-        if (customer != null) {
-            System.out.println("FOUND CUSTOMER: " + customer);
-            order.getCustomer().setId(customer.getId());
-        }
+//        Order newOrder = new Order();
+
+//        //Get Customer
+//        if (order.getCustomer().getId() == null) {
+//            // Check if customer exists
+//            Customer customer = customerRepo.getCustomerByEmail(order.getCustomer().getEmail()).orElse(null);
+//            if (customer == null) {
+//                newOrder.setCustomer(modelMapper.map(order.getCustomer(), Customer.class));
+//            }
+//            else newOrder.setCustomer(customer);
+//        }
+//        else {
+//            // add the customer to the newOrder
+//            newOrder.getCustomer().setId(order.getCustomer().getId());
+//        }
+
+
+        // Handle order items
+//        order.getOrderItems().forEach(orderItem -> {
+//            System.out.println("ORDER ITEM: " + orderItem.getItemOrderType());
+//            Double total = 0.0;
+//            Item item = itemRepo.findById(orderItem.getItem().getItemId()).orElse(null);
+//            System.out.println("FOUND ITEM1: " + item);
+//            if (item != null) {
+//                System.out.println("FOUND ITEM: " + item);
+//                if (PublicationItem.class.isAssignableFrom(item.getClass())) {
+//                    PublicationItem publicationItem = (PublicationItem) item;
+//                    System.out.println("Publication Item: " + publicationItem);
+//                    OrderItem newOrderItem = new OrderItem();
+//                    newOrderItem.setItem(item);
+//                    newOrderItem.setItemOrderType(orderItem.getItemOrderType());
+//                    newOrder.addOrderItem(newOrderItem);
+////                    if()
+////                    total+= publicationItem.ge
+//                }
+//
+//            }
+//
+//        });
 
 //        Order savedOrder = orderRepo.save(order);
 //        System.out.println("HERE" + savedOrder.getId());
@@ -89,7 +124,8 @@ public class OrderService {
 //            }
 //        });
 
-        Order savedOrder = orderRepo.save(order);
-        return modelMapper.map(savedOrder, OrderDto.class);
+        Order savedOrder = orderRepo.save(modelMapper.map(order,Order.class));
+//        return modelMapper.map(savedOrder, OrderDto.class);
+        return new OrderDto();
     }
 }

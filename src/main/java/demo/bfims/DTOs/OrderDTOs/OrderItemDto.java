@@ -1,14 +1,14 @@
 package demo.bfims.DTOs.OrderDTOs;
 
-import demo.bfims.Entities.Inventory.Item;
+import demo.bfims.DTOs.InventoryDTOs.ItemDto;
 import demo.bfims.Enums.ItemOrderType;
-import jakarta.persistence.*;
 
 public class OrderItemDto {
 
     private Long orderItemId;
     private ItemOrderType itemOrderType;
-    private Item item;
+    private ItemDto item;
+    private OrderDto order;
 
     public Long getOrderItemId() {
         return orderItemId;
@@ -26,12 +26,20 @@ public class OrderItemDto {
         this.itemOrderType = itemOrderType;
     }
 
-    public Item getItem() {
+    public ItemDto getItem() {
         return item;
     }
 
-    public void setItem(Item item) {
+    public void setItem(ItemDto item) {
         this.item = item;
+    }
+
+    public OrderDto getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderDto order) {
+        this.order = order;
     }
 
     @Override
@@ -40,6 +48,7 @@ public class OrderItemDto {
                 "orderItemId=" + orderItemId +
                 ", itemOrderType=" + itemOrderType +
                 ", item=" + item +
+                ", order=" + order +
                 '}';
     }
 }

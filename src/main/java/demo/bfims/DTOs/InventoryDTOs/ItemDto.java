@@ -24,4 +24,12 @@ public class ItemDto {
     public void setItemType(ItemType itemType) {
         this.itemType = itemType;
     }
+
+    @Override
+    public String toString() {
+        return "ItemDto{" +
+                "itemId=" + itemId +
+                ", itemType=" + itemType +
+                '}';
+    }
 }

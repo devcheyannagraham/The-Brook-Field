@@ -34,10 +34,10 @@ class OrderServiceTest {
     @Test
     @org.junit.jupiter.api.Order(1)
     void newOrder() {
-        Customer customer = new Customer();
+        CustomerDto customer = new CustomerDto();
         customer.setEmail("teest@test.com");
 
-        Order order = new Order();
+        OrderDto order = new OrderDto();
         order.setCustomer(customer);
         Long orderId = orderService.newOrder(order).getId();
         assertNotNull(orderRepo.findById(orderId));

@@ -19,7 +19,7 @@ public class Order {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime orderDate;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
     private Double orderTotal;
 
@@ -52,10 +52,13 @@ public class Order {
     }
 
     public void setOrderItems(List<OrderItem> orderItems) {
+
+        orderItems.forEach(this::addOrderItem);
         this.orderItems = orderItems;
     }
 
     public void addOrderItem(OrderItem orderItem) {
+        orderItem.setOrder(this);
         this.orderItems.add(orderItem);
     }
 
@@ -66,6 +69,8 @@ public class Order {
     public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
+
+
 
     @Override
     public String toString() {
