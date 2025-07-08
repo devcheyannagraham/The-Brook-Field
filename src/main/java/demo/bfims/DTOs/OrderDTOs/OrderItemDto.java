@@ -8,7 +8,6 @@ public class OrderItemDto {
     private Long orderItemId;
     private ItemOrderType itemOrderType;
     private ItemDto item;
-    private OrderDto order;
 
     public Long getOrderItemId() {
         return orderItemId;
@@ -34,21 +33,12 @@ public class OrderItemDto {
         this.item = item;
     }
 
-    public OrderDto getOrder() {
-        return order;
-    }
-
-    public void setOrder(OrderDto order) {
-        this.order = order;
-    }
-
     @Override
     public String toString() {
         return "OrderItemDto{" +
                 "orderItemId=" + orderItemId +
                 ", itemOrderType=" + itemOrderType +
                 ", item=" + item +
-                ", order=" + order +
                 '}';
     }
 }

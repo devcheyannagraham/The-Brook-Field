@@ -69,62 +69,25 @@ public class OrderService {
             order.setCustomer(modelMapper.map(customer, CustomerDto.class));
         }
 
-
-        // Handle order items
-//        order.getOrderItems().forEach(orderItem -> {
-//            System.out.println("ORDER ITEM: " + orderItem.getItemOrderType());
-//            Double total = 0.0;
-//            Item item = itemRepo.findById(orderItem.getItem().getItemId()).orElse(null);
-//            System.out.println("FOUND ITEM1: " + item);
-//            if (item != null) {
-//                System.out.println("FOUND ITEM: " + item);
-//                if (PublicationItem.class.isAssignableFrom(item.getClass())) {
-//                    PublicationItem publicationItem = (PublicationItem) item;
-//                    System.out.println("Publication Item: " + publicationItem);
-//                    OrderItem newOrderItem = new OrderItem();
-//                    newOrderItem.setItem(item);
-//                    newOrderItem.setItemOrderType(orderItem.getItemOrderType());
-//                    newOrder.addOrderItem(newOrderItem);
-////                    if()
-////                    total+= publicationItem.ge
-//                }
-//
-//            }
-//
-//        });
-
-//        Order savedOrder = orderRepo.save(order);
-//        System.out.println("HERE" + savedOrder.getId());
-
         // save rentals and purchases for reporting and records
-//        savedOrder.getOrderItems().forEach(orderItem -> {
-//            //Get item and update it's state
-//            Item item = itemRepo.findById(orderItem.getOrderItemId()).orElse(null);
-//            System.out.println("ORDER ITEM: " + orderItem);
-//            System.out.println("ITEM ITEM: " + item);
-//            if (item != null) {
-
-//                orderItem.setItem(item);
-
-//                Transaction trans = null;
-//                //Or add entry to rental records
-//                if (orderItem.getItemOrderType().equals(ItemOrderType.RENTAL)) {
-//                    trans = new Rental();
-//                }
-//                // Add entry to purchase records
-//                else if (orderItem.getItemOrderType().equals(ItemOrderType.PURCHASE)) {
-//                    trans = new Purchase();
-//                }
-//                if (trans != null) {
-//                    trans.setOrderItem(orderItem);
-//                    trans.setOrder(order);
-//                    transactionRepo.save(trans);
-//                }
-//            }
-//        });
+        order.getOrderItems().forEach(orderItem -> {
+            //Get item and update it's state
+            Transaction trans = null;
+            System.out.println("ORDER TYPE " + orderItem.getItemOrderType());
+            if (orderItem.getItemOrderType().equals(ItemOrderType.RENTAL)) {
+                //Or add entry to rental records
+                trans = new Rental();
+            }
+            // Add entry to purchase records
+            else if (orderItem.getItemOrderType().equals(ItemOrderType.PURCHASE)) {
+                trans = new Purchase();
+            }
+            if (trans != null) {
+                transactionRepo.save(trans);
+            }
+        });
 
         Order savedOrder = orderRepo.save(modelMapper.map(order, Order.class));
-//        return modelMapper.map(savedOrder, OrderDto.class);
-        return new OrderDto();
+        return modelMapper.map(savedOrder, OrderDto.class);
     }
 }
