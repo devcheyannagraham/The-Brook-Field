@@ -31,9 +31,10 @@ public abstract class Transaction {
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
     private LocalDate transactionDate;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Order order;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="order_item_id")
     private OrderItem orderItem;
 
     public Long getTransactionId() {

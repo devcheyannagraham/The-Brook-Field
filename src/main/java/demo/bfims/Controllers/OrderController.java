@@ -43,29 +43,5 @@ public class OrderController {
         return orderService.newOrder(order);
     }
 
-    @PostMapping("/testorder")
-    public void testOrder() {
-//        Customer customer = new Customer();
-//        customer.setEmail("btuhhddiilh");
-//
-//        Order order = new Order();
-//        order.setCustomer(customer);
-//
-//        Item item = itemRepo.findById(1L).orElse(null);
-//        System.out.println("ITEM class:" + item.getClass());
-//        OrderItem orderItem = new OrderItem();
-////        orderItem.setItem(book);
-//        if(PublicationItem.class.isAssignableFrom(item.getClass())) {
-//            PublicationItem publicationItem = (PublicationItem)  item;
-//            System.out.println("Publication Item: " + publicationItem);
-//            orderItem.setItem(publicationItem);
-//        }
-//        // cant get price
-//        order.addOrderItem(orderItem);
-//
-//        System.out.println("RESULT: " + orderService.newOrder(order));
-
-
-    }
 
 }
