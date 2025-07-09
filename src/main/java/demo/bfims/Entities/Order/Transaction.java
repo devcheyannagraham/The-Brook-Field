@@ -2,9 +2,6 @@ package demo.bfims.Entities.Order;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import demo.bfims.Entities.Inventory.Book;
-import demo.bfims.Entities.Inventory.Journal;
-import demo.bfims.Entities.Inventory.LiteraryPiece;
 import demo.bfims.Enums.ItemOrderType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,8 +28,12 @@ public abstract class Transaction {
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
     private LocalDate transactionDate;
-    private Long orderId;
-    private Long orderItemId;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Order order;
+
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="order_item_id")
+    private OrderItem orderItem;
 
     public Long getTransactionId() {
         return transactionId;
@@ -50,20 +51,21 @@ public abstract class Transaction {
         this.transactionDate = transactionDate;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
-    public Long getOrderItemId() {
-        return orderItemId;
+    public OrderItem getOrderItem() {
+        return orderItem;
     }
 
-    public void setOrderItemId(Long orderItemId) {
-        this.orderItemId = orderItemId;
+    public void setOrderItem(OrderItem orderItem) {
+        orderItem.setOrder(this.order);
+        this.orderItem = orderItem;
     }
 
     public ItemOrderType getTransactionType() {
@@ -80,8 +82,8 @@ public abstract class Transaction {
                 "transactionId=" + transactionId +
                 ", transactionType=" + transactionType +
                 ", transactionDate=" + transactionDate +
-                ", orderId=" + orderId +
-                ", orderItemId=" + orderItemId +
+                ", order=" + order +
+                ", orderItem=" + orderItem +
                 '}';
     }
 }

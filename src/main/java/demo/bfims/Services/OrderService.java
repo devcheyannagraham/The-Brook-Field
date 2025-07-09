@@ -2,8 +2,6 @@ package demo.bfims.Services;
 
 import demo.bfims.DTOs.OrderDTOs.CustomerDto;
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
-import demo.bfims.Entities.Inventory.Item;
-import demo.bfims.Entities.Inventory.PublicationItem;
 import demo.bfims.Entities.Order.*;
 import demo.bfims.Enums.ItemOrderType;
 import demo.bfims.Repo.CustomerRepo;
@@ -89,8 +87,8 @@ public class OrderService {
                 trans = new Purchase();
             }
             if (trans != null) {
-                trans.setOrderId(savedOrder.getId());
-                trans.setOrderItemId(orderItem.getOrderItemId());
+                trans.setOrder(savedOrder);
+                trans.setOrderItem(orderItem);
                 transactionRepo.save(trans);
             }
         });
