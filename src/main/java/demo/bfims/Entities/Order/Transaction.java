@@ -31,11 +31,8 @@ public abstract class Transaction {
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
     private LocalDate transactionDate;
-    @ManyToOne(cascade = CascadeType.MERGE)
-    private Order order;
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="order_item_id")
-    private OrderItem orderItem;
+    private Long orderId;
+    private Long orderItemId;
 
     public Long getTransactionId() {
         return transactionId;
@@ -53,20 +50,20 @@ public abstract class Transaction {
         this.transactionDate = transactionDate;
     }
 
-    public Order getOrder() {
-        return order;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
-    public OrderItem getOrderItem() {
-        return orderItem;
+    public Long getOrderItemId() {
+        return orderItemId;
     }
 
-    public void setOrderItem(OrderItem orderItem) {
-        this.orderItem = orderItem;
+    public void setOrderItemId(Long orderItemId) {
+        this.orderItemId = orderItemId;
     }
 
     public ItemOrderType getTransactionType() {
@@ -75,5 +72,16 @@ public abstract class Transaction {
 
     public void setTransactionType(ItemOrderType transactionType) {
         this.transactionType = transactionType;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "transactionId=" + transactionId +
+                ", transactionType=" + transactionType +
+                ", transactionDate=" + transactionDate +
+                ", orderId=" + orderId +
+                ", orderItemId=" + orderItemId +
+                '}';
     }
 }

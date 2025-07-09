@@ -54,17 +54,15 @@ public class OrderService {
                 .stream().map(order -> modelMapper.map(order, OrderDto.class)).toList();
     }
 
-    //needs to add order to customer without creating new customer
-    //only create new customer if not signed in(email w/o id maybe?)
     @Transactional
     public OrderDto newOrder(OrderDto order) {
         System.out.println("Order: " + order);
-//
-//      Get Customer
+
+        // Get Customer
         Customer customer = modelMapper.map(order.getCustomer(), Customer.class);
 
         if (customer.getId() == null) {
-//            // Check if customer exists by email
+            // Check if customer exists by email
             Customer existingCustomer = customerRepo.getCustomerByEmail(order.getCustomer().getEmail()).orElse(null);
             if (existingCustomer != null) {
                 customer = existingCustomer;
@@ -77,29 +75,26 @@ public class OrderService {
         Customer managedCustomer = entityManager.merge(modelMapper.map(customer, Customer.class));
         order.setCustomer(modelMapper.map(managedCustomer, CustomerDto.class));
 
-
-//        // save rentals and purchases for reporting and records
-        //use id's since
-//        order.getOrderItems().forEach(orderItem -> {
-//            //Get item and update it's state
-//            Transaction trans = null;
-//            System.out.println("ORDER TYPE " + orderItem.getItemOrderType());
-//            if (orderItem.getItemOrderType().equals(ItemOrderType.RENTAL)) {
-//                //Or add entry to rental records
-//                trans = new Rental();
-//            }
-//            // Add entry to purchase records
-//            else if (orderItem.getItemOrderType().equals(ItemOrderType.PURCHASE)) {
-//                trans = new Purchase();
-//            }
-//            if (trans != null) {
-//                trans.setOrder(modelMapper.map(order,Order.class));
-//                trans.setOrderItem(modelMapper.map(orderItem,OrderItem.class));
-//                transactionRepo.save(trans);
-//            }
-//        });
-
         Order savedOrder = orderRepo.save(modelMapper.map(order, Order.class));
+
+        // save rentals and purchases for reporting and records
+        savedOrder.getOrderItems().forEach(orderItem -> {
+            Transaction trans = null;
+
+            System.out.println("ORDER TYPE " + orderItem.getItemOrderType());
+            if (orderItem.getItemOrderType().equals(ItemOrderType.RENTAL)) {
+                trans = new Rental();
+            }
+            else if (orderItem.getItemOrderType().equals(ItemOrderType.PURCHASE)) {
+                trans = new Purchase();
+            }
+            if (trans != null) {
+                trans.setOrderId(savedOrder.getId());
+                trans.setOrderItemId(orderItem.getOrderItemId());
+                transactionRepo.save(trans);
+            }
+        });
+
         return modelMapper.map(savedOrder, OrderDto.class);
     }
 }
