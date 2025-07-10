@@ -20,12 +20,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ModelMapperConfig {
 
+    @Autowired
+    ItemConverter itemConverter;
+
 
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
         TypeMap<ItemDto,Item> itemMap = modelMapper.createTypeMap(ItemDto.class,Item.class);
-        itemMap.setConverter(new ItemConverter());
+        itemMap.setConverter(itemConverter);
         return modelMapper;
     }
 }

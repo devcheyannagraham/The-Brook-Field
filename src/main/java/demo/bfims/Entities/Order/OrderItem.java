@@ -12,7 +12,10 @@ public class OrderItem {
     private Long orderItemId;
     @Enumerated(EnumType.STRING)
     private ItemOrderType itemOrderType;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.PERSIST})
+
+    // Item alread exists. The Item converter finds the existing item or
+    // creates a new subclass since item is abstract
+    @ManyToOne()
     private Item item;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name="order_id")
