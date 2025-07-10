@@ -12,9 +12,9 @@ public class OrderItem {
     private Long orderItemId;
     @Enumerated(EnumType.STRING)
     private ItemOrderType itemOrderType;
-
-    // Item alread exists. The Item converter finds the existing item or
+    // Item already exists. The Item converter finds the existing item or
     // creates a new subclass since item is abstract
+    // no need for cascades
     @ManyToOne()
     private Item item;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})

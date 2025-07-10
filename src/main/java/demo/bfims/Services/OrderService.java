@@ -5,7 +5,6 @@ import demo.bfims.DTOs.OrderDTOs.OrderDto;
 import demo.bfims.Entities.Order.*;
 import demo.bfims.Enums.ItemOrderType;
 import demo.bfims.Repo.CustomerRepo;
-import demo.bfims.Repo.ItemRepo;
 import demo.bfims.Repo.OrderRepo;
 import demo.bfims.Repo.TransactionRepo;
 import jakarta.persistence.EntityManager;
@@ -26,21 +25,17 @@ public class OrderService {
     private ModelMapper modelMapper;
     @Autowired
     private TransactionRepo transactionRepo;
-    @Autowired
-    private ItemRepo itemRepo;
 
     @Autowired
     private EntityManager entityManager;
 
     public List<OrderDto> getAllOrders() {
         List<Order> orders = orderRepo.findAll();
-        System.out.println("Order List: " + orders);
         return orders.stream().map(order -> modelMapper.map(order, OrderDto.class)).toList();
     }
 
     public OrderDto getOrder(Long id) {
         Order order = orderRepo.findById(id).orElse(null);
-        System.out.println("Order: " + order);
         if (order != null) {
             return modelMapper.map(order, OrderDto.class);
         }
@@ -54,7 +49,6 @@ public class OrderService {
 
     @Transactional
     public OrderDto newOrder(OrderDto order) {
-        System.out.println("Order: " + order);
 
         // Get Customer
         Customer customer = modelMapper.map(order.getCustomer(), Customer.class);
@@ -79,7 +73,6 @@ public class OrderService {
         savedOrder.getOrderItems().forEach(orderItem -> {
             Transaction trans = null;
 
-            System.out.println("ORDER TYPE " + orderItem.getItemOrderType());
             if (orderItem.getItemOrderType().equals(ItemOrderType.RENTAL)) {
                 trans = new Rental();
             }

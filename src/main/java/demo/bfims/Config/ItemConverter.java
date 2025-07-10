@@ -1,6 +1,5 @@
 package demo.bfims.Config;
 
-import demo.bfims.DTOs.InventoryDTOs.BookDto;
 import demo.bfims.DTOs.InventoryDTOs.ItemDto;
 import demo.bfims.Entities.Inventory.*;
 import demo.bfims.Enums.ItemType;
@@ -21,6 +20,8 @@ public class ItemConverter implements Converter<ItemDto, Item> {
 
     @Override
     public Item convert(MappingContext<ItemDto, Item> context) {
+
+        // If item already exists, return it
         Long itemId = context.getSource().getItemId();
         if (itemId != null) {
             Item foundItem = itemRepo.findById(itemId).orElse(null);
@@ -29,7 +30,7 @@ public class ItemConverter implements Converter<ItemDto, Item> {
             }
         }
 
-
+        // else return subclass
         ItemType itemType = context.getSource().getItemType();
 
         if(itemType.equals(ItemType.BOOK)) return new Book();
