@@ -1,6 +1,5 @@
 package demo.bfims.Entities.Inventory;
 import demo.bfims.Enums.ItemType;
-//import demo.bfims.Enums.PublicationItemType;
 import jakarta.persistence.*;
 
 @Entity

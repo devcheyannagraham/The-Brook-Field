@@ -1,23 +1,13 @@
 package demo.bfims.DTOs.InventoryDTOs;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import demo.bfims.Enums.PublicationFormat;
+import demo.bfims.Enums.PublicationItemFormat;
 import demo.bfims.Enums.ItemType;
-import demo.bfims.Enums.PublicationStatus;
+import demo.bfims.Enums.PublicationItemStatus;
 
 
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "itemType"
-)
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = BookDto.class, name = "BOOK")
-})
-public abstract class PublicationItemDto extends ItemDto {
-    private PublicationFormat format;
-    private PublicationStatus status;
+public class PublicationItemDto extends ItemDto {
+    private PublicationItemFormat format;
+    private PublicationItemStatus status;
     private PublicationDto publicationDto;
     private Double purchasePrice;
     private Double rentalRate;
@@ -27,19 +17,19 @@ public abstract class PublicationItemDto extends ItemDto {
     public PublicationItemDto() {
     }
 
-    public PublicationFormat getFormat() {
+    public PublicationItemFormat getFormat() {
         return format;
     }
 
-    public void setFormat(PublicationFormat format) {
+    public void setFormat(PublicationItemFormat format) {
         this.format = format;
     }
 
-    public PublicationStatus getStatus() {
+    public PublicationItemStatus getStatus() {
         return status;
     }
 
-    public void setStatus(PublicationStatus status) {
+    public void setStatus(PublicationItemStatus status) {
         this.status = status;
     }
 

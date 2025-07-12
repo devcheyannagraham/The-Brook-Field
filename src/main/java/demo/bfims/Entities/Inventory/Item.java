@@ -12,7 +12,9 @@ import jakarta.persistence.*;
         property = "itemType"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = PublicationItem.class, name = "PUBLICATION"),
+        @JsonSubTypes.Type(value = Book.class, name = "BOOK"),
+        @JsonSubTypes.Type(value = LiteraryPiece.class, name = "LITERARY_PIECE"),
+        @JsonSubTypes.Type(value = Journal.class, name = "JOURNAL")
 })
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Item {

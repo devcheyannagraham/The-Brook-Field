@@ -1,56 +1,40 @@
 package demo.bfims.Entities.Inventory;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import demo.bfims.Enums.ItemType;
-import demo.bfims.Enums.PublicationFormat;
-//import demo.bfims.Enums.PublicationItemType;
-import demo.bfims.Enums.PublicationStatus;
+import demo.bfims.Enums.PublicationItemFormat;
+import demo.bfims.Enums.PublicationItemStatus;
 import jakarta.persistence.*;
 
 @Entity
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "itemType"
-)
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = Book.class, name = "BOOK"),
-        @JsonSubTypes.Type(value = LiteraryPiece.class, name = "LITERARY_PIECE"),
-        @JsonSubTypes.Type(value = Journal.class, name = "JOURNAL")
-})
 public abstract class PublicationItem extends Item {
     @Enumerated(EnumType.STRING)
-    private PublicationFormat format;
+    private PublicationItemFormat format;
     @Enumerated(EnumType.STRING)
-    private PublicationStatus status;
+    private PublicationItemStatus status;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},  fetch = FetchType.LAZY)
     @JoinColumn(name = "publication_id")
     Publication publication;
     private Double purchasePrice;
     private Double rentalRate;
     private String edition;
-//    @Enumerated(EnumType.STRING)
-//    private ItemType itemType;
-
 
     public PublicationItem() {
         this.setItemType(ItemType.PUBLICATION);
     }
 
-    public PublicationStatus getStatus() {
+    public PublicationItemStatus getStatus() {
         return status;
     }
 
-    public void setStatus(PublicationStatus status) {
+    public void setStatus(PublicationItemStatus status) {
         this.status = status;
     }
 
-    public PublicationFormat getFormat() {
+    public PublicationItemFormat getFormat() {
         return format;
     }
 
-    public void setFormat(PublicationFormat format) {
+    public void setFormat(PublicationItemFormat format) {
         this.format = format;
     }
 
@@ -89,14 +73,6 @@ public abstract class PublicationItem extends Item {
         this.edition = edition;
     }
 
-//    public PublicationItemType getItemType() {
-//        return itemType;
-//    }
-
-//    public void setItemType(ItemType itemType) {
-//        this.itemType = itemType;
-//    }
-
     @Override
     public String toString() {
         return "PublicationItem{" +
@@ -106,7 +82,6 @@ public abstract class PublicationItem extends Item {
                 ", purchasePrice=" + purchasePrice +
                 ", rentalRate=" + rentalRate +
                 ", edition='" + edition + '\'' +
-//                ", itemType=" + itemType +
                 "} " + super.toString();
     }
 }

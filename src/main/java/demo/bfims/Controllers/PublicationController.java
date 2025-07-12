@@ -13,9 +13,9 @@ public class PublicationController {
     @Autowired
     PublicationItemService publicationItemService;
 
-    @PostMapping("/publicationitem")
-    public PublicationItemDto newPublicationItem(@RequestBody PublicationItem publicationItem) {
-        return publicationItemService.newPublicationItem(publicationItem);
+    @PostMapping("/newpublicationitem")
+    public PublicationItemDto newPublicationItem(@RequestBody PublicationItemDto publicationItemDto) {
+        return publicationItemService.newPublicationItem(publicationItemDto);
     }
 
     @GetMapping("/publicationitem/{id}")

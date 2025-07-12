@@ -1,6 +1,6 @@
 package demo.bfims.Enums;
 
-public enum PublicationStatus {
+public enum PublicationItemStatus {
     PURCHASED,
     RENTED,
     AVAILABLE

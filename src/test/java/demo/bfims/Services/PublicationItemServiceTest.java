@@ -1,9 +1,11 @@
 package demo.bfims.Services;
 
 import demo.bfims.DTOs.InventoryDTOs.ItemDto;
+import demo.bfims.DTOs.InventoryDTOs.PublicationItemDto;
 import demo.bfims.Entities.Inventory.*;
 import demo.bfims.Enums.Genre;
 import org.junit.jupiter.api.*;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,7 @@ class PublicationItemServiceTest {
 
     @Autowired
     PublicationItemService publicationItemService;
+    private ModelMapper modelMapper;
 
     @BeforeAll
     static void setUp() {
@@ -40,7 +43,7 @@ class PublicationItemServiceTest {
     @Test
     @Order(1)
     void newPublicationItem() {
-        ItemDto newItem = publicationItemService.newPublicationItem(publicationItem);
+        ItemDto newItem = publicationItemService.newPublicationItem(modelMapper.map(publicationItem, PublicationItemDto.class));
         assertNotNull(publicationItemService.getPublicationItem(newItem.getItemId()));
     }
 

@@ -25,15 +25,9 @@ public class PublicationItemService {
 
     // Attatch existing publication to book if exists or create new publication
     @Transactional
-    public PublicationItemDto newPublicationItem(PublicationItem publicationItem) {
-        if (publicationItem.getPublication().getPublicationId() != null) {
-            Publication publication = publicationRepo.findById(publicationItem.getPublication().getPublicationId()).orElse(null);
-            publicationItem.setPublication(publication);
-        }
-
-        //New Publication Group or existing publication group not found
-        //Creates new publication group
-        return publicationItemDtoHelper(itemRepo.save(publicationItem));
+    public PublicationItemDto newPublicationItem(PublicationItemDto publicationItemDto) {
+        PublicationItem publicationItem =  itemRepo.save(modelMapper.map(publicationItemDto, PublicationItem.class));
+        return modelMapper.map(publicationItem, PublicationItemDto.class);
     }
 
     public PublicationItemDto getPublicationItem(Long id) {

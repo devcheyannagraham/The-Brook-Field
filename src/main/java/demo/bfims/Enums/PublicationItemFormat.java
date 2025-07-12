@@ -1,6 +1,6 @@
 package demo.bfims.Enums;
 
-public enum PublicationFormat {
+public enum PublicationItemFormat {
     HARDCOPY,
     AUDIOBOOK,
     EBOOK
