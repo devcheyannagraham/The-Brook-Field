@@ -16,13 +16,12 @@ import org.springframework.context.annotation.Configuration;
 public class ModelMapperConfig {
 
     @Autowired
-    ItemConverter itemConverter;
+    ItemConverter<ItemDto,Item> itemConverter;
 
     @Autowired
-    PublicationItemConverter publicationItemConverter;
+    ItemConverter<PublicationItemDto,PublicationItem> publicationItemConverter;
 
-
-    @Bean
+     @Bean
     public ModelMapper modelMapper() {
         // tell model mmapper to use custom converter for items
         // item is abstract and can't be instantiated so requires

@@ -10,32 +10,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
-
 //map itemdto to item child since item is abstract
 @Component
-public class ItemConverter implements Converter<ItemDto, Item> {
+public class ItemConverter<S, D> implements Converter<S, D> {
 
     @Autowired
     private ItemRepo itemRepo;
 
     @Override
-    public Item convert(MappingContext<ItemDto, Item> context) {
+    public D convert(MappingContext<S, D> mappingContext) {
 
-        // If item already exists, return it
-        Long itemId = context.getSource().getItemId();
-        if (itemId != null) {
-            Item foundItem = itemRepo.findById(itemId).orElse(null);
-            if (foundItem != null) {
-                return foundItem;
+        if (ItemDto.class.isAssignableFrom(mappingContext.getSource().getClass())) {
+            ItemDto itemDto = (ItemDto) mappingContext.getSource();
+
+//          If item already exists, return it
+            Long itemId = itemDto.getItemId();
+            if (itemId != null) {
+                Item foundItem = itemRepo.findById(itemId).orElse(null);
+                if (foundItem != null) {
+                    return (D) foundItem;
+                }
             }
+
+            ItemType itemType = itemDto.getItemType();
+            if (itemType.equals(ItemType.BOOK)) return (D) new Book();
+            else if (itemType.equals(ItemType.JOURNAL)) return (D) new Journal();
+            else if (itemType.equals(ItemType.LITERARY_PIECE)) return (D) new LiteraryPiece();
         }
-
-        // else return subclass
-        ItemType itemType = context.getSource().getItemType();
-
-        if(itemType.equals(ItemType.BOOK)) return new Book();
-        else if (itemType.equals(ItemType.JOURNAL)) return new Journal();
-        else if (itemType.equals(ItemType.LITERARY_PIECE)) return new LiteraryPiece();
 
         return null;
     }
