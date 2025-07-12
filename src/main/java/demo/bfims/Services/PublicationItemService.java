@@ -32,8 +32,7 @@ public class PublicationItemService {
     public PublicationItemDto getPublicationItem(Long id) {
         Item item = itemRepo.findById(id).orElse(null);
         if (item != null) {
-            //configure if statements for publication type.
-            return publicationItemDtoHelper(item);
+            return modelMapper.map(item, PublicationItemDto.class);
         }
         return null;
     }

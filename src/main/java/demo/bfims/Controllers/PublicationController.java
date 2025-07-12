@@ -13,7 +13,7 @@ public class PublicationController {
     @Autowired
     PublicationItemService publicationItemService;
 
-    @PostMapping("/newpublicationitem")
+    @PostMapping("/publicationitem")
     public PublicationItemDto newPublicationItem(@RequestBody PublicationItemDto publicationItemDto) {
         return publicationItemService.newPublicationItem(publicationItemDto);
     }

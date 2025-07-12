@@ -18,6 +18,8 @@ public abstract class PublicationItem extends Item {
     private Double rentalRate;
     private String edition;
 
+
+
     public PublicationItem() {
         this.setItemType(ItemType.PUBLICATION);
     }
