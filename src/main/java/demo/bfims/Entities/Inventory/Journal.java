@@ -1,6 +1,7 @@
 package demo.bfims.Entities.Inventory;
 
 import demo.bfims.Enums.ItemType;
+import demo.bfims.Enums.PublicationItemType;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -14,7 +15,7 @@ public class Journal extends PublicationItem {
     private String volume;
 
     public Journal() {
-        this.setItemType(ItemType.JOURNAL);
+        this.setPublicationItemType(PublicationItemType.JOURNAL);
     }
 
     public int getIssueNumber() {
@@ -49,6 +50,15 @@ public class Journal extends PublicationItem {
         this.issueDate = issueDate;
     }
 
-    
 
+    @Override
+    public String toString() {
+        return "Journal{" +
+                "issueDate=" + issueDate +
+                ", issueNumber=" + issueNumber +
+                ", issueName='" + issueName + '\'' +
+                ", volume='" + volume + '\'' +
+                ", publication=" + publication +
+                "} " + super.toString();
+    }
 }

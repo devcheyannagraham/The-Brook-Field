@@ -1,12 +1,12 @@
 package demo.bfims.Entities.Inventory;
-import demo.bfims.Enums.ItemType;
+import demo.bfims.Enums.PublicationItemType;
 import jakarta.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Book extends PublicationItem {
     public Book(){
-        this.setItemType(ItemType.BOOK);
+        this.setPublicationItemType(PublicationItemType.BOOK);
     }
 
     @Override

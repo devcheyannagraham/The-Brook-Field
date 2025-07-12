@@ -3,6 +3,7 @@ package demo.bfims.Entities.Inventory;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.PublicationItemFormat;
 import demo.bfims.Enums.PublicationItemStatus;
+import demo.bfims.Enums.PublicationItemType;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,11 +18,12 @@ public abstract class PublicationItem extends Item {
     private Double purchasePrice;
     private Double rentalRate;
     private String edition;
-
+    @Enumerated(EnumType.STRING)
+    private PublicationItemType publicationItemType;
 
 
     public PublicationItem() {
-        this.setItemType(ItemType.PUBLICATION);
+        this.setItemType(ItemType.PUBLICATION_ITEM);
     }
 
     public PublicationItemStatus getStatus() {
@@ -75,6 +77,14 @@ public abstract class PublicationItem extends Item {
         this.edition = edition;
     }
 
+    public PublicationItemType getPublicationItemType() {
+        return publicationItemType;
+    }
+
+    public void setPublicationItemType(PublicationItemType publicationItemType) {
+        this.publicationItemType = publicationItemType;
+    }
+
     @Override
     public String toString() {
         return "PublicationItem{" +
@@ -84,6 +94,7 @@ public abstract class PublicationItem extends Item {
                 ", purchasePrice=" + purchasePrice +
                 ", rentalRate=" + rentalRate +
                 ", edition='" + edition + '\'' +
+                ", publicationItemType=" + publicationItemType +
                 "} " + super.toString();
     }
 }

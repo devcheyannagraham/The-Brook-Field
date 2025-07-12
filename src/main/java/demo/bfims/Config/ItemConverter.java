@@ -1,8 +1,10 @@
 package demo.bfims.Config;
 
 import demo.bfims.DTOs.InventoryDTOs.ItemDto;
+import demo.bfims.DTOs.InventoryDTOs.PublicationItemDto;
 import demo.bfims.Entities.Inventory.*;
 import demo.bfims.Enums.ItemType;
+import demo.bfims.Enums.PublicationItemType;
 import demo.bfims.Repo.ItemRepo;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -21,7 +23,6 @@ public class ItemConverter<S extends ItemDto, D extends Item> implements Convert
     @Override
     public D convert(MappingContext<S, D> mappingContext) {
 
-        mappingContext.getSource();
         ItemDto itemDto = (ItemDto) mappingContext.getSource();
 
         // If item already exists, return it
@@ -36,9 +37,16 @@ public class ItemConverter<S extends ItemDto, D extends Item> implements Convert
         ItemType itemType = itemDto.getItemType();
         ModelMapper modelMapper = new ModelMapper();
 
-        if (itemType.equals(ItemType.BOOK)) return (D)  modelMapper.map(itemDto, Book.class);
-        else if (itemType.equals(ItemType.JOURNAL)) return (D) modelMapper.map(itemDto, Journal.class);
-        else if (itemType.equals(ItemType.LITERARY_PIECE)) return (D) modelMapper.map(itemDto, LiteraryPiece.class);
+        if (itemType.equals(ItemType.PUBLICATION_ITEM)) {
+            PublicationItemDto publicationItemDto = (PublicationItemDto) mappingContext.getSource();
+            PublicationItemType publicationItemType = publicationItemDto.getPublicationItemType();
+
+            if (publicationItemType.equals(PublicationItemType.BOOK)) return (D) modelMapper.map(itemDto, Book.class);
+            else if (publicationItemType.equals(PublicationItemType.JOURNAL))
+                return (D) modelMapper.map(itemDto, Journal.class);
+            else if (publicationItemType.equals(PublicationItemType.LITERARY_PIECE))
+                return (D) modelMapper.map(itemDto, LiteraryPiece.class);
+        }
         return null;
     }
 }

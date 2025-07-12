@@ -2,12 +2,14 @@ package demo.bfims.DTOs.InventoryDTOs;
 
 import demo.bfims.Enums.PublicationItemFormat;
 import demo.bfims.Enums.PublicationItemStatus;
+import demo.bfims.Enums.PublicationItemType;
 
 
 public class PublicationItemDto extends ItemDto {
     private PublicationItemFormat format;
     private PublicationItemStatus status;
     private PublicationDto publicationDto;
+    private PublicationItemType publicationItemType;
     private Double purchasePrice;
     private Double rentalRate;
     private String edition;
@@ -63,12 +65,21 @@ public class PublicationItemDto extends ItemDto {
         this.edition = edition;
     }
 
+    public PublicationItemType getPublicationItemType() {
+        return publicationItemType;
+    }
+
+    public void setPublicationItemType(PublicationItemType publicationItemType) {
+        this.publicationItemType = publicationItemType;
+    }
+
     @Override
     public String toString() {
         return "PublicationItemDto{" +
                 "format=" + format +
                 ", status=" + status +
                 ", publicationDto=" + publicationDto +
+                ", publicationItemType=" + publicationItemType +
                 ", purchasePrice=" + purchasePrice +
                 ", rentalRate=" + rentalRate +
                 ", edition='" + edition + '\'' +

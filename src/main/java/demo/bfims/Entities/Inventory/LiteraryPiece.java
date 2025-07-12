@@ -2,6 +2,7 @@ package demo.bfims.Entities.Inventory;
 
 import demo.bfims.Enums.LiteraryType;
 import demo.bfims.Enums.ItemType;
+import demo.bfims.Enums.PublicationItemType;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,7 +11,7 @@ public class LiteraryPiece extends PublicationItem {
     LiteraryType type;
 
     public LiteraryPiece() {
-        this.setItemType(ItemType.LITERARY_PIECE);
+        this.setPublicationItemType(PublicationItemType.LITERARY_PIECE);
     }
 
     public LiteraryType getType() {
@@ -20,5 +21,11 @@ public class LiteraryPiece extends PublicationItem {
         this.type = type;
     }
 
-
+    @Override
+    public String toString() {
+        return "LiteraryPiece{" +
+                "type=" + type +
+                ", publication=" + publication +
+                "} " + super.toString();
+    }
 }

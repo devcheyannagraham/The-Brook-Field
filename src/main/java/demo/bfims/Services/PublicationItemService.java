@@ -38,7 +38,7 @@ public class PublicationItemService {
     }
 
     public List<PublicationItemDto> getPublicationItems() {
-        List<Item> items = itemRepo.findItemsByItemType(ItemType.PUBLICATION).orElse(null);
+        List<Item> items = itemRepo.findItemsByItemType(ItemType.PUBLICATION_ITEM).orElse(null);
         if (items != null) {
             return items.stream().map(this::publicationItemDtoHelper).toList();
         }
