@@ -23,7 +23,6 @@ public class PublicationItemService {
     @Autowired
     private ModelMapper modelMapper;
 
-    // Attatch existing publication to book if exists or create new publication
     @Transactional
     public PublicationItemDto newPublicationItem(PublicationItemDto publicationItemDto) {
         PublicationItem publicationItem =  itemRepo.save(modelMapper.map(publicationItemDto, PublicationItem.class));

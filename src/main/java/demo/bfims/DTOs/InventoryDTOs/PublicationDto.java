@@ -72,4 +72,17 @@ public class PublicationDto {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
+
+    @Override
+    public String toString() {
+        return "PublicationDto{" +
+                "publicationId=" + publicationId +
+                ", genre=" + genre +
+                ", date_published=" + date_published +
+                ", authors=" + authors +
+                ", publicationQuantity=" + publicationQuantity +
+                ", title='" + title + '\'' +
+                ", isbn='" + isbn + '\'' +
+                '}';
+    }
 }
