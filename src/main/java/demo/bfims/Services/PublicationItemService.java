@@ -25,7 +25,7 @@ public class PublicationItemService {
 
     @Transactional
     public PublicationItemDto newPublicationItem(PublicationItemDto publicationItemDto) {
-        PublicationItem publicationItem =  itemRepo.save(modelMapper.map(publicationItemDto, PublicationItem.class));
+        PublicationItem publicationItem = itemRepo.save(modelMapper.map(publicationItemDto, PublicationItem.class));
         return modelMapper.map(publicationItem, PublicationItemDto.class);
     }
 
@@ -40,18 +40,7 @@ public class PublicationItemService {
     public List<PublicationItemDto> getPublicationItems() {
         List<Item> items = itemRepo.findItemsByItemType(ItemType.PUBLICATION_ITEM).orElse(null);
         if (items != null) {
-            return items.stream().map(this::publicationItemDtoHelper).toList();
-        }
-        return null;
-    }
-
-    public PublicationItemDto publicationItemDtoHelper(Item item) {
-        if (item.getClass().getSimpleName().equals(Book.class.getSimpleName())) {
-            return modelMapper.map(item, BookDto.class);
-        } else if (item.getClass().getSimpleName().equals(LiteraryPiece.class.getSimpleName())) {
-            return modelMapper.map(item, LiteraryPieceDto.class);
-        } else if (item.getClass().getSimpleName().equals(Journal.class.getSimpleName())) {
-            return modelMapper.map(item, JournalDto.class);
+            return items.stream().map(item -> modelMapper.map(item, PublicationItemDto.class)).toList();
         }
         return null;
     }
