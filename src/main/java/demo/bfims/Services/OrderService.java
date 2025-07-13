@@ -4,6 +4,7 @@ import demo.bfims.DTOs.OrderDTOs.CustomerDto;
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
 import demo.bfims.Entities.Order.*;
 import demo.bfims.Enums.ItemOrderType;
+import demo.bfims.Interfaces.Purchaseable;
 import demo.bfims.Interfaces.Rentable;
 import demo.bfims.Repo.CustomerRepo;
 import demo.bfims.Repo.ItemRepo;
@@ -71,7 +72,6 @@ public class OrderService {
         order.setCustomer(modelMapper.map(managedCustomer, CustomerDto.class));
 
 
-
         Order savedOrder = orderRepo.save(modelMapper.map(order, Order.class));
 
         // save rentals and purchases for reporting and records
@@ -83,11 +83,15 @@ public class OrderService {
                 Rentable rentable = (Rentable) itemRepo.findById(orderItem.getItem().getItemId()).orElse(null);
                 if (rentable != null) {
                     rental.setRentalRate(rentable.getRentalRate());
+                    trans = rental;
                 }
-                trans = rental;
-            }
-            else if (orderItem.getItemOrderType().equals(ItemOrderType.PURCHASE)) {
-                trans = new Purchase();
+            } else if (orderItem.getItemOrderType().equals(ItemOrderType.PURCHASE)) {
+                Purchase purchase = new Purchase();
+                Purchaseable purchaseable = (Purchaseable) itemRepo.findById(orderItem.getItem().getItemId()).orElse(null);
+                if (purchaseable != null) {
+                    purchase.setPurchasePrice(purchaseable.getPurchasePrice());
+                    trans = purchase;
+                }
             }
             if (trans != null) {
                 trans.setOrder(savedOrder);

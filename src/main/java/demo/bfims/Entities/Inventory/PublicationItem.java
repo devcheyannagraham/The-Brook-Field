@@ -4,11 +4,12 @@ import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.PublicationItemFormat;
 import demo.bfims.Enums.PublicationItemStatus;
 import demo.bfims.Enums.PublicationItemType;
+import demo.bfims.Interfaces.Purchaseable;
 import demo.bfims.Interfaces.Rentable;
 import jakarta.persistence.*;
 
 @Entity
-public abstract class PublicationItem extends Item implements Rentable {
+public abstract class PublicationItem extends Item implements Rentable, Purchaseable {
     @Enumerated(EnumType.STRING)
     private PublicationItemFormat format;
     @Enumerated(EnumType.STRING)
