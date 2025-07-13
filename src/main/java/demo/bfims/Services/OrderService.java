@@ -4,7 +4,9 @@ import demo.bfims.DTOs.OrderDTOs.CustomerDto;
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
 import demo.bfims.Entities.Order.*;
 import demo.bfims.Enums.ItemOrderType;
+import demo.bfims.Interfaces.Rentable;
 import demo.bfims.Repo.CustomerRepo;
+import demo.bfims.Repo.ItemRepo;
 import demo.bfims.Repo.OrderRepo;
 import demo.bfims.Repo.TransactionRepo;
 import jakarta.persistence.EntityManager;
@@ -25,7 +27,8 @@ public class OrderService {
     private ModelMapper modelMapper;
     @Autowired
     private TransactionRepo transactionRepo;
-
+    @Autowired
+    ItemRepo itemRepo;
     @Autowired
     private EntityManager entityManager;
 
@@ -67,6 +70,8 @@ public class OrderService {
         Customer managedCustomer = entityManager.merge(modelMapper.map(customer, Customer.class));
         order.setCustomer(modelMapper.map(managedCustomer, CustomerDto.class));
 
+
+
         Order savedOrder = orderRepo.save(modelMapper.map(order, Order.class));
 
         // save rentals and purchases for reporting and records
@@ -74,7 +79,12 @@ public class OrderService {
             Transaction trans = null;
 
             if (orderItem.getItemOrderType().equals(ItemOrderType.RENTAL)) {
-                trans = new Rental();
+                Rental rental = new Rental();
+                Rentable rentable = (Rentable) itemRepo.findById(orderItem.getItem().getItemId()).orElse(null);
+                if (rentable != null) {
+                    rental.setRentalRate(rentable.getRentalRate());
+                }
+                trans = rental;
             }
             else if (orderItem.getItemOrderType().equals(ItemOrderType.PURCHASE)) {
                 trans = new Purchase();
