@@ -1,8 +1,8 @@
 package demo.bfims.Controllers;
 
 import demo.bfims.DTOs.InventoryDTOs.ItemDto;
-import demo.bfims.Services.ReportSerivce;
-import org.springframework.beans.factory.annotation.Autowired;
+import demo.bfims.DTOs.ReportDTOs.PopularItemsDto;
+import demo.bfims.Services.ReportService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,40 +11,40 @@ import java.util.List;
 @RestController
 public class ReportController {
 
-    private ReportSerivce reportSerivce;
+    private final ReportService reportService;
 
-    public ReportController(ReportSerivce reportSerivce) {
-        this.reportSerivce = reportSerivce;
+    public ReportController(ReportService reportService) {
+        this.reportService = reportService;
     }
 
     //Popular items
 //    item id in order items the most
     @GetMapping("/popularitems")
-    public List<ItemDto> getPopularItems() {
-        return reportSerivce.getPopularItems();
+    public PopularItemsDto getPopularItems() {
+        return reportService.getPopularItems();
     }
 
     //low inventory items
     @GetMapping("/lowinventory")
     public List<ItemDto> getLowInventoryItems() {
-        return reportSerivce.getLowInventoryItems();
+        return reportService.getLowInventoryItems();
     }
 
 //low selling/renting items
     @GetMapping("lowsales")
     public List<ItemDto> getLowSalesItems() {
-        return reportSerivce.getLowSalesItems();
+        return reportService.getLowSalesItems();
     }
 
 //Items that make the most money
     @GetMapping("/profitableitems")
     public List<ItemDto> getProfitableItems() {
-        return reportSerivce.getProfitableItems();
+        return reportService.getProfitableItems();
     }
 
     @GetMapping("/recentorders")
     public List<ItemDto> getRecentOrders() {
-        return reportSerivce.getRecentOrders();
+        return reportService.getRecentOrders();
     }
 
 
