@@ -7,6 +7,4 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface OrderItemRepo extends JpaRepository<OrderItem, Long> {
-//    @Query("Select o  ")
-//    List<> getPopularItems();
 }

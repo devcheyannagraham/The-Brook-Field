@@ -2,6 +2,7 @@ package demo.bfims.Services;
 
 import demo.bfims.DTOs.InventoryDTOs.ItemDto;
 import demo.bfims.DTOs.InventoryDTOs.PublicationDto;
+import demo.bfims.DTOs.ReportDTOs.ItemGroup;
 import demo.bfims.DTOs.ReportDTOs.PopularItem;
 import demo.bfims.DTOs.ReportDTOs.PopularItemsDto;
 import demo.bfims.Entities.Inventory.PublicationItem;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ReportService {
@@ -95,10 +97,14 @@ public class ReportService {
         return popularItemsDto;
     }
 
-    public List<ItemDto> getLowInventoryItems() {
-        List<ItemDto> items = new ArrayList<>();
-        System.out.println("Low Inventory Items");
-        return null;
+    public ItemGroup getLowInventoryItems() {
+        ItemGroup itemGroup = new ItemGroup();
+        itemGroup.setPublications(publicationRepo.findByPublicationQuantityLessThanEqual(5)
+                .stream().map(pub -> modelMapper.map(pub, PublicationDto.class))
+                .collect(Collectors.toList()));
+        System.out.println("\nLow Inventory Items");
+        System.out.println("itemGroup: " + itemGroup);
+        return itemGroup;
     }
 
     //low selling/renting items
