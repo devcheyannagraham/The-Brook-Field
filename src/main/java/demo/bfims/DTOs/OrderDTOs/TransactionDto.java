@@ -1,7 +1,6 @@
 package demo.bfims.DTOs.OrderDTOs;
 
-import demo.bfims.Entities.Inventory.Item;
-import demo.bfims.Entities.Order.Order;
+import demo.bfims.DTOs.InventoryDTOs.ItemDto;
 import demo.bfims.Enums.TransactionType;
 
 import java.time.LocalDate;
@@ -10,7 +9,7 @@ public class TransactionDto {
     private Long transactionId;
     private TransactionType transactionType;
     private LocalDate transactionDate;
-    private Item item;
+    private ItemDto itemDto;
 
     public Long getTransactionId() {
         return transactionId;
@@ -36,12 +35,12 @@ public class TransactionDto {
         this.transactionDate = transactionDate;
     }
 
-    public Item getItem() {
-        return item;
+    public ItemDto getItemDto() {
+        return itemDto;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItemDto(ItemDto itemDto) {
+        this.itemDto = itemDto;
     }
 
     @Override
@@ -51,7 +50,7 @@ public class TransactionDto {
                 ", transactionType=" + transactionType +
                 ", transactionDate=" + transactionDate +
 //                ", order=" + order +
-                ", item=" + item +
+                ", itemDto=" + itemDto +
                 '}';
     }
 }
