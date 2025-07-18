@@ -9,7 +9,7 @@ public class TransactionDto {
     private Long transactionId;
     private TransactionType transactionType;
     private LocalDate transactionDate;
-    private ItemDto itemDto;
+    private ItemDto item;
 
     public TransactionDto() {
     }
@@ -38,12 +38,12 @@ public class TransactionDto {
         this.transactionDate = transactionDate;
     }
 
-    public ItemDto getItemDto() {
-        return itemDto;
+    public ItemDto getItem() {
+        return item;
     }
 
-    public void setItemDto(ItemDto itemDto) {
-        this.itemDto = itemDto;
+    public void setItem(ItemDto item) {
+        this.item = item;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class TransactionDto {
                 ", transactionType=" + transactionType +
                 ", transactionDate=" + transactionDate +
 //                ", order=" + order +
-                ", itemDto=" + itemDto +
+                ", item=" + item +
                 '}';
     }
 }

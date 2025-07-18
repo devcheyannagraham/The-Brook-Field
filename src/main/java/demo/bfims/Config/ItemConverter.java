@@ -23,7 +23,7 @@ public class ItemConverter<S extends ItemDto, D extends Item> implements Convert
     @Override
     public D convert(MappingContext<S, D> mappingContext) {
 
-        ItemDto itemDto = (ItemDto) mappingContext.getSource();
+        ItemDto itemDto = mappingContext.getSource();
 
         // If item already exists, return it
         Long itemId = itemDto.getItemId();
