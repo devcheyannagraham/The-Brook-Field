@@ -32,7 +32,7 @@ public abstract class Transaction {
     private LocalDate transactionDate;
     @ManyToOne(cascade = CascadeType.MERGE)
     private Order order;
-    @OneToOne()
+    @ManyToOne()
     @JoinColumn(name = "item_id")
     private Item item;
 
