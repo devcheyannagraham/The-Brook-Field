@@ -49,15 +49,15 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderDto newOrder(OrderDto order) {
-        System.out.println("OrderDto newOrder: " + order);
+    public OrderDto newOrder(OrderDto orderDto) {
+        System.out.println("OrderDto newOrder: " + orderDto);
 
         // Get Customer
-        Customer customer = modelMapper.map(order.getCustomer(), Customer.class);
+        Customer customer = modelMapper.map(orderDto.getCustomer(), Customer.class);
 
         if (customer.getId() == null) {
             // Check if customer exists by email
-            Customer existingCustomer = customerRepo.getCustomerByEmail(order.getCustomer().getEmail()).orElse(null);
+            Customer existingCustomer = customerRepo.getCustomerByEmail(orderDto.getCustomer().getEmail()).orElse(null);
             if (existingCustomer != null) {
                 customer = existingCustomer;
             }
@@ -67,10 +67,14 @@ public class OrderService {
         // - If customer is transient (new), it becomes persistent.
         // - If customer is detached (existing), it's re-attached and updated.
         Customer managedCustomer = entityManager.merge(modelMapper.map(customer, Customer.class));
-        order.setCustomer(modelMapper.map(managedCustomer, CustomerDto.class));
+        orderDto.setCustomer(modelMapper.map(managedCustomer, CustomerDto.class));
+
+        //manage purchase or rental with the prices
 
 
-        Order savedOrder = orderRepo.save(modelMapper.map(order, Order.class));
+
+
+        Order savedOrder = orderRepo.save(modelMapper.map(orderDto, Order.class));
 
         return modelMapper.map(savedOrder, OrderDto.class);
     }
