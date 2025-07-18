@@ -1,14 +1,12 @@
 package demo.bfims.DTOs.OrderDTOs;
 
-import demo.bfims.Entities.Order.Order;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDto {
     private Long id;
     private CustomerDto customer;
-    private List<OrderItemDto> orderItems = new ArrayList<>();
+    private List<TransactionDto> transactions = new ArrayList<>();
     private Double orderTotal;
 
     public Long getId() {
@@ -27,12 +25,16 @@ public class OrderDto {
         this.customer = customer;
     }
 
-    public List<OrderItemDto> getOrderItems() {
-        return orderItems;
+    public void setTransactions(List<TransactionDto> transactions) {
+        this.transactions = transactions;
     }
 
-    public void setOrderItems(List<OrderItemDto> orderItems) {
-        this.orderItems = orderItems;
+    public List<TransactionDto> getTransactions() {
+        return transactions;
+    }
+
+    public void setOrderItems(List<TransactionDto> orderItems) {
+        this.transactions = orderItems;
     }
 
     public Double getOrderTotal() {
@@ -49,7 +51,7 @@ public class OrderDto {
         return "OrderDto{" +
                 "id=" + id +
                 ", customer=" + customer +
-                ", orderItems=" + orderItems +
+                ", transactions=" + transactions +
                 ", orderTotal=" + orderTotal +
                 '}';
     }

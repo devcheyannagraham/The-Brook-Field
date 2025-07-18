@@ -1,12 +1,12 @@
 package demo.bfims.DTOs.OrderDTOs;
 
 import demo.bfims.DTOs.InventoryDTOs.ItemDto;
-import demo.bfims.Enums.ItemOrderType;
+import demo.bfims.Enums.TransactionType;
 
 public class OrderItemDto {
 
     private Long orderItemId;
-    private ItemOrderType itemOrderType;
+    private TransactionType transactionType;
     private ItemDto item;
 
     public Long getOrderItemId() {
@@ -17,12 +17,12 @@ public class OrderItemDto {
         this.orderItemId = orderItemId;
     }
 
-    public ItemOrderType getItemOrderType() {
-        return itemOrderType;
+    public TransactionType getItemOrderType() {
+        return transactionType;
     }
 
-    public void setItemOrderType(ItemOrderType itemOrderType) {
-        this.itemOrderType = itemOrderType;
+    public void setItemOrderType(TransactionType transactionType) {
+        this.transactionType = transactionType;
     }
 
     public ItemDto getItem() {
@@ -37,7 +37,7 @@ public class OrderItemDto {
     public String toString() {
         return "OrderItemDto{" +
                 "orderItemId=" + orderItemId +
-                ", itemOrderType=" + itemOrderType +
+                ", transactionType=" + transactionType +
                 ", item=" + item +
                 '}';
     }

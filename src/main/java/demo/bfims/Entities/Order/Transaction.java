@@ -3,7 +3,7 @@ package demo.bfims.Entities.Order;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import demo.bfims.Entities.Inventory.Item;
-import demo.bfims.Enums.ItemOrderType;
+import demo.bfims.Enums.TransactionType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -26,7 +26,7 @@ public abstract class Transaction {
     @TableGenerator(name = "transaction_generator")
     private Long transactionId;
     @Enumerated(EnumType.STRING)
-    private ItemOrderType transactionType;
+    private TransactionType transactionType;
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
     private LocalDate transactionDate;
@@ -79,11 +79,11 @@ public abstract class Transaction {
         this.order = order;
     }
 
-    public ItemOrderType getTransactionType() {
+    public TransactionType getTransactionType() {
         return transactionType;
     }
 
-    public void setTransactionType(ItemOrderType transactionType) {
+    public void setTransactionType(TransactionType transactionType) {
         this.transactionType = transactionType;
     }
 

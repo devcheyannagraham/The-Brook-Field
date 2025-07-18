@@ -1,6 +1,6 @@
 package demo.bfims.Enums;
 
-public enum ItemOrderType {
+public enum TransactionType {
     PURCHASE,
     RENTAL
 }

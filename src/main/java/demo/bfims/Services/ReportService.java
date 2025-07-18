@@ -7,7 +7,7 @@ import demo.bfims.DTOs.ReportDTOs.PopularItem;
 import demo.bfims.DTOs.ReportDTOs.PopularItemsDto;
 import demo.bfims.Entities.Inventory.PublicationItem;
 import demo.bfims.Entities.Order.Transaction;
-import demo.bfims.Enums.ItemOrderType;
+import demo.bfims.Enums.TransactionType;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Interfaces.Purchaseable;
 import demo.bfims.Interfaces.Rentable;
@@ -53,9 +53,9 @@ public class ReportService {
 
                 // store profits
                 Double price = 0.0;
-                if (trans.getTransactionType().equals(ItemOrderType.RENTAL)) {
+                if (trans.getTransactionType().equals(TransactionType.RENTAL)) {
                     price = ((Rentable) trans.getItem()).getRentalRate();
-                } else if (trans.getTransactionType().equals(ItemOrderType.PURCHASE)) {
+                } else if (trans.getTransactionType().equals(TransactionType.PURCHASE)) {
                     price = ((Purchaseable) trans.getItem()).getPurchasePrice();
                 }
                 publicationProfitMap.put(publicationId, publicationProfitMap.getOrDefault(publicationId, 0.0) + price);

@@ -1,10 +1,7 @@
 package demo.bfims.Entities.Order;
 
-import demo.bfims.Enums.ItemOrderType;
-import demo.bfims.Interfaces.Purchaseable;
+import demo.bfims.Enums.TransactionType;
 import jakarta.persistence.*;
-
-import java.io.Serializable;
 
 
 @Entity
@@ -20,6 +17,6 @@ public class Purchase extends Transaction {
     }
 
     public Purchase() {
-            this.setTransactionType(ItemOrderType.PURCHASE);
+            this.setTransactionType(TransactionType.PURCHASE);
     }
 }

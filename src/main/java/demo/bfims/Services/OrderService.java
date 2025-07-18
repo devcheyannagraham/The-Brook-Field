@@ -3,9 +3,6 @@ package demo.bfims.Services;
 import demo.bfims.DTOs.OrderDTOs.CustomerDto;
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
 import demo.bfims.Entities.Order.*;
-import demo.bfims.Enums.ItemOrderType;
-import demo.bfims.Interfaces.Purchaseable;
-import demo.bfims.Interfaces.Rentable;
 import demo.bfims.Repo.CustomerRepo;
 import demo.bfims.Repo.ItemRepo;
 import demo.bfims.Repo.OrderRepo;
@@ -53,6 +50,7 @@ public class OrderService {
 
     @Transactional
     public OrderDto newOrder(OrderDto order) {
+        System.out.println("OrderDto newOrder: " + order);
 
         // Get Customer
         Customer customer = modelMapper.map(order.getCustomer(), Customer.class);
@@ -78,14 +76,14 @@ public class OrderService {
 //        savedOrder.getTransactions().forEach(trans -> {
 //            //            Transaction trans = null;
 //
-//            if (trans.getTransactionType().equals(ItemOrderType.RENTAL)) {
+//            if (trans.getTransactionType().equals(TransactionType.RENTAL)) {
 //                Rental rental = (Rental) trans;
 //                Rentable rentable = (Rentable) itemRepo.findById(trans.getItem().getItemId()).orElse(null);
 //                if (rentable != null) {
 //                    trans.setRentalRate(rentable.getRentalRate());
 //                    trans = rental;
 //                }
-//            } else if (trans.getTransactionType().equals(ItemOrderType.PURCHASE)) {
+//            } else if (trans.getTransactionType().equals(TransactionType.PURCHASE)) {
 //                Purchase purchase = new Purchase();
 //                Purchaseable purchaseable = (Purchaseable) itemRepo.findById(trans.getItem().getItemId()).orElse(null);
 //                if (purchaseable != null) {

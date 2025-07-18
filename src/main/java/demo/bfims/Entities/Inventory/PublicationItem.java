@@ -1,5 +1,7 @@
 package demo.bfims.Entities.Inventory;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.PublicationItemFormat;
 import demo.bfims.Enums.PublicationItemStatus;
@@ -9,6 +11,16 @@ import demo.bfims.Interfaces.Rentable;
 import jakarta.persistence.*;
 
 @Entity
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "publicationItemType"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Book.class, name = "BOOK"),
+        @JsonSubTypes.Type(value = LiteraryPiece.class, name = "LITERARY_PIECE"),
+        @JsonSubTypes.Type(value = Journal.class, name = "JOURNAL")
+})
 public abstract class PublicationItem extends Item implements Rentable, Purchaseable {
     @Enumerated(EnumType.STRING)
     private PublicationItemFormat format;
