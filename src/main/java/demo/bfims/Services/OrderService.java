@@ -69,13 +69,7 @@ public class OrderService {
         Customer managedCustomer = entityManager.merge(modelMapper.map(customer, Customer.class));
         orderDto.setCustomer(modelMapper.map(managedCustomer, CustomerDto.class));
 
-        //manage purchase or rental with the prices
-
-
-
-
         Order savedOrder = orderRepo.save(modelMapper.map(orderDto, Order.class));
-
         return modelMapper.map(savedOrder, OrderDto.class);
     }
 }
