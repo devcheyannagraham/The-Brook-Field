@@ -75,30 +75,30 @@ public class OrderService {
         Order savedOrder = orderRepo.save(modelMapper.map(order, Order.class));
 
         // save rentals and purchases for reporting and records
-        savedOrder.getOrderItems().forEach(orderItem -> {
-            Transaction trans = null;
-
-            if (orderItem.getItemOrderType().equals(ItemOrderType.RENTAL)) {
-                Rental rental = new Rental();
-                Rentable rentable = (Rentable) itemRepo.findById(orderItem.getItem().getItemId()).orElse(null);
-                if (rentable != null) {
-                    rental.setRentalRate(rentable.getRentalRate());
-                    trans = rental;
-                }
-            } else if (orderItem.getItemOrderType().equals(ItemOrderType.PURCHASE)) {
-                Purchase purchase = new Purchase();
-                Purchaseable purchaseable = (Purchaseable) itemRepo.findById(orderItem.getItem().getItemId()).orElse(null);
-                if (purchaseable != null) {
-                    purchase.setPurchasePrice(purchaseable.getPurchasePrice());
-                    trans = purchase;
-                }
-            }
-            if (trans != null) {
-                trans.setOrder(savedOrder);
-                trans.setOrderItem(orderItem);
-                transactionRepo.save(trans);
-            }
-        });
+//        savedOrder.getTransactions().forEach(trans -> {
+//            //            Transaction trans = null;
+//
+//            if (trans.getTransactionType().equals(ItemOrderType.RENTAL)) {
+//                Rental rental = (Rental) trans;
+//                Rentable rentable = (Rentable) itemRepo.findById(trans.getItem().getItemId()).orElse(null);
+//                if (rentable != null) {
+//                    trans.setRentalRate(rentable.getRentalRate());
+//                    trans = rental;
+//                }
+//            } else if (trans.getTransactionType().equals(ItemOrderType.PURCHASE)) {
+//                Purchase purchase = new Purchase();
+//                Purchaseable purchaseable = (Purchaseable) itemRepo.findById(trans.getItem().getItemId()).orElse(null);
+//                if (purchaseable != null) {
+//                    purchase.setPurchasePrice(purchaseable.getPurchasePrice());
+////                    trans = purchase;
+//                }
+//            }
+//            if (trans != null) {
+//                trans.setOrder(savedOrder);
+//                trans.setOrderItem(trans);
+//                transactionRepo.save(trans);
+//            }
+//        });
 
         return modelMapper.map(savedOrder, OrderDto.class);
     }

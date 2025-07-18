@@ -2,12 +2,14 @@ package demo.bfims.Entities.Order;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import demo.bfims.Entities.Inventory.Item;
 import demo.bfims.Enums.ItemOrderType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 
+@Entity
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -17,7 +19,7 @@ import java.time.LocalDate;
         @JsonSubTypes.Type(value = Rental.class, name = "RENTAL"),
         @JsonSubTypes.Type(value = Purchase.class, name = "PURCHASE")
 })
-@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "transaction_generator")
@@ -30,10 +32,28 @@ public abstract class Transaction {
     private LocalDate transactionDate;
     @ManyToOne(cascade = CascadeType.MERGE)
     private Order order;
+    @OneToOne()
+    @JoinColumn(name = "item_id")
+    private Item item;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="order_item_id")
-    private OrderItem orderItem;
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "transactionId=" + transactionId +
+                ", transactionType=" + transactionType +
+                ", transactionDate=" + transactionDate +
+                ", order=" + order +
+                ", item=" + item +
+                '}';
+    }
 
     public Long getTransactionId() {
         return transactionId;
@@ -59,15 +79,6 @@ public abstract class Transaction {
         this.order = order;
     }
 
-    public OrderItem getOrderItem() {
-        return orderItem;
-    }
-
-    public void setOrderItem(OrderItem orderItem) {
-        orderItem.setOrder(this.order);
-        this.orderItem = orderItem;
-    }
-
     public ItemOrderType getTransactionType() {
         return transactionType;
     }
@@ -76,14 +87,4 @@ public abstract class Transaction {
         this.transactionType = transactionType;
     }
 
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "transactionId=" + transactionId +
-                ", transactionType=" + transactionType +
-                ", transactionDate=" + transactionDate +
-                ", order=" + order +
-                ", orderItem=" + orderItem +
-                '}';
-    }
 }

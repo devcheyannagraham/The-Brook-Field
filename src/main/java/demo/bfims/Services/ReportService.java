@@ -6,7 +6,7 @@ import demo.bfims.DTOs.ReportDTOs.ItemGroup;
 import demo.bfims.DTOs.ReportDTOs.PopularItem;
 import demo.bfims.DTOs.ReportDTOs.PopularItemsDto;
 import demo.bfims.Entities.Inventory.PublicationItem;
-import demo.bfims.Entities.Order.OrderItem;
+import demo.bfims.Entities.Order.Transaction;
 import demo.bfims.Enums.ItemOrderType;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Interfaces.Purchaseable;
@@ -30,13 +30,11 @@ public class ReportService {
     @Autowired
     TransactionRepo transactionRepo;
     @Autowired
-    OrderItemRepo orderItemRepo;
-    @Autowired
     private ModelMapper modelMapper;
 
     public PopularItemsDto getPopularItems() {
         System.out.println("Popular Items");
-        List<OrderItem> orderItems = orderItemRepo.findAll();
+        List<Transaction> transactions = transactionRepo.findAll();
         Map<Long, Integer> publicationMap = new HashMap<>();
         Map<Long, Double> publicationProfitMap = new HashMap<>();
         Map<Long, Integer> accessoryMap = new HashMap<>();
@@ -45,21 +43,20 @@ public class ReportService {
         Map<Long, Double> stationaryProfitMap = new HashMap<>();
 
 
-        orderItems.forEach(orderItem -> {
-            ItemType itemType = orderItem.getItem().getItemType();
+        transactions.forEach(trans -> {
+            ItemType itemType = trans.getItem().getItemType();
             if (itemType.equals(ItemType.PUBLICATION_ITEM)) {
-
-                PublicationItem publicationItem = (PublicationItem) orderItem.getItem();
+                PublicationItem publicationItem = (PublicationItem) trans.getItem();
                 Long publicationId = publicationItem.getPublication().getPublicationId();
 
                 publicationMap.put(publicationId, publicationMap.getOrDefault(publicationId, 0) + 1);
 
                 // store profits
                 Double price = 0.0;
-                if (orderItem.getItemOrderType().equals(ItemOrderType.RENTAL)) {
-                    price = ((Rentable) orderItem.getItem()).getRentalRate();
-                } else if (orderItem.getItemOrderType().equals(ItemOrderType.PURCHASE)) {
-                    price = ((Purchaseable) orderItem.getItem()).getPurchasePrice();
+                if (trans.getTransactionType().equals(ItemOrderType.RENTAL)) {
+                    price = ((Rentable) trans.getItem()).getRentalRate();
+                } else if (trans.getTransactionType().equals(ItemOrderType.PURCHASE)) {
+                    price = ((Purchaseable) trans.getItem()).getPurchasePrice();
                 }
                 publicationProfitMap.put(publicationId, publicationProfitMap.getOrDefault(publicationId, 0.0) + price);
 

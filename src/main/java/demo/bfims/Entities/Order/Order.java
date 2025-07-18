@@ -1,6 +1,5 @@
 package demo.bfims.Entities.Order;
 
-import demo.bfims.Entities.Inventory.Item;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="orders")
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +19,7 @@ public class Order {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime orderDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-    private List<OrderItem> orderItems = new ArrayList<>();
+    private List<Transaction> transactions = new ArrayList<>();
     private Double orderTotal;
 
     public Long getId() {
@@ -47,19 +46,17 @@ public class Order {
         this.orderTotal = orderTotal;
     }
 
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
-
-        orderItems.forEach(this::addOrderItem);
-        this.orderItems = orderItems;
+    public void setTransactions(List<Transaction> orderItems) {
+        orderItems.forEach(this::addTransaction);
     }
 
-    public void addOrderItem(OrderItem orderItem) {
-        orderItem.setOrder(this);
-        this.orderItems.add(orderItem);
+    public void addTransaction(Transaction transaction) {
+        transaction.setOrder(this);
+        this.transactions.add(transaction);
     }
 
     public LocalDateTime getOrderDate() {
@@ -70,15 +67,13 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-
-
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
                 ", customer=" + customer +
                 ", orderDate=" + orderDate +
-                ", orderItems=" + orderItems +
+                ", orderItems=" + transactions +
                 ", orderTotal=" + orderTotal +
                 '}';
     }

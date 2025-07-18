@@ -6,7 +6,6 @@ import demo.bfims.Entities.Inventory.Item;
 import demo.bfims.Entities.Inventory.PublicationItem;
 import demo.bfims.Entities.Order.Customer;
 import demo.bfims.Entities.Order.Order;
-import demo.bfims.Entities.Order.OrderItem;
 import demo.bfims.Repo.ItemRepo;
 import demo.bfims.Services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
