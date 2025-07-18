@@ -10,7 +10,6 @@ public class TransactionDto {
     private Long transactionId;
     private TransactionType transactionType;
     private LocalDate transactionDate;
-//    private Order order;
     private Item item;
 
     public Long getTransactionId() {
@@ -36,14 +35,6 @@ public class TransactionDto {
     public void setTransactionDate(LocalDate transactionDate) {
         this.transactionDate = transactionDate;
     }
-
-//    public Order getOrder() {
-//        return order;
-//    }
-//
-//    public void setOrder(Order order) {
-//        this.order = order;
-//    }
 
     public Item getItem() {
         return item;
