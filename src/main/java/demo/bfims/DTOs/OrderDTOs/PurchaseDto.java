@@ -11,6 +11,9 @@ public class PurchaseDto extends TransactionDto {
         this.purchasePrice = purchasePrice;
     }
 
+    public PurchaseDto() {
+    }
+
     @Override
     public String toString() {
         return "PurchaseDto{" +

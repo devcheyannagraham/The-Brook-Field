@@ -11,6 +11,9 @@ public class TransactionDto {
     private LocalDate transactionDate;
     private ItemDto itemDto;
 
+    public TransactionDto() {
+    }
+
     public Long getTransactionId() {
         return transactionId;
     }

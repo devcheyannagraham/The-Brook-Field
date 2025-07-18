@@ -10,6 +10,9 @@ public class RentalDto extends TransactionDto {
     private RentalStatus status;
     private Double rentalRate;
 
+    public RentalDto() {
+    }
+
     public LocalDate getStartDate() {
         return startDate;
     }
