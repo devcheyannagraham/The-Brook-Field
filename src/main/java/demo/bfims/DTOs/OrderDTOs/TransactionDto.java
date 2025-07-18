@@ -10,7 +10,7 @@ public class TransactionDto {
     private Long transactionId;
     private TransactionType transactionType;
     private LocalDate transactionDate;
-    private Order order;
+//    private Order order;
     private Item item;
 
     public Long getTransactionId() {
@@ -37,13 +37,13 @@ public class TransactionDto {
         this.transactionDate = transactionDate;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
+//    public Order getOrder() {
+//        return order;
+//    }
+//
+//    public void setOrder(Order order) {
+//        this.order = order;
+//    }
 
     public Item getItem() {
         return item;
@@ -59,7 +59,7 @@ public class TransactionDto {
                 "transactionId=" + transactionId +
                 ", transactionType=" + transactionType +
                 ", transactionDate=" + transactionDate +
-                ", order=" + order +
+//                ", order=" + order +
                 ", item=" + item +
                 '}';
     }

@@ -2,8 +2,10 @@ package demo.bfims.Config;
 
 import demo.bfims.DTOs.InventoryDTOs.ItemDto;
 import demo.bfims.DTOs.InventoryDTOs.PublicationItemDto;
+import demo.bfims.DTOs.OrderDTOs.TransactionDto;
 import demo.bfims.Entities.Inventory.Item;
 import demo.bfims.Entities.Inventory.PublicationItem;
+import demo.bfims.Entities.Order.Transaction;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class ModelMapperConfig {
     @Autowired
     ItemConverter<PublicationItemDto,PublicationItem> publicationItemConverter;
 
+    @Autowired
+    TransactionConverter transactionConverter;
+
      @Bean
     public ModelMapper modelMapper() {
         // tell model mmapper to use custom converter for items
@@ -32,6 +37,9 @@ public class ModelMapperConfig {
 
         TypeMap<PublicationItemDto, PublicationItem> publicationItemMap = modelMapper.createTypeMap(PublicationItemDto.class, PublicationItem.class);
         publicationItemMap.setConverter(publicationItemConverter);
+
+        TypeMap<TransactionDto, Transaction> transactionMap = modelMapper.createTypeMap(TransactionDto.class,Transaction.class);
+        transactionMap.setConverter(transactionConverter);
         return modelMapper;
     }
 }
