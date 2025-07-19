@@ -2,7 +2,9 @@ package demo.bfims.Services;
 
 import demo.bfims.DTOs.OrderDTOs.CustomerDto;
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
+import demo.bfims.Entities.Inventory.Item;
 import demo.bfims.Entities.Order.*;
+import demo.bfims.Enums.TransactionType;
 import demo.bfims.Repo.CustomerRepo;
 import demo.bfims.Repo.ItemRepo;
 import demo.bfims.Repo.OrderRepo;
@@ -68,6 +70,14 @@ public class OrderService {
         // - If customer is detached (existing), it's re-attached and updated.
         Customer managedCustomer = entityManager.merge(modelMapper.map(customer, Customer.class));
         orderDto.setCustomer(modelMapper.map(managedCustomer, CustomerDto.class));
+//        orderDto.getTransactions().forEach(transDto -> {
+//            Item transItem = modelMapper.map(transDto.getItem(), Item.class);
+//            if(transDto.getTransactionType().equals(TransactionType.RENTAL)){
+////                orderDto.setOrderTotal(orderDto.getOrderTotal() + ((Rentable)));
+//            }
+//            System.out.println("transDto: " + transItem);
+//
+//        });
 
         Order savedOrder = orderRepo.save(modelMapper.map(orderDto, Order.class));
         return modelMapper.map(savedOrder, OrderDto.class);

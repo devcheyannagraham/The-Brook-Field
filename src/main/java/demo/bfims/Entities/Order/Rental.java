@@ -19,8 +19,6 @@ public class Rental extends Transaction { //is publication
     @Enumerated(EnumType.STRING)
     private RentalStatus status;
 
-    private Double rentalRate;
-
     @PrePersist
     private void setup() {
         //Calculate due date when the record is persisted
@@ -68,22 +66,12 @@ public class Rental extends Transaction { //is publication
         this.status = status;
     }
 
-    public Double getRentalRate() {
-        return rentalRate;
-    }
-
-    public void setRentalRate(Double rentalRate) {
-        this.rentalRate = rentalRate;
-    }
-
-
     @Override
     public String toString() {
         return "Rental{" +
                 "startDate=" + startDate +
                 ", dueDate=" + dueDate +
                 ", status=" + status +
-                ", rentalRate=" + rentalRate +
                 "} " + super.toString();
     }
 

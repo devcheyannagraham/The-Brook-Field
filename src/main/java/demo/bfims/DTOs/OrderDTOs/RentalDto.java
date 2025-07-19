@@ -8,7 +8,6 @@ public class RentalDto extends TransactionDto {
     private LocalDate startDate;
     private LocalDate dueDate;
     private RentalStatus status;
-    private Double rentalRate;
 
     public RentalDto() {
     }
@@ -37,21 +36,12 @@ public class RentalDto extends TransactionDto {
         this.status = status;
     }
 
-    public Double getRentalRate() {
-        return rentalRate;
-    }
-
-    public void setRentalRate(Double rentalRate) {
-        this.rentalRate = rentalRate;
-    }
-
     @Override
     public String toString() {
         return "RentalDto{" +
                 "startDate=" + startDate +
                 ", dueDate=" + dueDate +
                 ", status=" + status +
-                ", rentalRate=" + rentalRate +
                 "} " + super.toString();
     }
 }

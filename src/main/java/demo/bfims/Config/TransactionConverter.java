@@ -34,13 +34,11 @@ public class TransactionConverter implements Converter<TransactionDto, Transacti
         if (transDto.getTransactionType().equals(TransactionType.RENTAL)) {
             Rental rental = new Rental();
             rental.setTransactionType(TransactionType.RENTAL);
-            rental.setRentalRate(((Rentable) convertedItem).getRentalRate());
             trans = rental;
 
         } else if (transDto.getTransactionType().equals(TransactionType.PURCHASE)) {
             Purchase purchase = new Purchase();
             purchase.setTransactionType(TransactionType.PURCHASE);
-            purchase.setPurchasePrice(((Purchaseable) convertedItem).getPurchasePrice());
             trans = purchase;
         }
         trans.setItem(convertedItem);

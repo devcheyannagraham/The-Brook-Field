@@ -10,6 +10,7 @@ public class TransactionDto {
     private TransactionType transactionType;
     private LocalDate transactionDate;
     private ItemDto item;
+    private Double transactionPrice;
 
     public TransactionDto() {
     }
@@ -46,14 +47,22 @@ public class TransactionDto {
         this.item = item;
     }
 
+    public Double getTransactionPrice() {
+        return transactionPrice;
+    }
+
+    public void setTransactionPrice(Double transactionPrice) {
+        this.transactionPrice = transactionPrice;
+    }
+
     @Override
     public String toString() {
         return "TransactionDto{" +
                 "transactionId=" + transactionId +
                 ", transactionType=" + transactionType +
                 ", transactionDate=" + transactionDate +
-//                ", order=" + order +
                 ", item=" + item +
+                ", transactionPrice=" + transactionPrice +
                 '}';
     }
 }

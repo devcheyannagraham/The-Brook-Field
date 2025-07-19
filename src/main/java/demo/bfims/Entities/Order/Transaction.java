@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import demo.bfims.Entities.Inventory.Item;
 import demo.bfims.Enums.TransactionType;
+import demo.bfims.Interfaces.Purchaseable;
+import demo.bfims.Interfaces.Rentable;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -35,13 +37,18 @@ public abstract class Transaction {
     @ManyToOne()
     @JoinColumn(name = "item_id")
     private Item item;
+    private double transactionPrice;
+
+    public double getTransactionPrice() {
+        return transactionPrice;
+    }
+
+    public void setTransactionPrice(double transactionPrice) {
+        this.transactionPrice = transactionPrice;
+    }
 
     public Item getItem() {
         return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
     }
 
     @Override
@@ -52,7 +59,22 @@ public abstract class Transaction {
                 ", transactionDate=" + transactionDate +
                 ", order=" + order +
                 ", item=" + item +
+                ", transactionPrice=" + transactionPrice +
                 '}';
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+        if(this.transactionType.equals(TransactionType.PURCHASE)) {
+            this.transactionPrice = ((Purchaseable) item).getPurchasePrice();
+        }
+        if(this.transactionType.equals(TransactionType.RENTAL)) {
+            this.transactionPrice = ((Rentable) item).getRentalRate();
+        }
+    }
+
+    public Transaction() {
+        this.transactionPrice = 0.0;
     }
 
     public Long getTransactionId() {
