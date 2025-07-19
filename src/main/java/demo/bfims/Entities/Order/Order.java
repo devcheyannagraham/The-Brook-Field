@@ -51,12 +51,14 @@ public class Order {
     }
 
     public void setTransactions(List<Transaction> orderItems) {
+        this.orderTotal = 0.0;
         orderItems.forEach(this::addTransaction);
     }
 
     public void addTransaction(Transaction transaction) {
         transaction.setOrder(this);
         this.transactions.add(transaction);
+        this.orderTotal += transaction.getTransactionPrice();
     }
 
     public LocalDateTime getOrderDate() {

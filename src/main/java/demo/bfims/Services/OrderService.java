@@ -70,14 +70,6 @@ public class OrderService {
         // - If customer is detached (existing), it's re-attached and updated.
         Customer managedCustomer = entityManager.merge(modelMapper.map(customer, Customer.class));
         orderDto.setCustomer(modelMapper.map(managedCustomer, CustomerDto.class));
-//        orderDto.getTransactions().forEach(transDto -> {
-//            Item transItem = modelMapper.map(transDto.getItem(), Item.class);
-//            if(transDto.getTransactionType().equals(TransactionType.RENTAL)){
-////                orderDto.setOrderTotal(orderDto.getOrderTotal() + ((Rentable)));
-//            }
-//            System.out.println("transDto: " + transItem);
-//
-//        });
 
         Order savedOrder = orderRepo.save(modelMapper.map(orderDto, Order.class));
         return modelMapper.map(savedOrder, OrderDto.class);
