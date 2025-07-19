@@ -57,7 +57,6 @@ public abstract class Transaction {
                 "transactionId=" + transactionId +
                 ", transactionType=" + transactionType +
                 ", transactionDate=" + transactionDate +
-                ", order=" + order +
                 ", item=" + item +
                 ", transactionPrice=" + transactionPrice +
                 '}';
