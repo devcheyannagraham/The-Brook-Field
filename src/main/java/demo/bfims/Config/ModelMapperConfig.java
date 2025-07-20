@@ -33,7 +33,6 @@ public class ModelMapperConfig {
         Provider<Item> itemProvider = provisionRequest -> {
             System.out.println("ItemProvider");
             System.out.println(provisionRequest.getSource());
-
             ItemDto itemDto = (ItemDto) provisionRequest.getSource();
 
             // If item already exists, return it (Orders)
@@ -46,7 +45,7 @@ public class ModelMapperConfig {
             }
 
             if (itemDto.getItemType().equals(ItemType.PUBLICATION_ITEM)) {
-                return (PublicationItem) provisionRequest.getSource();
+                return modelMapper.map(provisionRequest.getSource(), PublicationItem.class);
             }
             return null;
         };
@@ -59,34 +58,24 @@ public class ModelMapperConfig {
             PublicationItemType publicationItemType = publicationItemDto.getPublicationItemType();
 
             if (publicationItemType.equals(PublicationItemType.BOOK))
-                return (Book) provisionRequest.getSource();
+                return modelMapper.map(provisionRequest.getSource(), Book.class);
             else if (publicationItemType.equals(PublicationItemType.JOURNAL))
-                return (Journal) provisionRequest.getSource();
+                return modelMapper.map(provisionRequest.getSource(), Journal.class);
             else if (publicationItemType.equals(PublicationItemType.LITERARY_PIECE))
-                return (LiteraryPiece) provisionRequest.getSource();
+                return modelMapper.map(provisionRequest.getSource(), LiteraryPiece.class);
             return null;
         };
 
         Provider<Transaction> transactionProvider = provisionRequest -> {
             System.out.println("Transaction Provider");
             System.out.println(provisionRequest.getSource());
+
             TransactionDto transDto = (TransactionDto) provisionRequest.getSource();
-            Item item = modelMapper.map(transDto.getItem(), Item.class);
-            System.out.println("\nCONVERTED ITEM " + item);
-
             if (transDto.getTransactionType().equals(TransactionType.RENTAL)) {
-                Rental rental = new Rental();
-                rental.setTransactionType(TransactionType.RENTAL);
-                rental.setItem(item);
-                System.out.println("HERE IN RENTAL");
-                return (Transaction) rental;
-
+                return modelMapper.map(provisionRequest.getSource(), Rental.class);
+//
             } else if (transDto.getTransactionType().equals(TransactionType.PURCHASE)) {
-                Purchase purchase = new Purchase();
-                purchase.setTransactionType(TransactionType.PURCHASE);
-                purchase.setItem(item);
-                System.out.println("HERE IN PURCHASE");
-                return (Transaction) purchase;
+                return modelMapper.map(provisionRequest.getSource(), Purchase.class);
             }
             return null;
         };
@@ -99,6 +88,7 @@ public class ModelMapperConfig {
         publicationItemMap.setProvider(publicationItemProvider);
         transactionTypeMap.setProvider(transactionProvider);
 
+        // VERY IMPORTANT SETTING -> GOT Instantiation Exception even though I had mappings defined because deeply nested properties >(
         modelMapper.getConfiguration().setPreferNestedProperties(false);
 
         return modelMapper;

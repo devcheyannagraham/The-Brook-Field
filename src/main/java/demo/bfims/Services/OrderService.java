@@ -71,7 +71,15 @@ public class OrderService {
                 }).toList());
 
 //        // - If customer is detached (existing), it's re-attached and updated.
-        Customer managedCustomer = entityManager.merge(modelMapper.map(orderDto.getCustomer(), Customer.class));
+        Customer customer = modelMapper.map(orderDto.getCustomer(), Customer.class);
+        if(customer.getId() == null && customer.getEmail() != null){
+            Customer foundCustomer = customerRepo.getCustomerByEmail(customer.getEmail()).orElse(null);
+            if(foundCustomer != null){
+                customer = foundCustomer;
+            }
+        }
+        Customer managedCustomer = entityManager.merge(customer);
+        System.out.println("managed customer: " + managedCustomer);
         order.setCustomer(managedCustomer);
 //
         System.out.println("Order: " + order);
