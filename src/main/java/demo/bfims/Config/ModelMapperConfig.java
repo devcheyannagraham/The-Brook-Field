@@ -99,6 +99,8 @@ public class ModelMapperConfig {
         publicationItemMap.setProvider(publicationItemProvider);
         transactionTypeMap.setProvider(transactionProvider);
 
+        modelMapper.getConfiguration().setPreferNestedProperties(false);
+
         return modelMapper;
     }
 }

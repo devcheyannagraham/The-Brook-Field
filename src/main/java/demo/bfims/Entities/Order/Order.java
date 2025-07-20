@@ -19,13 +19,18 @@ public class Order {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime orderDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-    private List<Transaction> transactions = new ArrayList<>();
+    private List<Transaction> transactions;
     private Double orderTotal;
+
+
+    public Order() {
+        this.orderTotal = 0.0;
+        this.transactions = new ArrayList<>();
+    }
 
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
