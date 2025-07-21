@@ -2,6 +2,7 @@ package demo.bfims.Controllers;
 
 import demo.bfims.DTOs.InventoryDTOs.ItemDto;
 import demo.bfims.DTOs.InventoryDTOs.PublicationDto;
+import demo.bfims.DTOs.OrderDTOs.OrderDto;
 import demo.bfims.DTOs.ReportDTOs.ItemGroup;
 import demo.bfims.DTOs.ReportDTOs.PopularItemsDto;
 import demo.bfims.Services.ReportService;
@@ -45,7 +46,7 @@ public class ReportController {
     }
 
     @GetMapping("/recentorders")
-    public List<ItemDto> getRecentOrders() {
+    public List<OrderDto> getRecentOrders() {
         return reportService.getRecentOrders();
     }
 

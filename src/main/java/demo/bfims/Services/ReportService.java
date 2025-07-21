@@ -2,6 +2,7 @@ package demo.bfims.Services;
 
 import demo.bfims.DTOs.InventoryDTOs.ItemDto;
 import demo.bfims.DTOs.InventoryDTOs.PublicationDto;
+import demo.bfims.DTOs.OrderDTOs.OrderDto;
 import demo.bfims.DTOs.ReportDTOs.ItemGroup;
 import demo.bfims.DTOs.ReportDTOs.PopularItem;
 import demo.bfims.DTOs.ReportDTOs.PopularItemsDto;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -118,9 +120,12 @@ public class ReportService {
         return null;
     }
 
-    public List<ItemDto> getRecentOrders() {
-        System.out.println("Recent Orders");
-//        List<Order> results = orderRepo.findOrdersPur
+    public List<OrderDto> getRecentOrders() {
+        LocalDateTime  sixMonthsAgo = LocalDateTime.now().minusMonths(6);
+        List<Order> results = orderRepo.findOrdersByOrderDateAfter(sixMonthsAgo).orElse(null);
+        if(results != null && !results.isEmpty()) {
+            return results.stream().map(order -> modelMapper.map(order, OrderDto.class)).collect(Collectors.toList());
+        }
         return null;
     }
 
