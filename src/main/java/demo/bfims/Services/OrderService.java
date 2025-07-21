@@ -44,13 +44,18 @@ public class OrderService {
     }
 
     public List<OrderDto> getCustomerOrders(Long id) {
-        return orderRepo.getOrdersByCustomerId(id)
-                .stream().map(order -> modelMapper.map(order, OrderDto.class)).toList();
+        System.out.println("getCustomerOrders: " + id);
+        if (id != null) {
+            List<Order> results = orderRepo.findOrdersByCustomerId(1L).orElse(null);
+            if (results != null && !results.isEmpty()) {
+               return results.stream().map(order -> modelMapper.map(order, OrderDto.class)).toList();
+            }
+        }
+        return null;
     }
 
     @Transactional
-    public OrderDto newOrder(OrderDto orderDto)
-    {
+    public OrderDto newOrder(OrderDto orderDto) {
         Order order = new Order();
 
         order.setTransactions(orderDto.getTransactions().stream()
@@ -65,9 +70,9 @@ public class OrderService {
 
 //        // - If customer is detached (existing), it's re-attached and updated.
         Customer customer = modelMapper.map(orderDto.getCustomer(), Customer.class);
-        if(customer.getId() == null && customer.getEmail() != null){
+        if (customer.getId() == null && customer.getEmail() != null) {
             Customer foundCustomer = customerRepo.getCustomerByEmail(customer.getEmail()).orElse(null);
-            if(foundCustomer != null){
+            if (foundCustomer != null) {
                 customer = foundCustomer;
             }
         }

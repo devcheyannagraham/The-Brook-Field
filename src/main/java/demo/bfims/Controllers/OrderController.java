@@ -28,8 +28,8 @@ public class OrderController {
     }
 
     @GetMapping("/orders/{customerid}")
-    public List<OrderDto> getCustomerOrders(Long id) {
-        return orderService.getCustomerOrders(id);
+    public List<OrderDto> getCustomerOrders(@PathVariable Long customerid) {
+        return orderService.getCustomerOrders(customerid);
     }
 
     @PostMapping("/order")
