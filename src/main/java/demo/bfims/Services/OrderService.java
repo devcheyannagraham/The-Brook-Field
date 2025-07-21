@@ -44,7 +44,6 @@ public class OrderService {
     }
 
     public List<OrderDto> getCustomerOrders(Long id) {
-        System.out.println("getCustomerOrders: " + id);
         if (id != null) {
             List<Order> results = orderRepo.findOrdersByCustomerId(1L).orElse(null);
             if (results != null && !results.isEmpty()) {
@@ -57,7 +56,6 @@ public class OrderService {
     @Transactional
     public OrderDto newOrder(OrderDto orderDto) {
         Order order = new Order();
-
         order.setTransactions(orderDto.getTransactions().stream()
                 .map(transactionDto -> {
                     if (transactionDto.getTransactionType().equals(TransactionType.RENTAL)) {
@@ -68,7 +66,7 @@ public class OrderService {
                     return null;
                 }).toList());
 
-//        // - If customer is detached (existing), it's re-attached and updated.
+        // - If customer is detached (existing), it's re-attached and updated.
         Customer customer = modelMapper.map(orderDto.getCustomer(), Customer.class);
         if (customer.getId() == null && customer.getEmail() != null) {
             Customer foundCustomer = customerRepo.getCustomerByEmail(customer.getEmail()).orElse(null);
@@ -77,10 +75,7 @@ public class OrderService {
             }
         }
         Customer managedCustomer = entityManager.merge(customer);
-        System.out.println("managed customer: " + managedCustomer);
         order.setCustomer(managedCustomer);
-//
-        System.out.println("Order: " + order);
         return modelMapper.map(orderRepo.save(order), OrderDto.class);
     }
 }
