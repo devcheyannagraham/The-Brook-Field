@@ -56,6 +56,7 @@ public class ModelMapperConfig {
 
             PublicationItemDto publicationItemDto = (PublicationItemDto) provisionRequest.getSource();
             PublicationItemType publicationItemType = publicationItemDto.getPublicationItemType();
+            System.out.println("publicationItemDto mapped " +  modelMapper.map(provisionRequest.getSource(),Book.class));
 
             if (publicationItemType.equals(PublicationItemType.BOOK))
                 return modelMapper.map(provisionRequest.getSource(), Book.class);

@@ -5,6 +5,7 @@ import demo.bfims.Entities.Inventory.*;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Repo.ItemRepo;
 import demo.bfims.Repo.PublicationRepo;
+import jakarta.persistence.EntityManager;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,17 +17,23 @@ import java.util.List;
 public class PublicationItemService {
     @Autowired
     private ItemRepo itemRepo;
-
     @Autowired
     private PublicationRepo publicationRepo;
-
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    EntityManager entityManager;
 
     @Transactional
     public PublicationItemDto newPublicationItem(PublicationItemDto publicationItemDto) {
-        PublicationItem publicationItem = itemRepo.save(modelMapper.map(publicationItemDto, PublicationItem.class));
-        return modelMapper.map(publicationItem, PublicationItemDto.class);
+        PublicationItem publicationItem = modelMapper.map(publicationItemDto, PublicationItem.class);
+        Long pubId = publicationItem.getPublication().getPublicationId();
+        if (pubId != null) {
+            Publication publication = publicationRepo.findById(pubId).orElse(null);
+            Publication managedPublication = entityManager.merge(publication);
+            publicationItem.setPublication(managedPublication);
+        }
+        return modelMapper.map(itemRepo.save(publicationItem), PublicationItemDto.class);
     }
 
     public PublicationItemDto getPublicationItem(Long id) {

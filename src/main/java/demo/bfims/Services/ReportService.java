@@ -6,6 +6,7 @@ import demo.bfims.DTOs.OrderDTOs.OrderDto;
 import demo.bfims.DTOs.ReportDTOs.ItemGroup;
 import demo.bfims.DTOs.ReportDTOs.PopularItem;
 import demo.bfims.DTOs.ReportDTOs.PopularItemsDto;
+import demo.bfims.Entities.Inventory.Publication;
 import demo.bfims.Entities.Inventory.PublicationItem;
 import demo.bfims.Entities.Order.Order;
 import demo.bfims.Entities.Order.Transaction;
@@ -109,16 +110,19 @@ public class ReportService {
     //low selling/renting items
 //    items in inventory not in rental or purchase
     public List<ItemDto> getLowSalesItems() {
+        List<Publication> lowPublications = publicationRepo.findByPublicationQuantityLessThanEqual(5);
+//        List<Accessory> lowAccessories = accessoryRepo.findByAccessoryQuantityLessThanEqual(5);
+//        List<Stationary> lowStationary = stationaryRepo.findStationaryQuantityLessThanEqual(5);
         System.out.println("Low Sales Items");
-
+        System.out.println(lowPublications);
         return null;
     }
 
-    //Items that make the most money
-    public List<ItemDto> getProfitableItems() {
-        System.out.println("Profitable Items");
-        return null;
-    }
+//    //Items that make the most money !! Running out of itme! skiP!
+//    public List<ItemDto> getProfitableItems() {
+//        System.out.println("Profitable Items");
+//        return null;
+//    }
 
     public List<OrderDto> getRecentOrders() {
         LocalDateTime  sixMonthsAgo = LocalDateTime.now().minusMonths(6);

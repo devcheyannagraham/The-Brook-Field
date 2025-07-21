@@ -40,10 +40,10 @@ public class ReportController {
     }
 
 //Items that make the most money
-    @GetMapping("/profitableitems")
-    public List<ItemDto> getProfitableItems() {
-        return reportService.getProfitableItems();
-    }
+//    @GetMapping("/profitableitems")
+//    public List<ItemDto> getProfitableItems() {
+//        return reportService.getProfitableItems();
+//    }
 
     @GetMapping("/recentorders")
     public List<OrderDto> getRecentOrders() {
