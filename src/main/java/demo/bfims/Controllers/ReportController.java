@@ -33,22 +33,8 @@ public class ReportController {
         return reportService.getLowInventoryItems();
     }
 
-//low selling/renting items
-    @GetMapping("lowsales")
-    public List<ItemDto> getLowSalesItems() {
-        return reportService.getLowSalesItems();
-    }
-
-//Items that make the most money
-//    @GetMapping("/profitableitems")
-//    public List<ItemDto> getProfitableItems() {
-//        return reportService.getProfitableItems();
-//    }
-
     @GetMapping("/recentorders")
     public List<OrderDto> getRecentOrders() {
         return reportService.getRecentOrders();
     }
-
-
 }

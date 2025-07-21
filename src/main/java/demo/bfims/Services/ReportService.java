@@ -102,21 +102,11 @@ public class ReportService {
         itemGroup.setPublications(publicationRepo.findByPublicationQuantityLessThanEqual(5)
                 .stream().map(pub -> modelMapper.map(pub, PublicationDto.class))
                 .collect(Collectors.toList()));
-        System.out.println("\nLow Inventory Items");
-        System.out.println("itemGroup: " + itemGroup);
+
+        //Need to add other itmeGroups
         return itemGroup;
     }
 
-    //low selling/renting items
-//    items in inventory not in rental or purchase
-    public List<ItemDto> getLowSalesItems() {
-        List<Publication> lowPublications = publicationRepo.findByPublicationQuantityLessThanEqual(5);
-//        List<Accessory> lowAccessories = accessoryRepo.findByAccessoryQuantityLessThanEqual(5);
-//        List<Stationary> lowStationary = stationaryRepo.findStationaryQuantityLessThanEqual(5);
-        System.out.println("Low Sales Items");
-        System.out.println(lowPublications);
-        return null;
-    }
 
 //    //Items that make the most money !! Running out of itme! skiP!
 //    public List<ItemDto> getProfitableItems() {
