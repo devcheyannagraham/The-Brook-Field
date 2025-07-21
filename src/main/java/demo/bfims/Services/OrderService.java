@@ -1,13 +1,7 @@
 package demo.bfims.Services;
 
-import demo.bfims.DTOs.InventoryDTOs.ItemDto;
 import demo.bfims.DTOs.OrderDTOs.*;
-import demo.bfims.Entities.Inventory.Book;
-import demo.bfims.Entities.Inventory.Item;
-import demo.bfims.Entities.Inventory.Publication;
-import demo.bfims.Entities.Inventory.PublicationItem;
 import demo.bfims.Entities.Order.*;
-import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.TransactionType;
 import demo.bfims.Repo.CustomerRepo;
 import demo.bfims.Repo.ItemRepo;
@@ -17,7 +11,6 @@ import jakarta.persistence.EntityManager;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

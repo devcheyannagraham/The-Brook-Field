@@ -64,16 +64,6 @@ public abstract class Transaction {
 
     public void setItem(Item item) {
         this.item = item;
-        if(this.transactionType.equals(TransactionType.PURCHASE)) {
-            this.transactionPrice = ((Purchaseable) item).getPurchasePrice();
-        }
-        if(this.transactionType.equals(TransactionType.RENTAL)) {
-            this.transactionPrice = ((Rentable) item).getRentalRate();
-        }
-    }
-
-    public Transaction() {
-        this.transactionPrice = 0.0;
     }
 
     public Long getTransactionId() {

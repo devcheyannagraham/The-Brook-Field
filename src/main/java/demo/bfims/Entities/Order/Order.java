@@ -1,5 +1,8 @@
 package demo.bfims.Entities.Order;
 
+import demo.bfims.Enums.TransactionType;
+import demo.bfims.Interfaces.Purchaseable;
+import demo.bfims.Interfaces.Rentable;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -24,7 +27,6 @@ public class Order {
 
 
     public Order() {
-        this.orderTotal = 0.0;
         this.transactions = new ArrayList<>();
     }
 
@@ -55,15 +57,21 @@ public class Order {
         return transactions;
     }
 
-    public void setTransactions(List<Transaction> orderItems) {
+    public void setTransactions(List<Transaction> transactions) {
         this.orderTotal = 0.0;
-        orderItems.forEach(this::addTransaction);
+        transactions.forEach(this::addTransaction);
     }
 
     public void addTransaction(Transaction transaction) {
-        transaction.setOrder(this);
         this.transactions.add(transaction);
         this.orderTotal += transaction.getTransactionPrice();
+        if(transaction.getTransactionType().equals(TransactionType.PURCHASE)) {
+           transaction.setTransactionPrice(((Purchaseable) transaction.getItem()).getPurchasePrice());
+        }
+        if(transaction.getTransactionType().equals(TransactionType.RENTAL)) {
+           transaction.setTransactionPrice(((Rentable) transaction.getItem()).getRentalRate());
+        }
+        transaction.setOrder(this);
     }
 
     public LocalDateTime getOrderDate() {
