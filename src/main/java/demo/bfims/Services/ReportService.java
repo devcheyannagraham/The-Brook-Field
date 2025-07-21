@@ -6,6 +6,7 @@ import demo.bfims.DTOs.ReportDTOs.ItemGroup;
 import demo.bfims.DTOs.ReportDTOs.PopularItem;
 import demo.bfims.DTOs.ReportDTOs.PopularItemsDto;
 import demo.bfims.Entities.Inventory.PublicationItem;
+import demo.bfims.Entities.Order.Order;
 import demo.bfims.Entities.Order.Transaction;
 import demo.bfims.Enums.TransactionType;
 import demo.bfims.Enums.ItemType;
@@ -16,6 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -33,8 +35,10 @@ public class ReportService {
     private ModelMapper modelMapper;
 
     public PopularItemsDto getPopularItems() {
-        System.out.println("Popular Items");
-        List<Transaction> transactions = transactionRepo.findAll();
+        // Get date for last 6 months
+        LocalDate sixMonthsAgo = LocalDate.now().minusMonths(6);
+
+        List<Transaction> transactions = transactionRepo.findAllTransactionsByTransactionDateAfter(sixMonthsAgo).orElse(null);
         Map<Long, Integer> publicationMap = new HashMap<>();
         Map<Long, Double> publicationProfitMap = new HashMap<>();
         Map<Long, Integer> accessoryMap = new HashMap<>();
@@ -42,28 +46,24 @@ public class ReportService {
         Map<Long, Integer> stationaryMap = new HashMap<>();
         Map<Long, Double> stationaryProfitMap = new HashMap<>();
 
+        System.out.println("Popular Items" + transactions);
 
-        transactions.forEach(trans -> {
-            ItemType itemType = trans.getItem().getItemType();
-            if (itemType.equals(ItemType.PUBLICATION_ITEM)) {
-                PublicationItem publicationItem = (PublicationItem) trans.getItem();
-                Long publicationId = publicationItem.getPublication().getPublicationId();
+        if (transactions != null && !transactions.isEmpty()) {
+            transactions.forEach(trans -> {
+                // this is returning null
+                ItemType itemType = trans.getItem().getItemType();
+                if (itemType.equals(ItemType.PUBLICATION_ITEM)) {
+                    PublicationItem publicationItem = (PublicationItem) trans.getItem();
+                    Long publicationId = publicationItem.getPublication().getPublicationId();
 
-                publicationMap.put(publicationId, publicationMap.getOrDefault(publicationId, 0) + 1);
+                    publicationMap.put(publicationId, publicationMap.getOrDefault(publicationId, 0) + 1);
+                    publicationProfitMap.put(publicationId, publicationProfitMap.getOrDefault(publicationId, 0.0) + trans.getTransactionPrice());
 
-                // store profits
-                Double price = 0.0;
-                if (trans.getTransactionType().equals(TransactionType.RENTAL)) {
-                    price = ((Rentable) trans.getItem()).getRentalRate();
-                } else if (trans.getTransactionType().equals(TransactionType.PURCHASE)) {
-                    price = ((Purchaseable) trans.getItem()).getPurchasePrice();
+                } else if (itemType.equals(ItemType.ACCESSORY_ITEM)) {
+                } else if (itemType.equals(ItemType.STATIONARY_ITEM)) {
                 }
-                publicationProfitMap.put(publicationId, publicationProfitMap.getOrDefault(publicationId, 0.0) + price);
-
-            } else if (itemType.equals(ItemType.ACCESSORY_ITEM)) {
-            } else if (itemType.equals(ItemType.STATIONARY_ITEM)) {
-            }
-        });
+            });
+        }
 
         // get top 10 items
         System.out.println("\nPublication Profit Map" + publicationProfitMap);
@@ -105,8 +105,10 @@ public class ReportService {
     }
 
     //low selling/renting items
+//    items in inventory not in rental or purchase
     public List<ItemDto> getLowSalesItems() {
         System.out.println("Low Sales Items");
+
         return null;
     }
 
@@ -118,6 +120,7 @@ public class ReportService {
 
     public List<ItemDto> getRecentOrders() {
         System.out.println("Recent Orders");
+//        List<Order> results = orderRepo.findOrdersPur
         return null;
     }
 
