@@ -1,6 +1,7 @@
 package demo.bfims.Controllers;
 
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryDto;
+import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
 import demo.bfims.Repo.AccessoryRepo;
 import demo.bfims.Services.AccessoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class AccessoryController {
     AccessoryService accessoryService;
 
     @PostMapping("/accessory")
-    public AccessoryDto newAccessory() {
+    public AccessoryItemDto newAccessory() {
        return accessoryService.newAccessory();
     }
 }

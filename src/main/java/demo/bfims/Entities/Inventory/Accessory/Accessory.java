@@ -44,6 +44,10 @@ public class Accessory {
         return quantity;
     }
 
+    public void increaseQuantity(){
+        this.quantity++;
+    }
+
     public double getPrice() {
         return price;
     }

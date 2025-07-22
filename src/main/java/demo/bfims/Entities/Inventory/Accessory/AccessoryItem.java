@@ -21,6 +21,7 @@ public class AccessoryItem extends Item implements Purchaseable {
 
     public void setAccessory(Accessory accessory) {
         this.accessory = accessory;
+        this.accessory.increaseQuantity();
     }
 
     @Override
