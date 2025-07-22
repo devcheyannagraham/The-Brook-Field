@@ -24,4 +24,9 @@ public class AccessoryController {
     public AccessoryItemDto newAccessory(@RequestBody AccessoryItemDto accessoryItemDto) {
        return accessoryService.newAccessory(accessoryItemDto);
     }
+
+    @GetMapping("/accessory/{id}")
+    public AccessoryDto newAccessory(@PathVariable Long id) {
+       return accessoryService.getAccessory(id);
+    }
 }

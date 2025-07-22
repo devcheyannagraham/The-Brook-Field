@@ -34,14 +34,13 @@ public class AccessoryService {
 
     public List<AccessoryItemDto> getAccessoryItems() {
         List<Item> accessoryItems = itemRepo.findItemsByItemType(ItemType.ACCESSORY_ITEM).orElse(null);
-        return accessoryItems.stream().map(item -> {
-            AccessoryItem accessoryItem = (AccessoryItem) item;
-            return modelMapper.map(accessoryItem, AccessoryItemDto.class);
-
-        }).toList();
-
-
-
+        if (accessoryItems != null && !accessoryItems.isEmpty()) {
+            return accessoryItems.stream().map(item -> {
+                AccessoryItem accessoryItem = (AccessoryItem) item;
+                return modelMapper.map(accessoryItem, AccessoryItemDto.class);
+            }).toList();
+        }
+        return null;
     }
 
     @Transactional
@@ -50,13 +49,20 @@ public class AccessoryService {
         AccessoryItem accessoryItem = modelMapper.map(accessoryItemDto, AccessoryItem.class);
         Accessory accessory = accessoryItem.getAccessory();
 
-        if(accessory.getAccessoryId() != null){
+        if (accessory.getAccessoryId() != null) {
             Accessory foundAccessory = accessoryRepo.findById(accessory.getAccessoryId()).orElse(null);
             Accessory managedAccessory = entityManager.merge(foundAccessory);
             accessoryItem.setAccessory(managedAccessory);
         }
-
-        AccessoryItem  savedAccessoryItem = itemRepo.save(accessoryItem);
+        AccessoryItem savedAccessoryItem = itemRepo.save(accessoryItem);
         return modelMapper.map(savedAccessoryItem, AccessoryItemDto.class);
+    }
+
+    public  AccessoryDto getAccessory(Long id){
+        Accessory accessory = accessoryRepo.findById(id).orElse(null);
+        if (accessory != null) {
+            return modelMapper.map(accessory, AccessoryDto.class);
+        }
+        return null;
     }
 }
