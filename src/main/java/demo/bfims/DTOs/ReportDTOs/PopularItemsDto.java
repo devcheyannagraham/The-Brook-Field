@@ -1,6 +1,6 @@
 package demo.bfims.DTOs.ReportDTOs;
 
-import demo.bfims.DTOs.InventoryDTOs.PublicationDto;
+import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationDto;
 
 import java.util.ArrayList;
 import java.util.List;

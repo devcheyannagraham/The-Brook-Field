@@ -1,4 +1,4 @@
-package demo.bfims.Entities.Inventory;
+package demo.bfims.Entities.Inventory.Publication;
 
 import demo.bfims.Enums.Genre;
 import jakarta.persistence.*;

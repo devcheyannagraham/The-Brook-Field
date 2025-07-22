@@ -1,8 +1,6 @@
-package demo.bfims.DTOs.InventoryDTOs;
+package demo.bfims.DTOs.InventoryDTOs.Publication;
 
-import demo.bfims.Entities.Inventory.PublicationItem;
 import demo.bfims.Enums.LiteraryType;
-import demo.bfims.Enums.ItemType;
 
 public class LiteraryPieceDto extends PublicationItemDto {
     LiteraryType type;

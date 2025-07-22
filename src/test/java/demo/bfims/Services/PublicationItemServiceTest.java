@@ -1,8 +1,11 @@
 package demo.bfims.Services;
 
-import demo.bfims.DTOs.InventoryDTOs.ItemDto;
-import demo.bfims.DTOs.InventoryDTOs.PublicationItemDto;
-import demo.bfims.Entities.Inventory.*;
+import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
+import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
+import demo.bfims.Entities.Inventory.Publication.Author;
+import demo.bfims.Entities.Inventory.Publication.Book;
+import demo.bfims.Entities.Inventory.Publication.Publication;
+import demo.bfims.Entities.Inventory.Publication.PublicationItem;
 import demo.bfims.Enums.Genre;
 import org.junit.jupiter.api.*;
 import org.modelmapper.ModelMapper;

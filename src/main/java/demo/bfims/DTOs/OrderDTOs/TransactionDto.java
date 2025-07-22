@@ -1,6 +1,6 @@
 package demo.bfims.DTOs.OrderDTOs;
 
-import demo.bfims.DTOs.InventoryDTOs.ItemDto;
+import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
 import demo.bfims.Enums.TransactionType;
 
 import java.time.LocalDate;

@@ -1,6 +1,6 @@
 package demo.bfims.Repo;
 
-import demo.bfims.Entities.Inventory.Author;
+import demo.bfims.Entities.Inventory.Publication.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,19 +1,14 @@
 package demo.bfims.Services;
 
-import demo.bfims.DTOs.InventoryDTOs.ItemDto;
-import demo.bfims.DTOs.InventoryDTOs.PublicationDto;
+import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationDto;
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
 import demo.bfims.DTOs.ReportDTOs.ItemGroup;
 import demo.bfims.DTOs.ReportDTOs.PopularItem;
 import demo.bfims.DTOs.ReportDTOs.PopularItemsDto;
-import demo.bfims.Entities.Inventory.Publication;
-import demo.bfims.Entities.Inventory.PublicationItem;
+import demo.bfims.Entities.Inventory.Publication.PublicationItem;
 import demo.bfims.Entities.Order.Order;
 import demo.bfims.Entities.Order.Transaction;
-import demo.bfims.Enums.TransactionType;
 import demo.bfims.Enums.ItemType;
-import demo.bfims.Interfaces.Purchaseable;
-import demo.bfims.Interfaces.Rentable;
 import demo.bfims.Repo.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,13 +101,6 @@ public class ReportService {
         //Need to add other itmeGroups
         return itemGroup;
     }
-
-
-//    //Items that make the most money !! Running out of itme! skiP!
-//    public List<ItemDto> getProfitableItems() {
-//        System.out.println("Profitable Items");
-//        return null;
-//    }
 
     public List<OrderDto> getRecentOrders() {
         LocalDateTime  sixMonthsAgo = LocalDateTime.now().minusMonths(6);

@@ -1,7 +1,9 @@
 package demo.bfims.Services;
 
-import demo.bfims.DTOs.InventoryDTOs.*;
-import demo.bfims.Entities.Inventory.*;
+import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
+import demo.bfims.Entities.Inventory.Publication.Item;
+import demo.bfims.Entities.Inventory.Publication.Publication;
+import demo.bfims.Entities.Inventory.Publication.PublicationItem;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Repo.ItemRepo;
 import demo.bfims.Repo.PublicationRepo;

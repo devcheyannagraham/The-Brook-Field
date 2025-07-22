@@ -1,4 +1,4 @@
-package demo.bfims.Entities.Inventory;
+package demo.bfims.Entities.Inventory.Publication;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

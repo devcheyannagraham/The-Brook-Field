@@ -1,4 +1,4 @@
-package demo.bfims.DTOs.InventoryDTOs;
+package demo.bfims.DTOs.InventoryDTOs.Publication;
 
 import demo.bfims.Enums.Genre;
 

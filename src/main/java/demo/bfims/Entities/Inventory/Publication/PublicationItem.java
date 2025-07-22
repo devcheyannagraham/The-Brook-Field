@@ -1,4 +1,4 @@
-package demo.bfims.Entities.Inventory;
+package demo.bfims.Entities.Inventory.Publication;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

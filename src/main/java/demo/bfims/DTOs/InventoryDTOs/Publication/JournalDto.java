@@ -1,6 +1,4 @@
-package demo.bfims.DTOs.InventoryDTOs;
-
-import demo.bfims.Entities.Inventory.PublicationItem;
+package demo.bfims.DTOs.InventoryDTOs.Publication;
 
 import java.util.Date;
 

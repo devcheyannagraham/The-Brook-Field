@@ -2,10 +2,8 @@ package demo.bfims.Entities.Order;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import demo.bfims.Entities.Inventory.Item;
+import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Enums.TransactionType;
-import demo.bfims.Interfaces.Purchaseable;
-import demo.bfims.Interfaces.Rentable;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 

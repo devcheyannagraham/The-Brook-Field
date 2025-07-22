@@ -1,6 +1,6 @@
 package demo.bfims.Repo;
 
-import demo.bfims.Entities.Inventory.Item;
+import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Enums.ItemType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

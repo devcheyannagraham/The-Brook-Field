@@ -1,7 +1,8 @@
-package demo.bfims.Entities.Inventory;
+package demo.bfims.Entities.Inventory.Publication;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
 import demo.bfims.Enums.ItemType;
 import jakarta.persistence.*;
 
@@ -12,9 +13,8 @@ import jakarta.persistence.*;
         property = "itemType"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = Book.class, name = "PUBLICATION_ITEM"),
-        @JsonSubTypes.Type(value = LiteraryPiece.class, name = "ACCESSORY_ITEM"),
-        @JsonSubTypes.Type(value = Journal.class, name = "STATIONARY_ITEM")
+        @JsonSubTypes.Type(value = PublicationItem.class, name = "PUBLICATION_ITEM"),
+        @JsonSubTypes.Type(value = AccessoryItem.class, name = "ACCESSORY_ITEM"),
 })
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Item {

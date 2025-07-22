@@ -1,7 +1,6 @@
 package demo.bfims.Controllers;
 
-import demo.bfims.DTOs.InventoryDTOs.PublicationItemDto;
-import demo.bfims.Entities.Inventory.PublicationItem;
+import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
 import demo.bfims.Services.PublicationItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

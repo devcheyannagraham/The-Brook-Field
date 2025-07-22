@@ -1,9 +1,9 @@
 package demo.bfims.Config;
 
-import demo.bfims.DTOs.InventoryDTOs.ItemDto;
-import demo.bfims.DTOs.InventoryDTOs.PublicationItemDto;
+import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
+import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
 import demo.bfims.DTOs.OrderDTOs.TransactionDto;
-import demo.bfims.Entities.Inventory.*;
+import demo.bfims.Entities.Inventory.Publication.*;
 import demo.bfims.Entities.Order.Purchase;
 import demo.bfims.Entities.Order.Rental;
 import demo.bfims.Entities.Order.Transaction;
@@ -56,7 +56,7 @@ public class ModelMapperConfig {
 
             PublicationItemDto publicationItemDto = (PublicationItemDto) provisionRequest.getSource();
             PublicationItemType publicationItemType = publicationItemDto.getPublicationItemType();
-            System.out.println("publicationItemDto mapped " +  modelMapper.map(provisionRequest.getSource(),Book.class));
+            System.out.println("publicationItemDto mapped " +  modelMapper.map(provisionRequest.getSource(), Book.class));
 
             if (publicationItemType.equals(PublicationItemType.BOOK))
                 return modelMapper.map(provisionRequest.getSource(), Book.class);
