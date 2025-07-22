@@ -4,7 +4,9 @@ import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryDto;
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
+import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Enums.AccessoryType;
+import demo.bfims.Enums.ItemType;
 import demo.bfims.Repo.AccessoryRepo;
 import demo.bfims.Repo.ItemRepo;
 import jakarta.persistence.EntityManager;
@@ -12,6 +14,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class AccessoryService {
@@ -28,6 +32,18 @@ public class AccessoryService {
     @Autowired
     EntityManager entityManager;
 
+    public List<AccessoryItemDto> getAccessoryItems() {
+        List<Item> accessoryItems = itemRepo.findItemsByItemType(ItemType.ACCESSORY_ITEM).orElse(null);
+        return accessoryItems.stream().map(item -> {
+            AccessoryItem accessoryItem = (AccessoryItem) item;
+            return modelMapper.map(accessoryItem, AccessoryItemDto.class);
+
+        }).toList();
+
+
+
+    }
+
     @Transactional
     public AccessoryItemDto newAccessory(AccessoryItemDto accessoryItemDto) {
         System.out.println("newAccessory in service");
@@ -42,19 +58,5 @@ public class AccessoryService {
 
         AccessoryItem  savedAccessoryItem = itemRepo.save(accessoryItem);
         return modelMapper.map(savedAccessoryItem, AccessoryItemDto.class);
-
-//        Accessory accessory = new Accessory();
-//        accessory.setAccessoryType(AccessoryType.BOOKMARK);
-//        accessory.setAccessoryName("flower/blue");
-//        accessory.setPrice(1.29);
-//        Accessory savedAccessory = accessoryRepo.save(accessory);
-//
-//        AccessoryItem accessoryItem = new AccessoryItem();
-//        accessoryItem.setAccessory(savedAccessory);
-//
-//        AccessoryItem savedAccessoryItem = itemRepo.save(accessoryItem);
-//        System.out.println("accessoryItem saved in service" + savedAccessoryItem);
-//
-//        return modelMapper.map(savedAccessoryItem, AccessoryItemDto.class);
     }
 }

@@ -7,11 +7,18 @@ import demo.bfims.Services.AccessoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class AccessoryController {
 
     @Autowired
     AccessoryService accessoryService;
+
+    @GetMapping("/accessories")
+    public List<AccessoryItemDto> getAccessoryItems() {
+        return accessoryService.getAccessoryItems();
+    }
 
     @PostMapping("/accessory")
     public AccessoryItemDto newAccessory(@RequestBody AccessoryItemDto accessoryItemDto) {
