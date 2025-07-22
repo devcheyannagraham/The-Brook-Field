@@ -5,10 +5,7 @@ import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
 import demo.bfims.Repo.AccessoryRepo;
 import demo.bfims.Services.AccessoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AccessoryController {
@@ -17,7 +14,7 @@ public class AccessoryController {
     AccessoryService accessoryService;
 
     @PostMapping("/accessory")
-    public AccessoryItemDto newAccessory() {
-       return accessoryService.newAccessory();
+    public AccessoryItemDto newAccessory(@RequestBody AccessoryItemDto accessoryItemDto) {
+       return accessoryService.newAccessory(accessoryItemDto);
     }
 }

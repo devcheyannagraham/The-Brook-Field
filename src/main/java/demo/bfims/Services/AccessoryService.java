@@ -11,6 +11,7 @@ import jakarta.persistence.EntityManager;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AccessoryService {
@@ -27,20 +28,33 @@ public class AccessoryService {
     @Autowired
     EntityManager entityManager;
 
-    public AccessoryItemDto newAccessory() {
+    @Transactional
+    public AccessoryItemDto newAccessory(AccessoryItemDto accessoryItemDto) {
         System.out.println("newAccessory in service");
-        Accessory accessory = new Accessory();
-        accessory.setAccessoryType(AccessoryType.BOOKMARK);
-        accessory.setAccessoryName("flower/blue");
-        accessory.setPrice(1.29);
-        Accessory savedAccessory = accessoryRepo.save(accessory);
+        AccessoryItem accessoryItem = modelMapper.map(accessoryItemDto, AccessoryItem.class);
+        Accessory accessory = accessoryItem.getAccessory();
 
-        AccessoryItem accessoryItem = new AccessoryItem();
-        accessoryItem.setAccessory(savedAccessory);
+        if(accessory.getAccessoryId() != null){
+            Accessory foundAccessory = accessoryRepo.findById(accessory.getAccessoryId()).orElse(null);
+            Accessory managedAccessory = entityManager.merge(foundAccessory);
+            accessoryItem.setAccessory(managedAccessory);
+        }
 
-        AccessoryItem savedAccessoryItem = itemRepo.save(accessoryItem);
-        System.out.println("accessoryItem saved in service" + savedAccessoryItem);
-
+        AccessoryItem  savedAccessoryItem = itemRepo.save(accessoryItem);
         return modelMapper.map(savedAccessoryItem, AccessoryItemDto.class);
+
+//        Accessory accessory = new Accessory();
+//        accessory.setAccessoryType(AccessoryType.BOOKMARK);
+//        accessory.setAccessoryName("flower/blue");
+//        accessory.setPrice(1.29);
+//        Accessory savedAccessory = accessoryRepo.save(accessory);
+//
+//        AccessoryItem accessoryItem = new AccessoryItem();
+//        accessoryItem.setAccessory(savedAccessory);
+//
+//        AccessoryItem savedAccessoryItem = itemRepo.save(accessoryItem);
+//        System.out.println("accessoryItem saved in service" + savedAccessoryItem);
+//
+//        return modelMapper.map(savedAccessoryItem, AccessoryItemDto.class);
     }
 }
