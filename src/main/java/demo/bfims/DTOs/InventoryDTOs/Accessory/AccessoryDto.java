@@ -1,16 +1,9 @@
-package demo.bfims.Entities.Inventory.Accessory;
-
+package demo.bfims.DTOs.InventoryDTOs.Accessory;
 
 import demo.bfims.Enums.AccessoryType;
-import demo.bfims.Interfaces.Purchaseable;
-import jakarta.persistence.*;
 
-@Entity
-public class Accessory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AccessoryDto {
     private Long accessoryId;
-    @Enumerated(EnumType.STRING)
     private AccessoryType accessoryType;
     private String accessoryName;
     private int quantity;
@@ -44,26 +37,15 @@ public class Accessory {
         return quantity;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public double getPrice() {
         return price;
     }
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    @Override
-    public String toString() {
-        return "Accessory{" +
-                "accessoryId=" + accessoryId +
-                ", accessoryType=" + accessoryType +
-                ", accessoryName='" + accessoryName + '\'' +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                '}';
     }
 }
