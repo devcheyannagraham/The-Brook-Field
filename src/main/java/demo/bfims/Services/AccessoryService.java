@@ -36,8 +36,8 @@ public class AccessoryService {
 
     public List<AccessoryDto> getAccessories() {
         List<Accessory> accessories = accessoryRepo.findAll();
-        if(!accessories.isEmpty()) {
-            return accessories.stream().map(acc ->  modelMapper.map(acc, AccessoryDto.class)).collect(Collectors.toList());
+        if (!accessories.isEmpty()) {
+            return accessories.stream().map(acc -> modelMapper.map(acc, AccessoryDto.class)).collect(Collectors.toList());
         }
         return null;
     }
@@ -80,7 +80,7 @@ public class AccessoryService {
     public Response removeAccessory(Long id) {
         Response response = new Response();
         Integer rows = accessoryRepo.deleteByAccessoryId(id);
-        response.getMessages().put(ResponseType.SUCCESS.toString(),"Accessory has been removed successfully");
+        response.getMessages().put(ResponseType.SUCCESS.toString(), "Accessory has been removed successfully");
         response.getMessages().put(ResponseType.MESSAGE.toString(), rows.toString() + " affected.");
         return response;
     }
@@ -92,12 +92,21 @@ public class AccessoryService {
     }
 
     @Transactional
-    public Response removeAccessoryItem(Long id){
+    public Response removeAccessoryItem(Long id) {
         Response response = new Response();
         Integer rows = itemRepo.removeItemByItemId(id);
-        response.getMessages().put(ResponseType.SUCCESS.toString(),"Item has been removed successfully");
+        response.getMessages().put(ResponseType.SUCCESS.toString(), "Item has been removed successfully");
         response.getMessages().put(ResponseType.MESSAGE.toString(), rows.toString() + " affected.");
         return response;
+    }
+
+    @Transactional
+    public AccessoryItemDto updateAccessoryItem(AccessoryItemDto accessoryItemDto) {
+        AccessoryItem accessoryItem = modelMapper.map(accessoryItemDto, AccessoryItem.class);
+        Accessory managedAccessory = entityManager.merge(accessoryItem.getAccessory());
+        accessoryItem.setAccessory(managedAccessory);
+
+        return modelMapper.map(itemRepo.save(accessoryItem), AccessoryItemDto.class);
     }
 
 }

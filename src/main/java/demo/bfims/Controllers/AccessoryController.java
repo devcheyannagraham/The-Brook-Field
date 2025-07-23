@@ -61,4 +61,10 @@ public class AccessoryController {
         else return null;
     }
 
+    @PutMapping("/accessoryitem")
+    public AccessoryItemDto updateAccessoryItem(@RequestBody AccessoryItemDto accessoryItemDto) {
+        if(accessoryItemDto != null) return accessoryService.updateAccessoryItem(accessoryItemDto);
+        else return null;
+    }
+
 }
