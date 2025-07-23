@@ -35,4 +35,10 @@ public class AccessoryController {
     public AccessoryDto newAccessory(@PathVariable Long id) {
        return accessoryService.getAccessory(id);
     }
+
+    @PutMapping("/accessory")
+    public AccessoryDto updateAccessory(@RequestBody AccessoryDto accessoryDto) {
+        return accessoryService.updateAccessory(accessoryDto);
+
+    }
 }

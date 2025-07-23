@@ -75,4 +75,11 @@ public class AccessoryService {
         return response;
     }
 
+    public AccessoryDto updateAccessory(AccessoryDto accessoryDto) {
+        Accessory accessory = modelMapper.map(accessoryDto, Accessory.class);
+        Accessory updatedAccessory = accessoryRepo.save(accessory);
+        return modelMapper.map(updatedAccessory, AccessoryDto.class);
+
+    }
+
 }
