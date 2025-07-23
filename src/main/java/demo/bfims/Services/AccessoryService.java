@@ -7,6 +7,7 @@ import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
 import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Enums.ItemType;
+import demo.bfims.Enums.ResponseType;
 import demo.bfims.Repo.AccessoryRepo;
 import demo.bfims.Repo.ItemRepo;
 import jakarta.persistence.EntityManager;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AccessoryService {
@@ -31,6 +33,14 @@ public class AccessoryService {
 
     @Autowired
     EntityManager entityManager;
+
+    public List<AccessoryDto> getAccessories() {
+        List<Accessory> accessories = accessoryRepo.findAll();
+        if(!accessories.isEmpty()) {
+            return accessories.stream().map(acc ->  modelMapper.map(acc, AccessoryDto.class)).collect(Collectors.toList());
+        }
+        return null;
+    }
 
     public List<AccessoryItemDto> getAccessoryItems() {
         List<Item> accessoryItems = itemRepo.findItemsByItemType(ItemType.ACCESSORY_ITEM).orElse(null);
@@ -70,8 +80,8 @@ public class AccessoryService {
     public Response removeAccessory(Long id) {
         Response response = new Response();
         Integer rows = accessoryRepo.deleteByAccessoryId(id);
-        response.getMessages().put("success","Accessory has been removed successfully");
-        response.getMessages().put("rows effected",rows.toString());
+        response.getMessages().put(ResponseType.SUCCESS.toString(),"Accessory has been removed successfully");
+        response.getMessages().put(ResponseType.MESSAGE.toString(), rows.toString() + " affected.");
         return response;
     }
 
@@ -79,7 +89,15 @@ public class AccessoryService {
         Accessory accessory = modelMapper.map(accessoryDto, Accessory.class);
         Accessory updatedAccessory = accessoryRepo.save(accessory);
         return modelMapper.map(updatedAccessory, AccessoryDto.class);
+    }
 
+    @Transactional
+    public Response removeAccessoryItem(Long id){
+        Response response = new Response();
+        Integer rows = itemRepo.removeItemByItemId(id);
+        response.getMessages().put(ResponseType.SUCCESS.toString(),"Item has been removed successfully");
+        response.getMessages().put(ResponseType.MESSAGE.toString(), rows.toString() + " affected.");
+        return response;
     }
 
 }
