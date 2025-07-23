@@ -1,5 +1,6 @@
 package demo.bfims.Controllers;
 
+import demo.bfims.Config.Response;
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryDto;
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
 import demo.bfims.Repo.AccessoryRepo;
@@ -23,6 +24,11 @@ public class AccessoryController {
     @PostMapping("/accessory")
     public AccessoryItemDto newAccessory(@RequestBody AccessoryItemDto accessoryItemDto) {
        return accessoryService.newAccessory(accessoryItemDto);
+    }
+
+    @DeleteMapping("/accessory/{id}")
+    public Response deleteAccessoryItem(@PathVariable Long id) {
+        return accessoryService.removeAccessory(id);
     }
 
     @GetMapping("/accessory/{id}")

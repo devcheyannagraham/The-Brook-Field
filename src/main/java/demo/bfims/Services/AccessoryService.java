@@ -1,11 +1,11 @@
 package demo.bfims.Services;
 
+import demo.bfims.Config.Response;
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryDto;
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
 import demo.bfims.Entities.Inventory.Publication.Item;
-import demo.bfims.Enums.AccessoryType;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Repo.AccessoryRepo;
 import demo.bfims.Repo.ItemRepo;
@@ -58,11 +58,21 @@ public class AccessoryService {
         return modelMapper.map(savedAccessoryItem, AccessoryItemDto.class);
     }
 
-    public  AccessoryDto getAccessory(Long id){
+    public AccessoryDto getAccessory(Long id) {
         Accessory accessory = accessoryRepo.findById(id).orElse(null);
         if (accessory != null) {
             return modelMapper.map(accessory, AccessoryDto.class);
         }
         return null;
     }
+
+    @Transactional
+    public Response removeAccessory(Long id) {
+        Response response = new Response();
+        Integer rows = accessoryRepo.deleteByAccessoryId(id);
+        response.getMessages().put("success","Accessory has been removed successfully");
+        response.getMessages().put("rows effected",rows.toString());
+        return response;
+    }
+
 }
