@@ -97,11 +97,14 @@ public class ReportService {
 
     public ItemGroup getLowInventoryItems() {
         ItemGroup itemGroup = new ItemGroup();
-        itemGroup.setPublications(publicationRepo.findByPublicationQuantityLessThanEqual(5)
-                .stream().map(pub -> modelMapper.map(pub, PublicationDto.class))
-                .collect(Collectors.toList()));
+        // Low inventory threshold is 10
+        itemGroup.setPublications(publicationRepo.findByPublicationQuantityLessThanEqual(50)
+                .stream().map(pub -> modelMapper.map(pub, PublicationDto.class)).toList());
 
         //Need to add other itmeGroups
+        itemGroup.setAccessories(accessoryRepo.findByQuantityLessThanEqual(50)
+                .stream().map(acc -> modelMapper.map(acc, AccessoryDto.class)).toList());
+
         return itemGroup;
     }
 
@@ -119,7 +122,5 @@ public class ReportService {
         List<Map.Entry<Long, Integer>> entryList = new ArrayList<>(map.entrySet());
         entryList.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
        return entryList.subList(0, Math.min(entryList.size(), 5)).stream().map(Map.Entry::getKey).toList();
-
     }
-
 }
