@@ -105,7 +105,6 @@ public class AccessoryService {
         AccessoryItem accessoryItem = modelMapper.map(accessoryItemDto, AccessoryItem.class);
         Accessory managedAccessory = entityManager.merge(accessoryItem.getAccessory());
         accessoryItem.setAccessory(managedAccessory);
-
         return modelMapper.map(itemRepo.save(accessoryItem), AccessoryItemDto.class);
     }
 

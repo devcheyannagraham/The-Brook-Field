@@ -1,5 +1,6 @@
 package demo.bfims.Services;
 
+import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationDto;
 import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
 import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Entities.Inventory.Publication.Publication;
@@ -64,6 +65,14 @@ public class PublicationItemService {
         catch (Exception e) {
             return false;
         }
+    }
+
+    public List<PublicationDto> getPublications(){
+        List<Publication> publications = publicationRepo.findAll();
+        if(!publications.isEmpty()) {
+            return publications.stream().map(p -> modelMapper.map(p, PublicationDto.class)).toList();
+        }
+        else return null;
     }
 
 }

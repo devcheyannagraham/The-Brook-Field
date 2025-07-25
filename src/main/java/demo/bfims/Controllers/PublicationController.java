@@ -1,5 +1,6 @@
 package demo.bfims.Controllers;
 
+import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationDto;
 import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
 import demo.bfims.Services.PublicationItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class PublicationController {
     @DeleteMapping("/publicationitem/delete/{id}")
     public Boolean deletePublicationItem(@PathVariable Long id) {
         return publicationItemService.deletePublicationItem(id);
+    }
+
+    @GetMapping("/publications")
+    public List<PublicationDto> getPublications(){
+        return publicationItemService.getPublications();
     }
 }

@@ -2,12 +2,13 @@ package demo.bfims.Entities.Inventory.Publication;
 
 import demo.bfims.Enums.Genre;
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Publication{
+public class Publication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long publicationId;
@@ -15,7 +16,7 @@ public class Publication{
     private Genre genre;
     @Temporal(TemporalType.DATE)
     private LocalDate date_published;
-    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Author> authors = new ArrayList<>();
     private int publicationQuantity;
     private String title;
@@ -45,7 +46,7 @@ public class Publication{
         this.publicationQuantity = quantity;
     }
 
-    public void increaseQuantity(){
+    public void increaseQuantity() {
         this.publicationQuantity++;
     }
 
@@ -81,7 +82,7 @@ public class Publication{
         this.authors = authors;
     }
 
-    public void addAuthor(Author author){
+    public void addAuthor(Author author) {
         this.authors.add(author);
     }
 

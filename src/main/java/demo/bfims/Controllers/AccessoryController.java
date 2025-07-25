@@ -55,12 +55,14 @@ public class AccessoryController {
         else return null;
     }
 
+    //Deleete accessoryitem
     @DeleteMapping("/accessoryitem/{id}")
     public Response deleteAccessoryItem(@PathVariable Long id) {
         if(id != null) return accessoryService.removeAccessoryItem(id);
         else return null;
     }
 
+    //Update accessoryitem
     @PutMapping("/accessoryitem")
     public AccessoryItemDto updateAccessoryItem(@RequestBody AccessoryItemDto accessoryItemDto) {
         if(accessoryItemDto != null) return accessoryService.updateAccessoryItem(accessoryItemDto);

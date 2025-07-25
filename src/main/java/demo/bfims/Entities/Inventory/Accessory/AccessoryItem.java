@@ -5,11 +5,13 @@ import demo.bfims.Enums.ItemType;
 import demo.bfims.Interfaces.Purchaseable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class AccessoryItem extends Item implements Purchaseable {
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="accessory_id")
     private Accessory accessory;
 
     public AccessoryItem() {
