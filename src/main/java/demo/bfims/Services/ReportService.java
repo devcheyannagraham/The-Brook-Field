@@ -41,8 +41,6 @@ public class ReportService {
         Map<Long, Double> publicationProfitMap = new HashMap<>();
         Map<Long, Integer> accessoryMap = new HashMap<>();
         Map<Long, Double> accessoryProfitMap = new HashMap<>();
-        Map<Long, Integer> stationaryMap = new HashMap<>();
-        Map<Long, Double> stationaryProfitMap = new HashMap<>();
 
         System.out.println("Popular Items" + transactions);
 
@@ -58,7 +56,6 @@ public class ReportService {
                     publicationProfitMap.put(publicationId, publicationProfitMap.getOrDefault(publicationId, 0.0) + trans.getTransactionPrice());
 
                 } else if (itemType.equals(ItemType.ACCESSORY_ITEM)) {
-                } else if (itemType.equals(ItemType.STATIONARY_ITEM)) {
                 }
             });
         }

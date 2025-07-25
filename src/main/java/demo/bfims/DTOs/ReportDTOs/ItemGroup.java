@@ -1,13 +1,13 @@
 package demo.bfims.DTOs.ReportDTOs;
 
 import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationDto;
+import demo.bfims.Entities.Inventory.Accessory.Accessory;
 
 import java.util.List;
 
 public class ItemGroup {
     private List<PublicationDto> publications;
-//    private List<Stationary> stationary;
-//    private List<Accessory> accessory;
+    private List<Accessory> accessory;
 
 
     public List<PublicationDto> getPublications() {
