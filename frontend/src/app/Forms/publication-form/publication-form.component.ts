@@ -4,7 +4,6 @@ import {
   FormGroup,
   ReactiveFormsModule,
   Validators,
-  AbstractControl,
 } from '@angular/forms';
 
 @Component({
@@ -44,7 +43,7 @@ export class PublicationFormComponent {
     });
   }
 
-  submitPublication() {
-    alert('done');
+  addPublication() {
+    alert('publicationadded');
   }
 }

@@ -1,4 +1,4 @@
-<form [formGroup]="publicationForm" (ngSubmit)="submitPublication()">
+<form [formGroup]="publicationForm" (ngSubmit)="addPublication()">
     <!-- Publication Fields -->
     <label for="pub-title">Title
         <input id="pub-title" name="pub-title" formControlName="title" type="text">
@@ -79,5 +79,7 @@
         <input type="number" id="pub-item-literary-type" name="pub-item-literary-type" formControlName="literaryType">
     </label>
     }
+
+    <button type="submit">Submit</button>
 
 </form>

@@ -1,0 +1,18 @@
+<form [formGroup]="accessoryForm" (ngSubmit)="addAccessory()">
+    <label for="accessory-name">Accessory Name
+        <input type="text" id="accessory-name" name="accessory-name" formControlName="accessoryName">
+    </label>
+
+    <label for="accessory-type">Accessory Type
+        <input type="text" id="accessory-type" name="accessory-type" formControlName="accessoryType">
+    </label>
+
+    <label for="price">Price
+        <input type="text" id="price" name="price" formControlName="price">
+    </label>
+
+    <label for="quantity">Quantity
+        <input type="text" id="quantity" name="quantity" formControlName="quantity">
+    </label>
+    <button type="submit">Add Accessory</button>
+</form>
