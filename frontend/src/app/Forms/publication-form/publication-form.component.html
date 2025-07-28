@@ -25,7 +25,7 @@
         <select id="pub-type" name="pub-type" formControlName="publicationType">
             <option value="book">Book</option>
             <option value="journal">Journal</option>
-            <option value="literaryPiece">Literary Piece</option>
+            <option value="literary_Piece">Literary Piece</option>
         </select>
     </label>
 
@@ -74,7 +74,7 @@
 
 
     <!-- Literary Piece fields -->
-    @else if (publicationForm.get("publicationType")?.value === "literaryPiece"){
+    @else if (publicationForm.get("publicationType")?.value === "literary_Piece"){
     <label for="pub-item-literary-type">Literary Type
         <input type="number" id="pub-item-literary-type" name="pub-item-literary-type" formControlName="literaryType">
     </label>

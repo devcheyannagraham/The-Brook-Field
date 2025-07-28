@@ -7,6 +7,8 @@ import {
 } from '@angular/forms';
 import { PublicationService } from '../../Services/publication.service';
 import { Book } from '../../DTOs/Inventory/Book';
+import { Journal } from '../../DTOs/Inventory/Journal';
+import { LiteraryPiece } from '../../DTOs/Inventory/LiteraryPiece';
 
 @Component({
   selector: 'publication-form',
@@ -26,7 +28,7 @@ export class PublicationFormComponent {
       isbn: [''],
       datePublished: [''],
       genre: [''],
-      publicationType: ['book'],
+      publicationType: ['BOOK'],
 
       //PublicationItem fields
       quantity: [1],
@@ -48,9 +50,23 @@ export class PublicationFormComponent {
   }
 
   async addPublication() {
-    let formData = this.publicationForm.value;
-    let book = new Book(formData);
-    let response = await this.pubService.newPublication(book);
+    const formData = this.publicationForm.value;
+    const publicationType = formData.publicationType.toUpperCase();
+    console.log(publicationType);
+    let item = null;
+
+    if (publicationType.toUpperCase() === 'JOURNAL') {
+      console.log('New Joural');
+      item = new Journal(formData);
+    } else if (publicationType === 'LITERARY_PIECE') {
+      console.log('New LP');
+      item = new LiteraryPiece(formData);
+    } else {
+      console.log('New Book');
+      item = new Book(formData);
+    }
+
+    let response = await this.pubService.newPublication(item);
     console.log('response\n', response);
   }
 }
