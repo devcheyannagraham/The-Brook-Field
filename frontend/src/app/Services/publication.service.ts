@@ -13,7 +13,7 @@ export class PublicationService {
   }
 
   async newPublication(publicationData: any) {
-    console.log(publicationData);
+    console.log('pub data\n', publicationData);
     const observer = {
       next: (resp: any) => resp,
       error: (error: HttpErrorResponse) => error,

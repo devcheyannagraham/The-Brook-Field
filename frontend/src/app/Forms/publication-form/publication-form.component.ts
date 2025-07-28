@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { PublicationService } from '../../Services/publication.service';
+import { Book } from '../../DTOs/Inventory/Book';
 
 @Component({
   selector: 'publication-form',
@@ -15,14 +16,10 @@ import { PublicationService } from '../../Services/publication.service';
 })
 export class PublicationFormComponent {
   publicationForm: FormGroup;
-  publicationService: PublicationService;
-
   constructor(
-    private formBuilder: FormBuilder,
-    private pubService: PublicationService
+    public formBuilder: FormBuilder,
+    public pubService: PublicationService
   ) {
-    this.publicationService = pubService;
-
     this.publicationForm = this.formBuilder.group({
       //Publciation fields
       title: [''],
@@ -51,9 +48,9 @@ export class PublicationFormComponent {
   }
 
   async addPublication() {
-    let response = await this.publicationService.newPublication(
-      this.publicationForm.value
-    );
-    console.log('response', response);
+    let formData = this.publicationForm.value;
+    let book = new Book(formData);
+    let response = await this.pubService.newPublication(book);
+    console.log('response\n', response);
   }
 }
