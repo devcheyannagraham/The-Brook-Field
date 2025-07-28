@@ -5,6 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { PublicationService } from '../../Services/publication.service';
 
 @Component({
   selector: 'publication-form',
@@ -14,8 +15,14 @@ import {
 })
 export class PublicationFormComponent {
   publicationForm: FormGroup;
+  publicationService: PublicationService;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private pubService: PublicationService
+  ) {
+    this.publicationService = pubService;
+
     this.publicationForm = this.formBuilder.group({
       //Publciation fields
       title: [''],
@@ -43,7 +50,10 @@ export class PublicationFormComponent {
     });
   }
 
-  addPublication() {
-    alert('publicationadded');
+  async addPublication() {
+    let response = await this.publicationService.newPublication(
+      this.publicationForm.value
+    );
+    console.log('response', response);
   }
 }
