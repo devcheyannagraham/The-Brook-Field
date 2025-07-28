@@ -5,11 +5,11 @@ import { AccessoryFormComponent } from './Forms/accessory-form/accessory-form.co
 
 export const routes: Routes = [
   {
-    path: 'publication',
+    path: 'publicationform',
     component: PublicationFormComponent,
   },
   {
-    path: 'accessory',
+    path: 'accessoryform',
     component: AccessoryFormComponent,
   },
 ];

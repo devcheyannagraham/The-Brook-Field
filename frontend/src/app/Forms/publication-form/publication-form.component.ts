@@ -52,7 +52,6 @@ export class PublicationFormComponent {
   async addPublication() {
     const formData = this.publicationForm.value;
     const publicationType = formData.publicationType.toUpperCase();
-    console.log(publicationType);
     let item = null;
 
     if (publicationType.toUpperCase() === 'JOURNAL') {

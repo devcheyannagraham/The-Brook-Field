@@ -4,6 +4,7 @@ export class Publication {
     private datePublished: Date,
     private isbn: String,
     private genre: String,
-    private quantity: Number
+    private quantity: Number,
+    public title: string
   ) {}
 }

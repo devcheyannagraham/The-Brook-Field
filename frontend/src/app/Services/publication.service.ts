@@ -1,5 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Publication } from '../DTOs/Inventory/Publication';
+import { publishFacade } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root',
@@ -22,5 +24,9 @@ export class PublicationService {
     return this.http
       .post(`${this.baseUrl}publicationitem`, publicationData)
       .subscribe(observer);
+  }
+
+  getPublications() {
+    return this.http.get<Publication>(`${this.baseUrl}publications`);
   }
 }
