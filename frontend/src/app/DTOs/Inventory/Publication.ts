@@ -1,10 +1,10 @@
 export class Publication {
   constructor(
-    private publicationId: Number,
-    private datePublished: Date,
-    private isbn: String,
-    private genre: String,
-    private quantity: Number,
-    public title: string
+    public publicationId: Number,
+    public datePublished: Date,
+    public isbn: String,
+    public genre: String,
+    public quantity: Number,
+    public title: String
   ) {}
 }

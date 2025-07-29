@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { PublicationService } from '../../Services/publication.service';
 import { Publication } from '../../DTOs/Inventory/Publication';
-import { KeyValuePipe } from '@angular/common';
+import { DatePipe, KeyValuePipe } from '@angular/common';
 
 @Component({
   selector: 'publication',
-  imports: [KeyValuePipe],
+  imports: [KeyValuePipe, DatePipe],
   templateUrl: './publication.component.html',
   styleUrl: './publication.component.css',
 })
