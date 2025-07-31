@@ -1,0 +1,21 @@
+<h3> Publications </h3>
+<table>
+    <thead>
+        <th>{{headers["genre"]}}</th>
+        <th>{{headers["title"]}}</th>
+        <th>{{headers["datePublished"]}}</th>
+        <th>{{headers["isbn"]}}</th>
+        <th>{{headers["quantity"]}}</th>
+    </thead>
+    <tbody>
+        @for(pub of publications; track pub){
+        <tr>
+            <td>{{pub["genre"]}}</td>
+            <td>{{pub["title"]}}</td>
+            <td>{{pub["datePublished"] | date:'mediumDate'}}</td>
+            <td>{{pub["isbn"]}}</td>
+            <td>{{pub["quantity"]}}</td>
+        </tr>
+        }
+    </tbody>
+</table>
