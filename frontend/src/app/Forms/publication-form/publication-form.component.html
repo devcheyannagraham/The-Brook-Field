@@ -4,7 +4,7 @@
         <input id="pub-title" name="pub-title" formControlName="title" type="text">
     </label>
 
-    <label for="pub-gnere">Genre
+    <label for="pub-genre">Genre
         <select id="pub-genre" name="pub-genre" formControlName="genre">
             <option>SciFi</option>
             <option>Comedy</option>
@@ -54,7 +54,7 @@
 
 
     <!-- Journal Fields -->
-    @if (publicationForm.get("publicationType")?.value === "journal"){
+    @if (publicationForm.get("publicationType").value === "journal"){
     <label for="pub-item-issue-date">Issue Date
         <input type="date" id="pub-item-issue-date" name="pub-item-issue-date" formControlName="issueDate">
     </label>
@@ -74,7 +74,7 @@
 
 
     <!-- Literary Piece fields -->
-    @else if (publicationForm.get("publicationType")?.value === "literary_Piece"){
+    @if (publicationForm.get("publicationType").value === "literary_Piece"){
     <label for="pub-item-literary-type">Literary Type
         <input type="number" id="pub-item-literary-type" name="pub-item-literary-type" formControlName="literaryType">
     </label>

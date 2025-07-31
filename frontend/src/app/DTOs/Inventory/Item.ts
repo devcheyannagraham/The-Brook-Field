@@ -1,3 +1,7 @@
+import {ItemType} from '../../Enums/ItemType';
+
 export class Item {
-  constructor(public itemId: Number, public itemType: String) {}
+  public itemId:Number = null;
+  public itemType: ItemType  = null;
+  constructor() {}
 }

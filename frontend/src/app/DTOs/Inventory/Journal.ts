@@ -1,23 +1,14 @@
-import { Publication } from './Publication';
-import { PublicationItem } from './PublicationItem';
+import {PublicationItem} from './PublicationItem';
+import {PublicationItemType} from '../../Enums/PublicationItemType';
 
 export class Journal extends PublicationItem {
-  constructor(formData: {
-    itemId: Number;
-    itemType: String;
-    edition: String;
-    format: String;
-    publicationItemType: String;
-    purchasePrice: Number;
-    rentalRate: Number;
-    status: String;
-    publication: Publication;
-    issueDate: Date;
-    issueNumber: Number;
-    issueName: String;
-    volume: String;
-  }) {
-    super(formData);
-    this.formData.publicationItemType = 'JOURNAL';
+  public issueDate: Date;
+  public issueNumber: Number;
+  public issueName: String;
+  public volume: String;
+
+  constructor() {
+    super();
+    this.publicationItemType = PublicationItemType.JOURNAL;
   }
 }

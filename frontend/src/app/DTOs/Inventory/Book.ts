@@ -1,19 +1,10 @@
-import { Publication } from './Publication';
-import { PublicationItem } from './PublicationItem';
+import {PublicationItem} from './PublicationItem';
+import {PublicationItemType} from '../../Enums/PublicationItemType';
 
 export class Book extends PublicationItem {
-  constructor(formData: {
-    itemId: Number;
-    itemType: String;
-    edition: String;
-    format: String;
-    publicationItemType: String;
-    purchasePrice: Number;
-    rentalRate: Number;
-    status: String;
-    publication: Publication;
-  }) {
-    super(formData);
-    this.formData.publicationItemType = 'BOOK';
+
+  constructor() {
+    super()
+    this.publicationItemType = PublicationItemType.BOOK;
   }
 }

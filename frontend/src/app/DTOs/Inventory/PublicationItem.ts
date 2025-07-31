@@ -1,20 +1,21 @@
-import { Item } from './Item';
-import { Publication } from './Publication';
+import {Item} from './Item';
+import {Publication} from './Publication';
+import {ItemType} from '../../Enums/ItemType'
+import {PublicationItemType} from '../../Enums/PublicationItemType';
+import {PublicationItemStatus} from '../../Enums/PublicationItemStatus';
+import {PublicationItemFormat} from '../../Enums/PublicationItemFormat';
 
 export class PublicationItem extends Item {
-  constructor(
-    public formData: {
-      itemId: Number;
-      itemType: String;
-      edition: String;
-      format: String;
-      publicationItemType: String;
-      purchasePrice: Number;
-      rentalRate: Number;
-      status: String;
-      publication: Publication;
-    }
-  ) {
-    super(formData.itemId, formData.itemType);
+  public edition: String;
+  public format: PublicationItemFormat;
+  public publicationItemType: PublicationItemType;
+  public purchasePrice: Number;
+  public rentalRate: Number;
+  public status: PublicationItemStatus;
+  public publication: Publication;
+
+  constructor() {
+    super();
+    this.itemType = ItemType.PUBLICATION_ITEM;
   }
 }

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { PublicationComponent } from './Components/publication/publication.component';
+import { PublicationsComponent } from './Components/publications/publications.component';
+import {PublicationItemsComponent} from './Components/publication-items/publication-items.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, PublicationComponent],
+  imports: [RouterOutlet, PublicationsComponent, PublicationItemsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

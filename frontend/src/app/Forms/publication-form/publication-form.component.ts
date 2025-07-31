@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { PublicationService } from '../../Services/publication.service';
-import { Book } from '../../DTOs/Inventory/Book';
-import { Journal } from '../../DTOs/Inventory/Journal';
-import { LiteraryPiece } from '../../DTOs/Inventory/LiteraryPiece';
+import {Component} from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule,} from '@angular/forms';
+import {PublicationService} from '../../Services/publication.service';
+import {Journal} from '../../DTOs/Inventory/Journal';
+import {PublicationItemType} from '../../Enums/PublicationItemType';
+import {PublicationItem} from '../../DTOs/Inventory/PublicationItem';
+import {ItemType} from '../../Enums/ItemType';
+import {Publication} from '../../DTOs/Inventory/Publication';
+import {PublicationItemStatus} from '../../Enums/PublicationItemStatus';
+import {LiteraryPiece} from '../../DTOs/Inventory/LiteraryPiece';
+import {Book} from '../../DTOs/Inventory/Book';
 
 @Component({
   selector: 'publication-form',
@@ -18,6 +18,7 @@ import { LiteraryPiece } from '../../DTOs/Inventory/LiteraryPiece';
 })
 export class PublicationFormComponent {
   publicationForm: FormGroup;
+
   constructor(
     public formBuilder: FormBuilder,
     public pubService: PublicationService
@@ -49,23 +50,57 @@ export class PublicationFormComponent {
     });
   }
 
-  async addPublication() {
+  addPublication() {
     const formData = this.publicationForm.value;
-    const publicationType = formData.publicationType.toUpperCase();
-    let item = null;
 
-    if (publicationType.toUpperCase() === 'JOURNAL') {
+    //Publication
+    const publication = new Publication();
+    publication.datePublished = formData.datePublished;
+    publication.isbn = formData.isbn;
+    publication.genre = formData.genre;
+    publication.title = formData.title;
+
+    // create publicationItem
+    const publicationItem = new PublicationItem();
+    publicationItem.itemType = ItemType.PUBLICATION_ITEM;
+    publicationItem.edition = formData.edtion;
+    publicationItem.format = formData.format;
+    publicationItem.publicationItemType = formData.publicationItemType;
+    publicationItem.purchasePrice = formData.purchasePrice;
+    publicationItem.rentalRate = formData.rentalRate;
+    publicationItem.status = PublicationItemStatus.AVAILABLE;
+    publicationItem.publication = publication;
+
+
+    // cast to journal
+    if (formData.publicationType === PublicationItemType.JOURNAL) {
       console.log('New Joural');
-      item = new Journal(formData);
-    } else if (publicationType === 'LITERARY_PIECE') {
+      const journal = publicationItem as Journal;
+      journal.issueDate = formData.issueDate;
+      journal.issueNumber = formData.issueNumber;
+      journal.issueName = formData.issueName;
+      journal.volume = formData.volume;
+      this.createPublication(journal);
+
+      // cast to Literary Piece
+    } else if (formData.publicationType === PublicationItemType.LITERARY_PIECE) {
       console.log('New LP');
-      item = new LiteraryPiece(formData);
+      const literaryPiece = publicationItem as LiteraryPiece;
+      literaryPiece.literaryType = formData.literaryType;
+      this.createPublication(literaryPiece);
+
+      //cast to book
     } else {
       console.log('New Book');
-      item = new Book(formData);
+      const book = publicationItem as Book;
+      this.createPublication(book);
     }
+  }
 
-    let response = await this.pubService.newPublication(item);
-    console.log('response\n', response);
+  createPublication(item: any) {
+    this.pubService.newPublication(item)
+      .subscribe(resp => {
+        console.log("RESPONSE: ", resp);
+      });
   }
 }
