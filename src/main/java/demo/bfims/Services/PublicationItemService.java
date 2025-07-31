@@ -1,11 +1,11 @@
 package demo.bfims.Services;
 
-import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationDto;
-import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
+import demo.bfims.DTOs.InventoryDTOs.Publication.*;
 import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Entities.Inventory.Publication.Publication;
 import demo.bfims.Entities.Inventory.Publication.PublicationItem;
 import demo.bfims.Enums.ItemType;
+import demo.bfims.Enums.PublicationItemType;
 import demo.bfims.Repo.ItemRepo;
 import demo.bfims.Repo.PublicationRepo;
 import jakarta.persistence.EntityManager;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PublicationItemService {
@@ -67,12 +68,43 @@ public class PublicationItemService {
         }
     }
 
-    public List<PublicationDto> getPublications(){
+    public List<PublicationDto> getPublications() {
         List<Publication> publications = publicationRepo.findAll();
-        if(!publications.isEmpty()) {
+        if (!publications.isEmpty()) {
             return publications.stream().map(p -> modelMapper.map(p, PublicationDto.class)).toList();
+        } else return null;
+    }
+
+    public PublicationDto getPublication(Long id) {
+        if (id == null) return null;
+        Publication publication = publicationRepo.findById(id).orElse(null);
+        if (publication != null) {
+            return modelMapper.map(publication, PublicationDto.class);
         }
-        else return null;
+        return null;
+    }
+
+    public List<PublicationItemDto> getPublicationItemsByPublicationId(Long id) {
+        if (id == null) return null;
+        List<Item> items = itemRepo.findItemsByItemType(ItemType.PUBLICATION_ITEM).orElse(null);
+        if (items == null) return null;
+
+        //Get all Publication Items and filter by id;
+        return items.stream().map(item -> (PublicationItem) item)
+                .filter(item -> item.getPublication().getPublicationId().equals(id))
+                .map(item -> {
+                    if (item.getPublicationItemType().equals(PublicationItemType.JOURNAL))
+                        return modelMapper.map(item, JournalDto.class);
+                    if (item.getPublicationItemType().equals(PublicationItemType.LITERARY_PIECE)) {
+                        return modelMapper.map(item, LiteraryPieceDto.class);
+                    }
+                    if (item.getPublicationItemType().equals(PublicationItemType.BOOK)) {
+                        return modelMapper.map(item, BookDto.class);
+                    }
+                    return modelMapper.map(item, PublicationItemDto.class);
+                })
+                .toList();
+
     }
 
 }

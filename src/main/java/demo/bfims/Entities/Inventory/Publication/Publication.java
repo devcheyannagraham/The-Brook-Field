@@ -15,19 +15,19 @@ public class Publication {
     @Enumerated(EnumType.STRING)
     private Genre genre;
     @Temporal(TemporalType.DATE)
-    private LocalDate date_published;
+    private LocalDate datePublished;
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Author> authors = new ArrayList<>();
     private int publicationQuantity;
     private String title;
     private String isbn;
 
-    public LocalDate getDate_published() {
-        return date_published;
+    public LocalDate getDatePublished() {
+        return datePublished;
     }
 
-    public void setDate_published(LocalDate date_published) {
-        this.date_published = date_published;
+    public void setDatePublished(LocalDate date_published) {
+        this.datePublished = date_published;
     }
 
     public Long getPublicationId() {
@@ -91,7 +91,7 @@ public class Publication {
         return "Publication{" +
                 "publicationId=" + publicationId +
                 ", genre=" + genre +
-                ", date_published=" + date_published +
+                ", date_published=" + datePublished +
                 ", authors=" + authors +
                 ", publicationQuantity=" + publicationQuantity +
                 ", title='" + title + '\'' +

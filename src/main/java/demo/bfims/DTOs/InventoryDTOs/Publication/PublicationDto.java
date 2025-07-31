@@ -9,7 +9,7 @@ import java.util.List;
 public class PublicationDto {
     private Long publicationId;
     private Genre genre;
-    private LocalDate date_published;
+    private LocalDate datePublished;
     private List<AuthorDto> authors = new ArrayList<>();
     private int publicationQuantity;
     private String title;
@@ -33,12 +33,12 @@ public class PublicationDto {
         this.genre = genre;
     }
 
-    public LocalDate getDate_published() {
-        return date_published;
+    public LocalDate getDatePublished() {
+        return datePublished;
     }
 
-    public void setDate_published(LocalDate date_published) {
-        this.date_published = date_published;
+    public void setDatePublished(LocalDate datePublished) {
+        this.datePublished = datePublished;
     }
 
     public List<AuthorDto> getAuthors() {
@@ -78,7 +78,7 @@ public class PublicationDto {
         return "PublicationDto{" +
                 "publicationId=" + publicationId +
                 ", genre=" + genre +
-                ", date_published=" + date_published +
+                ", datePublished=" + datePublished +
                 ", authors=" + authors +
                 ", publicationQuantity=" + publicationQuantity +
                 ", title='" + title + '\'' +
