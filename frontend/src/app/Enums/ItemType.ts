@@ -1,0 +1,4 @@
+export enum ItemType  {
+    PUBLICATION_ITEM = "PUBLICATION_ITEM",
+    ACCESSORY_ITEM = " ACCESSORY_ITEM"
+    }
