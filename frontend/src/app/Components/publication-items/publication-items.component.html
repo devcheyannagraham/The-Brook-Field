@@ -2,61 +2,101 @@
 
 <h3> Publication Title </h3>
 <ol>
-  <!--  <li>{{ headers["genre"] }}</li>-->
-  <!--  <li>{{ headers["title"] }}</li>-->
-  <!--  <li>{{ headers["datePublished"] }}</li>-->
-  <!--  <li>{{ headers["isbn"] }}</li>-->
-  <!--  <li>{{ headers["quantity"] }}</li>-->
+  <li>{{ headers.genre }}: {{ publication.genre }}</li>
+  <li>{{ headers.title }}: {{ publication.title }}</li>
+  <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
+  <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
+  <li>{{ headers.quantity }}: {{ publicationItems.length }}</li>
 </ol>
 
-<table>
-  <thead>
-  <!--  PublicationItem-->
-  <th>publicationType</th>
-  <th>edition</th>
-  <th>format</th>
-  <th>purchasePrice</th>
-  <th>rentalRate</th>
+@if (books.length > 0) {
+  <table>
+    <thead>
+    <th>{{ headers.publicationItemType }}</th>
+    <th>{{ headers.edition }}</th>
+    <th>{{ headers.format }}</th>
+    <th>{{ headers.purchasePrice }}</th>
+    <th>{{ headers.rentalRate }}</th>
+    <th>{{ headers.status }}</th>
+    </thead>
 
-  <!--  Journal fields-->
-  <!--    @if (publication.publicationType === "JOURNAL") {-->
-  <th>issueDate</th>
-  <th>issueNumber</th>
-  <th>issueName</th>
-  <th>volume</th>
-  <!--    }-->
-
-  <!--  LiteraryPiece fields-->
-  <!--    @if (publication.publicationType === "LITERARY_PIECE") {-->
-  <th>literaryType</th>
-  <!--    }-->
-
-  </thead>
-  <tbody>
-    @if (publicationItems?.length) {
-
-      @for (pub of publicationItems; track pub.itemId) {
+    <tbody>
+      @for (book of books; track book.itemId) {
         <tr>
-          <!--        <td>{{ pub.formData.publicationType }}</td>-->
-          <td>{{ pub.edition }}</td>
-          <td>{{ pub.format }}</td>
-          <td>{{ pub.purchasePrice }}</td>
-          <td>{{ pub.rentalRate }}</td>
-
-          <!--        Journal fields-->
-          @if (pub.publicationItemType === PublicationItemType.JOURNAL) {
-            <td>{{(pub|cast).issueName}}</td>
-            <td>{{(pub|cast).issueNumber}}</td>
-            <td>{{(pub|cast).issueDate}}</td>
-            <td>{{(pub|cast).volume}}</td>
-          }
-
-          <!--        LiteraryPiece fields-->
-          @if (pub.publicationItemType === PublicationItemType.LITERARY_PIECE) {
-            <td>{{ (pub | cast).literaryType}}</td>
-          }
+          <td>{{ book.publicationItemType }}</td>
+          <td>{{ book.edition }}</td>
+          <td>{{ book.format }}</td>
+          <td>{{ book.purchasePrice }}</td>
+          <td>{{ book.rentalRate }}</td>
+          <td>{{ book.status }}</td>
         </tr>
       }
-    }
-  </tbody>
-</table>
+    </tbody>
+  </table>
+} @else {
+  <p> No Books</p>
+}
+
+
+@if (literaryPieces.length > 0) {
+  <table>
+    <thead>
+    <th>{{ headers.publicationItemType }}</th>
+    <th>{{ headers.edition }}</th>
+    <th>{{ headers.format }}</th>
+    <th>{{ headers.purchasePrice }}</th>
+    <th>{{ headers.rentalRate }}</th>
+    <th>{{ headers.status }}</th>
+    <th>{{ headers.literaryType }}</th>
+    </thead>
+    <tbody>
+      @for (lp of literaryPieces; track lp.itemId) {
+        <tr>
+          <td>{{ lp.publicationItemType }}</td>
+          <td>{{ lp.edition }}</td>
+          <td>{{ lp.format }}</td>
+          <td>{{ lp.purchasePrice }}</td>
+          <td>{{ lp.rentalRate }}</td>
+          <td>{{ lp.status }}</td>
+          <td>{{ lp.literaryType }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+} @else {
+  <p> No Literary Pieces</p>
+}
+@if (journals.length > 0) {
+  <table>
+    <thead>
+    <th>{{ headers.publicationItemType }}</th>
+    <th>{{ headers.edition }}</th>
+    <th>{{ headers.format }}</th>
+    <th>{{ headers.purchasePrice }}</th>
+    <th>{{ headers.rentalRate }}</th>
+    <th>{{ headers.status }}</th>
+    <th>{{ headers.issueDate }}</th>
+    <th>{{ headers.issueNumber }}</th>
+    <th>{{ headers.issueName }}</th>
+    <th>{{ headers.volume }}</th>
+    </thead>
+    <tbody>
+      @for (journal of journals; track journal.itemId) {
+        <tr>
+          <td>{{ journal.publicationItemType }}</td>
+          <td>{{ journal.edition }}</td>
+          <td>{{ journal.format }}</td>
+          <td>{{ journal.purchasePrice }}</td>
+          <td>{{ journal.rentalRate }}</td>
+          <td>{{ journal.status }}</td>
+          <td>{{ journal.issueDate | date : "mediumDate" }}</td>
+          <td>{{ journal.issueNumber }}</td>
+          <td>{{ journal.issueName }}</td>
+          <td>{{ journal.volume }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+} @else {
+  <p>No Journals</p>
+}

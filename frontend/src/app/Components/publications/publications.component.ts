@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { PublicationService } from '../../Services/publication.service';
-import { Publication } from '../../DTOs/Inventory/Publication';
-import { DatePipe, KeyValuePipe } from '@angular/common';
+import {Component} from '@angular/core';
+import {PublicationService} from '../../Services/publication.service';
+import {Publication} from '../../DTOs/Inventory/Publication';
+import {DatePipe, KeyValuePipe} from '@angular/common';
+import {headers} from '../../Helpers/headers';
 
 @Component({
   selector: 'publications',
@@ -11,15 +12,10 @@ import { DatePipe, KeyValuePipe } from '@angular/common';
 })
 export class PublicationsComponent {
   publications: any;
-  headers = {
-    title: 'Title',
-    datePublished: 'Date Published',
-    isbn: 'ISBN',
-    quantity: 'Quantity', // maybe delete
-    genre: 'Genre',
-  };
+  headers = headers;
 
-  constructor(public pubService: PublicationService) {}
+  constructor(public pubService: PublicationService) {
+  }
 
   ngOnInit() {
     this.getPublications();
@@ -31,4 +27,5 @@ export class PublicationsComponent {
       console.log(this.publications);
     });
   }
+
 }

@@ -10,7 +10,6 @@ import {PublicationItem} from '../DTOs/Inventory/PublicationItem';
 export class TypeCast implements PipeTransform
 {
   transform(value: any) {
-    console.log("TRANSFORMING VALUE:", value, value instanceof PublicationItem)
     if(value instanceof Journal) return value as Journal;
     if (value instanceof Book) return value as Book;
     if (value instanceof LiteraryPiece) return value as LiteraryPiece;

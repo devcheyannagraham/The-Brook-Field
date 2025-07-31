@@ -1,18 +1,20 @@
 import {Component} from '@angular/core';
-import {DatePipe, NgIf} from '@angular/common';
 import {PublicationService} from '../../Services/publication.service';
 import {PublicationItem} from '../../DTOs/Inventory/PublicationItem';
 import {Publication} from '../../DTOs/Inventory/Publication';
 import {Journal} from '../../DTOs/Inventory/Journal';
 import {PublicationItemType} from '../../Enums/PublicationItemType';
 import {TypeCast} from '../../Pipes/TypeCast';
+import {LiteraryPiece} from '../../DTOs/Inventory/LiteraryPiece';
+import {Book} from '../../DTOs/Inventory/Book';
+import {headers} from '../../Helpers/headers';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'publication-items',
   imports: [
-    DatePipe,
-    NgIf,
-    TypeCast
+    TypeCast,
+    DatePipe
   ],
   templateUrl: './publication-items.component.html',
   styleUrl: './publication-items.component.css'
@@ -21,6 +23,10 @@ export class PublicationItemsComponent {
   publication!: Publication;
   publicationItems!: PublicationItem[];
   publicationId: Number = 3;
+  books :Book[];
+  journals: Journal[];
+  literaryPieces: LiteraryPiece[]
+
 
   //For Template
   PublicationItemType = PublicationItemType;
@@ -51,15 +57,24 @@ export class PublicationItemsComponent {
       .subscribe(pubItems => {
         if (pubItems) {
           this.publicationItems = pubItems;
-          console.log(pubItems)
-          for(let item of pubItems){
-           let j = item as Journal;
-           console.log("J: ", j.issueDate)
-          }
+          this.filterPublicationItems();
         }
-      })
+      });
 
   }
 
+  filterPublicationItems(){
+    this.books = this.publicationItems
+      .filter(item => item.publicationItemType === PublicationItemType.BOOK)
+      .map(item => item as Book);
+    this.journals = this.publicationItems
+      .filter(item => item.publicationItemType === PublicationItemType.JOURNAL)
+      .map(item => item as Journal);
+    this.literaryPieces = this.publicationItems
+      .filter(item => item.publicationItemType === PublicationItemType.LITERARY_PIECE)
+      .map(item => item as LiteraryPiece);
 
+  }
+
+  protected readonly headers = headers;
 }

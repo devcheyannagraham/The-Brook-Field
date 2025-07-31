@@ -5,7 +5,6 @@
         <th>{{headers["title"]}}</th>
         <th>{{headers["datePublished"]}}</th>
         <th>{{headers["isbn"]}}</th>
-        <th>{{headers["quantity"]}}</th>
     </thead>
     <tbody>
         @for(pub of publications; track pub){
@@ -14,7 +13,6 @@
             <td>{{pub["title"]}}</td>
             <td>{{pub["datePublished"] | date:'mediumDate'}}</td>
             <td>{{pub["isbn"]}}</td>
-            <td>{{pub["quantity"]}}</td>
         </tr>
         }
     </tbody>
