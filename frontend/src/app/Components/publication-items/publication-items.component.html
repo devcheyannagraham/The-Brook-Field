@@ -1,0 +1,62 @@
+<p>publication-items works!</p>
+
+<h3> Publication Title </h3>
+<ol>
+  <!--  <li>{{ headers["genre"] }}</li>-->
+  <!--  <li>{{ headers["title"] }}</li>-->
+  <!--  <li>{{ headers["datePublished"] }}</li>-->
+  <!--  <li>{{ headers["isbn"] }}</li>-->
+  <!--  <li>{{ headers["quantity"] }}</li>-->
+</ol>
+
+<table>
+  <thead>
+  <!--  PublicationItem-->
+  <th>publicationType</th>
+  <th>edition</th>
+  <th>format</th>
+  <th>purchasePrice</th>
+  <th>rentalRate</th>
+
+  <!--  Journal fields-->
+  <!--    @if (publication.publicationType === "JOURNAL") {-->
+  <th>issueDate</th>
+  <th>issueNumber</th>
+  <th>issueName</th>
+  <th>volume</th>
+  <!--    }-->
+
+  <!--  LiteraryPiece fields-->
+  <!--    @if (publication.publicationType === "LITERARY_PIECE") {-->
+  <th>literaryType</th>
+  <!--    }-->
+
+  </thead>
+  <tbody>
+    @if (publicationItems?.length) {
+
+      @for (pub of publicationItems; track pub.itemId) {
+        <tr>
+          <!--        <td>{{ pub.formData.publicationType }}</td>-->
+          <td>{{ pub.edition }}</td>
+          <td>{{ pub.format }}</td>
+          <td>{{ pub.purchasePrice }}</td>
+          <td>{{ pub.rentalRate }}</td>
+
+          <!--        Journal fields-->
+          @if (pub.publicationItemType === PublicationItemType.JOURNAL) {
+            <td>{{(pub|cast).issueName}}</td>
+            <td>{{(pub|cast).issueNumber}}</td>
+            <td>{{(pub|cast).issueDate}}</td>
+            <td>{{(pub|cast).volume}}</td>
+          }
+
+          <!--        LiteraryPiece fields-->
+          @if (pub.publicationItemType === PublicationItemType.LITERARY_PIECE) {
+            <td>{{ (pub | cast).literaryType}}</td>
+          }
+        </tr>
+      }
+    }
+  </tbody>
+</table>
