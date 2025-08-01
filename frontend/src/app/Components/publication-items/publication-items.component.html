@@ -34,7 +34,7 @@
           <td>{{ book.rentalRate }}</td>
           <td>{{ book.status }}</td>
           <td>
-            <a routerLink="">Edit</a>
+            <a [routerLink]="['/publicationitemform',book.itemId]">Edit</a>
             <button (click)="deleteItem(book.itemId)">delete</button>
           </td>
         </tr>
@@ -69,7 +69,7 @@
           <td>{{ lp.status }}</td>
           <td>{{ lp.literaryType }}</td>
           <td>
-            <a routerLink="">Edit</a>
+            <a [routerLink]="['/publicationitemform',lp.itemId]">Edit</a>
             <button (click)="deleteItem(lp.itemId)">delete</button>
           </td>
         </tr>
@@ -108,7 +108,7 @@
           <td>{{ journal.issueName }}</td>
           <td>{{ journal.volume }}</td>
           <td>
-            <a routerLink="">Edit</a>
+            <a [routerLink]="['/publicationitemform',journal.itemId]">Edit</a>
             <button (click)="deleteItem(journal.itemId)">delete</button>
           </td>
         </tr>

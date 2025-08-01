@@ -4,7 +4,6 @@ import {PublicationItem} from '../../DTOs/Inventory/PublicationItem';
 import {Publication} from '../../DTOs/Inventory/Publication';
 import {Journal} from '../../DTOs/Inventory/Journal';
 import {PublicationItemType} from '../../Enums/PublicationItemType';
-import {TypeCast} from '../../Pipes/TypeCast';
 import {LiteraryPiece} from '../../DTOs/Inventory/LiteraryPiece';
 import {Book} from '../../DTOs/Inventory/Book';
 import {headers} from '../../Helpers/headers';
