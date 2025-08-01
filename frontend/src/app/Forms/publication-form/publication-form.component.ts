@@ -1,15 +1,10 @@
 import {Component, Input, input} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule,} from '@angular/forms';
 import {PublicationService} from '../../Services/publication.service';
-import {Journal} from '../../DTOs/Inventory/Journal';
-import {PublicationItemType} from '../../Enums/PublicationItemType';
-import {PublicationItem} from '../../DTOs/Inventory/PublicationItem';
-import {ItemType} from '../../Enums/ItemType';
 import {Publication} from '../../DTOs/Inventory/Publication';
-import {PublicationItemStatus} from '../../Enums/PublicationItemStatus';
-import {LiteraryPiece} from '../../DTOs/Inventory/LiteraryPiece';
 import {Book} from '../../DTOs/Inventory/Book';
 import {Genre} from '../../Enums/Genre';
+import {Author} from '../../DTOs/Inventory/Author';
 
 @Component({
   selector: 'publication-form',
@@ -36,6 +31,8 @@ export class PublicationFormComponent {
       isbn: [''],
       datePublished: [''],
       genre: [''],
+      firstName:[''],
+      lastName:['']
     });
   }
 
@@ -52,13 +49,15 @@ export class PublicationFormComponent {
   }
 
   addPublication() {
-    const formData = this.publicationForm.value;
-
-    //Publication
     const publication = new Publication();
+    publication.author = new Author();
+
     for (let control in this.publicationForm.controls) {
-      // @ts-ignore
-      publication[control] = this.publicationForm.get(control).value;
+      if(control === "firstName") publication.author.firstName = this.publicationForm.get(control).value;
+      else if(control === "lastName") publication.author.lastName = this.publicationForm.get(control).value;
+      else { // @ts-ignore
+        publication[control] = this.publicationForm.get(control).value;
+      }
     }
     this.createPublication(publication)
   }
