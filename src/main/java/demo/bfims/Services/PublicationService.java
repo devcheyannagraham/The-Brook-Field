@@ -30,7 +30,6 @@ public class PublicationService {
     @Transactional
     public PublicationItemDto newPublicationItem(PublicationItemDto publicationItemDto) {
         PublicationItem publicationItem = modelMapper.map(publicationItemDto, PublicationItem.class);
-        System.out.println("PublicationItemDto2: " + publicationItemDto);
         Long pubId = publicationItem.getPublication().getPublicationId();
         //shouldnt be null
         if (pubId != null) {
@@ -38,7 +37,17 @@ public class PublicationService {
             Publication managedPublication = entityManager.merge(publication);
             publicationItem.setPublication(managedPublication);
         }
-        return modelMapper.map(itemRepo.save(publicationItem), PublicationItemDto.class);
+
+        if (publicationItem.getPublicationItemType().equals(PublicationItemType.JOURNAL))
+            return modelMapper.map(itemRepo.save(publicationItem), JournalDto.class);
+        if (publicationItem.getPublicationItemType().equals(PublicationItemType.LITERARY_PIECE)) {
+            return modelMapper.map(itemRepo.save(publicationItem), LiteraryPieceDto.class);
+        }
+        if (publicationItem.getPublicationItemType().equals(PublicationItemType.BOOK)) {
+            return modelMapper.map(itemRepo.save(publicationItem), BookDto.class);
+        }
+        return modelMapper.map(publicationItem, PublicationItemDto.class);
+
     }
 
     public PublicationItemDto getPublicationItem(Long id) {
