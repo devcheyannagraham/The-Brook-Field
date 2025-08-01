@@ -73,10 +73,12 @@ export class PublicationItemFormComponent {
           for (let key of Object.keys(data)) {
             // @ts-ignore
             if (data[key] != null && this.publicationItemForm.contains(key)) {
+              if(key === "publication") continue;
               // @ts-ignore
               this.publicationItemForm.get(key).setValue(data[key]);
             }
           }
+          this.publicationItemForm.get("publication").setValue(data.publication.publicationId);
         });
     }
   }
@@ -104,6 +106,7 @@ export class PublicationItemFormComponent {
     publicationItem.publication = new Publication();
     publicationItem.publication.publicationId = formData.publication;
     publicationItem.status = PublicationItemStatus.AVAILABLE;
+    if(this.pubItemId) publicationItem.itemId = this.pubItemId;
     this.createPublicationItem(publicationItem);
   }
 

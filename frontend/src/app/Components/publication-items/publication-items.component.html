@@ -12,7 +12,7 @@
   <a [routerLink]="['/publicationform',publication.publicationId]">Update Publication</a>
 }
 
-@if (books) {
+@if (books && books.length) {
   <table>
     <thead>
     <th>{{ headers.publicationItemType }}</th>
@@ -46,7 +46,7 @@
 }
 
 
-@if (literaryPieces) {
+@if (literaryPieces && literaryPieces.length) {
   <table>
     <thead>
     <th>{{ headers.publicationItemType }}</th>
@@ -79,7 +79,7 @@
 } @else {
   <p> No Literary Pieces</p>
 }
-@if (journals) {
+@if (journals && journals.length) {
   <table>
     <thead>
     <th>{{ headers.publicationItemType }}</th>
