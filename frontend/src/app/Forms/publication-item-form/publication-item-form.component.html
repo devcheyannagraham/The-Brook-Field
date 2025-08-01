@@ -1,7 +1,16 @@
 <h3>New Publication Item</h3>
+
 <form [formGroup]="publicationItemForm" (ngSubmit)="addPublicationItem()">
+  <label for="publicationSelect">Publication
+    <select id="publicationSelect" name="publicationSelect" formControlName="publication">
+      @for (pub of publications; track pub.publicationId) {
+        <option value="{{pub.publicationId}}">{{ pub.title }}</option>
+      }
+    </select>
+  </label>
+
   <label for="pub-type">Publication Item Type
-    <select id="pub-type" name="pub-type" formControlName="publicationType">
+    <select id="pub-type" name="pub-type" formControlName="publicationItemType">
       <option value="{{PublicationItemType.BOOK}}">Book</option>
       <option value="{{PublicationItemType.JOURNAL}}">Journal</option>
       <option value="{{PublicationItemType.LITERARY_PIECE}}">Literary Piece</option>
@@ -19,7 +28,12 @@
   </label>
 
   <label for="pub-item-format">Format
-    <input type="text" id="pub-item-format" name="pub-item-format" formControlName="format">
+    <select type="text" id="pub-item-format" name="pub-item-format" formControlName="format">
+      <option value="{{PublicationItemFormat.AUDIOBOOK}}">AudioBook</option>
+      <option value="{{PublicationItemFormat.HARDCOPY}}">HardCopy</option>
+      <option value="{{PublicationItemFormat.EBOOK}}">EBook</option>
+
+    </select>
   </label>
 
   <label for="pub-item-purchase-price">Purchase Price
@@ -33,7 +47,7 @@
 
 
   <!-- Journal Fields -->
-  @if (publicationItemForm.get("publicationType").value === PublicationItemType.JOURNAL){
+  @if (publicationItemForm.get("publicationItemType").value === PublicationItemType.JOURNAL) {
     <label for="pub-item-issue-date">Issue Date
       <input type="date" id="pub-item-issue-date" name="pub-item-issue-date" formControlName="issueDate">
     </label>
@@ -43,17 +57,17 @@
     </label>
 
     <label for="pub-item-issue-name">Issue Name
-      <input type="number" id="pub-item-issue-name" name="pub-item-issue-name" formControlName="issueName">
+      <input type="text" id="pub-item-issue-name" name="pub-item-issue-name" formControlName="issueName">
     </label>
 
     <label for="pub-item-volume">Volume
-      <input type="number" id="pub-item-volume" name="pub-item-volume" formControlName="volume">
+      <input type="text" id="pub-item-volume" name="pub-item-volume" formControlName="volume">
     </label>
   }
 
 
   <!-- Literary Piece fields -->
-  @if (publicationItemForm.get("publicationType").value === PublicationItemType.LITERARY_PIECE){
+  @if (publicationItemForm.get("publicationItemType").value === PublicationItemType.LITERARY_PIECE) {
     <label for="pub-item-literary-type">Literary Type
       <input type="number" id="pub-item-literary-type" name="pub-item-literary-type" formControlName="literaryType">
     </label>

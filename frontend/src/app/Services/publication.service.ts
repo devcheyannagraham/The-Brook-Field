@@ -1,8 +1,6 @@
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Publication} from '../DTOs/Inventory/Publication';
-import {publishFacade} from '@angular/compiler';
-import {PublicationItem} from '../DTOs/Inventory/PublicationItem';
 
 @Injectable({
   providedIn: 'root',
@@ -16,17 +14,18 @@ export class PublicationService {
   }
 
   newPublication(pub: any) {
-    console.log("PUB ", pub)
     return this.http
       .post(`${this.baseUrl}publication`, pub);
   }
 
-  newPublicationItem(pubItem:any){
-    return this.http.post(`${this.baseUrl}publicationItem`, pubItem);
+  newPublicationItem(pubItem:any)
+  {
+    console.log("PUBITEM: ", pubItem)
+    return this.http.post(`${this.baseUrl}publicationitem`, pubItem);
   }
 
   getPublications() {
-    return this.http.get<Publication>(`${this.baseUrl}publications`);
+    return this.http.get<Publication[]>(`${this.baseUrl}publications`);
   }
 
   getPublicationById(id: Number) {

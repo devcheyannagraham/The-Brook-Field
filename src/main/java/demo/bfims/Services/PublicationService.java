@@ -2,6 +2,7 @@ package demo.bfims.Services;
 
 import demo.bfims.DTOs.InventoryDTOs.Publication.*;
 import demo.bfims.Entities.Inventory.Publication.Item;
+import demo.bfims.Entities.Inventory.Publication.Journal;
 import demo.bfims.Entities.Inventory.Publication.Publication;
 import demo.bfims.Entities.Inventory.Publication.PublicationItem;
 import demo.bfims.Enums.ItemType;
@@ -29,6 +30,7 @@ public class PublicationService {
 
     @Transactional
     public PublicationItemDto newPublicationItem(PublicationItemDto publicationItemDto) {
+        System.out.println("publicationItemDto = " + publicationItemDto);
         PublicationItem publicationItem = modelMapper.map(publicationItemDto, PublicationItem.class);
         Long pubId = publicationItem.getPublication().getPublicationId();
         //shouldnt be null
@@ -36,17 +38,18 @@ public class PublicationService {
             Publication publication = publicationRepo.findById(pubId).orElse(null);
             Publication managedPublication = entityManager.merge(publication);
             publicationItem.setPublication(managedPublication);
+
         }
+        System.out.println("before save: " + publicationItem); // correct subtype here!!
 
         if (publicationItem.getPublicationItemType().equals(PublicationItemType.JOURNAL))
             return modelMapper.map(itemRepo.save(publicationItem), JournalDto.class);
-        if (publicationItem.getPublicationItemType().equals(PublicationItemType.LITERARY_PIECE)) {
+        if (publicationItem.getPublicationItemType().equals(PublicationItemType.LITERARY_PIECE))
             return modelMapper.map(itemRepo.save(publicationItem), LiteraryPieceDto.class);
-        }
-        if (publicationItem.getPublicationItemType().equals(PublicationItemType.BOOK)) {
+        if (publicationItem.getPublicationItemType().equals(PublicationItemType.BOOK))
             return modelMapper.map(itemRepo.save(publicationItem), BookDto.class);
-        }
-        return modelMapper.map(publicationItem, PublicationItemDto.class);
+        else
+            return modelMapper.map(itemRepo.save(publicationItem), PublicationItemDto.class);
 
     }
 

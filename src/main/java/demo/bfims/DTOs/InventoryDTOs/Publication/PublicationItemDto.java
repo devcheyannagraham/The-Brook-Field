@@ -1,9 +1,11 @@
 package demo.bfims.DTOs.InventoryDTOs.Publication;
 
+import demo.bfims.Enums.LiteraryType;
 import demo.bfims.Enums.PublicationItemFormat;
 import demo.bfims.Enums.PublicationItemStatus;
 import demo.bfims.Enums.PublicationItemType;
 
+import java.util.Date;
 
 public class PublicationItemDto extends ItemDto {
     private PublicationItemFormat format;
@@ -14,6 +16,47 @@ public class PublicationItemDto extends ItemDto {
     private Double rentalRate;
     private String edition;
 
+    //Journal fields for incoming dtos
+    private Date issueDate;
+    private int issueNumber;
+    private String issueName;
+    private String volume;
+
+    //LiteraryPiece fields for incoming dtos
+    LiteraryType type;
+
+    public Date getIssueDate() {
+        return issueDate;
+    }
+
+    public void setIssueDate(Date issueDate) {
+        this.issueDate = issueDate;
+    }
+
+    public int getIssueNumber() {
+        return issueNumber;
+    }
+
+    public void setIssueNumber(int issueNumber) {
+        this.issueNumber = issueNumber;
+    }
+
+    public String getIssueName() {
+        return issueName;
+    }
+
+    public void setIssueName(String issueName) {
+        this.issueName = issueName;
+    }
+
+    public String getVolume() {
+        return volume;
+    }
+
+    public void setVolume(String volume) {
+        this.volume = volume;
+    }
+
     // only for making mulitple items
     private Integer quantity = 0;
 
@@ -22,6 +65,14 @@ public class PublicationItemDto extends ItemDto {
 
     public PublicationItemFormat getFormat() {
         return format;
+    }
+
+    public LiteraryType getType() {
+        return type;
+    }
+
+    public void setType(LiteraryType type) {
+        this.type = type;
     }
 
     public void setFormat(PublicationItemFormat format) {
@@ -94,6 +145,13 @@ public class PublicationItemDto extends ItemDto {
                 ", purchasePrice=" + purchasePrice +
                 ", rentalRate=" + rentalRate +
                 ", edition='" + edition + '\'' +
+                ", issueDate=" + issueDate +
+                ", issueNumber=" + issueNumber +
+                ", issueName='" + issueName + '\'' +
+                ", volume='" + volume + '\'' +
+                ", type=" + type +
+                ", quantity=" + quantity +
                 "} " + super.toString();
     }
+
 }
