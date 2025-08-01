@@ -54,7 +54,7 @@ public class AccessoryService {
     }
 
     @Transactional
-    public AccessoryItemDto newAccessory(AccessoryItemDto accessoryItemDto) {
+    public AccessoryItemDto newAccessoryItem(AccessoryItemDto accessoryItemDto) {
         AccessoryItem accessoryItem = modelMapper.map(accessoryItemDto, AccessoryItem.class);
         Accessory accessory = accessoryItem.getAccessory();
 
@@ -73,6 +73,18 @@ public class AccessoryService {
             return modelMapper.map(accessory, AccessoryDto.class);
         }
         return null;
+    }
+
+    public AccessoryDto newAccessory(AccessoryDto accessoryDto) {
+        Accessory accessory = modelMapper.map(accessoryDto, Accessory.class);
+        Accessory savedAccessory = accessoryRepo.save(accessory);
+        //create items
+        for (int i = 0; i < accessoryDto.getQuantity(); i++) {
+            AccessoryItem accessoryItem = new AccessoryItem();
+            accessoryItem.setAccessory(savedAccessory);
+            itemRepo.save(accessoryItem);
+        }
+        return modelMapper.map(savedAccessory, AccessoryDto.class);
     }
 
     @Transactional

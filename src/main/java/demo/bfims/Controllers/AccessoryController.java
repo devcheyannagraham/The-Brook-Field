@@ -52,8 +52,14 @@ public class AccessoryController {
     //Create new accessoryItem. Creates new accessory by default
     @PostMapping("/accessoryitem")
     public AccessoryItemDto newAccessory(@RequestBody AccessoryItemDto accessoryItemDto) {
-        if(accessoryItemDto != null) return accessoryService.newAccessory(accessoryItemDto);
+        if(accessoryItemDto != null) return accessoryService.newAccessoryItem(accessoryItemDto);
         else return null;
+    }
+
+    @PostMapping("/accessory")
+    public AccessoryDto newAccessory(@RequestBody AccessoryDto accessoryDto) {
+        if(accessoryDto != null) return accessoryService.newAccessory(accessoryDto);
+        return null;
     }
 
     //Deleete accessoryitem

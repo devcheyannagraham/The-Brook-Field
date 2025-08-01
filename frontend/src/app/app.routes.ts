@@ -34,8 +34,17 @@ export const routes: Routes = [
   {
     path: 'publicationitemform',
     component: PublicationItemFormComponent,
-  },  {
+  },
+  {
     path: 'accessories',
     component: AccessoriesComponent,
+  },
+  {
+    path: 'accessoryform/:accessId',
+    component: AccessoryFormComponent,
+  },
+  {
+    path: 'accessoryform',
+    component: AccessoryFormComponent,
   },
 ];

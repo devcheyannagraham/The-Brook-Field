@@ -14,7 +14,7 @@
         <td>{{ acc.price }}</td>
         <td>{{ acc.quantity }}</td>
         <td>
-          <a [routerLink]="['/publicationitemform',acc.accessoryId]">Edit</a>
+          <a [routerLink]="['/accessoryform',acc.accessoryId]">Edit</a>
           <button [disabled]= "!(acc.quantity.valueOf() <= 0)" (click)="deleteAccessory(acc.accessoryId)">delete</button>
         </td>
       </tr>

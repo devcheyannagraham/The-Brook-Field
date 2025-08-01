@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Accessory} from '../DTOs/Accessory/Accessory';
 
@@ -8,14 +8,19 @@ import {Accessory} from '../DTOs/Accessory/Accessory';
 export class AccessoryService {
   baseUrl: String = 'http://localhost:8080/';
 
-  constructor(private http:HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
-  getAccessories(){
+  getAccessories() {
     return this.http.get<Accessory[]>(`${this.baseUrl}accessories`);
   }
 
-  deleteAccessory(accessId:Number){
+  deleteAccessory(accessId: Number) {
     return this.http.delete(`${this.baseUrl}accessory/${accessId}`);
+  }
+
+  newAccessory(accessory: Accessory) {
+    console.log("NEW ACCESSORY", accessory);
+    return this.http.post(`${this.baseUrl}accessory`, accessory);
   }
 }

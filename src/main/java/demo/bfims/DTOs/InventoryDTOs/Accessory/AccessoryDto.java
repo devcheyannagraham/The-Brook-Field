@@ -48,4 +48,15 @@ public class AccessoryDto {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "AccessoryDto{" +
+                "accessoryId=" + accessoryId +
+                ", accessoryType=" + accessoryType +
+                ", accessoryName='" + accessoryName + '\'' +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                '}';
+    }
 }

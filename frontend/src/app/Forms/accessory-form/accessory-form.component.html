@@ -1,18 +1,35 @@
 <form [formGroup]="accessoryForm" (ngSubmit)="addAccessory()">
-    <label for="accessory-name">Accessory Name
-        <input type="text" id="accessory-name" name="accessory-name" formControlName="accessoryName">
-    </label>
 
-    <label for="accessory-type">Accessory Type
-        <input type="text" id="accessory-type" name="accessory-type" formControlName="accessoryType">
+  @if (accessId != null) {
+    <!--    Update accessory-->
+    <h3>Update Accessory</h3>
+    <select name="accessory" id="accessory">
+      @for (acc of accessories; track acc.accessoryId) {
+        <option value="{{acc.accessoryId}}">{{ acc.accessoryName }}</option>
+      }
+    </select>
+  } @else {
+    <!--    New accessory-->
+    <h3>New Accessory</h3>
+    <label for="accessoryName">Accessory Name
+      <input type="text" id="accessoryName" name="accessoryName" formControlName="accessoryName">
     </label>
+  }
 
-    <label for="price">Price
-        <input type="text" id="price" name="price" formControlName="price">
-    </label>
+  <label for="accessoryType">Accessory Type
+    <select id="accessoryType" name="accessoryType" formControlName="accessoryType">
+      <option value="{{AccessoryType.BOOKMARK}}">Bookmark</option>
+      <option value="{{AccessoryType.MUG}}">Mug</option>
+      <option value="{{AccessoryType.PEN}}">Pen</option>
+    </select>
+  </label>
 
-    <label for="quantity">Quantity
-        <input type="text" id="quantity" name="quantity" formControlName="quantity">
-    </label>
-    <button type="submit">Add Accessory</button>
+  <label for="price">Price
+    <input type="text" id="price" name="price" formControlName="price">
+  </label>
+
+  <label for="quantity">Quantity
+    <input type="text" id="quantity" name="quantity" formControlName="quantity">
+  </label>
+  <button type="submit">Add Accessory</button>
 </form>
