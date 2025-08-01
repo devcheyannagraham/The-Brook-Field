@@ -9,6 +9,7 @@ import {LiteraryPiece} from '../../DTOs/Inventory/LiteraryPiece';
 import {Book} from '../../DTOs/Inventory/Book';
 import {Publication} from '../../DTOs/Inventory/Publication';
 import {PublicationItemFormat} from '../../Enums/PublicationItemFormat';
+import {LiteraryType} from '../../Enums/LiteraryType';
 
 @Component({
   selector: 'publication-item-form',
@@ -91,14 +92,16 @@ export class PublicationItemFormComponent {
       publicationItem = new Book();
     }
 
+    for (let key of Object.keys(publicationItem)) {
+      if (key == "publication") continue;
+      if (this.publicationItemForm.contains(key)) {
+        // @ts-ignore
+        publicationItem[key] = this.publicationItemForm.get(key).value;
+      }
+    }
+
     publicationItem.publication = new Publication();
     publicationItem.publication.publicationId = formData.publication;
-
-    for (let control in this.publicationItemForm.controls) {
-      if (control == "publication") continue;
-      // @ts-ignore
-      publicationItem[control] = this.publicationItemForm.get(control).value;
-    }
     publicationItem.status = PublicationItemStatus.AVAILABLE;
     this.createPublicationItem(publicationItem);
   }
@@ -110,4 +113,5 @@ export class PublicationItemFormComponent {
 
   protected readonly PublicationItemType = PublicationItemType;
   protected readonly PublicationItemFormat = PublicationItemFormat;
+  protected readonly LiteraryType = LiteraryType;
 }

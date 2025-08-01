@@ -7,23 +7,23 @@ import jakarta.persistence.*;
 @Entity
 public class LiteraryPiece extends PublicationItem {
     @Enumerated(EnumType.STRING)
-    LiteraryType type;
+    LiteraryType literaryType;
 
     public LiteraryPiece() {
         this.setPublicationItemType(PublicationItemType.LITERARY_PIECE);
     }
 
-    public LiteraryType getType() {
-        return type;
+    public LiteraryType getLiteraryType() {
+        return literaryType;
     }
-    public void setType(LiteraryType type) {
-        this.type = type;
+    public void setLiteraryType(LiteraryType type) {
+        this.literaryType = type;
     }
 
     @Override
     public String toString() {
         return "LiteraryPiece{" +
-                "type=" + type +
+                "type=" + literaryType +
                 ", publication=" + publication +
                 "} " + super.toString();
     }

@@ -16,6 +16,9 @@ public class PublicationItemDto extends ItemDto {
     private Double rentalRate;
     private String edition;
 
+    // only for making mulitple items
+    private Integer quantity;
+
     //Journal fields for incoming dtos
     private Date issueDate;
     private int issueNumber;
@@ -23,7 +26,7 @@ public class PublicationItemDto extends ItemDto {
     private String volume;
 
     //LiteraryPiece fields for incoming dtos
-    LiteraryType type;
+    LiteraryType literaryType;
 
     public Date getIssueDate() {
         return issueDate;
@@ -57,9 +60,6 @@ public class PublicationItemDto extends ItemDto {
         this.volume = volume;
     }
 
-    // only for making mulitple items
-    private Integer quantity = 0;
-
     public PublicationItemDto() {
     }
 
@@ -67,12 +67,12 @@ public class PublicationItemDto extends ItemDto {
         return format;
     }
 
-    public LiteraryType getType() {
-        return type;
+    public LiteraryType getLiteraryType() {
+        return literaryType;
     }
 
-    public void setType(LiteraryType type) {
-        this.type = type;
+    public void setLiteraryType(LiteraryType literaryType) {
+        this.literaryType = literaryType;
     }
 
     public void setFormat(PublicationItemFormat format) {
@@ -149,7 +149,7 @@ public class PublicationItemDto extends ItemDto {
                 ", issueNumber=" + issueNumber +
                 ", issueName='" + issueName + '\'' +
                 ", volume='" + volume + '\'' +
-                ", type=" + type +
+                ", literaryType=" + literaryType +
                 ", quantity=" + quantity +
                 "} " + super.toString();
     }

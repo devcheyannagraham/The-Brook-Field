@@ -20,6 +20,7 @@ public class PublicationController {
     // new PublicationItem
     @PostMapping("/publicationitem")
     public List<PublicationItemDto> newPublicationItem(@RequestBody PublicationItemDto publicationItemDto) {
+        System.out.println("PublicationItemDto = " + publicationItemDto);
         if (publicationItemDto == null) {
             return null;
         }

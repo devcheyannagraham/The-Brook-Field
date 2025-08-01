@@ -13,6 +13,7 @@ export class PublicationItem extends Item {
   public rentalRate: Number;
   public status: PublicationItemStatus;
   public publication: Publication;
+  public quantity: Number;
 
   constructor() {
     super();

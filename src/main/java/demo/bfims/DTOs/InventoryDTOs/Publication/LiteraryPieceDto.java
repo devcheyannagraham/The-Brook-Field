@@ -5,11 +5,11 @@ import demo.bfims.Enums.LiteraryType;
 public class LiteraryPieceDto extends PublicationItemDto {
     LiteraryType type;
 
-    public LiteraryType getType() {
+    public LiteraryType getLiteraryType() {
         return type;
     }
-    public void setType(LiteraryType type) {
-        this.type = type;
+    public void setLiteraryType(LiteraryType literaryType) {
+        this.type = literaryType;
     }
 
 

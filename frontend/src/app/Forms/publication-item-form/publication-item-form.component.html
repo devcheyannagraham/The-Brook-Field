@@ -1,16 +1,16 @@
 <h3>New Publication Item</h3>
 
 <form [formGroup]="publicationItemForm" (ngSubmit)="addPublicationItem()">
-  <label for="publicationSelect">Publication
-    <select id="publicationSelect" name="publicationSelect" formControlName="publication">
+  <label for="publication">Publication
+    <select id="publication" name="publication" formControlName="publication">
       @for (pub of publications; track pub.publicationId) {
         <option value="{{pub.publicationId}}">{{ pub.title }}</option>
       }
     </select>
   </label>
 
-  <label for="pub-type">Publication Item Type
-    <select id="pub-type" name="pub-type" formControlName="publicationItemType">
+  <label for="publicationItemType">Publication Item Type
+    <select id="publicationItemType" name="publicationItemType" formControlName="publicationItemType">
       <option value="{{PublicationItemType.BOOK}}">Book</option>
       <option value="{{PublicationItemType.JOURNAL}}">Journal</option>
       <option value="{{PublicationItemType.LITERARY_PIECE}}">Literary Piece</option>
@@ -19,60 +19,64 @@
 
 
   <!-- Publication Item Fields -->
-  <label for="pub-item-edition">Quantity
-    <input type="number" id="pub-item-quantity" name="pub-item-quantity" formControlName="quantity">
+  <label for="quantity">Quantity
+    <input type="number" id="quantity" name="quantity" formControlName="quantity">
   </label>
 
-  <label for="pub-item-edition">Edition
-    <input type="text" id="pub-item-edition" name="pub-item-edition" formControlName="edition">
+  <label for="edtion">Edition
+    <input type="text" id="edtion" name="edtion" formControlName="edition">
   </label>
 
-  <label for="pub-item-format">Format
-    <select type="text" id="pub-item-format" name="pub-item-format" formControlName="format">
+  <label for="format">Format
+    <select literaryType="text" id="format" name="format" formControlName="format">
       <option value="{{PublicationItemFormat.AUDIOBOOK}}">AudioBook</option>
       <option value="{{PublicationItemFormat.HARDCOPY}}">HardCopy</option>
       <option value="{{PublicationItemFormat.EBOOK}}">EBook</option>
-
     </select>
   </label>
 
-  <label for="pub-item-purchase-price">Purchase Price
-    <input type="number" id="pub-item-purchase-price" name="pub-item-purchase-price"
-           formControlName="purchasePrice">
+  <label for="purchasePrice">Purchase Price
+    <input type="number" id="purchasePrice" name="purchasePrice" formControlName="purchasePrice">
   </label>
 
-  <label for="pub-item-rental-rate">Rental Rate
-    <input type="number" id="pub-item-rental-rate" name="pub-item-rental-rate" formControlName="rentalRate">
+  <label for="rentalRate">Rental Rate
+    <input type="number" id="rentalRate" name="rentalRate" formControlName="rentalRate">
   </label>
 
 
   <!-- Journal Fields -->
   @if (publicationItemForm.get("publicationItemType").value === PublicationItemType.JOURNAL) {
-    <label for="pub-item-issue-date">Issue Date
-      <input type="date" id="pub-item-issue-date" name="pub-item-issue-date" formControlName="issueDate">
+    <label for="issueDate">Issue Date
+      <input type="date" id="issueDate" name="issueDate" formControlName="issueDate">
     </label>
 
-    <label for="pub-item-issue-number">Issue Number
-      <input type="number" id="pub-item-issue-number" name="pub-item-issue-number" formControlName="issueNumber">
+    <label for="issueNumber">Issue Number
+      <input type="number" id="issueNumber" name="issueNumber" formControlName="issueNumber">
     </label>
 
-    <label for="pub-item-issue-name">Issue Name
-      <input type="text" id="pub-item-issue-name" name="pub-item-issue-name" formControlName="issueName">
+    <label for="issueName">Issue Name
+      <input type="text" id="issueName" name="issueName" formControlName="issueName">
     </label>
 
-    <label for="pub-item-volume">Volume
-      <input type="text" id="pub-item-volume" name="pub-item-volume" formControlName="volume">
+    <label for="volume">Volume
+      <input type="text" id="volume" name="volume" formControlName="volume">
     </label>
   }
 
 
   <!-- Literary Piece fields -->
   @if (publicationItemForm.get("publicationItemType").value === PublicationItemType.LITERARY_PIECE) {
-    <label for="pub-item-literary-type">Literary Type
-      <input type="number" id="pub-item-literary-type" name="pub-item-literary-type" formControlName="literaryType">
+    <label for="literaryType">Literary Type
+      <select id="literaryType" name="literaryType" formControlName="literaryType">
+        <option value="{{LiteraryType.ARTICLE}}">Article</option>
+        <option value="{{LiteraryType.ESSAY}}">Essay</option>
+        <option value="{{LiteraryType.POEM}}">Poem</option>
+        <option value="{{LiteraryType.STORY}}">Story</option>
+        <option value="{{LiteraryType.REVIEW}}">Review</option>
+      </select>
     </label>
   }
 
-  <button type="submit">Submit</button>
+  <button literaryType="submit">Submit</button>
 
 </form>
