@@ -1,6 +1,7 @@
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Publication} from '../DTOs/Inventory/Publication';
+import {PublicationItem} from '../DTOs/Inventory/PublicationItem';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,11 @@ export class PublicationService {
 
   getPublicationItemsByPublicationId(pubId: Number) {
     return this.http.get<any[]>(`${this.baseUrl}publicationitems/${pubId}`);
+  }
+
+  getPublicationItemById(pubItemId: Number){
+    return this.http.get<PublicationItem>(`${this.baseUrl}publicationitem/${pubItemId}`);
+
   }
 
 

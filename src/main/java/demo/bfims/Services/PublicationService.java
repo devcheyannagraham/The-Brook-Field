@@ -30,7 +30,6 @@ public class PublicationService {
 
     @Transactional
     public PublicationItemDto newPublicationItem(PublicationItemDto publicationItemDto) {
-        System.out.println("publicationItemDto = " + publicationItemDto);
         PublicationItem publicationItem = modelMapper.map(publicationItemDto, PublicationItem.class);
         Long pubId = publicationItem.getPublication().getPublicationId();
         //shouldnt be null
@@ -40,7 +39,6 @@ public class PublicationService {
             publicationItem.setPublication(managedPublication);
 
         }
-        System.out.println("before save: " + publicationItem); // correct subtype here!!
 
         if (publicationItem.getPublicationItemType().equals(PublicationItemType.JOURNAL))
             return modelMapper.map(itemRepo.save(publicationItem), JournalDto.class);

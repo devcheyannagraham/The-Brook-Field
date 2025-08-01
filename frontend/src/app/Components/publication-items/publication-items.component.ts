@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {PublicationService} from '../../Services/publication.service';
 import {PublicationItem} from '../../DTOs/Inventory/PublicationItem';
 import {Publication} from '../../DTOs/Inventory/Publication';
@@ -14,7 +14,6 @@ import {RouterLink} from '@angular/router';
 @Component({
   selector: 'publication-items',
   imports: [
-    TypeCast,
     DatePipe,
     RouterLink
   ],
@@ -22,18 +21,20 @@ import {RouterLink} from '@angular/router';
   styleUrl: './publication-items.component.css'
 })
 export class PublicationItemsComponent {
-  publication!: Publication;
-  publicationItems!: PublicationItem[];
-  publicationId: Number = 1;
-  books :Book[];
+  publication: Publication;
+  publicationItems: PublicationItem[];
+  books: Book[];
   journals: Journal[];
   literaryPieces: LiteraryPiece[]
+  @Input() publicationId: Number;
 
 
   //For Template
   PublicationItemType = PublicationItemType;
   Journal = Journal;
-  public instanceof: any;
+  headers = headers;
+
+  // public instanceof: any;
 
 
   constructor(public pubService: PublicationService) {
@@ -45,7 +46,7 @@ export class PublicationItemsComponent {
 
   getPublicationData() {
     // catch error;
-    if (!this.publication) {
+    if (this.publication == null) {
       this.pubService.getPublicationById(this.publicationId)
         .subscribe(pub => {
           this.publication = pub;
@@ -65,7 +66,7 @@ export class PublicationItemsComponent {
 
   }
 
-  filterPublicationItems(){
+  filterPublicationItems() {
     this.books = this.publicationItems
       .filter(item => item.publicationItemType === PublicationItemType.BOOK)
       .map(item => item as Book);
@@ -78,5 +79,4 @@ export class PublicationItemsComponent {
 
   }
 
-  protected readonly headers = headers;
 }

@@ -1,16 +1,18 @@
 <a routerLink="/publications">Back</a>
 
 <h3> Publication Title </h3>
-<ol>
-  <li>{{ headers.genre }}: {{ publication.genre }}</li>
-  <li>{{ headers.title }}: {{ publication.title }}</li>
-  <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
-  <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
-  <li>{{ headers.quantity }}: {{ publicationItems.length }}</li>
-</ol>
-<a [routerLink]="['/publicationform',publication.publicationId]">Update Publication</a>
+@if (publication) {
+  <ol>
+    <li>{{ headers.genre }}: {{ publication.genre }}</li>
+    <li>{{ headers.title }}: {{ publication.title }}</li>
+    <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
+    <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
+    <li>{{ headers.quantity }}: {{ publicationItems ? publicationItems.length : 0}}</li>
+  </ol>
+  <a [routerLink]="['/publicationform',publication.publicationId]">Update Publication</a>
+}
 
-@if (books.length) {
+@if (books) {
   <table>
     <thead>
     <th>{{ headers.publicationItemType }}</th>
@@ -39,7 +41,7 @@
 }
 
 
-@if (literaryPieces.length) {
+@if (literaryPieces) {
   <table>
     <thead>
     <th>{{ headers.publicationItemType }}</th>
@@ -67,7 +69,7 @@
 } @else {
   <p> No Literary Pieces</p>
 }
-@if (journals.length) {
+@if (journals) {
   <table>
     <thead>
     <th>{{ headers.publicationItemType }}</th>

@@ -20,12 +20,16 @@ export const routes: Routes = [
     component: AccessoryFormComponent,
   },
   {
-    path: 'publication/:id',
+    path: 'publication/:publicationId',
     component: PublicationItemsComponent,
   },
   {
     path: 'publications',
     component: PublicationsComponent,
+  },
+  {
+    path: 'publicationitemform/:pubItemId',
+    component: PublicationItemFormComponent,
   },
   {
     path: 'publicationitemform',

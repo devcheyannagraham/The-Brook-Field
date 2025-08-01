@@ -22,8 +22,7 @@ import {LiteraryType} from '../../Enums/LiteraryType';
 })
 export class PublicationItemFormComponent {
   publicationItemForm: FormGroup;
-  publication: Publication;
-  @Input() id: Number;
+  @Input() pubItemId: Number;
   publications: Publication[];
 
   constructor(public formBuilder: FormBuilder, public pubService: PublicationService) {
@@ -32,7 +31,9 @@ export class PublicationItemFormComponent {
   ngOnInit() {
     this.createForm();
     this.getPublications();
-    if (this.id) this.fillForm();
+    if (this.pubItemId) {
+      this.fillForm();
+    }
   }
 
   getPublications() {
@@ -43,7 +44,6 @@ export class PublicationItemFormComponent {
 
   createForm() {
     this.publicationItemForm = this.formBuilder.group({
-
       //PublicationItem fields
       publication: [],
       publicationItemType: [],
@@ -67,17 +67,18 @@ export class PublicationItemFormComponent {
   }
 
   fillForm() {
-    // Save data in service as cache
-
-    // if (this.id) {
-    //   this.pubService.getPublicationItemd(this.id)
-    //     .subscribe(data => {
-    //       for (let control in this.publicationItemForm.controls) {
-    //         // @ts-ignore
-    //         this.publicationItemForm.get(control).setValue(data[control])
-    //       }
-    //     })
-    // }
+    if (this.pubItemId) {
+      this.pubService.getPublicationItemById(this.pubItemId)
+        .subscribe(data => {
+          for (let key of Object.keys(data)) {
+            // @ts-ignore
+            if (data[key] != null && this.publicationItemForm.contains(key)) {
+              // @ts-ignore
+              this.publicationItemForm.get(key).setValue(data[key]);
+            }
+          }
+        });
+    }
   }
 
   addPublicationItem() {
@@ -108,7 +109,7 @@ export class PublicationItemFormComponent {
 
   createPublicationItem(item: any) {
     this.pubService.newPublicationItem(item)
-      .subscribe(resp => console.log(resp))
+      .subscribe(resp => console.log("RESPONSE: \n", resp))
   }
 
   protected readonly PublicationItemType = PublicationItemType;
