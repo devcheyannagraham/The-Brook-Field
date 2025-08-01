@@ -1,85 +1,28 @@
+<h3>New Publication</h3>
+
 <form [formGroup]="publicationForm" (ngSubmit)="addPublication()">
-    <!-- Publication Fields -->
-    <label for="pub-title">Title
-        <input id="pub-title" name="pub-title" formControlName="title" type="text">
-    </label>
+  <!-- Publication Fields -->
+  <label for="pub-title">Title
+    <input id="pub-title" name="pub-title" formControlName="title" type="text">
+  </label>
 
-    <label for="pub-genre">Genre
-        <select id="pub-genre" name="pub-genre" formControlName="genre">
-            <option>SciFi</option>
-            <option>Comedy</option>
-            <option>Fantasy</option>
-            <option>Youth</option>
-        </select>
-    </label>
+  <label for="pub-genre">Genre
+    <select id="pub-genre" name="pub-genre" formControlName="genre">
+      <option>SciFi</option>
+      <option>Comedy</option>
+      <option>Fantasy</option>
+      <option>Youth</option>
+    </select>
+  </label>
 
-    <label for="pub-isbn">ISBN
-        <input id="pub-isbn" name="pub-isbn" formControlName="isbn" type="number">
-    </label>
+  <label for="pub-isbn">ISBN
+    <input id="pub-isbn" name="pub-isbn" formControlName="isbn" type="number">
+  </label>
 
-    <label for="pub-date">Publish Date
-        <input id="pub-date" name="pub-date" formControlName="datePublished" type=date>
-    </label>
+  <label for="pub-date">Publish Date
+    <input id="pub-date" name="pub-date" formControlName="datePublished" type=date>
+  </label>
 
-    <label for="pub-type">Publication Type
-        <select id="pub-type" name="pub-type" formControlName="publicationType">
-            <option value="book">Book</option>
-            <option value="journal">Journal</option>
-            <option value="literary_Piece">Literary Piece</option>
-        </select>
-    </label>
-
-
-    <!-- Publication Item Fields -->
-    <label for="pub-item-edition">Total Items
-        <input type="number" id="pub-item-quantity" name="pub-item-quantity" formControlName="quantity">
-    </label>
-
-    <label for="pub-item-edition">Edition
-        <input type="text" id="pub-item-edition" name="pub-item-edition" formControlName="edition">
-    </label>
-
-    <label for="pub-item-format">Format
-        <input type="text" id="pub-item-format" name="pub-item-format" formControlName="format">
-    </label>
-
-    <label for="pub-item-purchase-price">Purchase Price
-        <input type="number" id="pub-item-purchase-price" name="pub-item-purchase-price"
-            formControlName="purchasePrice">
-    </label>
-
-    <label for="pub-item-rental-rate">Rental Rate
-        <input type="number" id="pub-item-rental-rate" name="pub-item-rental-rate" formControlName="rentalRate">
-    </label>
-
-
-    <!-- Journal Fields -->
-    @if (publicationForm.get("publicationType").value === "journal"){
-    <label for="pub-item-issue-date">Issue Date
-        <input type="date" id="pub-item-issue-date" name="pub-item-issue-date" formControlName="issueDate">
-    </label>
-
-    <label for="pub-item-issue-number">Issue Number
-        <input type="number" id="pub-item-issue-number" name="pub-item-issue-number" formControlName="issueNumber">
-    </label>
-
-    <label for="pub-item-issue-name">Issue Name
-        <input type="number" id="pub-item-issue-name" name="pub-item-issue-name" formControlName="issueName">
-    </label>
-
-    <label for="pub-item-volume">Volume
-        <input type="number" id="pub-item-volume" name="pub-item-volume" formControlName="volume">
-    </label>
-    }
-
-
-    <!-- Literary Piece fields -->
-    @if (publicationForm.get("publicationType").value === "literary_Piece"){
-    <label for="pub-item-literary-type">Literary Type
-        <input type="number" id="pub-item-literary-type" name="pub-item-literary-type" formControlName="literaryType">
-    </label>
-    }
-
-    <button type="submit">Submit</button>
+  <button type="submit">Submit</button>
 
 </form>
