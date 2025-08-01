@@ -12,5 +12,6 @@ import java.util.Optional;
 public interface ItemRepo extends JpaRepository<Item,Long> {
     Optional<List<Item>> findItemsByItemType(ItemType itemType);
 
-    Integer removeItemByItemId(Long id);
+    Integer deleteItemByItemId(Long id);
+
 }

@@ -36,7 +36,6 @@ public class PublicationService {
             Publication publication = publicationRepo.findById(pubId).orElse(null);
             Publication managedPublication = entityManager.merge(publication);
             publicationItem.setPublication(managedPublication);
-
         }
 
         if (publicationItem.getPublicationItemType().equals(PublicationItemType.JOURNAL))
@@ -47,7 +46,6 @@ public class PublicationService {
             return modelMapper.map(itemRepo.save(publicationItem), BookDto.class);
         else
             return modelMapper.map(itemRepo.save(publicationItem), PublicationItemDto.class);
-
     }
 
     public PublicationItemDto getPublicationItem(Long id) {
@@ -69,7 +67,7 @@ public class PublicationService {
     @Transactional
     public Boolean deletePublicationItem(Long id) {
         try {
-            itemRepo.deleteById(id);
+            itemRepo.deleteItemByItemId(id);
             return true;
         }
         //Need to send error someway
@@ -89,7 +87,6 @@ public class PublicationService {
         if (id == null) return null;
         Publication publication = publicationRepo.findById(id).orElse(null);
         if (publication != null) {
-            System.out.println("Publication found: " + publication);
             return modelMapper.map(publication, PublicationDto.class);
         }
         return null;
@@ -121,6 +118,20 @@ public class PublicationService {
     public PublicationDto newPublication(PublicationDto publicationDto) {
         Publication publication = modelMapper.map(publicationDto, Publication.class);
         return modelMapper.map(publicationRepo.save(publication), PublicationDto.class);
+    }
+
+    @Transactional
+    public Boolean deletePublicationById(Long id) {
+        if(id == null) return false;
+        try {
+            Integer deleteResult = publicationRepo.deletePublicationByPublicationId(id);
+            return true;
+        }
+        //Need to send error someway
+        catch (Exception e) {
+            return false;
+        }
+
     }
 
 }

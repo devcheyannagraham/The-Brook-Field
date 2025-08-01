@@ -42,11 +42,12 @@ export class PublicationService {
   }
 
   deleteItem(itemId:Number){
-    return this.http.delete(`${this.baseUrl}publicationitem/delete/${itemId}`);
+    return this.http.delete(`${this.baseUrl}publicationitem/${itemId}`);
   }
 
-  getPubAuthor(authorId:Number){
-    console.log("AuthorID", authorId);
+  deletePublication(pubId:Number){
+    return this.http.delete(`${this.baseUrl}publication/${pubId}`);
+
   }
 
 

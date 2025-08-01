@@ -55,7 +55,6 @@ public class AccessoryService {
 
     @Transactional
     public AccessoryItemDto newAccessory(AccessoryItemDto accessoryItemDto) {
-        System.out.println("newAccessory in service");
         AccessoryItem accessoryItem = modelMapper.map(accessoryItemDto, AccessoryItem.class);
         Accessory accessory = accessoryItem.getAccessory();
 
@@ -94,7 +93,7 @@ public class AccessoryService {
     @Transactional
     public Response removeAccessoryItem(Long id) {
         Response response = new Response();
-        Integer rows = itemRepo.removeItemByItemId(id);
+        Integer rows = itemRepo.deleteItemByItemId(id);
         response.getMessages().put(ResponseType.SUCCESS.toString(), "Item has been removed successfully");
         response.getMessages().put(ResponseType.MESSAGE.toString(), rows.toString() + " affected.");
         return response;

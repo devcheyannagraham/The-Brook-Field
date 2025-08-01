@@ -62,7 +62,7 @@ public class PublicationController {
     }
 
     // delete 1 pub item
-    @DeleteMapping("/publicationitem/delete/{id}")
+    @DeleteMapping("/publicationitem/{id}")
     public Boolean deletePublicationItem(@PathVariable Long id) {
         return publicationService.deletePublicationItem(id);
     }
@@ -80,6 +80,12 @@ public class PublicationController {
             return null;
         }
         return publicationService.getPublicationById(id);
+    }
+
+    @DeleteMapping("/publication/{id}")
+    public Boolean deletePublicationById(@PathVariable Long id) {
+        if (id == null) { return false; }
+        return publicationService.deletePublicationById(id);
     }
 
 }

@@ -8,7 +8,7 @@ import {LiteraryPiece} from '../../DTOs/Inventory/LiteraryPiece';
 import {Book} from '../../DTOs/Inventory/Book';
 import {headers} from '../../Helpers/headers';
 import {DatePipe} from '@angular/common';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'publication-items',
@@ -33,7 +33,7 @@ export class PublicationItemsComponent {
   Journal = Journal;
   headers = headers;
 
-  constructor(public pubService: PublicationService) {
+  constructor(public pubService: PublicationService, public router: Router) {
   }
 
   ngOnInit() {
@@ -82,6 +82,16 @@ export class PublicationItemsComponent {
           this.getPublicationItemsByPublicationId();
         }
       });
+  }
+
+  deletePublication(pubId: Number) {
+    this.pubService.deletePublication(pubId)
+      .subscribe(result => {
+        console.log("result", result);
+        if (result) {
+          this.router.navigateByUrl("/publications");
+        }
+      })
   }
 
 }
