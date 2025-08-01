@@ -14,6 +14,10 @@ export const headers = {
   issueDate: "Issue Date",
   issueNumber: "Issue Number",
   volume: "Volume",
-  issueName: "Issue Name"
+  issueName: "Issue Name",
+  //Accessory
+  accessoryName: "Accessory Name",
+  accessoryType: "Accessory Type",
+  price: "Price"
 
 }

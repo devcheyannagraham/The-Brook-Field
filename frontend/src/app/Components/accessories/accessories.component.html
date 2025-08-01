@@ -1,1 +1,23 @@
-<p>accessories works!</p>
+<table>
+  <thead>
+  <th>{{ headers.accessoryName }}</th>
+  <th>{{ headers.accessoryType }}</th>
+  <th>{{ headers.price }}</th>
+  <th>{{ headers.quantity }}</th>
+  <th></th>
+  </thead>
+  <tbody>
+    @for (acc of accessories; track acc.accessoryId) {
+      <tr>
+        <td>{{ acc.accessoryName }}</td>
+        <td>{{ acc.accessoryType }}</td>
+        <td>{{ acc.price }}</td>
+        <td>{{ acc.quantity }}</td>
+        <td>
+          <a [routerLink]="['/publicationitemform',acc.accessoryId]">Edit</a>
+          <button [disabled]= "!(acc.quantity.valueOf() <= 0)" (click)="deleteAccessory(acc.accessoryId)">delete</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

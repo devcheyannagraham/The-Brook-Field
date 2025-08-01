@@ -5,5 +5,5 @@ export class Accessory {
   public accessoryType: AccessoryType
   public accessoryName: String;
   public quantity: Number;
-  private price: Number;
+  public price: Number;
 }

@@ -14,4 +14,8 @@ export class AccessoryService {
   getAccessories(){
     return this.http.get<Accessory[]>(`${this.baseUrl}accessories`);
   }
+
+  deleteAccessory(accessId:Number){
+    return this.http.delete(`${this.baseUrl}accessory/${accessId}`);
+  }
 }
