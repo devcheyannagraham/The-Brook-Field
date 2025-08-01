@@ -23,4 +23,8 @@ export class AccessoryService {
     console.log("NEW ACCESSORY", accessory);
     return this.http.post(`${this.baseUrl}accessory`, accessory);
   }
+
+  getAccessory(accessId:Number){
+    return this.http.get<Accessory>(`${this.baseUrl}accessory/${accessId}`);
+  }
 }

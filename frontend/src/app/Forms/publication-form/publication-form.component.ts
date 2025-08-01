@@ -50,7 +50,7 @@ export class PublicationFormComponent {
             this.publicationForm.get("firstName").setValue(data["author"]["firstName"])
             this.publicationForm.get("lastName").setValue(data["author"]["lastName"])
           }
-        })
+        });
     }
   }
 

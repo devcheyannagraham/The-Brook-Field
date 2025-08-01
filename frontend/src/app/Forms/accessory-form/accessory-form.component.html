@@ -1,9 +1,9 @@
 <form [formGroup]="accessoryForm" (ngSubmit)="addAccessory()">
 
-  @if (accessId != null) {
+  @if (accessoryId != null) {
     <!--    Update accessory-->
     <h3>Update Accessory</h3>
-    <select name="accessory" id="accessory">
+    <select name="accessoryId" id="accessoryId" (change)="updateForm()" formControlName="accessoryId">
       @for (acc of accessories; track acc.accessoryId) {
         <option value="{{acc.accessoryId}}">{{ acc.accessoryName }}</option>
       }

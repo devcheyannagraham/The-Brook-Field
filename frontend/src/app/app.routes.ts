@@ -40,7 +40,7 @@ export const routes: Routes = [
     component: AccessoriesComponent,
   },
   {
-    path: 'accessoryform/:accessId',
+    path: 'accessoryform/:accessoryId',
     component: AccessoryFormComponent,
   },
   {
