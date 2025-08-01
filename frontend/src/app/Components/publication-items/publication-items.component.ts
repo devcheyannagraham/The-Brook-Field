@@ -9,12 +9,14 @@ import {LiteraryPiece} from '../../DTOs/Inventory/LiteraryPiece';
 import {Book} from '../../DTOs/Inventory/Book';
 import {headers} from '../../Helpers/headers';
 import {DatePipe} from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'publication-items',
   imports: [
     TypeCast,
-    DatePipe
+    DatePipe,
+    RouterLink
   ],
   templateUrl: './publication-items.component.html',
   styleUrl: './publication-items.component.css'
