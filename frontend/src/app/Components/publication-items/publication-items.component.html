@@ -8,8 +8,9 @@
   <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
   <li>{{ headers.quantity }}: {{ publicationItems.length }}</li>
 </ol>
+<a [routerLink]="['/publicationform',publication.publicationId]">Update Publication</a>
 
-@if (books.length > 0) {
+@if (books.length) {
   <table>
     <thead>
     <th>{{ headers.publicationItemType }}</th>
@@ -38,7 +39,7 @@
 }
 
 
-@if (literaryPieces.length > 0) {
+@if (literaryPieces.length) {
   <table>
     <thead>
     <th>{{ headers.publicationItemType }}</th>
@@ -66,7 +67,7 @@
 } @else {
   <p> No Literary Pieces</p>
 }
-@if (journals.length > 0) {
+@if (journals.length) {
   <table>
     <thead>
     <th>{{ headers.publicationItemType }}</th>

@@ -7,6 +7,10 @@ import {PublicationsComponent} from './Components/publications/publications.comp
 
 export const routes: Routes = [
   {
+    path: 'publicationform/:id',
+    component: PublicationFormComponent,
+  },
+  {
     path: 'publicationform',
     component: PublicationFormComponent,
   },

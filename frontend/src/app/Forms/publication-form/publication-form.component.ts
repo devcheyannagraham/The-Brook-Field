@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input, input} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule,} from '@angular/forms';
 import {PublicationService} from '../../Services/publication.service';
 import {Journal} from '../../DTOs/Inventory/Journal';
@@ -18,11 +18,13 @@ import {Book} from '../../DTOs/Inventory/Book';
 })
 export class PublicationFormComponent {
   publicationForm: FormGroup;
+  @Input() id: Number;
 
   constructor(
     public formBuilder: FormBuilder,
     public pubService: PublicationService
   ) {
+    if (this.id) console.log("ID: ", this.id)
     this.publicationForm = this.formBuilder.group({
       //Publciation fields
       title: [''],
@@ -48,6 +50,22 @@ export class PublicationFormComponent {
       //Literary Piece
       literaryType: [''],
     });
+  }
+
+  ngOnInit() {
+    if(this.id)this.fillForm();
+  }
+
+  fillForm() {
+    if (this.id) {
+      this.pubService.getPublicationById(this.id)
+        .subscribe(data => {
+          for (let control in this.publicationForm.controls) {
+            // @ts-ignore
+            this.publicationForm.get(control).setValue(data[control])
+          }
+        })
+    }
   }
 
   addPublication() {
