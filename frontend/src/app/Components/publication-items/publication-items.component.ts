@@ -59,7 +59,6 @@ export class PublicationItemsComponent {
           this.filterPublicationItems();
         }
       });
-
   }
 
   filterPublicationItems() {

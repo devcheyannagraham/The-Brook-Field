@@ -53,13 +53,13 @@ class PublicationServiceTest {
     @Test
     @Transactional
     @Order(2)
-    void getPublicationItem() {
+    void getPublicationByIdItem() {
         assertNotNull(publicationService.getPublicationItem(publicationItem.getItemId()));
     }
 
     @Test
     @Order(3)
-    void getPublicationItems() {
+    void getPublicationByIdItems() {
         assertNotNull(publicationService.getPublicationItems());
     }
 

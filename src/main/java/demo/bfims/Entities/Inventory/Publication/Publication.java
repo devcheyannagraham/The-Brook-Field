@@ -77,8 +77,8 @@ public class Publication {
         return author;
     }
 
-    public void setAuthor(Author authors) {
-        this.author = authors;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     @Override
@@ -87,7 +87,7 @@ public class Publication {
                 "publicationId=" + publicationId +
                 ", genre=" + genre +
                 ", date_published=" + datePublished +
-                ", authors=" + author +
+                ", author=" + author +
                 ", publicationQuantity=" + publicationQuantity +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +

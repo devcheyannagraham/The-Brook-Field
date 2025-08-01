@@ -1,5 +1,4 @@
 import {Routes} from '@angular/router';
-import {AppComponent} from './app.component';
 import {PublicationFormComponent} from './Forms/publication-form/publication-form.component';
 import {AccessoryFormComponent} from './Forms/accessory-form/accessory-form.component';
 import {PublicationItemsComponent} from './Components/publication-items/publication-items.component';
@@ -8,7 +7,7 @@ import {PublicationItemFormComponent} from './Forms/publication-item-form/public
 
 export const routes: Routes = [
   {
-    path: 'publicationform/:id',
+    path: 'publicationform/:publicationId',
     component: PublicationFormComponent,
   },
   {

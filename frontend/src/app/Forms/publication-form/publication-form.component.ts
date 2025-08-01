@@ -16,14 +16,14 @@ export class PublicationFormComponent {
   publicationForm: FormGroup;
   Genre = Genre;
 
-  @Input() id: Number;
+  @Input() publicationId: Number;
 
   constructor(public formBuilder: FormBuilder, public pubService: PublicationService) {
   }
 
   ngOnInit() {
     this.createForm();
-    if (this.id) this.fillForm();
+    if (this.publicationId) this.fillForm();
   }
 
   createForm() {
@@ -33,18 +33,22 @@ export class PublicationFormComponent {
       isbn: [''],
       datePublished: [''],
       genre: [''],
-      firstName:[''],
-      lastName:['']
+      firstName: [''],
+      lastName: ['']
     });
   }
 
   fillForm() {
-    if (this.id) {
-      this.pubService.getPublicationById(this.id)
+    if (this.publicationId) {
+      this.pubService.getPublicationById(this.publicationId)
         .subscribe(data => {
-          for (let control in this.publicationForm.controls) {
-            // @ts-ignore
-            this.publicationForm.get(control).setValue(data[control])
+          for (let key of Object.keys(data)) {
+            if (key != null && this.publicationForm.contains(key)) {
+              // @ts-ignore
+              this.publicationForm.get(key).setValue(data[key])
+            }
+            this.publicationForm.get("firstName").setValue(data["author"]["firstName"])
+            this.publicationForm.get("lastName").setValue(data["author"]["lastName"])
           }
         })
     }
@@ -55,8 +59,8 @@ export class PublicationFormComponent {
     publication.author = new Author();
 
     for (let control in this.publicationForm.controls) {
-      if(control === "firstName") publication.author.firstName = this.publicationForm.get(control).value;
-      else if(control === "lastName") publication.author.lastName = this.publicationForm.get(control).value;
+      if (control === "firstName") publication.author.firstName = this.publicationForm.get(control).value;
+      if (control === "lastName") publication.author.lastName = this.publicationForm.get(control).value;
       else { // @ts-ignore
         publication[control] = this.publicationForm.get(control).value;
       }

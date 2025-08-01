@@ -79,7 +79,7 @@ public class PublicationController {
         if (id == null) {
             return null;
         }
-        return publicationService.getPublication(id);
+        return publicationService.getPublicationById(id);
     }
 
 }

@@ -3,7 +3,7 @@
 <form [formGroup]="publicationForm" (ngSubmit)="addPublication()">
   <!-- Publication Fields -->
   <label for="pub-title">Title
-    <input id="pub-title" name="pub-title" formControlName="title" literaryType="text">
+    <input id="pub-title" name="pub-title" formControlName="title" type="text">
   </label>
 
   <label for="pub-genre">Genre
@@ -15,24 +15,24 @@
     </select>
   </label>
 
-  <label for="pub-isbn">ISBN
-    <input id="pub-isbn" name="pub-isbn" formControlName="isbn" literaryType="number">
+  <label for="isbn">ISBN
+    <input id="isbn" name="isbn" formControlName="isbn" type="number">
   </label>
 
   <label for="pub-date">Publish Date
-    <input id="pub-date" name="pub-date" formControlName="datePublished" literaryType=date>
+    <input id="pub-date" name="pub-date" formControlName="datePublished" type=date>
   </label>
 
   <!--  Author-->
   <h4>Author Details</h4>
-  <label for="author-first-name">First Name
-    <input id="author-first-name" name="author-first-name" formControlName="firstName" literaryType=text>
+  <label for="firstName">First Name
+    <input id="firstName" name="firstName" formControlName="firstName" type=text>
   </label>
 
-  <label for="author-last-name">Last Name
-    <input id="author-last-name" name="author-last-name" formControlName="lastName" literaryType=text>
+  <label for="lastName">Last Name
+    <input id="lastName" name="lastName" formControlName="lastName" type=text>
   </label>
 
-  <button literaryType="submit">Submit</button>
+  <button type="submit">Submit</button>
 
 </form>

@@ -45,5 +45,9 @@ export class PublicationService {
     return this.http.delete(`${this.baseUrl}publicationitem/delete/${itemId}`);
   }
 
+  getPubAuthor(authorId:Number){
+    console.log("AuthorID", authorId);
+  }
+
 
 }

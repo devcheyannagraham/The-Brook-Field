@@ -2,7 +2,6 @@ package demo.bfims.Services;
 
 import demo.bfims.DTOs.InventoryDTOs.Publication.*;
 import demo.bfims.Entities.Inventory.Publication.Item;
-import demo.bfims.Entities.Inventory.Publication.Journal;
 import demo.bfims.Entities.Inventory.Publication.Publication;
 import demo.bfims.Entities.Inventory.Publication.PublicationItem;
 import demo.bfims.Enums.ItemType;
@@ -86,10 +85,11 @@ public class PublicationService {
         } else return null;
     }
 
-    public PublicationDto getPublication(Long id) {
+    public PublicationDto getPublicationById(Long id) {
         if (id == null) return null;
         Publication publication = publicationRepo.findById(id).orElse(null);
         if (publication != null) {
+            System.out.println("Publication found: " + publication);
             return modelMapper.map(publication, PublicationDto.class);
         }
         return null;
