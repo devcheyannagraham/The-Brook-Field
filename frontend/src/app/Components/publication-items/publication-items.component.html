@@ -7,7 +7,7 @@
     <li>{{ headers.title }}: {{ publication.title }}</li>
     <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
     <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
-    <li>{{ headers.quantity }}: {{ publicationItems ? publicationItems.length : 0}}</li>
+    <li>{{ headers.quantity }}: {{ publicationItems ? publicationItems.length : 0 }}</li>
   </ol>
   <a [routerLink]="['/publicationform',publication.publicationId]">Update Publication</a>
 }
@@ -21,6 +21,7 @@
     <th>{{ headers.purchasePrice }}</th>
     <th>{{ headers.rentalRate }}</th>
     <th>{{ headers.status }}</th>
+    <th></th>
     </thead>
 
     <tbody>
@@ -32,6 +33,10 @@
           <td>{{ book.purchasePrice }}</td>
           <td>{{ book.rentalRate }}</td>
           <td>{{ book.status }}</td>
+          <td>
+            <a routerLink="">Edit</a>
+            <button (click)="deleteItem(book.itemId)">delete</button>
+          </td>
         </tr>
       }
     </tbody>
@@ -51,6 +56,7 @@
     <th>{{ headers.rentalRate }}</th>
     <th>{{ headers.status }}</th>
     <th>{{ headers.literaryType }}</th>
+    <th></th>
     </thead>
     <tbody>
       @for (lp of literaryPieces; track lp.itemId) {
@@ -62,6 +68,10 @@
           <td>{{ lp.rentalRate }}</td>
           <td>{{ lp.status }}</td>
           <td>{{ lp.literaryType }}</td>
+          <td>
+            <a routerLink="">Edit</a>
+            <button (click)="deleteItem(lp.itemId)">delete</button>
+          </td>
         </tr>
       }
     </tbody>
@@ -82,6 +92,7 @@
     <th>{{ headers.issueNumber }}</th>
     <th>{{ headers.issueName }}</th>
     <th>{{ headers.volume }}</th>
+    <th></th>
     </thead>
     <tbody>
       @for (journal of journals; track journal.itemId) {
@@ -96,6 +107,10 @@
           <td>{{ journal.issueNumber }}</td>
           <td>{{ journal.issueName }}</td>
           <td>{{ journal.volume }}</td>
+          <td>
+            <a routerLink="">Edit</a>
+            <button (click)="deleteItem(journal.itemId)">delete</button>
+          </td>
         </tr>
       }
     </tbody>

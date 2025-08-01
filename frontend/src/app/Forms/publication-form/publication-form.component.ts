@@ -14,6 +14,8 @@ import {Author} from '../../DTOs/Inventory/Author';
 })
 export class PublicationFormComponent {
   publicationForm: FormGroup;
+  Genre = Genre;
+
   @Input() id: Number;
 
   constructor(public formBuilder: FormBuilder, public pubService: PublicationService) {
@@ -59,7 +61,7 @@ export class PublicationFormComponent {
         publication[control] = this.publicationForm.get(control).value;
       }
     }
-    this.createPublication(publication)
+    this.createPublication(publication);
   }
 
   createPublication(pub: any) {
@@ -69,5 +71,4 @@ export class PublicationFormComponent {
       });
   }
 
-  protected readonly Genre = Genre;
 }

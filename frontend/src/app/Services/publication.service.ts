@@ -39,7 +39,10 @@ export class PublicationService {
 
   getPublicationItemById(pubItemId: Number){
     return this.http.get<PublicationItem>(`${this.baseUrl}publicationitem/${pubItemId}`);
+  }
 
+  deleteItem(itemId:Number){
+    return this.http.delete(`${this.baseUrl}publicationitem/delete/${itemId}`);
   }
 
 

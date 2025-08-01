@@ -34,9 +34,6 @@ export class PublicationItemsComponent {
   Journal = Journal;
   headers = headers;
 
-  // public instanceof: any;
-
-
   constructor(public pubService: PublicationService) {
   }
 
@@ -77,6 +74,16 @@ export class PublicationItemsComponent {
       .filter(item => item.publicationItemType === PublicationItemType.LITERARY_PIECE)
       .map(item => item as LiteraryPiece);
 
+  }
+
+  deleteItem(itemId: Number) {
+    this.pubService.deleteItem(itemId)
+      .subscribe(result => {
+        if (result) {
+          //update items
+          this.getPublicationItemsByPublicationId();
+        }
+      });
   }
 
 }
