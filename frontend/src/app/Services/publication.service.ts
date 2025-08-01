@@ -7,11 +7,9 @@ import {PublicationItem} from '../DTOs/Inventory/PublicationItem';
   providedIn: 'root',
 })
 export class PublicationService {
-  http: HttpClient;
   baseUrl: String = 'http://localhost:8080/';
 
-  constructor(private httpClient: HttpClient) {
-    this.http = httpClient;
+  constructor(private http: HttpClient) {
   }
 
   newPublication(pub: any) {
