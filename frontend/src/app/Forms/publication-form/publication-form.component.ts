@@ -9,6 +9,7 @@ import {Publication} from '../../DTOs/Inventory/Publication';
 import {PublicationItemStatus} from '../../Enums/PublicationItemStatus';
 import {LiteraryPiece} from '../../DTOs/Inventory/LiteraryPiece';
 import {Book} from '../../DTOs/Inventory/Book';
+import {Genre} from '../../Enums/Genre';
 
 @Component({
   selector: 'publication-form',
@@ -58,15 +59,16 @@ export class PublicationFormComponent {
     for (let control in this.publicationForm.controls) {
       // @ts-ignore
       publication[control] = this.publicationForm.get(control).value;
-
     }
-
+    this.createPublication(publication)
   }
 
-  createPublication(item: any) {
-    this.pubService.newPublication(item)
+  createPublication(pub: any) {
+    this.pubService.newPublication(pub)
       .subscribe(resp => {
         console.log("RESPONSE: ", resp);
       });
   }
+
+  protected readonly Genre = Genre;
 }

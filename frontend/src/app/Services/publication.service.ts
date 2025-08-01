@@ -15,11 +15,14 @@ export class PublicationService {
     this.http = httpClient;
   }
 
-  newPublication(publicationData: any) {
-    console.log('pub data\n', publicationData);
-
+  newPublication(pub: any) {
+    console.log("PUB ", pub)
     return this.http
-      .post(`${this.baseUrl}publicationitem`, publicationData);
+      .post(`${this.baseUrl}publication`, pub);
+  }
+
+  newPublicationItem(pubItem:any){
+    return this.http.post(`${this.baseUrl}publicationItem`, pubItem);
   }
 
   getPublications() {

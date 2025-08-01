@@ -88,7 +88,7 @@ export class PublicationItemFormComponent {
   }
 
   createPublicationItem(item: any) {
-    console.log("ITEM: ", item)
+    this.pubService.newPublicationItem(item)
   }
 
   protected readonly PublicationItemType = PublicationItemType;

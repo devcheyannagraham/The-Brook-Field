@@ -32,6 +32,7 @@ public class PublicationItemService {
     public PublicationItemDto newPublicationItem(PublicationItemDto publicationItemDto) {
         PublicationItem publicationItem = modelMapper.map(publicationItemDto, PublicationItem.class);
         Long pubId = publicationItem.getPublication().getPublicationId();
+        //shouldnt be null
         if (pubId != null) {
             Publication publication = publicationRepo.findById(pubId).orElse(null);
             Publication managedPublication = entityManager.merge(publication);
