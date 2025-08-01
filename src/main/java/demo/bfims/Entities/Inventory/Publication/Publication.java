@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Publication {
@@ -16,8 +15,8 @@ public class Publication {
     private Genre genre;
     @Temporal(TemporalType.DATE)
     private LocalDate datePublished;
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Author> authors = new ArrayList<>();
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Author author;
     private int publicationQuantity;
     private String title;
     private String isbn;
@@ -74,16 +73,12 @@ public class Publication {
         this.isbn = isbn;
     }
 
-    public List<Author> getAuthors() {
-        return authors;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setAuthors(List<Author> authors) {
-        this.authors = authors;
-    }
-
-    public void addAuthor(Author author) {
-        this.authors.add(author);
+    public void setAuthor(Author authors) {
+        this.author = authors;
     }
 
     @Override
@@ -92,7 +87,7 @@ public class Publication {
                 "publicationId=" + publicationId +
                 ", genre=" + genre +
                 ", date_published=" + datePublished +
-                ", authors=" + authors +
+                ", authors=" + author +
                 ", publicationQuantity=" + publicationQuantity +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +

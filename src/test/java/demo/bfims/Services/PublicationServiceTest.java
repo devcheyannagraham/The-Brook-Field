@@ -18,12 +18,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PublicationItemServiceTest {
+class PublicationServiceTest {
 
     static PublicationItem publicationItem;
 
     @Autowired
-    PublicationItemService publicationItemService;
+    PublicationService publicationService;
     private ModelMapper modelMapper;
 
     @BeforeAll
@@ -46,27 +46,27 @@ class PublicationItemServiceTest {
     @Test
     @Order(1)
     void newPublicationItem() {
-        ItemDto newItem = publicationItemService.newPublicationItem(modelMapper.map(publicationItem, PublicationItemDto.class));
-        assertNotNull(publicationItemService.getPublicationItem(newItem.getItemId()));
+        ItemDto newItem = publicationService.newPublicationItem(modelMapper.map(publicationItem, PublicationItemDto.class));
+        assertNotNull(publicationService.getPublicationItem(newItem.getItemId()));
     }
 
     @Test
     @Transactional
     @Order(2)
     void getPublicationItem() {
-        assertNotNull(publicationItemService.getPublicationItem(publicationItem.getItemId()));
+        assertNotNull(publicationService.getPublicationItem(publicationItem.getItemId()));
     }
 
     @Test
     @Order(3)
     void getPublicationItems() {
-        assertNotNull(publicationItemService.getPublicationItems());
+        assertNotNull(publicationService.getPublicationItems());
     }
 
     @Test
     @Order(4)
     void deletePublicationItem() {
-        publicationItemService.deletePublicationItem(publicationItem.getItemId());
-        assertNull(publicationItemService.getPublicationItem(publicationItem.getItemId()));
+        publicationService.deletePublicationItem(publicationItem.getItemId());
+        assertNull(publicationService.getPublicationItem(publicationItem.getItemId()));
     }
 }

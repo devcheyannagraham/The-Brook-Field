@@ -14,6 +14,9 @@ public class PublicationItemDto extends ItemDto {
     private Double rentalRate;
     private String edition;
 
+    // only for making mulitple items
+    private Integer quantity = 0;
+
     public PublicationItemDto() {
     }
 
@@ -71,6 +74,14 @@ public class PublicationItemDto extends ItemDto {
 
     public void setPublicationItemType(PublicationItemType publicationItemType) {
         this.publicationItemType = publicationItemType;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     @Override

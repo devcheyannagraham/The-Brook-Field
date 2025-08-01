@@ -3,14 +3,12 @@ package demo.bfims.DTOs.InventoryDTOs.Publication;
 import demo.bfims.Enums.Genre;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PublicationDto {
     private Long publicationId;
     private Genre genre;
     private LocalDate datePublished;
-    private List<AuthorDto> authors = new ArrayList<>();
+    private AuthorDto author;
     private int publicationQuantity;
     private String title;
     private String isbn;
@@ -41,12 +39,12 @@ public class PublicationDto {
         this.datePublished = datePublished;
     }
 
-    public List<AuthorDto> getAuthors() {
-        return authors;
+    public AuthorDto getAuthor() {
+        return author;
     }
 
-    public void setAuthors(List<AuthorDto> authors) {
-        this.authors = authors;
+    public void setAuthor(AuthorDto author) {
+        this.author = author;
     }
 
     public int getPublicationQuantity() {
@@ -79,7 +77,7 @@ public class PublicationDto {
                 "publicationId=" + publicationId +
                 ", genre=" + genre +
                 ", datePublished=" + datePublished +
-                ", authors=" + authors +
+                ", author=" + author +
                 ", publicationQuantity=" + publicationQuantity +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +

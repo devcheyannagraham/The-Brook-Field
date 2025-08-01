@@ -2,58 +2,76 @@ package demo.bfims.Controllers;
 
 import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationDto;
 import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
-import demo.bfims.Services.PublicationItemService;
+import demo.bfims.Services.PublicationService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class PublicationController {
-    PublicationItemService publicationItemService;
+    PublicationService publicationService;
 
-    public PublicationController(PublicationItemService publicationItemService) {
-        this.publicationItemService = publicationItemService;
+    public PublicationController(PublicationService publicationService) {
+        this.publicationService = publicationService;
     }
 
-    // new PublicationItem (with new pub)
+    // new PublicationItem
     @PostMapping("/publicationitem")
-    public PublicationItemDto newPublicationItem(@RequestBody PublicationItemDto publicationItemDto) {
+    public List<PublicationItemDto> newPublicationItem(@RequestBody PublicationItemDto publicationItemDto) {
         if (publicationItemDto == null) {
             return null;
         }
-        return publicationItemService.newPublicationItem(publicationItemDto);
+        List<PublicationItemDto> newItems = new ArrayList<>();
+
+        // Make multiple items of same type
+        int quantity = publicationItemDto.getQuantity();
+        for (int i = 0; i < quantity; i++) {
+            newItems.add(publicationService.newPublicationItem(publicationItemDto));
+        }
+        return newItems;
+    }
+
+    @PostMapping("/publication")
+    public PublicationDto newPublication(@RequestBody PublicationDto publicationDto) {
+        if (publicationDto == null) {
+            return null;
+        }
+        System.out.println("\nPUBLICATION DTO: " + publicationDto);
+        return publicationService.newPublication(publicationDto);
+
     }
 
     //Get 1 pubitem
     @GetMapping("/publicationitem/{id}")
     public PublicationItemDto getPublicationItem(@PathVariable Long id) {
-        return publicationItemService.getPublicationItem(id);
+        return publicationService.getPublicationItem(id);
     }
 
     //get all pubitems
     @GetMapping("/publicationitems")
     public List<PublicationItemDto> getPublicationItems() {
-        return publicationItemService.getPublicationItems();
+        return publicationService.getPublicationItems();
     }
 
     //get pubItems for a pub
     @GetMapping("/publicationitems/{pubId}")
     public List<PublicationItemDto> getPublicationItemsByPublicationId(@PathVariable Long pubId) {
-        if(pubId == null) return null;
-        return publicationItemService.getPublicationItemsByPublicationId(pubId);
+        if (pubId == null) return null;
+        return publicationService.getPublicationItemsByPublicationId(pubId);
     }
 
     // delete 1 pub item
     @DeleteMapping("/publicationitem/delete/{id}")
     public Boolean deletePublicationItem(@PathVariable Long id) {
-        return publicationItemService.deletePublicationItem(id);
+        return publicationService.deletePublicationItem(id);
     }
 
     //get all publications
     @GetMapping("/publications")
     public List<PublicationDto> getPublications() {
-        return publicationItemService.getPublications();
+        return publicationService.getPublications();
     }
 
     //get 1 pub
@@ -62,7 +80,7 @@ public class PublicationController {
         if (id == null) {
             return null;
         }
-        return publicationItemService.getPublication(id);
+        return publicationService.getPublication(id);
     }
 
 }

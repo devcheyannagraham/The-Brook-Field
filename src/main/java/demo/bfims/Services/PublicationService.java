@@ -15,10 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-public class PublicationItemService {
+public class PublicationService {
     @Autowired
     private ItemRepo itemRepo;
     @Autowired
@@ -106,6 +105,11 @@ public class PublicationItemService {
                 })
                 .toList();
 
+    }
+
+    public PublicationDto newPublication(PublicationDto publicationDto) {
+        Publication publication = modelMapper.map(publicationDto, Publication.class);
+        return modelMapper.map(publicationRepo.save(publication), PublicationDto.class);
     }
 
 }
