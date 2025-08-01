@@ -8,7 +8,7 @@ import demo.bfims.Enums.PublicationItemType;
 public class PublicationItemDto extends ItemDto {
     private PublicationItemFormat format;
     private PublicationItemStatus status;
-    private PublicationDto publicationDto;
+    private PublicationDto publication;
     private PublicationItemType publicationItemType;
     private Double purchasePrice;
     private Double rentalRate;
@@ -36,12 +36,12 @@ public class PublicationItemDto extends ItemDto {
         this.status = status;
     }
 
-    public PublicationDto getPublicationDto() {
-        return publicationDto;
+    public PublicationDto getPublication() {
+        return publication;
     }
 
-    public void setPublicationDto(PublicationDto publicationDto) {
-        this.publicationDto = publicationDto;
+    public void setPublication(PublicationDto publication) {
+        this.publication = publication;
     }
 
     public Double getPurchasePrice() {
@@ -89,7 +89,7 @@ public class PublicationItemDto extends ItemDto {
         return "PublicationItemDto{" +
                 "format=" + format +
                 ", status=" + status +
-                ", publicationDto=" + publicationDto +
+                ", publication=" + publication +
                 ", publicationItemType=" + publicationItemType +
                 ", purchasePrice=" + purchasePrice +
                 ", rentalRate=" + rentalRate +

@@ -23,6 +23,7 @@ public class PublicationController {
         if (publicationItemDto == null) {
             return null;
         }
+        System.out.println("publicationItemDto = " + publicationItemDto);
         List<PublicationItemDto> newItems = new ArrayList<>();
 
         // Make multiple items of same type
@@ -38,7 +39,6 @@ public class PublicationController {
         if (publicationDto == null) {
             return null;
         }
-        System.out.println("\nPUBLICATION DTO: " + publicationDto);
         return publicationService.newPublication(publicationDto);
 
     }

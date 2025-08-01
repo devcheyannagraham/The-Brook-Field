@@ -30,6 +30,7 @@ public class PublicationService {
     @Transactional
     public PublicationItemDto newPublicationItem(PublicationItemDto publicationItemDto) {
         PublicationItem publicationItem = modelMapper.map(publicationItemDto, PublicationItem.class);
+        System.out.println("PublicationItemDto2: " + publicationItemDto);
         Long pubId = publicationItem.getPublication().getPublicationId();
         //shouldnt be null
         if (pubId != null) {
