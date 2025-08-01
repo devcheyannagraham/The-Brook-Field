@@ -3,10 +3,11 @@ import {PublicationService} from '../../Services/publication.service';
 import {Publication} from '../../DTOs/Inventory/Publication';
 import {DatePipe, KeyValuePipe} from '@angular/common';
 import {headers} from '../../Helpers/headers';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'publications',
-  imports: [KeyValuePipe, DatePipe],
+  imports: [KeyValuePipe, DatePipe, RouterLink],
   templateUrl: './publications.component.html',
   styleUrl: './publications.component.css',
 })

@@ -22,7 +22,7 @@ import {DatePipe} from '@angular/common';
 export class PublicationItemsComponent {
   publication!: Publication;
   publicationItems!: PublicationItem[];
-  publicationId: Number = 3;
+  publicationId: Number = 1;
   books :Book[];
   journals: Journal[];
   literaryPieces: LiteraryPiece[]
