@@ -13,6 +13,8 @@ import {AccessoryType} from '../../Enums/AccessoryType';
 export class AccessoryFormComponent {
   accessoryForm: FormGroup;
   accessories: Accessory[]
+  protected readonly AccessoryType = AccessoryType;
+
   @Input() accessoryId: Number;
 
   constructor(private formBuilder: FormBuilder, public accessoryService: AccessoryService) {
@@ -78,5 +80,4 @@ export class AccessoryFormComponent {
   }
 
 
-  protected readonly AccessoryType = AccessoryType;
 }

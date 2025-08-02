@@ -62,7 +62,7 @@ public class AccessoryController {
         return null;
     }
 
-    //Deleete accessoryitem
+    //Delete accessoryitem
     @DeleteMapping("/accessoryitem/{id}")
     public Response deleteAccessoryItem(@PathVariable Long id) {
         if(id != null) return accessoryService.removeAccessoryItem(id);

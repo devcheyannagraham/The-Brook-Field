@@ -76,15 +76,23 @@ public class AccessoryService {
     }
 
     public AccessoryDto newAccessory(AccessoryDto accessoryDto) {
+        System.out.println("ACC:" + accessoryDto);
         Accessory accessory = modelMapper.map(accessoryDto, Accessory.class);
-        Accessory savedAccessory = accessoryRepo.save(accessory);
-        //create items
-        for (int i = 0; i < accessoryDto.getQuantity(); i++) {
-            AccessoryItem accessoryItem = new AccessoryItem();
-            accessoryItem.setAccessory(savedAccessory);
-            itemRepo.save(accessoryItem);
+
+//        Accessory exists so update only
+        if (accessory.getAccessoryId() != null) {
+
+        } else { // create new accessory
+            Accessory savedAccessory = accessoryRepo.save(accessory);
+            //create items
+            for (int i = 0; i < accessoryDto.getQuantity(); i++) {
+                AccessoryItem accessoryItem = new AccessoryItem();
+                accessoryItem.setAccessory(savedAccessory);
+                itemRepo.save(accessoryItem);
+            }
+            return modelMapper.map(savedAccessory, AccessoryDto.class);
         }
-        return modelMapper.map(savedAccessory, AccessoryDto.class);
+        return null;
     }
 
     @Transactional
