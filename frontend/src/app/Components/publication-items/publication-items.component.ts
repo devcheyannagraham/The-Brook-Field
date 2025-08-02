@@ -79,7 +79,7 @@ export class PublicationItemsComponent {
              :
              Number
   ) {
-    this.pubService.deleteItem(itemId)
+    this.pubService.deletePublicationItem(itemId)
       .subscribe(result => {
         if (result) {
           //update items

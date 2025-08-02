@@ -4,6 +4,7 @@ import {RouterLink} from '@angular/router';
 import {Accessory} from '../../DTOs/Accessory/Accessory';
 import {AccessoryItem} from '../../DTOs/Accessory/AccessoryItem';
 import {AccessoryService} from '../../Services/accessory.service';
+import {headers} from '../../Helpers/headers';
 
 @Component({
   selector: 'accessory-items',
@@ -46,4 +47,14 @@ export class AccessoryItemsComponent {
     }
   }
 
+  deleteAccessory(accessId:Number){
+    console.log("IMPLEMENT DELETE ACCESSORY")
+  }
+
+  deleteAccessoryItem(accessItemId:Number){
+    console.log("IMPLEMENT DELETE ACCESSORYItem")
+
+  }
+
+  protected readonly headers = headers;
 }

@@ -1,6 +1,6 @@
 <a routerLink="/publications">Back</a>
 
-<h3> Publication Title </h3>
+<h3> {{ publication.title }} </h3>
 @if (publication) {
   <ol>
     <li>{{ headers.genre }}: {{ publication.genre }}</li>
