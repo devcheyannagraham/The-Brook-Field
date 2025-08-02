@@ -7,6 +7,7 @@ import demo.bfims.Entities.Inventory.Publication.PublicationItem;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.PublicationItemType;
 import demo.bfims.Repo.ItemRepo;
+import demo.bfims.Repo.PublicationItemRepo;
 import demo.bfims.Repo.PublicationRepo;
 import jakarta.persistence.EntityManager;
 import org.modelmapper.ModelMapper;
@@ -26,6 +27,8 @@ public class PublicationService {
     private ModelMapper modelMapper;
     @Autowired
     EntityManager entityManager;
+    @Autowired
+    private PublicationItemRepo publicationItemRepo;
 
     @Transactional
     public PublicationItemDto newPublicationItem(PublicationItemDto publicationItemDto) {
@@ -94,25 +97,10 @@ public class PublicationService {
 
     public List<PublicationItemDto> getPublicationItemsByPublicationId(Long id) {
         if (id == null) return null;
-        List<Item> items = itemRepo.findItemsByItemType(ItemType.PUBLICATION_ITEM).orElse(null);
+        List<PublicationItem> items = publicationItemRepo.findPublicationItemsByPublication_PublicationId(id);
         if (items == null) return null;
 
-        //Get all Publication Items and filter by id;
-        return items.stream().map(item -> (PublicationItem) item)
-                .filter(item -> item.getPublication().getPublicationId().equals(id))
-                .map(item -> {
-                    if (item.getPublicationItemType().equals(PublicationItemType.JOURNAL))
-                        return modelMapper.map(item, JournalDto.class);
-                    if (item.getPublicationItemType().equals(PublicationItemType.LITERARY_PIECE)) {
-                        return modelMapper.map(item, LiteraryPieceDto.class);
-                    }
-                    if (item.getPublicationItemType().equals(PublicationItemType.BOOK)) {
-                        return modelMapper.map(item, BookDto.class);
-                    }
-                    return modelMapper.map(item, PublicationItemDto.class);
-                })
-                .toList();
-
+        return items.stream().map(item -> modelMapper.map(item, PublicationItemDto.class)).toList();
     }
 
     public PublicationDto newPublication(PublicationDto publicationDto) {
