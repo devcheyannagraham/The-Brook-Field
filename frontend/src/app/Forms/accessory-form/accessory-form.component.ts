@@ -76,6 +76,7 @@ export class AccessoryFormComponent {
     this.accessoryService.newAccessory(accessory)
       .subscribe(data => {
         console.log(data);
+
       });
   }
 

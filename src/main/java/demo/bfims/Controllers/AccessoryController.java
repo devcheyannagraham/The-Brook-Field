@@ -81,7 +81,7 @@ public class AccessoryController {
     //Delete 1 accessory
     @DeleteMapping("/accessory/{id}")
     public Response deleteAccessory(@PathVariable Long id) {
-        if (id != null) return accessoryService.removeAccessory(id);
+        if (id != null) return accessoryService.deleteAccessory(id);
         else return null;
     }
 }

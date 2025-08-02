@@ -5,9 +5,7 @@ import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryDto;
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
-import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Enums.AccessoryItemStatus;
-import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.ResponseType;
 import demo.bfims.Repo.AccessoryItemRepo;
 import demo.bfims.Repo.AccessoryRepo;
@@ -106,7 +104,7 @@ public class AccessoryService {
     //DELETES
 
     @Transactional
-    public Response removeAccessory(Long id) {
+    public Response deleteAccessory(Long id) {
         Response response = new Response();
         Integer rows = accessoryRepo.deleteByAccessoryId(id);
         response.getMessages().put(ResponseType.SUCCESS.toString(), "Accessory has been removed successfully");

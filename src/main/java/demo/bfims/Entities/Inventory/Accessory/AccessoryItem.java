@@ -4,16 +4,14 @@ import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Enums.AccessoryItemStatus;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Interfaces.Purchaseable;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class AccessoryItem extends Item implements Purchaseable {
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "accessory_id")
     private Accessory accessory;
+    @Enumerated(EnumType.STRING)
     private AccessoryItemStatus accessoryItemStatus;
 
     public AccessoryItem() {

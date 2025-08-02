@@ -9,16 +9,24 @@ import {AccessoryItemsComponent} from './Components/accessory-items/accessory-it
 
 export const routes: Routes = [
   {
+    path: 'publicationitemform/publication/:publicationId',
+    component: PublicationItemFormComponent,
+  },
+  {
+    path: 'publicationitemform/:pubItemId',
+    component: PublicationItemFormComponent,
+  },
+  {
+    path: 'publicationitemform',
+    component: PublicationItemFormComponent,
+  },
+  {
     path: 'publicationform/:publicationId',
     component: PublicationFormComponent,
   },
   {
     path: 'publicationform',
     component: PublicationFormComponent,
-  },
-  {
-    path: 'accessoryform',
-    component: AccessoryFormComponent,
   },
   {
     path: 'publication/:publicationId',
@@ -29,16 +37,8 @@ export const routes: Routes = [
     component: PublicationsComponent,
   },
   {
-    path: 'publicationitemform/:pubItemId',
-    component: PublicationItemFormComponent,
-  },
-  {
-    path: 'publicationitemform/publication/:publicationId',
-    component: PublicationItemFormComponent,
-  },
-  {
-    path: 'publicationitemform',
-    component: PublicationItemFormComponent,
+    path: 'accessory/:accessId',
+    component: AccessoryItemsComponent,
   },
   {
     path: 'accessories',
@@ -51,9 +51,5 @@ export const routes: Routes = [
   {
     path: 'accessoryform',
     component: AccessoryFormComponent,
-  },
-  {
-    path: 'accessory/:accessId',
-    component: AccessoryItemsComponent,
   },
 ];
