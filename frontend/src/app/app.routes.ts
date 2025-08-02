@@ -33,6 +33,10 @@ export const routes: Routes = [
     component: PublicationItemFormComponent,
   },
   {
+    path: 'publicationitemform/publication/:publicationId',
+    component: PublicationItemFormComponent,
+  },
+  {
     path: 'publicationitemform',
     component: PublicationItemFormComponent,
   },

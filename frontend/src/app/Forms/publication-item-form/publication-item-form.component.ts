@@ -23,6 +23,7 @@ import {LiteraryType} from '../../Enums/LiteraryType';
 export class PublicationItemFormComponent {
   publicationItemForm: FormGroup;
   @Input() pubItemId: Number;
+  @Input() publicationId: Number;
   publications: Publication[];
 
   constructor(public formBuilder: FormBuilder, public pubService: PublicationService) {
@@ -33,6 +34,10 @@ export class PublicationItemFormComponent {
     this.getPublications();
     if (this.pubItemId) {
       this.fillForm();
+    }
+
+    if(this.publicationId){
+      this.publicationItemForm.get("publication").setValue(this.publicationId);
     }
   }
 
@@ -73,7 +78,7 @@ export class PublicationItemFormComponent {
           for (let key of Object.keys(data)) {
             // @ts-ignore
             if (data[key] != null && this.publicationItemForm.contains(key)) {
-              if(key === "publication") continue;
+              if (key === "publication") continue;
               // @ts-ignore
               this.publicationItemForm.get(key).setValue(data[key]);
             }
@@ -106,7 +111,7 @@ export class PublicationItemFormComponent {
     publicationItem.publication = new Publication();
     publicationItem.publication.publicationId = formData.publication;
     publicationItem.status = PublicationItemStatus.AVAILABLE;
-    if(this.pubItemId) publicationItem.itemId = this.pubItemId;
+    if (this.pubItemId) publicationItem.itemId = this.pubItemId;
     this.createPublicationItem(publicationItem);
   }
 
