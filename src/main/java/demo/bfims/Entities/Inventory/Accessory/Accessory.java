@@ -18,6 +18,15 @@ public class Accessory {
         return accessoryId;
     }
 
+    public Accessory(String accessoryName,AccessoryType accessoryType, double price) {
+        this.accessoryType = accessoryType;
+        this.accessoryName = accessoryName;
+        this.price = price;
+    }
+
+    public Accessory() {
+    }
+
     public void setAccessoryId(Long accessoryId) {
         this.accessoryId = accessoryId;
     }

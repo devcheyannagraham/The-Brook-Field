@@ -1,19 +1,31 @@
 package demo.bfims.Entities.Inventory.Publication;
 
+import demo.bfims.Enums.PublicationItemFormat;
+import demo.bfims.Enums.PublicationItemStatus;
 import demo.bfims.Enums.PublicationItemType;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
 public class Journal extends PublicationItem {
     @Temporal(TemporalType.DATE)
-    private Date issueDate;
+    private LocalDate issueDate;
     private int issueNumber;
     private String issueName;
     private String volume;
 
     public Journal() {
+        this.setPublicationItemType(PublicationItemType.JOURNAL);
+    }
+
+    public Journal(String edition, PublicationItemFormat format, Double purchasePrice, Double rentalRate, PublicationItemStatus status, Publication publication, LocalDate issueDate, String issueName, int issueNumber, String volume) {
+        super(edition, format, purchasePrice, rentalRate, status, publication);
+        this.issueDate = issueDate;
+        this.issueNumber = issueNumber;
+        this.issueName = issueName;
+        this.volume = volume;
         this.setPublicationItemType(PublicationItemType.JOURNAL);
     }
 
@@ -41,11 +53,11 @@ public class Journal extends PublicationItem {
         this.volume = volume;
     }
 
-    public Date getIssueDate() {
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(Date issueDate) {
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
 

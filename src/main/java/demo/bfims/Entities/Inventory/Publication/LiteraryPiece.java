@@ -1,6 +1,8 @@
 package demo.bfims.Entities.Inventory.Publication;
 
 import demo.bfims.Enums.LiteraryType;
+import demo.bfims.Enums.PublicationItemFormat;
+import demo.bfims.Enums.PublicationItemStatus;
 import demo.bfims.Enums.PublicationItemType;
 import jakarta.persistence.*;
 
@@ -11,6 +13,12 @@ public class LiteraryPiece extends PublicationItem {
 
     public LiteraryPiece() {
         this.setPublicationItemType(PublicationItemType.LITERARY_PIECE);
+    }
+
+    public LiteraryPiece(String edition, PublicationItemFormat format, Double purchasePrice, Double rentalRate, PublicationItemStatus status, Publication publication, LiteraryType literaryType) {
+        super(edition, format, purchasePrice, rentalRate, status, publication);
+        this.setPublicationItemType(PublicationItemType.LITERARY_PIECE);
+        this.literaryType = literaryType;
     }
 
     public LiteraryType getLiteraryType() {

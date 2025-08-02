@@ -26,7 +26,7 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
     private PublicationItemFormat format;
     @Enumerated(EnumType.STRING)
     private PublicationItemStatus status;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},  fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "publication_id")
     Publication publication;
     private Double purchasePrice;
@@ -35,6 +35,15 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
     @Enumerated(EnumType.STRING)
     private PublicationItemType publicationItemType;
 
+    public PublicationItem( String edition, PublicationItemFormat format, Double purchasePrice, Double rentalRate ,  PublicationItemStatus status,Publication publication) {
+        this.format = format;
+        this.status = status;
+        this.publication = publication;
+        this.purchasePrice = purchasePrice;
+        this.rentalRate = rentalRate;
+        this.edition = edition;
+        this.setItemType(ItemType.PUBLICATION_ITEM);
+    }
 
     public PublicationItem() {
         this.setItemType(ItemType.PUBLICATION_ITEM);

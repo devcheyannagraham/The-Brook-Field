@@ -14,10 +14,21 @@ public class Publication {
     private Genre genre;
     @Temporal(TemporalType.DATE)
     private LocalDate datePublished;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Author author;
     private String title;
     private String isbn;
+
+    public Publication() {
+    }
+
+    public Publication( LocalDate datePublished, Genre genre, String isbn,  String title,Author author) {
+        this.genre = genre;
+        this.datePublished = datePublished;
+        this.author = author;
+        this.title = title;
+        this.isbn = isbn;
+    }
 
     public LocalDate getDatePublished() {
         return datePublished;

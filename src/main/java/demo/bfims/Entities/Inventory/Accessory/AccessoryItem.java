@@ -18,6 +18,12 @@ public class AccessoryItem extends Item implements Purchaseable {
         this.setItemType(ItemType.ACCESSORY_ITEM);
     }
 
+    public AccessoryItem(Accessory accessory, AccessoryItemStatus accessoryItemStatus) {
+        this.accessory = accessory;
+        this.accessoryItemStatus = accessoryItemStatus;
+        this.setItemType(ItemType.ACCESSORY_ITEM);
+    }
+
     public AccessoryItemStatus getAccessoryItemStatus() {
         return accessoryItemStatus;
     }
