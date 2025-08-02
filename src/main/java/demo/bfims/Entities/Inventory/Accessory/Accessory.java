@@ -2,7 +2,6 @@ package demo.bfims.Entities.Inventory.Accessory;
 
 
 import demo.bfims.Enums.AccessoryType;
-import demo.bfims.Interfaces.Purchaseable;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,7 +12,6 @@ public class Accessory {
     @Enumerated(EnumType.STRING)
     private AccessoryType accessoryType;
     private String accessoryName;
-    private int quantity;
     private double price;
 
     public Long getAccessoryId() {
@@ -40,14 +38,6 @@ public class Accessory {
         this.accessoryName = accessoryName;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void increaseQuantity(){
-        this.quantity++;
-    }
-
     public double getPrice() {
         return price;
     }
@@ -56,17 +46,12 @@ public class Accessory {
         this.price = price;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     @Override
     public String toString() {
         return "Accessory{" +
                 "accessoryId=" + accessoryId +
                 ", accessoryType=" + accessoryType +
                 ", accessoryName='" + accessoryName + '\'' +
-                ", quantity=" + quantity +
                 ", price=" + price +
                 '}';
     }

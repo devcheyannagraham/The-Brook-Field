@@ -96,16 +96,20 @@ public class ReportService {
     }
 
     public ItemGroup getLowInventoryItems() {
-        ItemGroup itemGroup = new ItemGroup();
-        // Low inventory threshold is 10
-        itemGroup.setPublications(publicationRepo.findByPublicationQuantityLessThanEqual(50)
-                .stream().map(pub -> modelMapper.map(pub, PublicationDto.class)).toList());
+//        ItemGroup itemGroup = new ItemGroup();
+//        // Low inventory threshold is 10
+//        itemGroup.setPublications(publicationRepo.findByPublicationQuantityLessThanEqual(50)
+//                .stream().map(pub -> modelMapper.map(pub, PublicationDto.class)).toList());
+//
+//        //Need to add other itmeGroups
+//        itemGroup.setAccessories(accessoryRepo.findByQuantityLessThanEqual(50)
+//                .stream().map(acc -> modelMapper.map(acc, AccessoryDto.class)).toList());
+//
+//        return itemGroup;
 
-        //Need to add other itmeGroups
-        itemGroup.setAccessories(accessoryRepo.findByQuantityLessThanEqual(50)
-                .stream().map(acc -> modelMapper.map(acc, AccessoryDto.class)).toList());
-
-        return itemGroup;
+        System.out.println("_".repeat(15));
+        System.out.println("IMPLEMENT get low inventory items\n");
+        return null;
     }
 
     public List<OrderDto> getRecentOrders() {

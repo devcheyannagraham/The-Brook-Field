@@ -62,9 +62,6 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
 
     public void setPublication(Publication publication) {
         this.publication = publication;
-        // assuming a new publication item is being added
-        if(this.getPublication() != null)
-            this.publication.increaseQuantity();
     }
 
     public Double getPurchasePrice() {

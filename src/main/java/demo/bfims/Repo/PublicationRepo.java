@@ -8,7 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PublicationRepo extends JpaRepository<Publication, Long> {
-    List<Publication> findByPublicationQuantityLessThanEqual(int quantity);
-
     Integer deletePublicationByPublicationId(Long id);
 }

@@ -9,7 +9,6 @@ public class PublicationDto {
     private Genre genre;
     private LocalDate datePublished;
     private AuthorDto author;
-    private int publicationQuantity;
     private String title;
     private String isbn;
 
@@ -47,14 +46,6 @@ public class PublicationDto {
         this.author = author;
     }
 
-    public int getPublicationQuantity() {
-        return publicationQuantity;
-    }
-
-    public void setPublicationQuantity(int publicationQuantity) {
-        this.publicationQuantity = publicationQuantity;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -78,7 +69,6 @@ public class PublicationDto {
                 ", genre=" + genre +
                 ", datePublished=" + datePublished +
                 ", author=" + author +
-                ", publicationQuantity=" + publicationQuantity +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
                 '}';

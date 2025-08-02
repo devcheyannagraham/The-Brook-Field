@@ -6,8 +6,9 @@ public class AccessoryDto {
     private Long accessoryId;
     private AccessoryType accessoryType;
     private String accessoryName;
-    private int quantity;
     private double price;
+    // needed to create items on new accessory
+    private int quantity;
 
     public Long getAccessoryId() {
         return accessoryId;

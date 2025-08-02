@@ -4,7 +4,6 @@ import demo.bfims.Enums.Genre;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 @Entity
 public class Publication {
@@ -17,7 +16,6 @@ public class Publication {
     private LocalDate datePublished;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Author author;
-    private int publicationQuantity;
     private String title;
     private String isbn;
 
@@ -35,18 +33,6 @@ public class Publication {
 
     public void setPublicationId(Long publicationId) {
         this.publicationId = publicationId;
-    }
-
-    public int getPublicationQuantity() {
-        return publicationQuantity;
-    }
-
-    public void setPublicationQuantity(int quantity) {
-        this.publicationQuantity = quantity;
-    }
-
-    public void increaseQuantity() {
-        this.publicationQuantity++;
     }
 
     public String getTitle() {
@@ -88,7 +74,6 @@ public class Publication {
                 ", genre=" + genre +
                 ", date_published=" + datePublished +
                 ", author=" + author +
-                ", publicationQuantity=" + publicationQuantity +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
                 '}';
