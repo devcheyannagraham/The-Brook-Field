@@ -41,24 +41,25 @@ export class PublicationItemsComponent {
   }
 
   getPublicationData() {
-    // catch error;
-    if (this.publication == null) {
+    if (this.publicationId) {
       this.pubService.getPublicationById(this.publicationId)
         .subscribe(pub => {
           this.publication = pub;
           this.getPublicationItemsByPublicationId();
-        })
-    } else this.getPublicationItemsByPublicationId()
+        });
+    }
   }
 
   getPublicationItemsByPublicationId() {
-    this.pubService.getPublicationItemsByPublicationId(this.publication.publicationId)
-      .subscribe(pubItems => {
-        if (pubItems) {
-          this.publicationItems = pubItems;
-          this.filterPublicationItems();
-        }
-      });
+    if (this.publicationId) {
+      this.pubService.getPublicationItemsByPublicationId(this.publication.publicationId)
+        .subscribe(pubItems => {
+          if (pubItems) {
+            this.publicationItems = pubItems;
+            this.filterPublicationItems();
+          }
+        });
+    }
   }
 
   filterPublicationItems() {
@@ -74,7 +75,10 @@ export class PublicationItemsComponent {
 
   }
 
-  deleteItem(itemId: Number) {
+  deleteItem(itemId
+             :
+             Number
+  ) {
     this.pubService.deleteItem(itemId)
       .subscribe(result => {
         if (result) {
@@ -84,7 +88,10 @@ export class PublicationItemsComponent {
       });
   }
 
-  deletePublication(pubId: Number) {
+  deletePublication(pubId
+                    :
+                    Number
+  ) {
     this.pubService.deletePublication(pubId)
       .subscribe(result => {
         console.log("result", result);

@@ -9,13 +9,15 @@
   <tbody>
     @for (acc of accessories; track acc.accessoryId) {
       <tr>
-        <td>{{ acc.accessoryName }}</td>
+        <td>
+          <a [routerLink]="['/accessory',acc.accessoryId]">{{ acc.accessoryName }}</a>
+        </td>
         <td>{{ acc.accessoryType }}</td>
         <td>{{ acc.price }}</td>
         <td>{{ acc.quantity }}</td>
         <td>
           <a [routerLink]="['/accessoryform',acc.accessoryId]">Edit</a>
-          <button [disabled]= "!(acc.quantity.valueOf() <= 0)" (click)="deleteAccessory(acc.accessoryId)">delete</button>
+          <button [disabled]="!(acc.quantity.valueOf() <= 0)" (click)="deleteAccessory(acc.accessoryId)">delete</button>
         </td>
       </tr>
     }

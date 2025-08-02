@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Accessory} from '../DTOs/Accessory/Accessory';
+import {AccessoryItem} from '../DTOs/Accessory/AccessoryItem';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,9 @@ export class AccessoryService {
 
   getAccessory(accessId:Number){
     return this.http.get<Accessory>(`${this.baseUrl}accessory/${accessId}`);
+  }
+
+  getAccessoryItemsByAccessoryId(accessId:Number){
+    return this.http.get<AccessoryItem[]>(`${this.baseUrl}accessory/accessoryitems/${accessId}`);
   }
 }

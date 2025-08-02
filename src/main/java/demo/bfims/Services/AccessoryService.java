@@ -76,23 +76,15 @@ public class AccessoryService {
     }
 
     public AccessoryDto newAccessory(AccessoryDto accessoryDto) {
-        System.out.println("ACC:" + accessoryDto);
         Accessory accessory = modelMapper.map(accessoryDto, Accessory.class);
-
-//        Accessory exists so update only
-        if (accessory.getAccessoryId() != null) {
-
-        } else { // create new accessory
-            Accessory savedAccessory = accessoryRepo.save(accessory);
-            //create items
-            for (int i = 0; i < accessoryDto.getQuantity(); i++) {
-                AccessoryItem accessoryItem = new AccessoryItem();
-                accessoryItem.setAccessory(savedAccessory);
-                itemRepo.save(accessoryItem);
-            }
-            return modelMapper.map(savedAccessory, AccessoryDto.class);
+        Accessory savedAccessory = accessoryRepo.save(accessory);
+        //create items
+        for (int i = 0; i < accessoryDto.getQuantity(); i++) {
+            AccessoryItem accessoryItem = new AccessoryItem();
+            accessoryItem.setAccessory(savedAccessory);
+            itemRepo.save(accessoryItem);
         }
-        return null;
+        return modelMapper.map(savedAccessory, AccessoryDto.class);
     }
 
     @Transactional
@@ -125,6 +117,18 @@ public class AccessoryService {
         Accessory managedAccessory = entityManager.merge(accessoryItem.getAccessory());
         accessoryItem.setAccessory(managedAccessory);
         return modelMapper.map(itemRepo.save(accessoryItem), AccessoryItemDto.class);
+    }
+
+    public List<AccessoryItemDto> getAccessoryItemsByAccessoryId(Long accessoryId) {
+        Accessory accessory = accessoryRepo.findById(accessoryId).orElse(null);
+        if (accessory == null) return null;
+
+        List<Item> items = itemRepo.findItemsByItemType(ItemType.ACCESSORY_ITEM).orElse(null);
+        if (items == null) return null;
+
+        return items.stream().map(item -> (AccessoryItem) item)
+                .filter(accessoryItem -> accessoryItem.getAccessory().getAccessoryId().equals(accessoryId))
+                .map(accessoryItem -> modelMapper.map(accessoryItem, AccessoryItemDto.class)).toList();
     }
 
 }
