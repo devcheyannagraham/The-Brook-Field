@@ -6,6 +6,7 @@ import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
 import demo.bfims.Entities.Inventory.Publication.Item;
+import demo.bfims.Enums.AccessoryItemStatus;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.ResponseType;
 import demo.bfims.Repo.AccessoryRepo;
@@ -81,6 +82,7 @@ public class AccessoryService {
         //create items
         for (int i = 0; i < accessoryDto.getQuantity(); i++) {
             AccessoryItem accessoryItem = new AccessoryItem();
+            accessoryItem.setAccessoryItemStatus(AccessoryItemStatus.AVAILABLE);
             accessoryItem.setAccessory(savedAccessory);
             itemRepo.save(accessoryItem);
         }

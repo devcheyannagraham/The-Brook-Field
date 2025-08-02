@@ -29,7 +29,6 @@
           <td>{{ acc.itemId }}</td>
           <td>{{ acc.accessoryItemStatus }}</td>
           <td>
-            <a [routerLink]="['/accessoryitemform',acc.itemId]">Edit</a>
             <button (click)="deleteAccessoryItem(acc.itemId)">delete</button>
           </td>
         </tr>
