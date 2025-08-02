@@ -31,14 +31,7 @@ export class AccessoriesComponent {
       });
   }
 
-  deleteAccessory(accessId:Number){
-    this.accessoryService.deleteAccessory(accessId)
-      .subscribe(result => {
-        if(result){
-          this.getAccessories();
-        }
-      })
-  }
+
 
 
   protected readonly headers = headers;

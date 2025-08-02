@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {DatePipe} from '@angular/common';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {Accessory} from '../../DTOs/Accessory/Accessory';
 import {AccessoryItem} from '../../DTOs/Accessory/AccessoryItem';
 import {AccessoryService} from '../../Services/accessory.service';
@@ -20,7 +20,7 @@ export class AccessoryItemsComponent {
   accessory: Accessory;
   accessoryItems: AccessoryItem[];
 
-  constructor(public accessoryService: AccessoryService) {
+  constructor(public accessoryService: AccessoryService, public router:Router) {
   }
 
   ngOnInit() {
@@ -48,7 +48,12 @@ export class AccessoryItemsComponent {
   }
 
   deleteAccessory(accessId:Number){
-    console.log("IMPLEMENT DELETE ACCESSORY")
+    this.accessoryService.deleteAccessory(accessId)
+      .subscribe(result => {
+        if(result){
+          this.router.navigateByUrl("/accessories")
+        }
+      })
   }
 
   deleteAccessoryItem(accessItemId:Number){

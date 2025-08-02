@@ -3,8 +3,6 @@
   <th>{{ headers.accessoryName }}</th>
   <th>{{ headers.accessoryType }}</th>
   <th>{{ headers.price }}</th>
-  <th>{{ headers.quantity }}</th>
-  <th></th>
   </thead>
   <tbody>
     @for (acc of accessories; track acc.accessoryId) {
@@ -14,11 +12,6 @@
         </td>
         <td>{{ acc.accessoryType }}</td>
         <td>{{ acc.price }}</td>
-        <td>{{ acc.quantity }}</td>
-        <td>
-          <a [routerLink]="['/accessoryform',acc.accessoryId]">Edit</a>
-          <button [disabled]="!(acc.quantity.valueOf() <= 0)" (click)="deleteAccessory(acc.accessoryId)">delete</button>
-        </td>
       </tr>
     }
   </tbody>
