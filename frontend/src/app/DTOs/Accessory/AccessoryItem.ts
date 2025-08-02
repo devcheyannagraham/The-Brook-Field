@@ -6,5 +6,9 @@ export class AccessoryItem extends Item {
   public accessory: Accessory;
   public accessoryItemStatus: AccessoryItemStatus;
 
+  constructor() {
+    super();
+  }
+
 
 }

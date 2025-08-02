@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-import {DatePipe} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {Accessory} from '../../DTOs/Accessory/Accessory';
 import {AccessoryItem} from '../../DTOs/Accessory/AccessoryItem';
@@ -9,7 +8,6 @@ import {headers} from '../../Helpers/headers';
 @Component({
   selector: 'accessory-items',
   imports: [
-    DatePipe,
     RouterLink
   ],
   templateUrl: './accessory-items.component.html',
@@ -20,7 +18,7 @@ export class AccessoryItemsComponent {
   accessory: Accessory;
   accessoryItems: AccessoryItem[];
 
-  constructor(public accessoryService: AccessoryService, public router:Router) {
+  constructor(public accessoryService: AccessoryService, public router: Router) {
   }
 
   ngOnInit() {
@@ -37,28 +35,33 @@ export class AccessoryItemsComponent {
     }
   }
 
-  getAccessoryItems(){
-    if(this.accessId){
+  getAccessoryItems() {
+    if (this.accessId) {
       this.accessoryService.getAccessoryItemsByAccessoryId(this.accessId)
         .subscribe(data => {
           this.accessoryItems = data;
-          console.log(data)
         });
     }
   }
 
-  deleteAccessory(accessId:Number){
+  deleteAccessory(accessId: Number) {
     this.accessoryService.deleteAccessory(accessId)
       .subscribe(result => {
-        if(result){
-          this.router.navigateByUrl("/accessories")
+        if (result) {
+          this.router.navigateByUrl("/accessories");
         }
       })
   }
 
-  deleteAccessoryItem(accessItemId:Number){
-    console.log("IMPLEMENT DELETE ACCESSORYItem")
-
+  deleteAccessoryItem(accessItemId: Number) {
+    if (accessItemId) {
+      this.accessoryService.deleteAccessoryItem(accessItemId)
+        .subscribe(result => {
+          if (result) {
+            this.getAccessoryItems();
+          }
+        });
+    }
   }
 
   protected readonly headers = headers;

@@ -1,9 +1,10 @@
 package demo.bfims.DTOs.InventoryDTOs.Accessory;
 
+import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Enums.AccessoryItemStatus;
 
-public class AccessoryItemDto {
+public class AccessoryItemDto extends ItemDto {
     private Accessory accessory;
     private AccessoryItemStatus accessoryItemStatus;
 

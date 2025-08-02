@@ -9,6 +9,7 @@ import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Enums.AccessoryItemStatus;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.ResponseType;
+import demo.bfims.Repo.AccessoryItemRepo;
 import demo.bfims.Repo.AccessoryRepo;
 import demo.bfims.Repo.ItemRepo;
 import jakarta.persistence.EntityManager;
@@ -35,6 +36,10 @@ public class AccessoryService {
     @Autowired
     EntityManager entityManager;
 
+    @Autowired
+    AccessoryItemRepo accessoryItemRepo;
+
+    //READS
     public List<AccessoryDto> getAccessories() {
         List<Accessory> accessories = accessoryRepo.findAll();
         if (!accessories.isEmpty()) {
@@ -43,30 +48,17 @@ public class AccessoryService {
         return null;
     }
 
-    public List<AccessoryItemDto> getAccessoryItems() {
-        List<Item> accessoryItems = itemRepo.findItemsByItemType(ItemType.ACCESSORY_ITEM).orElse(null);
-        if (accessoryItems != null && !accessoryItems.isEmpty()) {
-            return accessoryItems.stream().map(item -> {
-                AccessoryItem accessoryItem = (AccessoryItem) item;
-                return modelMapper.map(accessoryItem, AccessoryItemDto.class);
-            }).toList();
-        }
-        return null;
-    }
-
-    @Transactional
-    public AccessoryItemDto newAccessoryItem(AccessoryItemDto accessoryItemDto) {
-        AccessoryItem accessoryItem = modelMapper.map(accessoryItemDto, AccessoryItem.class);
-        Accessory accessory = accessoryItem.getAccessory();
-
-        if (accessory.getAccessoryId() != null) {
-            Accessory foundAccessory = accessoryRepo.findById(accessory.getAccessoryId()).orElse(null);
-            Accessory managedAccessory = entityManager.merge(foundAccessory);
-            accessoryItem.setAccessory(managedAccessory);
-        }
-        AccessoryItem savedAccessoryItem = itemRepo.save(accessoryItem);
-        return modelMapper.map(savedAccessoryItem, AccessoryItemDto.class);
-    }
+//    public List<AccessoryItemDto> getAccessoryItems() {
+//        List<Item> accessoryItems = itemRepo.findItemsByItemType(ItemType.ACCESSORY_ITEM).orElse(null);
+//        System.out.println("accessoryItems: " + accessoryItems);
+//        if (accessoryItems != null && !accessoryItems.isEmpty()) {
+//            return accessoryItems.stream().map(item -> {
+//                AccessoryItem accessoryItem = (AccessoryItem) item;
+//                return modelMapper.map(accessoryItem, AccessoryItemDto.class);
+//            }).toList();
+//        }
+//        return null;
+//    }
 
     public AccessoryDto getAccessory(Long id) {
         Accessory accessory = accessoryRepo.findById(id).orElse(null);
@@ -75,6 +67,28 @@ public class AccessoryService {
         }
         return null;
     }
+
+    public List<AccessoryItemDto> getAccessoryItemsByAccessoryId(Long accessoryId) {
+        List<AccessoryItem> items = accessoryItemRepo.findAccessoryItemsByAccessory_AccessoryId(accessoryId);
+        if (items == null) return null;
+        return items.stream().map(accessoryItem -> modelMapper.map(accessoryItem, AccessoryItemDto.class)).toList();
+    }
+
+    // CREATES
+//    @Transactional
+//    public AccessoryItemDto newAccessoryItem(AccessoryItemDto accessoryItemDto) {
+//        AccessoryItem accessoryItem = modelMapper.map(accessoryItemDto, AccessoryItem.class);
+//        Accessory accessory = accessoryItem.getAccessory();
+//
+//        if (accessory.getAccessoryId() != null) {
+//            Accessory foundAccessory = accessoryRepo.findById(accessory.getAccessoryId()).orElse(null);
+//            Accessory managedAccessory = entityManager.merge(foundAccessory);
+//            accessoryItem.setAccessory(managedAccessory);
+//        }
+//        AccessoryItem savedAccessoryItem = itemRepo.save(accessoryItem);
+//        return modelMapper.map(savedAccessoryItem, AccessoryItemDto.class);
+//    }
+
 
     public AccessoryDto newAccessory(AccessoryDto accessoryDto) {
         Accessory accessory = modelMapper.map(accessoryDto, Accessory.class);
@@ -89,6 +103,8 @@ public class AccessoryService {
         return modelMapper.map(savedAccessory, AccessoryDto.class);
     }
 
+    //DELETES
+
     @Transactional
     public Response removeAccessory(Long id) {
         Response response = new Response();
@@ -98,20 +114,22 @@ public class AccessoryService {
         return response;
     }
 
-    public AccessoryDto updateAccessory(AccessoryDto accessoryDto) {
-        Accessory accessory = modelMapper.map(accessoryDto, Accessory.class);
-        Accessory updatedAccessory = accessoryRepo.save(accessory);
-        return modelMapper.map(updatedAccessory, AccessoryDto.class);
+    @Transactional
+    public Boolean deleteAccessoryItemById(Long id) {
+        try {
+            return itemRepo.deleteItemByItemId(id) >= 0;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    @Transactional
-    public Response removeAccessoryItem(Long id) {
-        Response response = new Response();
-        Integer rows = itemRepo.deleteItemByItemId(id);
-        response.getMessages().put(ResponseType.SUCCESS.toString(), "Item has been removed successfully");
-        response.getMessages().put(ResponseType.MESSAGE.toString(), rows.toString() + " affected.");
-        return response;
-    }
+
+    //UPDATES
+//    public AccessoryDto updateAccessory(AccessoryDto accessoryDto) {
+//        Accessory accessory = modelMapper.map(accessoryDto, Accessory.class);
+//        Accessory updatedAccessory = accessoryRepo.save(accessory);
+//        return modelMapper.map(updatedAccessory, AccessoryDto.class);
+//    }
 
     @Transactional
     public AccessoryItemDto updateAccessoryItem(AccessoryItemDto accessoryItemDto) {
@@ -121,16 +139,5 @@ public class AccessoryService {
         return modelMapper.map(itemRepo.save(accessoryItem), AccessoryItemDto.class);
     }
 
-    public List<AccessoryItemDto> getAccessoryItemsByAccessoryId(Long accessoryId) {
-        Accessory accessory = accessoryRepo.findById(accessoryId).orElse(null);
-        if (accessory == null) return null;
-
-        List<Item> items = itemRepo.findItemsByItemType(ItemType.ACCESSORY_ITEM).orElse(null);
-        if (items == null) return null;
-
-        return items.stream().map(item -> (AccessoryItem) item)
-                .filter(accessoryItem -> accessoryItem.getAccessory().getAccessoryId().equals(accessoryId))
-                .map(accessoryItem -> modelMapper.map(accessoryItem, AccessoryItemDto.class)).toList();
-    }
 
 }

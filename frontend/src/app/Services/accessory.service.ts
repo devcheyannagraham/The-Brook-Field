@@ -12,24 +12,34 @@ export class AccessoryService {
   constructor(private http: HttpClient) {
   }
 
+  // READ
   getAccessories() {
     return this.http.get<Accessory[]>(`${this.baseUrl}accessories`);
   }
 
+  getAccessory(accessId: Number) {
+    return this.http.get<Accessory>(`${this.baseUrl}accessory/${accessId}`);
+  }
+
+  getAccessoryItemsByAccessoryId(accessId: Number) {
+    return this.http.get<AccessoryItem[]>(`${this.baseUrl}accessory/accessoryitems/${accessId}`);
+  }
+
+  // DELETE
+
   deleteAccessory(accessId: Number) {
     return this.http.delete(`${this.baseUrl}accessory/${accessId}`);
   }
+
+  deleteAccessoryItem(accessItemId: Number) {
+    return this.http.delete(`${this.baseUrl}accessoryitem/${accessItemId}`);
+  }
+
+  // CREATE
 
   newAccessory(accessory: Accessory) {
     console.log("NEW ACCESSORY", accessory);
     return this.http.post(`${this.baseUrl}accessory`, accessory);
   }
 
-  getAccessory(accessId:Number){
-    return this.http.get<Accessory>(`${this.baseUrl}accessory/${accessId}`);
-  }
-
-  getAccessoryItemsByAccessoryId(accessId:Number){
-    return this.http.get<AccessoryItem[]>(`${this.baseUrl}accessory/accessoryitems/${accessId}`);
-  }
 }

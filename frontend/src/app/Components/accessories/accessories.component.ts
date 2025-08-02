@@ -31,8 +31,5 @@ export class AccessoriesComponent {
       });
   }
 
-
-
-
   protected readonly headers = headers;
 }
