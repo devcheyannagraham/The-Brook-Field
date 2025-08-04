@@ -6,6 +6,7 @@ import {PublicationsComponent} from './Components/publications/publications.comp
 import {PublicationItemFormComponent} from './Forms/publication-item-form/publication-item-form.component';
 import {AccessoriesComponent} from './Components/accessories/accessories.component';
 import {AccessoryItemsComponent} from './Components/accessory-items/accessory-items.component';
+import {OrderFormComponent} from './Forms/order-form/order-form.component';
 
 export const routes: Routes = [
   {
@@ -51,5 +52,9 @@ export const routes: Routes = [
   {
     path: 'accessoryform',
     component: AccessoryFormComponent,
+  },
+  {
+    path: 'orderform',
+    component: OrderFormComponent,
   },
 ];
