@@ -5,6 +5,8 @@ import {Publication} from '../../DTOs/Inventory/Publication';
 import {Book} from '../../DTOs/Inventory/Book';
 import {Genre} from '../../Enums/Genre';
 import {Author} from '../../DTOs/Inventory/Author';
+import {Router} from '@angular/router';
+import {platformBrowser} from '@angular/platform-browser';
 
 @Component({
   selector: 'publication-form',
@@ -18,7 +20,7 @@ export class PublicationFormComponent {
 
   @Input() publicationId: Number;
 
-  constructor(public formBuilder: FormBuilder, public pubService: PublicationService) {
+  constructor(public formBuilder: FormBuilder, public pubService: PublicationService, public router:Router) {
   }
 
   ngOnInit() {
@@ -65,6 +67,7 @@ export class PublicationFormComponent {
         publication[control] = this.publicationForm.get(control).value;
       }
     }
+    publication.publicationId = this.publicationId
     this.createPublication(publication);
   }
 
@@ -72,7 +75,10 @@ export class PublicationFormComponent {
     this.pubService.newPublication(pub)
       .subscribe(resp => {
         console.log("RESPONSE: ", resp);
+        // @ts-ignore
+        if(resp["publicationId"])this.router.navigateByUrl(`/publication/${resp["publicationId"]}`);
       });
   }
 
+  protected readonly platformBrowser = platformBrowser;
 }

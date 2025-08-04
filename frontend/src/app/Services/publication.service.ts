@@ -13,6 +13,7 @@ export class PublicationService {
   }
 
   newPublication(pub: any) {
+    console.log("PUB", pub)
     return this.http
       .post(`${this.baseUrl}publication`, pub);
   }

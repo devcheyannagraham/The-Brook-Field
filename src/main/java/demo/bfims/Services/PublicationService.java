@@ -105,6 +105,9 @@ public class PublicationService {
 
     public PublicationDto newPublication(PublicationDto publicationDto) {
         Publication publication = modelMapper.map(publicationDto, Publication.class);
+        System.out.println("Publicationdto" + publicationDto);
+        System.out.println("Publication" + publication);
+
         return modelMapper.map(publicationRepo.save(publication), PublicationDto.class);
     }
 

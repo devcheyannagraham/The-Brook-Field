@@ -26,7 +26,7 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
     private PublicationItemFormat format;
     @Enumerated(EnumType.STRING)
     private PublicationItemStatus status;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "publication_id")
     Publication publication;
     private Double purchasePrice;

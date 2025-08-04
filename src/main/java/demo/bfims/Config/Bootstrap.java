@@ -11,9 +11,11 @@ import demo.bfims.Repo.AccessoryRepo;
 import demo.bfims.Repo.AuthorRepo;
 import demo.bfims.Repo.ItemRepo;
 import demo.bfims.Repo.PublicationRepo;
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,9 +35,18 @@ public class Bootstrap implements CommandLineRunner {
     @Autowired
     PublicationRepo publicationRepo;
 
+    @Autowired
+    EntityManager entityManager;
+
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
+//        this.bootstrap();
+    }
+
+//    @Transactional
+    public void bootstrap() {
         System.out.println("Bootstrap");
 
         Accessory a1 = new Accessory("Classic Bookmark", AccessoryType.BOOKMARK, 2.99);
@@ -62,45 +73,45 @@ public class Bootstrap implements CommandLineRunner {
         AccessoryItem ai10 = new AccessoryItem(a10, AccessoryItemStatus.AVAILABLE);
         itemRepo.saveAll(List.of(ai1, ai2, ai3, ai4, ai5, ai6, ai7, ai8, ai9, ai10));
 
-        Author au1 = authorRepo.save(new Author("Jane", "Austen"));
-        Author au2 = authorRepo.save(new Author("Mark", "Twain"));
-        Author au3 = authorRepo.save(new Author("Agatha", "Christie"));
-        Author au4 = authorRepo.save(new Author("George", "Orwell"));
-        Author au5 = authorRepo.save(new Author("J.K.", "Rowling"));
-        Author au6 = authorRepo.save(new Author("Stephen", "King"));
-        Author au7 = authorRepo.save(new Author("Harper", "Lee"));
-        Author au8 = authorRepo.save(new Author("F. Scott", "Fitzgerald"));
-        Author au9 = authorRepo.save(new Author("Ernest", "Hemingway"));
-        Author au10 = authorRepo.save(new Author("Leo", "Tolstoy"));
+        Author au1 = entityManager.merge(authorRepo.save(new Author("Jane", "Austen")));
+        Author au2 = entityManager.merge(authorRepo.save(new Author("Mark", "Twain")));
+        Author au3 = entityManager.merge(authorRepo.save(new Author("Agatha", "Christie")));
+        Author au4 = entityManager.merge(authorRepo.save(new Author("George", "Orwell")));
+        Author au5 = entityManager.merge(authorRepo.save(new Author("J.K.", "Rowling")));
+        Author au6 = entityManager.merge(authorRepo.save(new Author("Stephen", "King")));
+        Author au7 = entityManager.merge(authorRepo.save(new Author("Harper", "Lee")));
+        Author au8 = entityManager.merge(authorRepo.save(new Author("F. Scott", "Fitzgerald")));
+        Author au9 = entityManager.merge(authorRepo.save(new Author("Ernest", "Hemingway")));
+        Author au10 = entityManager.merge(authorRepo.save(new Author("Leo", "Tolstoy")));
 //        authorRepo.saveAll(List.of(au1, au2, au3, au4, au5, au6, au7, au8, au9, au10));
 
-        Publication p1 = publicationRepo.save(new Publication(LocalDate.of(1813, 1, 28), Genre.COMEDY, "9780141439518", "Pride and Prejudice", au1));
-        Publication p2 = publicationRepo.save(new Publication(LocalDate.of(1884, 12, 10), Genre.YOUTH, "9780486280615", "Adventures of Huckleberry Finn", au2));
-        Publication p3 = publicationRepo.save(new Publication(LocalDate.of(1920, 1, 1), Genre.SCIFI, "9780062073488", "The Mysterious Affair at Styles", au3));
-        Publication p4 = publicationRepo.save(new Publication(LocalDate.of(1949, 6, 8), Genre.SCIFI, "9780451524935", "1984", au4));
-        Publication p5 = publicationRepo.save(new Publication(LocalDate.of(1997, 6, 26), Genre.FANTASY, "9780747532699", "Harry Potter and the Philosopher's Stone", au5));
-        Publication p6 = publicationRepo.save(new Publication(LocalDate.of(1977, 1, 1), Genre.FANTASY, "9780450040184", "The Shining", au6));
-        Publication p7 = publicationRepo.save(new Publication(LocalDate.of(1960, 7, 11), Genre.YOUTH, "9780061120084", "To Kill a Mockingbird", au7));
-        Publication p8 = publicationRepo.save(new Publication(LocalDate.of(1925, 4, 10), Genre.COMEDY, "9780743273565", "The Great Gatsby", au8));
-        Publication p9 = publicationRepo.save(new Publication(LocalDate.of(1952, 9, 1), Genre.COMEDY, "9780684803357", "The Old Man and the Sea", au9));
-        Publication p10 = publicationRepo.save(new Publication(LocalDate.of(1869, 1, 1), Genre.FANTASY, "9780199232765", "War and Peace", au10));
+        Publication p1 = entityManager.merge(publicationRepo.save(new Publication(LocalDate.of(1813, 1, 28), Genre.COMEDY, "9780141439518", "Pride and Prejudice", au1)));
+        Publication p2 = entityManager.merge(publicationRepo.save(new Publication(LocalDate.of(1884, 12, 10), Genre.YOUTH, "9780486280615", "Adventures of Huckleberry Finn", au2)));
+        Publication p3 = entityManager.merge(publicationRepo.save(new Publication(LocalDate.of(1920, 1, 1), Genre.SCIFI, "9780062073488", "The Mysterious Affair at Styles", au3)));
+        Publication p4 = entityManager.merge(publicationRepo.save(new Publication(LocalDate.of(1949, 6, 8), Genre.SCIFI, "9780451524935", "1984", au4)));
+        Publication p5 = entityManager.merge(publicationRepo.save(new Publication(LocalDate.of(1997, 6, 26), Genre.FANTASY, "9780747532699", "Harry Potter and the Philosopher's Stone", au5)));
+        Publication p6 = entityManager.merge(publicationRepo.save(new Publication(LocalDate.of(1977, 1, 1), Genre.FANTASY, "9780450040184", "The Shining", au6)));
+        Publication p7 = entityManager.merge(publicationRepo.save(new Publication(LocalDate.of(1960, 7, 11), Genre.YOUTH, "9780061120084", "To Kill a Mockingbird", au7)));
+        Publication p8 = entityManager.merge(publicationRepo.save(new Publication(LocalDate.of(1925, 4, 10), Genre.COMEDY, "9780743273565", "The Great Gatsby", au8)));
+        Publication p9 = entityManager.merge(publicationRepo.save(new Publication(LocalDate.of(1952, 9, 1), Genre.COMEDY, "9780684803357", "The Old Man and the Sea", au9)));
+        Publication p10 = entityManager.merge(publicationRepo.save(new Publication(LocalDate.of(1869, 1, 1), Genre.FANTASY, "9780199232765", "War and Peace", au10)));
 //        publicationRepo.saveAll(List.of(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
 
         // Book
         Book b1 = new Book("1st", PublicationItemFormat.HARDCOPY, 15.99, 2.99, PublicationItemStatus.AVAILABLE, p1);
-        Book b2 = new Book("2nd",PublicationItemFormat.EBOOK, 9.99, 1.99, PublicationItemStatus.AVAILABLE, p1);
+        Book b2 = new Book("2nd", PublicationItemFormat.EBOOK, 9.99, 1.99, PublicationItemStatus.AVAILABLE, p1);
         Book b3 = new Book("Audio", PublicationItemFormat.AUDIOBOOK, 12.99, 1.49, PublicationItemStatus.AVAILABLE, p1);
         Book b4 = new Book("1st", PublicationItemFormat.HARDCOPY, 12.99, 2.49, PublicationItemStatus.AVAILABLE, p2);
-        Book b5 = new Book("2nd",PublicationItemFormat.EBOOK, 8.99, 1.49, PublicationItemStatus.AVAILABLE, p2);
+        Book b5 = new Book("2nd", PublicationItemFormat.EBOOK, 8.99, 1.49, PublicationItemStatus.AVAILABLE, p2);
         Book b6 = new Book("Audio", PublicationItemFormat.AUDIOBOOK, 10.99, 1.29, PublicationItemStatus.AVAILABLE, p2);
         Book b14 = new Book("1st", PublicationItemFormat.HARDCOPY, 13.99, 2.19, PublicationItemStatus.AVAILABLE, p6);
-        Book b15 = new Book("2nd",PublicationItemFormat.EBOOK, 10.99, 1.49, PublicationItemStatus.AVAILABLE, p6);
+        Book b15 = new Book("2nd", PublicationItemFormat.EBOOK, 10.99, 1.49, PublicationItemStatus.AVAILABLE, p6);
         Book b16 = new Book("Audio", PublicationItemFormat.AUDIOBOOK, 11.99, 1.29, PublicationItemStatus.AVAILABLE, p6);
         Book b20 = new Book("1st", PublicationItemFormat.HARDCOPY, 11.99, 1.99, PublicationItemStatus.AVAILABLE, p8);
-        Book b21 = new Book("2nd",PublicationItemFormat.EBOOK, 8.99, 1.29, PublicationItemStatus.AVAILABLE, p8);
+        Book b21 = new Book("2nd", PublicationItemFormat.EBOOK, 8.99, 1.29, PublicationItemStatus.AVAILABLE, p8);
         Book b22 = new Book("Audio", PublicationItemFormat.AUDIOBOOK, 9.99, 1.09, PublicationItemStatus.AVAILABLE, p8);
         Book b26 = new Book("1st", PublicationItemFormat.HARDCOPY, 16.99, 2.49, PublicationItemStatus.AVAILABLE, p10);
-        Book b27 = new Book("2nd",PublicationItemFormat.EBOOK, 12.99, 1.49, PublicationItemStatus.AVAILABLE, p10);
+        Book b27 = new Book("2nd", PublicationItemFormat.EBOOK, 12.99, 1.49, PublicationItemStatus.AVAILABLE, p10);
         Book b28 = new Book("Audio", PublicationItemFormat.AUDIOBOOK, 13.99, 1.19, PublicationItemStatus.AVAILABLE, p10);
         itemRepo.saveAll(List.of(b1, b2, b3, b4, b5, b6, b14, b15, b16, b20, b21, b22, b26, b27, b28));
 
@@ -108,19 +119,19 @@ public class Bootstrap implements CommandLineRunner {
         Journal j7 = new Journal("Vol. 1", PublicationItemFormat.HARDCOPY, 10.99, 1.99, PublicationItemStatus.AVAILABLE, p3, LocalDate.of(1920, 1, 1), "Mystery Issue", 1, "I");
         Journal j8 = new Journal("Vol. 1", PublicationItemFormat.AUDIOBOOK, 8.99, 1.19, PublicationItemStatus.AVAILABLE, p3, LocalDate.of(1920, 1, 1), "Mystery Issue Audio", 2, "I");
         Journal j17 = new Journal("Vol. 1", PublicationItemFormat.HARDCOPY, 12.99, 1.99, PublicationItemStatus.AVAILABLE, p7, LocalDate.of(1960, 7, 11), "Mockingbird Issue", 1, "I");
-        Journal j18 = new Journal("Vol. 1",PublicationItemFormat.EBOOK, 9.99, 1.29, PublicationItemStatus.AVAILABLE, p7, LocalDate.of(1960, 7, 11), "Mockingbird Issue Digital", 2, "I");
+        Journal j18 = new Journal("Vol. 1", PublicationItemFormat.EBOOK, 9.99, 1.29, PublicationItemStatus.AVAILABLE, p7, LocalDate.of(1960, 7, 11), "Mockingbird Issue Digital", 2, "I");
         Journal j19 = new Journal("Vol. 1", PublicationItemFormat.AUDIOBOOK, 10.99, 1.19, PublicationItemStatus.AVAILABLE, p7, LocalDate.of(1960, 7, 11), "Mockingbird Issue Audio", 3, "I");
         itemRepo.saveAll(List.of(j7, j8, j17, j18, j19));
 
 // LiteraryPiece
-        LiteraryPiece lp9 = new LiteraryPiece("Classic", PublicationItemFormat.HARDCOPY,  7.99, 1.29, PublicationItemStatus.AVAILABLE, p4, LiteraryType.STORY);
-        LiteraryPiece lp10 = new LiteraryPiece("Classic", PublicationItemFormat.AUDIOBOOK,  6.99, 0.99, PublicationItemStatus.AVAILABLE, p4, LiteraryType.STORY);
-        LiteraryPiece lp11 = new LiteraryPiece("Magic", PublicationItemFormat.HARDCOPY,  11.99, 1.99, PublicationItemStatus.AVAILABLE, p5, LiteraryType.STORY);
-        LiteraryPiece lp12 = new LiteraryPiece("Magic",PublicationItemFormat.EBOOK,  8.99, 1.29, PublicationItemStatus.AVAILABLE, p5, LiteraryType.STORY);
-        LiteraryPiece lp13 = new LiteraryPiece("Magic", PublicationItemFormat.AUDIOBOOK,  9.99, 1.49, PublicationItemStatus.AVAILABLE, p5, LiteraryType.STORY);
-        LiteraryPiece lp23 = new LiteraryPiece("Classic", PublicationItemFormat.HARDCOPY,  10.99, 1.49, PublicationItemStatus.AVAILABLE, p9, LiteraryType.STORY);
-        LiteraryPiece lp24 = new LiteraryPiece("Classic",PublicationItemFormat.EBOOK,  7.99, 1.09, PublicationItemStatus.AVAILABLE, p9, LiteraryType.STORY);
-        LiteraryPiece lp25 = new LiteraryPiece("Classic", PublicationItemFormat.AUDIOBOOK,  8.99, 0.99, PublicationItemStatus.AVAILABLE, p9, LiteraryType.STORY);
+        LiteraryPiece lp9 = new LiteraryPiece("Classic", PublicationItemFormat.HARDCOPY, 7.99, 1.29, PublicationItemStatus.AVAILABLE, p4, LiteraryType.STORY);
+        LiteraryPiece lp10 = new LiteraryPiece("Classic", PublicationItemFormat.AUDIOBOOK, 6.99, 0.99, PublicationItemStatus.AVAILABLE, p4, LiteraryType.STORY);
+        LiteraryPiece lp11 = new LiteraryPiece("Magic", PublicationItemFormat.HARDCOPY, 11.99, 1.99, PublicationItemStatus.AVAILABLE, p5, LiteraryType.STORY);
+        LiteraryPiece lp12 = new LiteraryPiece("Magic", PublicationItemFormat.EBOOK, 8.99, 1.29, PublicationItemStatus.AVAILABLE, p5, LiteraryType.STORY);
+        LiteraryPiece lp13 = new LiteraryPiece("Magic", PublicationItemFormat.AUDIOBOOK, 9.99, 1.49, PublicationItemStatus.AVAILABLE, p5, LiteraryType.STORY);
+        LiteraryPiece lp23 = new LiteraryPiece("Classic", PublicationItemFormat.HARDCOPY, 10.99, 1.49, PublicationItemStatus.AVAILABLE, p9, LiteraryType.STORY);
+        LiteraryPiece lp24 = new LiteraryPiece("Classic", PublicationItemFormat.EBOOK, 7.99, 1.09, PublicationItemStatus.AVAILABLE, p9, LiteraryType.STORY);
+        LiteraryPiece lp25 = new LiteraryPiece("Classic", PublicationItemFormat.AUDIOBOOK, 8.99, 0.99, PublicationItemStatus.AVAILABLE, p9, LiteraryType.STORY);
         itemRepo.saveAll(List.of(lp9, lp10, lp11, lp12, lp13, lp23, lp24, lp25));
 
 // Customer
