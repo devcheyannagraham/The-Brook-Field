@@ -1,3 +1,6 @@
+import {Transaction} from './Transaction';
+import {Customer} from './Customer';
+
 export class Order {
   public id: Number;
   public customer: Customer;
