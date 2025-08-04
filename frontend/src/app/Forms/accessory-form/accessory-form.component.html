@@ -1,20 +1,9 @@
 <form [formGroup]="accessoryForm" (ngSubmit)="addAccessory()">
 
-  @if (accessoryId != null) {
-    <!--    Update accessory-->
-    <h3>Update Accessory</h3>
-    <select name="accessoryId" id="accessoryId" (change)="updateForm()" formControlName="accessoryId">
-      @for (acc of accessories; track acc.accessoryId) {
-        <option value="{{acc.accessoryId}}">{{ acc.accessoryName }}</option>
-      }
-    </select>
-  } @else {
-    <!--    New accessory-->
-    <h3>New Accessory</h3>
-    <label for="accessoryName">Accessory Name
-      <input type="text" id="accessoryName" name="accessoryName" formControlName="accessoryName">
-    </label>
-  }
+  <h3>{{ accessoryId ? "Update" : "New" }} Accessory</h3>
+  <label for="accessoryName">Accessory Name
+    <input type="text" id="accessoryName" name="accessoryName" formControlName="accessoryName">
+  </label>
 
   <label for="accessoryType">Accessory Type
     <select id="accessoryType" name="accessoryType" formControlName="accessoryType">
@@ -31,5 +20,5 @@
   <label for="quantity">Quantity
     <input type="text" id="quantity" name="quantity" formControlName="quantity">
   </label>
-  <button type="submit">{{accessoryId ? "Update Accessory" : "Add Accessory"}}</button>
+  <button type="submit">{{ accessoryId ? "Update Accessory" : "Add Accessory" }}</button>
 </form>

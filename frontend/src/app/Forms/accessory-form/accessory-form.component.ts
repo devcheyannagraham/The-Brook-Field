@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular
 import {AccessoryService} from '../../Services/accessory.service';
 import {Accessory} from '../../DTOs/Accessory/Accessory';
 import {AccessoryType} from '../../Enums/AccessoryType';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'accessory-form',
@@ -12,17 +13,15 @@ import {AccessoryType} from '../../Enums/AccessoryType';
 })
 export class AccessoryFormComponent {
   accessoryForm: FormGroup;
-  accessories: Accessory[]
   protected readonly AccessoryType = AccessoryType;
 
   @Input() accessoryId: Number;
 
-  constructor(private formBuilder: FormBuilder, public accessoryService: AccessoryService) {
+  constructor(private formBuilder: FormBuilder, public accessoryService: AccessoryService, public router: Router) {
   }
 
   ngOnInit() {
     this.createForm();
-    this.getAccessories();
     if (this.accessoryId) this.fillForm();
   }
 
@@ -34,13 +33,6 @@ export class AccessoryFormComponent {
       quantity: [1],
       accessoryId: []
     });
-  }
-
-  getAccessories() {
-    this.accessoryService.getAccessories()
-      .subscribe(data => {
-        this.accessories = data;
-      });
   }
 
   fillForm() {
@@ -58,10 +50,6 @@ export class AccessoryFormComponent {
     }
   }
 
-  updateForm(){
-    this.accessoryId = this.accessoryForm.get("accessoryId").value;
-    this.fillForm();
-  }
 
   addAccessory() {
     let accessory = new Accessory();
@@ -76,6 +64,8 @@ export class AccessoryFormComponent {
     this.accessoryService.newAccessory(accessory)
       .subscribe(data => {
         console.log(data);
+        // @ts-ignore
+        this.router.navigateByUrl(`/accessory/${data["accessoryId"]}`)
 
       });
   }
