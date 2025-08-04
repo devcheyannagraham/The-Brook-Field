@@ -1,4 +1,4 @@
-<h3>New Publication Item</h3>
+<h3>{{ pubItemId ? "Update" : "New" }} Publication Item</h3>
 
 <form [formGroup]="publicationItemForm" (ngSubmit)="addPublicationItem()">
   <label for="publication">Publication
@@ -9,13 +9,17 @@
     </select>
   </label>
 
-  <label for="publicationItemType">Publication Item Type
-    <select id="publicationItemType" name="publicationItemType" formControlName="publicationItemType">
-      <option value="{{PublicationItemType.BOOK}}">Book</option>
-      <option value="{{PublicationItemType.JOURNAL}}">Journal</option>
-      <option value="{{PublicationItemType.LITERARY_PIECE}}">Literary Piece</option>
-    </select>
-  </label>
+  @if (pubItemId != null && publicationItem != null) {
+    <span> Publication Type: {{ publicationItem.publicationItemType }}</span>
+  } @else {
+    <label for="publicationItemType">Publication Item Type
+      <select id="publicationItemType" name="publicationItemType" formControlName="publicationItemType">
+        <option value="{{PublicationItemType.BOOK}}">Book</option>
+        <option value="{{PublicationItemType.JOURNAL}}">Journal</option>
+        <option value="{{PublicationItemType.LITERARY_PIECE}}">Literary Piece</option>
+      </select>
+    </label>
+  }
 
 
   <!-- Publication Item Fields -->

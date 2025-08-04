@@ -5,6 +5,7 @@ import demo.bfims.Enums.PublicationItemFormat;
 import demo.bfims.Enums.PublicationItemStatus;
 import demo.bfims.Enums.PublicationItemType;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class PublicationItemDto extends ItemDto {
@@ -20,7 +21,7 @@ public class PublicationItemDto extends ItemDto {
     private Integer quantity;
 
     //Journal fields for incoming dtos
-    private Date issueDate;
+    private LocalDate issueDate;
     private int issueNumber;
     private String issueName;
     private String volume;
@@ -28,11 +29,11 @@ public class PublicationItemDto extends ItemDto {
     //LiteraryPiece fields for incoming dtos
     LiteraryType literaryType;
 
-    public Date getIssueDate() {
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(Date issueDate) {
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
 
