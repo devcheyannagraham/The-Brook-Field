@@ -11,14 +11,6 @@ export class ShopService {
 
   constructor(public http: HttpClient) { }
 
-  getPublications(){
-    return this.http.get<Publication[]>(`${this.baseUrl}publications`);
-  }
-
-  getAccessories() {
-    return this.http.get<Accessory[]>(`${this.baseUrl}accessories`)
-  }
-
   addItemToCart(item:any){
     console.log("IMPLEMENT ADD TO CART");
   }
