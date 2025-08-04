@@ -1,25 +1,19 @@
 import {Component} from '@angular/core';
-import {LiteraryPiece} from '../../DTOs/Inventory/LiteraryPiece';
-import {AccessoryItem} from '../../DTOs/Accessory/AccessoryItem';
-import {Journal} from '../../DTOs/Inventory/Journal';
-import {Book} from '../../DTOs/Inventory/Book';
-import {ItemType} from '../../Enums/ItemType';
-import {PublicationItem} from '../../DTOs/Inventory/PublicationItem';
 import {AccessoryType} from '../../Enums/AccessoryType';
-import {PublicationItemType} from '../../Enums/PublicationItemType';
 import {ShopService} from '../../Services/shop.service';
 import {Publication} from '../../DTOs/Inventory/Publication';
 import {Accessory} from '../../DTOs/Accessory/Accessory';
-import {DatePipe, KeyValuePipe} from '@angular/common';
+import {DatePipe} from '@angular/common';
 import {headers} from '../../Helpers/headers';
 import {RouterLink} from '@angular/router';
+import {AccessoryService} from '../../Services/accessory.service';
+import {PublicationService} from '../../Services/publication.service';
 
 @Component({
   selector: 'shop',
   imports: [
     DatePipe,
     RouterLink,
-    KeyValuePipe
   ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'
@@ -33,7 +27,7 @@ export class ShopComponent {
 
   publications: Publication[];
 
-  constructor(public shopService: ShopService) {
+  constructor(public shopService: ShopService, public accessoryService: AccessoryService, public publicationService:PublicationService) {
   }
 
   ngOnInit() {
@@ -42,17 +36,15 @@ export class ShopComponent {
   }
 
   getPublications() {
-    this.shopService.getPublications()
+    this.publicationService.getPublications()
       .subscribe(data => {
         console.log(data)
         this.publications = data;
-
-
       });
   }
 
   getAccessories() {
-    this.shopService.getAccessories()
+    this.accessoryService.getAccessories()
       .subscribe(data => {
         console.log(data);
 

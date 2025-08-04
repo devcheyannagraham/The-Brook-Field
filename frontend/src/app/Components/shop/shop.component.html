@@ -7,9 +7,9 @@
     <div>
       <ul>
         <h4>
-<!--                    <a [routerLink]="['/shop/pub/',pub.publicationId]">-->
-          {{ pub.title }}
-<!--                    </a>-->
+          <a [routerLink]="['/shop',pub.publicationId]">
+            {{ pub.title }}
+          </a>
         </h4>
         <li>{{ headers.genre }}: {{ pub.genre }}</li>
         <li>{{ headers.title }}: {{ pub.title }}</li>

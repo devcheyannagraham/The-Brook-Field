@@ -8,6 +8,7 @@ import {AccessoriesComponent} from './Components/accessories/accessories.compone
 import {AccessoryItemsComponent} from './Components/accessory-items/accessory-items.component';
 import {OrderFormComponent} from './Forms/order-form/order-form.component';
 import {ShopComponent} from './Components/shop/shop.component';
+import {ShopItemDetailComponent} from './Components/shop-item-detail/shop-item-detail.component';
 
 export const routes: Routes = [
   {
@@ -57,8 +58,13 @@ export const routes: Routes = [
   {
     path: 'orderform',
     component: OrderFormComponent,
-  },  {
+  },
+  {
     path: 'shop',
     component: ShopComponent,
+  },
+  {
+    path: 'shop/:shopItemId',
+    component: ShopItemDetailComponent,
   },
 ];

@@ -1,20 +1,17 @@
+<p>shop-item-detail works!</p>
+
+
 <button (click)="goBack()">Back</button>
 @if (publication) {
 
   <h3> {{ publication.title }} </h3>
-    <ul>
-      <li>{{ headers.genre }}: {{ publication.genre }}</li>
-      <li>{{ headers.title }}: {{ publication.title }}</li>
-      <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
-      <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
-      <li>{{ headers.quantity }}: {{ publicationItems ? publicationItems.length : 0 }}</li>
-    </ul>
-    <a [routerLink]="['/publicationform',publication.publicationId]">Update Publication</a>
-    <button
-      [disabled]="!(publicationItems && publicationItems.length == 0)"
-      (click)="deletePublication(publication.publicationId)">Delete Publication
-    </button>
-    <a [routerLink]="['/publicationitemform/publication',publication.publicationId]">Add Items</a>
+  <ul>
+    <li>{{ headers.genre }}: {{ publication.genre }}</li>
+    <li>{{ headers.title }}: {{ publication.title }}</li>
+    <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
+    <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
+    <li>{{ headers.quantity }}: {{ publicationItems ? publicationItems.length : 0 }}</li>
+  </ul>
 
   @if (books && books.length) {
     <table>
@@ -38,8 +35,12 @@
             <td>{{ book.rentalRate }}</td>
             <td>{{ book.status }}</td>
             <td>
-              <a [routerLink]="['/publicationitemform',book.itemId]">Edit</a>
-              <button (click)="deleteItem(book.itemId)">delete</button>
+              <button (click)="purchaseItem(book)">
+                Purchase
+              </button>
+              <button (click)="rentItem(book)">
+                Rent
+              </button>
             </td>
           </tr>
         }
@@ -73,8 +74,12 @@
             <td>{{ lp.status }}</td>
             <td>{{ lp.literaryType }}</td>
             <td>
-              <a [routerLink]="['/publicationitemform',lp.itemId]">Edit</a>
-              <button (click)="deleteItem(lp.itemId)">delete</button>
+              <button (click)="purchaseItem(lp)">
+                Purchase
+              </button>
+              <button (click)="rentItem(lp)">
+                Rent
+              </button>
             </td>
           </tr>
         }
@@ -112,8 +117,12 @@
             <td>{{ journal.issueName }}</td>
             <td>{{ journal.volume }}</td>
             <td>
-              <a [routerLink]="['/publicationitemform',journal.itemId]">Edit</a>
-              <button (click)="deleteItem(journal.itemId)">delete</button>
+              <button (click)="purchaseItem(journal)">
+                Purchase
+              </button>
+              <button (click)="rentItem(journal)">
+                Rent
+              </button>
             </td>
           </tr>
         }
@@ -123,4 +132,5 @@
     <p>No Journals</p>
   }
 }
+
 
