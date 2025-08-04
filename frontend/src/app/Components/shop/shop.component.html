@@ -1,0 +1,76 @@
+<h2>Our Shop</h2>
+<h3>PUBLICATIONS</h3>
+
+@if (publications) {
+  @for (pub of publications; track pub.publicationId) {
+
+    <div>
+      <ul>
+        <h4>
+<!--                    <a [routerLink]="['/shop/pub/',pub.publicationId]">-->
+          {{ pub.title }}
+<!--                    </a>-->
+        </h4>
+        <li>{{ headers.genre }}: {{ pub.genre }}</li>
+        <li>{{ headers.title }}: {{ pub.title }}</li>
+        <li>{{ headers.datePublished }}: {{ pub.datePublished | date:"mediumDate" }}</li>
+        <li>{{ headers.isbn }}: {{ pub.isbn }}</li>
+      </ul>
+    </div>
+  }
+}
+
+@if (mugs) {
+  <h3>MUGS</h3>
+  @for (mug of mugs; track mug.accessoryId) {
+    <div>
+      <h3>{{ mug.accessoryName }}</h3>
+      <ul>
+        <li>{{ headers.accessoryName }}: {{ mug.accessoryName }}</li>
+        <li>{{ headers.price }}: {{ mug.price }}</li>
+        <li>
+          <button (click)="addItemToCart(mug.accessoryId)">
+            Add To Cart
+          </button>
+        </li>
+      </ul>
+    </div>
+  }
+}
+
+@if (pens) {
+  <h3>PENS</h3>
+  @for (pen of pens; track pen.accessoryId) {
+    <div>
+      <h3>{{ pen.accessoryName }}</h3>
+      <ul>
+        <li>{{ headers.accessoryName }}: {{ pen.accessoryName }}</li>
+        <li>{{ headers.price }}: {{ pen.price }}</li>
+        <li>
+          <button (click)="addItemToCart(pen.accessoryId)">
+            Add To Cart
+          </button>
+        </li>
+      </ul>
+    </div>
+  }
+}
+
+@if (bookmarks) {
+  <h3>BOOKMARKS</h3>
+  @for (bookmark of bookmarks; track bookmark.accessoryId) {
+    <div>
+      <h3>{{ bookmark.accessoryName }}</h3>
+      <ul>
+        <li>{{ headers.accessoryName }}: {{ bookmark.accessoryName }}</li>
+        <li>{{ headers.price }}: {{ bookmark.price }}</li>
+        <li>
+          <button (click)="addItemToCart(bookmark.accessoryId)">
+            Add To Cart
+          </button>
+        </li>
+      </ul>
+    </div>
+  }
+}
+

@@ -2,12 +2,12 @@
 @if (accessory) {
 
   <h3>{{ accessory.accessoryName }}</h3>
-  <ol>
+  <ul>
     <li>{{ headers.accessoryName }}: {{ accessory.accessoryName }}</li>
     <li>{{ headers.accessoryType }}: {{ accessory.accessoryType }}</li>
     <li>{{ headers.price }}: {{ accessory.price }}</li>
     <li>{{ headers.quantity }}: {{ accessoryItems ? accessoryItems.length : 0 }}</li>
-  </ol>
+  </ul>
   <a [routerLink]="['/accessoryform',accessory.accessoryId]">Update Accessory</a>
   <button
     [disabled]="!(accessoryItems && accessoryItems.length == 0)" (click)="deleteAccessory(accessory.accessoryId)">

@@ -3,13 +3,13 @@
 
   <h3> {{ publication.title }} </h3>
   @if (publication) {
-    <ol>
+    <ul>
       <li>{{ headers.genre }}: {{ publication.genre }}</li>
       <li>{{ headers.title }}: {{ publication.title }}</li>
       <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
       <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
       <li>{{ headers.quantity }}: {{ publicationItems ? publicationItems.length : 0 }}</li>
-    </ol>
+    </ul>
     <a [routerLink]="['/publicationform',publication.publicationId]">Update Publication</a>
     <button
       [disabled]="!(publicationItems && publicationItems.length == 0)"
