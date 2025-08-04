@@ -6,7 +6,6 @@ import demo.bfims.Enums.PublicationItemType;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 public class Journal extends PublicationItem {

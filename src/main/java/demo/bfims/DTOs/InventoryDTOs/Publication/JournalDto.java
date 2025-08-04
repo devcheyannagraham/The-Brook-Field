@@ -1,9 +1,9 @@
 package demo.bfims.DTOs.InventoryDTOs.Publication;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class JournalDto extends PublicationItemDto {
-    private Date issueDate;
+    private LocalDate issueDate;
     private int issueNumber;
     private String issueName;
     private String volume;
@@ -32,11 +32,11 @@ public class JournalDto extends PublicationItemDto {
         this.issueNumber = issueNumber;
     }
 
-    public Date getIssueDate() {
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(Date issueDate) {
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
 }
