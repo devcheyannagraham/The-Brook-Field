@@ -6,6 +6,6 @@ export class Order {
   public customer: Customer;
   public orderDate: Date;
   public transactions: Transaction[];
-  private orderTotal: Number;
+  public orderTotal: Number;
 
 }
