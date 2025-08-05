@@ -56,7 +56,7 @@ export const routes: Routes = [
     component: AccessoryFormComponent,
   },
   {
-    path: 'orderform',
+    path: 'checkout',
     component: OrderFormComponent,
   },
   {

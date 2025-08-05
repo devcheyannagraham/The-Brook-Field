@@ -1,1 +1,76 @@
-<p>order-form works!</p>
+<h3>Checkout</h3>
+
+<form [formGroup]="orderForm" (ngSubmit)="submitOrder()">
+
+  <label for="firstName">First Name
+    <input type="text" id="firstName" name="firstName" formControlName="firstName">
+  </label>
+
+  <label for="lastName">Last Name
+    <input type="text" id="lastName" name="lastName" formControlName="lastName">
+  </label>
+
+  <label for="streetAddress">Street Address
+    <input type="text" id="streetAddress" name="streetAddress" formControlName="streetAddress">
+  </label>
+
+  <label for="city">City
+    <input type="text" id="city" name="city" formControlName="city">
+  </label>
+
+  <label for="state">State
+    <input type="text" id="state" name="state" formControlName="state">
+  </label>
+
+  <label for="zip">Zip
+    <input type="number" id="zip" name="zip" formControlName="zip">
+  </label>
+
+  <label for="country">Country
+    <input type="text" id="country" name="country" formControlName="country">
+  </label>
+
+  <label for="email">Email
+    <input type="text" id="email" name="email" formControlName="email">
+  </label>
+
+  <label for="phoneNumber">Phone
+    <input type="tel" id="phoneNumber" name="phoneNumber" formControlName="phoneNumber">
+  </label>
+
+  <button type = "submit"> Submit Order </button>
+</form>
+
+<div>
+  <table>
+    <thead>
+    <th>{{ headers.transactionType }}</th>
+    <th>{{ headers.name }}</th>
+    <th>{{ headers.price }}</th>
+    </thead>
+
+    <tbody>
+      @for (trans of orderItems; track trans) {
+        <tr>
+
+          <td>{{ trans.transactionType }}</td>
+
+          @if (trans.item.itemType == ItemType.PUBLICATION_ITEM) {
+            <td>{{ (trans.item | cast).publication.title }}</td>
+          }
+          @if (trans.item.itemType == ItemType.ACCESSORY_ITEM) {
+            <td>{{ (trans.item | cast).accessory.accessoryName }}</td>
+          }
+
+          <td>{{ trans.transactionPrice }}</td>
+        </tr>
+
+      }
+    <tr>
+      <td colspan="2">Order Total</td>
+      <td>{{orderTotal}}</td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>

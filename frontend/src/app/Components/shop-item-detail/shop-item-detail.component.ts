@@ -10,7 +10,6 @@ import {Publication} from '../../DTOs/Inventory/Publication';
 import {Journal} from '../../DTOs/Inventory/Journal';
 import {PublicationItemType} from '../../Enums/PublicationItemType';
 import {headers} from '../../Helpers/headers';
-import {Transaction} from '../../DTOs/Order/Transaction';
 import {TransactionType} from '../../Enums/TransactionType';
 import {Rental} from '../../DTOs/Order/Rental';
 import {Purchase} from '../../DTOs/Order/Purchase';
