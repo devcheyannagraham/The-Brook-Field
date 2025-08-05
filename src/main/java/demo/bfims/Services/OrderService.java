@@ -55,6 +55,7 @@ public class OrderService {
 
     @Transactional
     public OrderDto newOrder(OrderDto orderDto) {
+        System.out.println("\nORDER NEW -" +  orderDto);
         Order order = new Order();
         order.setTransactions(orderDto.getTransactions().stream()
                 .map(transactionDto -> {

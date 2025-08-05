@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {DatePipe} from "@angular/common";
+import {DatePipe, Location} from "@angular/common";
 import {ShopService} from '../../Services/shop.service';
 import {AccessoryService} from '../../Services/accessory.service';
 import {PublicationService} from '../../Services/publication.service';
@@ -9,8 +9,11 @@ import {PublicationItem} from '../../DTOs/Inventory/PublicationItem';
 import {Publication} from '../../DTOs/Inventory/Publication';
 import {Journal} from '../../DTOs/Inventory/Journal';
 import {PublicationItemType} from '../../Enums/PublicationItemType';
-import {Location} from '@angular/common';
 import {headers} from '../../Helpers/headers';
+import {Transaction} from '../../DTOs/Order/Transaction';
+import {TransactionType} from '../../Enums/TransactionType';
+import {Rental} from '../../DTOs/Order/Rental';
+import {Purchase} from '../../DTOs/Order/Purchase';
 
 
 @Component({
@@ -71,13 +74,21 @@ export class ShopItemDetailComponent {
 
   }
 
-  purchaseItem(tem: PublicationItem) {
-    console.log("IMPLEMENT PURCHASE DTO")
+  purchaseItem(item: PublicationItem) {
+    console.log("IMPLEMENT PURCHASE DTO");
+    const purchase = new Purchase();
+    // purchase.actionType = TransactionType.PURCHASE;
+    purchase.item = item;
+    purchase.transactionPrice = item.purchasePrice;
+    this.shopService.addItemToCart(purchase);
   }
 
-  rentItem(tem: PublicationItem) {
-    console.log("IMPLEMENT rentalE DTO")
-
+  rentItem(item: PublicationItem) {
+    console.log("IMPLEMENT rentalE DTO");
+    const rental = new Rental();
+    rental.item = item;
+    rental.transactionPrice = item.rentalRate;
+    this.shopService.addItemToCart(rental);
   }
 
   addItemToCart(item: any) {

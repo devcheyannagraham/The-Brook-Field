@@ -17,7 +17,7 @@ public class Rental extends Transaction { //is publication
     private LocalDate dueDate;
 
     @Enumerated(EnumType.STRING)
-    private RentalStatus status;
+    private RentalStatus rentalStatus;
 
     @PrePersist
     private void setup() {
@@ -25,15 +25,15 @@ public class Rental extends Transaction { //is publication
         this.setDueDate(LocalDate.now().plusWeeks(3));
 
         // set initial rental status
-        this.setStatus(RentalStatus.RENTED);
+        this.setRentalStatus(RentalStatus.RENTED);
     }
 
     // update rental status when retrieving record
     // Not sure if it will be persisted
     @PostLoad
     private void updateRentalStatus() {
-        if (this.status != RentalStatus.RETURNED && LocalDate.now().isAfter(this.dueDate)) {
-            this.setStatus(RentalStatus.OVERDUE);
+        if (this.rentalStatus != RentalStatus.RETURNED && LocalDate.now().isAfter(this.dueDate)) {
+            this.setRentalStatus(RentalStatus.OVERDUE);
         }
     }
 
@@ -58,12 +58,12 @@ public class Rental extends Transaction { //is publication
         this.dueDate = dueDate;
     }
 
-    public RentalStatus getStatus() {
-        return status;
+    public RentalStatus getRentalStatus() {
+        return rentalStatus;
     }
 
-    public void setStatus(RentalStatus status) {
-        this.status = status;
+    public void setRentalStatus(RentalStatus status) {
+        this.rentalStatus = status;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class Rental extends Transaction { //is publication
         return "Rental{" +
                 "startDate=" + startDate +
                 ", dueDate=" + dueDate +
-                ", status=" + status +
+                ", status=" + rentalStatus +
                 "} " + super.toString();
     }
 

@@ -7,12 +7,15 @@ import {Accessory} from '../DTOs/Accessory/Accessory';
   providedIn: 'root'
 })
 export class ShopService {
-  baseUrl:String =  "http://localhost:8080/"
+  baseUrl:String =  "http://localhost:8080/";
+  shoppingCart: any[] = [];
 
   constructor(public http: HttpClient) { }
 
   addItemToCart(item:any){
     console.log("IMPLEMENT ADD TO CART");
+    this.shoppingCart.push(item);
+    console.log(this.shoppingCart);
   }
 
 
