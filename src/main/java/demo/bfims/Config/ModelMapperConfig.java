@@ -3,6 +3,7 @@ package demo.bfims.Config;
 import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
 import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
 import demo.bfims.DTOs.OrderDTOs.TransactionDto;
+import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
 import demo.bfims.Entities.Inventory.Publication.*;
 import demo.bfims.Entities.Order.Purchase;
 import demo.bfims.Entities.Order.Rental;
@@ -46,6 +47,10 @@ public class ModelMapperConfig {
 
             if (itemDto.getItemType().equals(ItemType.PUBLICATION_ITEM)) {
                 return modelMapper.map(provisionRequest.getSource(), PublicationItem.class);
+            }
+
+            else if (itemDto.getItemType().equals(ItemType.ACCESSORY_ITEM)) {
+                return modelMapper.map(provisionRequest.getSource(), AccessoryItem.class);
             }
             return null;
         };
