@@ -1,7 +1,20 @@
 package demo.bfims.DTOs.InventoryDTOs.Publication;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
 import demo.bfims.Enums.ItemType;
 
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "itemType"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = PublicationItemDto.class, name = "PUBLICATION_ITEM"),
+        @JsonSubTypes.Type(value = AccessoryItemDto.class, name = "ACCESSORY_ITEM"),
+})
 public class ItemDto {
     private Long itemId;
     private ItemType itemType;
