@@ -91,11 +91,6 @@ export class ShopItemDetailComponent {
     this.shopService.addItemToCart(rental);
   }
 
-  addItemToCart(item: any) {
-    // this.shopService.addItemToCart(item)
-    console.log("IMPLEMENT ADD ITEM TO CART")
-  }
-
   goBack() {
     this.location.back();
   }

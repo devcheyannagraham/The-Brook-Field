@@ -8,6 +8,7 @@ import {headers} from '../../Helpers/headers';
 import {RouterLink} from '@angular/router';
 import {AccessoryService} from '../../Services/accessory.service';
 import {PublicationService} from '../../Services/publication.service';
+import {Purchase} from '../../DTOs/Order/Purchase';
 
 @Component({
   selector: 'shop',
@@ -63,7 +64,10 @@ export class ShopComponent {
   }
 
   addItemToCart(item: any){
-    this.shopService.addItemToCart(item);
+    const purchase = new Purchase();
+    purchase.item = item;
+    purchase.transactionPrice = item.price;
+    this.shopService.addItemToCart(purchase);
   }
 
 }
