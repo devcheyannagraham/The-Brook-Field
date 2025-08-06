@@ -28,6 +28,9 @@ public abstract class Item {
     @Enumerated(EnumType.STRING)
     private ItemType itemType;
 
+    public Item() {
+    }
+
     public Long getItemId() {
         return itemId;
     }
