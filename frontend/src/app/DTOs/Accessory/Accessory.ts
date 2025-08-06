@@ -6,4 +6,7 @@ export class Accessory {
   public accessoryName: String;
   public quantity: Number;
   public price: Number;
+
+  constructor() {
+  }
 }
