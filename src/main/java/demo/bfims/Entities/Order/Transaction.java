@@ -49,6 +49,9 @@ public abstract class Transaction {
         return item;
     }
 
+    public Transaction() {
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
