@@ -1,10 +1,20 @@
 package demo.bfims.DTOs.OrderDTOs;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
 import demo.bfims.Enums.TransactionType;
-
 import java.time.LocalDate;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "transactionType"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = RentalDto.class, name = "RENTAL"),
+        @JsonSubTypes.Type(value = PurchaseDto.class, name = "PURCHASE")
+})
 public class TransactionDto {
     private Long transactionId;
     private TransactionType transactionType;
