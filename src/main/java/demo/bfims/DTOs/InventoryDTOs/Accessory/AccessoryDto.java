@@ -10,6 +10,9 @@ public class AccessoryDto {
     // needed to create items on new accessory
     private int quantity;
 
+    public AccessoryDto() {
+    }
+
     public Long getAccessoryId() {
         return accessoryId;
     }
