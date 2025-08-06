@@ -3,6 +3,7 @@ package demo.bfims.DTOs.InventoryDTOs.Accessory;
 import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Enums.AccessoryItemStatus;
+import demo.bfims.Enums.ItemType;
 
 public class AccessoryItemDto extends ItemDto {
     private Accessory accessory;
@@ -18,6 +19,10 @@ public class AccessoryItemDto extends ItemDto {
 
     public void setAccessoryItemStatus(AccessoryItemStatus accessoryItemStatus) {
         this.accessoryItemStatus = accessoryItemStatus;
+    }
+
+    public AccessoryItemDto() {
+        this.setItemType(ItemType.ACCESSORY_ITEM);
     }
 
     @Override
