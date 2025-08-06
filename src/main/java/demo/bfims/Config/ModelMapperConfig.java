@@ -95,7 +95,6 @@ public class ModelMapperConfig {
         publicationItemMap.setProvider(publicationItemProvider);
         transactionTypeMap.setProvider(transactionProvider);
 
-        modelMapper.createTypeMap(AccessoryItemDto.class, AccessoryItem.class).includeBase(ItemDto.class,Item.class);
 
         // VERY IMPORTANT SETTING -> GOT Instantiation Exception even though I had mappings defined because deeply nested properties >(
         modelMapper.getConfiguration().setPreferNestedProperties(false);
