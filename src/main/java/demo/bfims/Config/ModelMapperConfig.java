@@ -1,5 +1,6 @@
 package demo.bfims.Config;
 
+import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
 import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
 import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
 import demo.bfims.DTOs.OrderDTOs.TransactionDto;
@@ -93,6 +94,8 @@ public class ModelMapperConfig {
         itemMap.setProvider(itemProvider);
         publicationItemMap.setProvider(publicationItemProvider);
         transactionTypeMap.setProvider(transactionProvider);
+
+        modelMapper.createTypeMap(AccessoryItemDto.class, AccessoryItem.class).includeBase(ItemDto.class,Item.class);
 
         // VERY IMPORTANT SETTING -> GOT Instantiation Exception even though I had mappings defined because deeply nested properties >(
         modelMapper.getConfiguration().setPreferNestedProperties(false);
