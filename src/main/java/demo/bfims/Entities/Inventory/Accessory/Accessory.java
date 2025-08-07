@@ -1,6 +1,7 @@
 package demo.bfims.Entities.Inventory.Accessory;
 
 
+import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryDto;
 import demo.bfims.Enums.AccessoryType;
 import jakarta.persistence.*;
 
@@ -25,6 +26,13 @@ public class Accessory {
     }
 
     public Accessory() {
+    }
+
+    public Accessory(AccessoryDto accessoryDto) {
+        this.accessoryType = accessoryDto.getAccessoryType();
+        this.accessoryName = accessoryDto.getAccessoryName();
+        this.price = accessoryDto.getPrice();
+        this.accessoryId = accessoryDto.getAccessoryId();
     }
 
     public void setAccessoryId(Long accessoryId) {

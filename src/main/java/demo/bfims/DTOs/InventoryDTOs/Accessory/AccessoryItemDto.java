@@ -2,14 +2,26 @@ package demo.bfims.DTOs.InventoryDTOs.Accessory;
 
 import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
+import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
 import demo.bfims.Enums.AccessoryItemStatus;
 import demo.bfims.Enums.ItemType;
 
 public class AccessoryItemDto extends ItemDto {
-    private Accessory accessory;
+    private AccessoryDto accessory;
     private AccessoryItemStatus accessoryItemStatus;
 
-    public Accessory getAccessory() {
+
+    public AccessoryItemDto() {
+        this.setItemType(ItemType.ACCESSORY_ITEM);
+    }
+
+    public AccessoryItemDto(AccessoryItem accessoryItem) {
+        super(accessoryItem);
+        this.accessoryItemStatus = accessoryItem.getAccessoryItemStatus();
+        this.accessory = new AccessoryDto(accessoryItem.getAccessory());
+    }
+
+    public AccessoryDto getAccessory() {
         return accessory;
     }
 
@@ -21,8 +33,9 @@ public class AccessoryItemDto extends ItemDto {
         this.accessoryItemStatus = accessoryItemStatus;
     }
 
-    public AccessoryItemDto() {
-        this.setItemType(ItemType.ACCESSORY_ITEM);
+
+    public void setAccessory(AccessoryDto accessory) {
+        this.accessory = accessory;
     }
 
     @Override
@@ -31,9 +44,5 @@ public class AccessoryItemDto extends ItemDto {
                 "accessory=" + accessory +
                 ", accessoryItemStatus=" + accessoryItemStatus +
                 '}';
-    }
-
-    public void setAccessory(Accessory accessory) {
-        this.accessory = accessory;
     }
 }

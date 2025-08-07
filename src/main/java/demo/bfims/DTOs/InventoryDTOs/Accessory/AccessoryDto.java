@@ -1,5 +1,6 @@
 package demo.bfims.DTOs.InventoryDTOs.Accessory;
 
+import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Enums.AccessoryType;
 
 public class AccessoryDto {
@@ -11,6 +12,13 @@ public class AccessoryDto {
     private int quantity;
 
     public AccessoryDto() {
+    }
+
+    public AccessoryDto(Accessory accessory) {
+        this.accessoryId = accessory.getAccessoryId();
+        this.accessoryType = accessory.getAccessoryType();
+        this.accessoryName = accessory.getAccessoryName();
+        this.price = accessory.getPrice();
     }
 
     public Long getAccessoryId() {
