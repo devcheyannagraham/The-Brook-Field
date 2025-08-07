@@ -112,12 +112,12 @@ export class PublicationItemFormComponent {
         publicationItem[key] = this.publicationItemForm.get(key).value;
       }
     }
-    console.log("PUBITEM IN ADD PUBITEM", publicationItem)
 
-    publicationItem.publication = new Publication();
-    publicationItem.publication.publicationId = formData.publication;
+    publicationItem.publication = this.publications.find(pub => pub.publicationId == formData.publication);
     publicationItem.status = PublicationItemStatus.AVAILABLE;
     if (this.pubItemId) publicationItem.itemId = this.pubItemId;
+
+    console.log("PUBITEM IN ADD PUBITEM", publicationItem)
     this.createPublicationItem(publicationItem);
   }
 
