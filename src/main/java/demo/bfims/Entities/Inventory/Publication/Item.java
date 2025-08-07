@@ -2,6 +2,7 @@ package demo.bfims.Entities.Inventory.Publication;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
 import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
 import demo.bfims.Enums.ItemType;
 import jakarta.persistence.*;
@@ -29,6 +30,11 @@ public abstract class Item {
     private ItemType itemType;
 
     public Item() {
+    }
+
+    public Item(ItemDto  itemDto) {
+        this.itemId = itemDto.getItemId();
+        this.itemType = itemDto.getItemType();
     }
 
     public Long getItemId() {

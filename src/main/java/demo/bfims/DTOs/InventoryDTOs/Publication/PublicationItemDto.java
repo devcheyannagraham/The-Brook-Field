@@ -1,13 +1,23 @@
 package demo.bfims.DTOs.InventoryDTOs.Publication;
 
-import demo.bfims.Enums.LiteraryType;
-import demo.bfims.Enums.PublicationItemFormat;
-import demo.bfims.Enums.PublicationItemStatus;
-import demo.bfims.Enums.PublicationItemType;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import demo.bfims.Entities.Inventory.Publication.*;
+import demo.bfims.Enums.*;
 
 import java.time.LocalDate;
 import java.util.Date;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "publicationItemType"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = BookDto.class, name = "BOOK"),
+        @JsonSubTypes.Type(value = LiteraryPieceDto.class, name = "LITERARY_PIECE"),
+        @JsonSubTypes.Type(value = JournalDto.class, name = "JOURNAL")
+})
 public class PublicationItemDto extends ItemDto {
     private PublicationItemFormat format;
     private PublicationItemStatus status;
@@ -20,60 +30,24 @@ public class PublicationItemDto extends ItemDto {
     // only for making mulitple items
     private Integer quantity;
 
-    //Journal fields for incoming dtos
-    private LocalDate issueDate;
-    private int issueNumber;
-    private String issueName;
-    private String volume;
-
-    //LiteraryPiece fields for incoming dtos
-    LiteraryType literaryType;
-
-    public LocalDate getIssueDate() {
-        return issueDate;
-    }
-
-    public void setIssueDate(LocalDate issueDate) {
-        this.issueDate = issueDate;
-    }
-
-    public int getIssueNumber() {
-        return issueNumber;
-    }
-
-    public void setIssueNumber(int issueNumber) {
-        this.issueNumber = issueNumber;
-    }
-
-    public String getIssueName() {
-        return issueName;
-    }
-
-    public void setIssueName(String issueName) {
-        this.issueName = issueName;
-    }
-
-    public String getVolume() {
-        return volume;
-    }
-
-    public void setVolume(String volume) {
-        this.volume = volume;
-    }
 
     public PublicationItemDto() {
+        this.setItemType(ItemType.PUBLICATION_ITEM);
+    }
+
+    public PublicationItemDto(PublicationItem publicationItem) {
+        super(publicationItem);
+        this.format = publicationItem.getFormat();
+        this.status = publicationItem.getStatus();
+        this.purchasePrice = publicationItem.getPurchasePrice();
+        this.rentalRate = publicationItem.getRentalRate();
+        this.edition = publicationItem.getEdition();
+        this.publicationItemType = publicationItem.getPublicationItemType();
+        this.publication = new PublicationDto(publicationItem.getPublication());
     }
 
     public PublicationItemFormat getFormat() {
         return format;
-    }
-
-    public LiteraryType getLiteraryType() {
-        return literaryType;
-    }
-
-    public void setLiteraryType(LiteraryType literaryType) {
-        this.literaryType = literaryType;
     }
 
     public void setFormat(PublicationItemFormat format) {
@@ -146,11 +120,6 @@ public class PublicationItemDto extends ItemDto {
                 ", purchasePrice=" + purchasePrice +
                 ", rentalRate=" + rentalRate +
                 ", edition='" + edition + '\'' +
-                ", issueDate=" + issueDate +
-                ", issueNumber=" + issueNumber +
-                ", issueName='" + issueName + '\'' +
-                ", volume='" + volume + '\'' +
-                ", literaryType=" + literaryType +
                 ", quantity=" + quantity +
                 "} " + super.toString();
     }

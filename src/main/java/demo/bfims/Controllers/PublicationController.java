@@ -44,8 +44,8 @@ public class PublicationController {
 
     //Get 1 pubitem
     @GetMapping("/publicationitem/{id}")
-    public PublicationItemDto getPublicationItem(@PathVariable Long id) {
-        return publicationService.getPublicationItem(id);
+    public PublicationItemDto getPublicationItemById(@PathVariable Long id) {
+        return publicationService.getPublicationItemById(id);
     }
 
     //get all pubitems

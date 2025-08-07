@@ -1,5 +1,6 @@
 package demo.bfims.Entities.Inventory.Publication;
 
+import demo.bfims.DTOs.InventoryDTOs.Publication.LiteraryPieceDto;
 import demo.bfims.Enums.LiteraryType;
 import demo.bfims.Enums.PublicationItemFormat;
 import demo.bfims.Enums.PublicationItemStatus;
@@ -9,7 +10,7 @@ import jakarta.persistence.*;
 @Entity
 public class LiteraryPiece extends PublicationItem {
     @Enumerated(EnumType.STRING)
-    LiteraryType literaryType;
+    private LiteraryType literaryType;
 
     public LiteraryPiece() {
         this.setPublicationItemType(PublicationItemType.LITERARY_PIECE);
@@ -19,6 +20,11 @@ public class LiteraryPiece extends PublicationItem {
         super(edition, format, purchasePrice, rentalRate, status, publication);
         this.setPublicationItemType(PublicationItemType.LITERARY_PIECE);
         this.literaryType = literaryType;
+    }
+
+    public LiteraryPiece(LiteraryPieceDto literaryPieceDto) {
+        super(literaryPieceDto);
+        this.literaryType = literaryPieceDto.getLiteraryType();
     }
 
     public LiteraryType getLiteraryType() {

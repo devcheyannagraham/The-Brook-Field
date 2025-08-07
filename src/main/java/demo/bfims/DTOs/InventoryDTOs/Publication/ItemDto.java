@@ -3,6 +3,7 @@ package demo.bfims.DTOs.InventoryDTOs.Publication;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
+import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Enums.ItemType;
 
 
@@ -20,6 +21,11 @@ public class ItemDto {
     private ItemType itemType;
 
     public ItemDto() {
+    }
+
+    public ItemDto(Item item){
+        this.itemId = item.getItemId();
+        this.itemType = item.getItemType();
     }
 
     public Long getItemId() {

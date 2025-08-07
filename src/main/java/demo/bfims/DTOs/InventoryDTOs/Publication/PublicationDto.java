@@ -1,5 +1,7 @@
 package demo.bfims.DTOs.InventoryDTOs.Publication;
 
+import demo.bfims.Entities.Inventory.Publication.Author;
+import demo.bfims.Entities.Inventory.Publication.Publication;
 import demo.bfims.Enums.Genre;
 
 import java.time.LocalDate;
@@ -13,6 +15,15 @@ public class PublicationDto {
     private String isbn;
 
     public PublicationDto(){}
+
+    public PublicationDto(Publication publication) {
+        this.publicationId = publication.getPublicationId();
+        this.genre = publication.getGenre();
+        this.datePublished = publication.getDatePublished();
+        this.title = publication.getTitle();
+        this.isbn = publication.getIsbn();
+        this.author = new AuthorDto(publication.getAuthor());
+    }
 
     public Long getPublicationId() {
         return publicationId;

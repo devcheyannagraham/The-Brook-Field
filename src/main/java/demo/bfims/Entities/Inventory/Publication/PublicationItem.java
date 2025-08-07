@@ -2,6 +2,7 @@ package demo.bfims.Entities.Inventory.Publication;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.PublicationItemFormat;
 import demo.bfims.Enums.PublicationItemStatus;
@@ -43,6 +44,17 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
         this.rentalRate = rentalRate;
         this.edition = edition;
         this.setItemType(ItemType.PUBLICATION_ITEM);
+    }
+
+    public PublicationItem(PublicationItemDto publicationItemDto) {
+        super(publicationItemDto);
+        this.format = publicationItemDto.getFormat();
+        this.status = publicationItemDto.getStatus();
+        this.purchasePrice = publicationItemDto.getPurchasePrice();
+        this.rentalRate = publicationItemDto.getRentalRate();
+        this.edition = publicationItemDto.getEdition();
+        this.publicationItemType = publicationItemDto.getPublicationItemType();
+        this.publication = new Publication(publicationItemDto.getPublication());
     }
 
     public PublicationItem() {

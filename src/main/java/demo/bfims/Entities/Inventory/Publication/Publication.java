@@ -1,5 +1,7 @@
 package demo.bfims.Entities.Inventory.Publication;
 
+import demo.bfims.DTOs.InventoryDTOs.Publication.AuthorDto;
+import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationDto;
 import demo.bfims.Enums.Genre;
 import jakarta.persistence.*;
 
@@ -28,6 +30,15 @@ public class Publication {
         this.author = author;
         this.title = title;
         this.isbn = isbn;
+    }
+
+    public Publication(PublicationDto publicationDto) {
+        this.genre = publicationDto.getGenre();
+        this.datePublished = publicationDto.getDatePublished();
+        this.title = publicationDto.getTitle();
+        this.isbn = publicationDto.getIsbn();
+        this.author = new Author(publicationDto.getAuthor());
+        this.publicationId = publicationDto.getPublicationId();
     }
 
     public LocalDate getDatePublished() {

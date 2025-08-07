@@ -1,5 +1,6 @@
 package demo.bfims.Entities.Inventory.Publication;
 
+import demo.bfims.DTOs.InventoryDTOs.Publication.AuthorDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +20,12 @@ public class Author {
     public Author(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Author(AuthorDto authorDto) {
+        this.firstName = authorDto.getFirstName();
+        this.lastName = authorDto.getLastName();
+        this.id = authorDto.getId();
     }
 
     public Long getId() {
