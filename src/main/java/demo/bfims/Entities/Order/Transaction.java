@@ -2,6 +2,10 @@ package demo.bfims.Entities.Order;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
+import demo.bfims.DTOs.OrderDTOs.PurchaseDto;
+import demo.bfims.DTOs.OrderDTOs.RentalDto;
+import demo.bfims.DTOs.OrderDTOs.TransactionDto;
 import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Enums.TransactionType;
 import jakarta.persistence.*;
@@ -51,6 +55,26 @@ public abstract class Transaction {
 
     public Transaction() {
     }
+
+    public Transaction(TransactionDto transDto){
+        this.transactionId = transDto.getTransactionId();
+        this.transactionType = transDto.getTransactionType();
+        this.transactionDate = transDto.getTransactionDate();
+        this.transactionPrice = transDto.getTransactionPrice();
+        //Item is abstract
+        this.item = Item.mapToItem(transDto.getItem());
+    }
+
+    public static Transaction mapToTransaction(TransactionDto transDto){
+        if(transDto.getTransactionType() == TransactionType.PURCHASE){
+            return new Purchase((PurchaseDto) transDto);
+        }
+        if(transDto.getTransactionType() == TransactionType.RENTAL){
+            return new Rental((RentalDto) transDto);
+        }
+        return null;
+    }
+
 
     @Override
     public String toString() {

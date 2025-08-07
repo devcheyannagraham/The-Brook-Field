@@ -3,7 +3,9 @@ package demo.bfims.DTOs.InventoryDTOs.Publication;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
+import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
 import demo.bfims.Entities.Inventory.Publication.Item;
+import demo.bfims.Entities.Inventory.Publication.PublicationItem;
 import demo.bfims.Enums.ItemType;
 
 
@@ -26,6 +28,16 @@ public class ItemDto {
     public ItemDto(Item item){
         this.itemId = item.getItemId();
         this.itemType = item.getItemType();
+    }
+
+    public static ItemDto mapToItemDto(Item item){
+        if(item.getItemType().equals(ItemType.PUBLICATION_ITEM)){
+            return PublicationItemDto.mapToPublicationItemDto((PublicationItem) item);
+        }
+        else if(item.getItemType().equals(ItemType.ACCESSORY_ITEM)){
+            return new AccessoryItemDto((AccessoryItem) item);
+        }
+        return null;
     }
 
     public Long getItemId() {

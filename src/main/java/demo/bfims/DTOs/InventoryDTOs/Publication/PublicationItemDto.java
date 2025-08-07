@@ -46,6 +46,15 @@ public class PublicationItemDto extends ItemDto {
         this.publication = new PublicationDto(publicationItem.getPublication());
     }
 
+    public static PublicationItemDto mapToPublicationItemDto(PublicationItem publicationItem) {
+        PublicationItemType type = publicationItem.getPublicationItemType();
+        if (type.equals(PublicationItemType.BOOK)) return new BookDto((Book) publicationItem);
+        if (type.equals(PublicationItemType.JOURNAL)) return new JournalDto((Journal) publicationItem);
+        if (type.equals(PublicationItemType.LITERARY_PIECE))
+            return new LiteraryPieceDto((LiteraryPiece) publicationItem);
+        return null;
+    }
+
     public PublicationItemFormat getFormat() {
         return format;
     }

@@ -2,6 +2,9 @@ package demo.bfims.Entities.Inventory.Publication;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import demo.bfims.DTOs.InventoryDTOs.Publication.BookDto;
+import demo.bfims.DTOs.InventoryDTOs.Publication.JournalDto;
+import demo.bfims.DTOs.InventoryDTOs.Publication.LiteraryPieceDto;
 import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.PublicationItemFormat;
@@ -55,6 +58,15 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
         this.edition = publicationItemDto.getEdition();
         this.publicationItemType = publicationItemDto.getPublicationItemType();
         this.publication = new Publication(publicationItemDto.getPublication());
+    }
+
+    public static PublicationItem mapToPublicationItem(PublicationItemDto publicationItemDto) {
+        PublicationItemType type = publicationItemDto.getPublicationItemType();
+        if (type.equals(PublicationItemType.BOOK)) return new Book((BookDto) publicationItemDto);
+        if (type.equals(PublicationItemType.JOURNAL)) return new Journal((JournalDto) publicationItemDto);
+        if (type.equals(PublicationItemType.LITERARY_PIECE))
+            return new LiteraryPiece((LiteraryPieceDto) publicationItemDto);
+        return null;
     }
 
     public PublicationItem() {

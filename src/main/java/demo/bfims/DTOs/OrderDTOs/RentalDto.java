@@ -1,6 +1,8 @@
 package demo.bfims.DTOs.OrderDTOs;
 
+import demo.bfims.Entities.Order.Rental;
 import demo.bfims.Enums.RentalStatus;
+import demo.bfims.Enums.TransactionType;
 
 import java.time.LocalDate;
 
@@ -10,6 +12,14 @@ public class RentalDto extends TransactionDto {
     private RentalStatus status;
 
     public RentalDto() {
+        this.setTransactionType(TransactionType.RENTAL);
+    }
+
+    public RentalDto(Rental rental){
+        super(rental);
+        this.startDate = rental.getStartDate();
+        this.dueDate = rental.getDueDate();
+        this.status = rental.getRentalStatus();
     }
 
     public LocalDate getStartDate() {

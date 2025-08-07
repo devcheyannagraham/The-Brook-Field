@@ -1,5 +1,7 @@
 package demo.bfims.Entities.Order;
 
+import demo.bfims.DTOs.OrderDTOs.CustomerDto;
+import demo.bfims.DTOs.OrderDTOs.OrderDto;
 import demo.bfims.Enums.TransactionType;
 import demo.bfims.Interfaces.Purchaseable;
 import demo.bfims.Interfaces.Rentable;
@@ -30,9 +32,19 @@ public class Order {
         this.transactions = new ArrayList<>();
     }
 
+    public Order(OrderDto orderDto) {
+        this.id = orderDto.getId();
+        this.customer = new Customer(orderDto.getCustomer());
+        this.orderDate = LocalDateTime.now();
+        this.orderTotal = orderDto.getOrderTotal();
+        this.transactions = orderDto.getTransactions().stream()
+                .map(Transaction::mapToTransaction).toList();
+    }
+
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -65,11 +77,11 @@ public class Order {
     public void addTransaction(Transaction transaction) {
         this.transactions.add(transaction);
         this.orderTotal += transaction.getTransactionPrice();
-        if(transaction.getTransactionType().equals(TransactionType.PURCHASE)) {
-           transaction.setTransactionPrice(((Purchaseable) transaction.getItem()).getPurchasePrice());
+        if (transaction.getTransactionType().equals(TransactionType.PURCHASE)) {
+            transaction.setTransactionPrice(((Purchaseable) transaction.getItem()).getPurchasePrice());
         }
-        if(transaction.getTransactionType().equals(TransactionType.RENTAL)) {
-           transaction.setTransactionPrice(((Rentable) transaction.getItem()).getRentalRate());
+        if (transaction.getTransactionType().equals(TransactionType.RENTAL)) {
+            transaction.setTransactionPrice(((Rentable) transaction.getItem()).getRentalRate());
         }
         transaction.setOrder(this);
     }

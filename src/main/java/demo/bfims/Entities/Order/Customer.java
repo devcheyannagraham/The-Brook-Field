@@ -1,5 +1,6 @@
 package demo.bfims.Entities.Order;
 
+import demo.bfims.DTOs.OrderDTOs.CustomerDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +15,28 @@ public class Customer {
     private String lastName;
     private String email;
     private String phoneNumber;
+    private String address;
+    private String city;
+    private String state;
+    private String zipCode;
+    private String country;
+
+    public Customer() {
+    }
+
+    public Customer(CustomerDto customerDto) {
+        this.id = customerDto.getId();
+        this.firstName = customerDto.getFirstName();
+        this.lastName = customerDto.getLastName();
+        this.email = customerDto.getEmail();
+        this.phoneNumber = customerDto.getPhoneNumber();
+        this.address = customerDto.getAddress();
+        this.city = customerDto.getCity();
+        this.state = customerDto.getState();
+        this.zipCode = customerDto.getZipCode();
+        this.country = customerDto.getCountry();
+    }
+
 
     public Long getId() {
         return id;
@@ -55,6 +78,46 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -62,7 +125,12 @@ public class Customer {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", phoneNumber=" + phoneNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", country='" + country + '\'' +
                 '}';
     }
 }

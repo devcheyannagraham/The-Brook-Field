@@ -2,7 +2,9 @@ package demo.bfims.Entities.Inventory.Publication;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
 import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
+import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
 import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
 import demo.bfims.Enums.ItemType;
 import jakarta.persistence.*;
@@ -35,6 +37,16 @@ public abstract class Item {
     public Item(ItemDto  itemDto) {
         this.itemId = itemDto.getItemId();
         this.itemType = itemDto.getItemType();
+    }
+
+    public static Item mapToItem(ItemDto itemDto){
+        if(itemDto.getItemType().equals(ItemType.PUBLICATION_ITEM)){
+            return PublicationItem.mapToPublicationItem((PublicationItemDto) itemDto);
+        }
+        else if(itemDto.getItemType().equals(ItemType.ACCESSORY_ITEM)){
+            return new AccessoryItem((AccessoryItemDto) itemDto);
+        }
+        return null;
     }
 
     public Long getItemId() {

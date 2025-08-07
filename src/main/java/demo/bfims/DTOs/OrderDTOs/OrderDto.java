@@ -1,5 +1,10 @@
 package demo.bfims.DTOs.OrderDTOs;
 
+import demo.bfims.Entities.Order.Customer;
+import demo.bfims.Entities.Order.Order;
+import demo.bfims.Entities.Order.Transaction;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +13,20 @@ public class OrderDto {
     private CustomerDto customer;
     private List<TransactionDto> transactions = new ArrayList<>();
     private Double orderTotal;
+    private LocalDateTime orderDate;
+
+
+    public OrderDto() {
+    }
+
+    public OrderDto(Order order) {
+        this.id = order.getId();
+        this.customer = new CustomerDto(order.getCustomer());
+        this.orderTotal = order.getOrderTotal();
+        this.orderDate = order.getOrderDate();
+        this.transactions = order.getTransactions().stream()
+                .map(TransactionDto::mapToTransactionDto).toList();
+    }
 
     public Long getId() {
         return id;
@@ -45,6 +64,13 @@ public class OrderDto {
         this.orderTotal = orderTotal;
     }
 
+    public LocalDateTime getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
+    }
 
     @Override
     public String toString() {
@@ -53,6 +79,7 @@ public class OrderDto {
                 ", customer=" + customer +
                 ", transactions=" + transactions +
                 ", orderTotal=" + orderTotal +
+                ", orderDate=" + orderDate +
                 '}';
     }
 }

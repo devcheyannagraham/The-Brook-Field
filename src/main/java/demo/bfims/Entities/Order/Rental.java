@@ -1,5 +1,6 @@
 package demo.bfims.Entities.Order;
 
+import demo.bfims.DTOs.OrderDTOs.RentalDto;
 import demo.bfims.Enums.TransactionType;
 import demo.bfims.Enums.RentalStatus;
 import jakarta.persistence.*;
@@ -39,6 +40,12 @@ public class Rental extends Transaction { //is publication
 
     public Rental() {
         this.setTransactionType(TransactionType.RENTAL);
+    }
+    public Rental(RentalDto rentalDto) {
+        super(rentalDto);
+        this.startDate = rentalDto.getStartDate();
+        this.dueDate = rentalDto.getDueDate();
+        this.rentalStatus = rentalDto.getStatus();
     }
 
 
