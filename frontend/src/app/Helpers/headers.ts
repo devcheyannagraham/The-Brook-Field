@@ -21,5 +21,7 @@ export const headers = {
   itemId: "ID",
   accessoryItemStatus: "Status",
   transactionType: "Transaction Type",
-  name: "Name"
+  name: "Name",
+  firstName: "First Name",
+  lastName: "Last Name"
 }

@@ -1,36 +1,43 @@
-<h3>{{ publicationId ? "Update" : "New"}} Publication</h3>
+<button (click)="goBack()">Back</button>
+
+<h3>{{ publicationId ? "Update" : "New" }} Publication</h3>
 <!-- Publication Fields -->
 <form [formGroup]="publicationForm" (ngSubmit)="addPublication()">
-  <label for="pub-title">Title
-    <input id="pub-title" name="pub-title" formControlName="title" type="text">
-  </label>
+  <div formGroupName="publicationGroup">
 
-  <label for="pub-genre">Genre
-    <select id="pub-genre" name="pub-genre" formControlName="genre">
-      <option value="{{Genre.SCIFI}}">SciFi</option>
-      <option value="{{Genre.COMEDY}}">Comedy</option>
-      <option value="{{Genre.FANTASY}}">Fantasy</option>
-      <option value="{{Genre.YOUTH}}">Youth</option>
-    </select>
-  </label>
+    <label for="pub-title">Title
+      <input id="pub-title" name="pub-title" formControlName="title" type="text">
+    </label>
 
-  <label for="isbn">ISBN
-    <input id="isbn" name="isbn" formControlName="isbn" type="number">
-  </label>
+    <label for="pub-genre">Genre
+      <select id="pub-genre" name="pub-genre" formControlName="genre">
+        <option value="{{Genre.SCIFI}}">SciFi</option>
+        <option value="{{Genre.COMEDY}}">Comedy</option>
+        <option value="{{Genre.FANTASY}}">Fantasy</option>
+        <option value="{{Genre.YOUTH}}">Youth</option>
+      </select>
+    </label>
 
-  <label for="pub-date">Publish Date
-    <input id="pub-date" name="pub-date" formControlName="datePublished" type=date>
-  </label>
+    <label for="isbn">ISBN
+      <input id="isbn" name="isbn" formControlName="isbn" type="number">
+    </label>
+
+    <label for="pub-date">Publish Date
+      <input id="pub-date" name="pub-date" formControlName="datePublished" type=date>
+    </label>
+  </div>
 
   <!--  Author-->
   <h4>Author Details</h4>
-  <label for="firstName">First Name
-    <input id="firstName" name="firstName" formControlName="firstName" type=text>
-  </label>
+  <div formGroupName="authorGroup">
+    <label for="firstName">First Name
+      <input id="firstName" name="firstName" formControlName="firstName" type=text>
+    </label>
 
-  <label for="lastName">Last Name
-    <input id="lastName" name="lastName" formControlName="lastName" type=text>
-  </label>
+    <label for="lastName">Last Name
+      <input id="lastName" name="lastName" formControlName="lastName" type=text>
+    </label>
+  </div>
 
   <button type="submit">Submit</button>
 

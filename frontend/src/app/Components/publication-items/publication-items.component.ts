@@ -96,7 +96,7 @@ export class PublicationItemsComponent {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigateByUrl("/publications")
   }
 
 }

@@ -9,6 +9,14 @@
       <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
       <li>{{ headers.quantity }}: {{ publicationItems ? publicationItems.length : 0 }}</li>
     </ul>
+
+  <h3> Author </h3>
+    <ul>
+      <li>{{ headers.firstName }}: {{ publication.author.firstName }}</li>
+      <li>{{ headers.lastName }}: {{ publication.author.lastName }}</li>
+    </ul>
+
+
     <a [routerLink]="['/publicationform',publication.publicationId]">Update Publication</a>
     <button
       [disabled]="!(publicationItems && publicationItems.length == 0)"
