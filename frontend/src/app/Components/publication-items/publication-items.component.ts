@@ -9,7 +9,7 @@ import {Book} from '../../DTOs/Inventory/Book';
 import {headers} from '../../Helpers/headers';
 import {DatePipe} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
-import { Location} from '@angular/common';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'publication-items',
@@ -56,6 +56,7 @@ export class PublicationItemsComponent {
       this.pubService.getPublicationItemsByPublicationId(this.publication.publicationId)
         .subscribe(pubItems => {
           if (pubItems) {
+            console.log("GPIBPI", pubItems);
             this.publicationItems = pubItems;
             this.filterPublicationItems();
           }
@@ -72,14 +73,10 @@ export class PublicationItemsComponent {
       .map(item => item as Journal);
     this.literaryPieces = this.publicationItems
       .filter(item => item.publicationItemType === PublicationItemType.LITERARY_PIECE)
-      .map(item => item as LiteraryPiece);
-
+      .map(item =>  item as LiteraryPiece);
   }
 
-  deleteItem(itemId
-             :
-             Number
-  ) {
+  deleteItem(itemId: Number) {
     this.pubService.deletePublicationItem(itemId)
       .subscribe(result => {
         if (result) {
@@ -89,17 +86,16 @@ export class PublicationItemsComponent {
       });
   }
 
-  deletePublication(pubId:Number) {
+  deletePublication(pubId: Number) {
     this.pubService.deletePublication(pubId)
       .subscribe(result => {
-        console.log("result", result);
         if (result) {
           this.router.navigateByUrl("/publications");
         }
       })
   }
 
-  goBack(){
+  goBack() {
     this.location.back();
   }
 

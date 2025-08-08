@@ -24,7 +24,6 @@ class PublicationServiceTest {
 
     @Autowired
     PublicationService publicationService;
-    private ModelMapper modelMapper;
 
     @BeforeAll
     static void setUp() {
@@ -33,12 +32,12 @@ class PublicationServiceTest {
         author.setLastName("Doe");
 
         Publication publication = new Publication();
-        publication.addAuthor(author);
+        publication.setAuthor(author);
         publication.setTitle("Book Title 1");
         publication.setGenre(Genre.FANTASY);
 
         Book book = new Book();
-        book.setPublication(new Publication());
+        book.setPublication(publication);
         publicationItem = book;
     }
 
@@ -46,15 +45,15 @@ class PublicationServiceTest {
     @Test
     @Order(1)
     void newPublicationItem() {
-        ItemDto newItem = publicationService.newPublicationItem(modelMapper.map(publicationItem, PublicationItemDto.class));
-        assertNotNull(publicationService.getPublicationItem(newItem.getItemId()));
+        ItemDto newItem = publicationService.newPublicationItem(new PublicationItemDto(publicationItem));
+        assertNotNull(publicationService.getPublicationItemById(newItem.getItemId()));
     }
 
     @Test
     @Transactional
     @Order(2)
     void getPublicationByIdItem() {
-        assertNotNull(publicationService.getPublicationItem(publicationItem.getItemId()));
+        assertNotNull(publicationService.getPublicationItemById(publicationItem.getItemId()));
     }
 
     @Test
@@ -67,6 +66,6 @@ class PublicationServiceTest {
     @Order(4)
     void deletePublicationItem() {
         publicationService.deletePublicationItem(publicationItem.getItemId());
-        assertNull(publicationService.getPublicationItem(publicationItem.getItemId()));
+        assertNull(publicationService.getPublicationItemById(publicationItem.getItemId()));
     }
 }

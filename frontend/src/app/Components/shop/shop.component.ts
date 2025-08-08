@@ -26,10 +26,9 @@ export class ShopComponent {
   bookmarks: Accessory[] = [];
   protected readonly headers = headers;
 
-
   publications: Publication[];
 
-  constructor(public shopService: ShopService, public accessoryService: AccessoryService, public publicationService:PublicationService) {
+  constructor(public shopService: ShopService, public accessoryService: AccessoryService, public publicationService: PublicationService) {
   }
 
   ngOnInit() {
@@ -40,7 +39,6 @@ export class ShopComponent {
   getPublications() {
     this.publicationService.getPublications()
       .subscribe(data => {
-        console.log(data)
         this.publications = data;
       });
   }
@@ -48,8 +46,6 @@ export class ShopComponent {
   getAccessories() {
     this.accessoryService.getAccessories()
       .subscribe(data => {
-        console.log(data);
-
         for (let acc of data) {
           if (acc.accessoryType == AccessoryType.PEN) {
             this.pens.push(acc);
@@ -64,13 +60,13 @@ export class ShopComponent {
       });
   }
 
-  addItemToCart(acc: any){
+  addAccToCart(acc: Accessory) {
     const purchase = new Purchase();
-    const accItem = new AccessoryItem();
-    accItem.accessory = acc;
-
-    purchase.item = accItem;
+    purchase.item =  new AccessoryItem();
+    // @ts-ignore
+    purchase.item["accessory"] = new Accessory(acc);
     purchase.transactionPrice = acc.price;
+    // @ts-ignore
     this.shopService.addItemToCart(purchase);
   }
 

@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Publication} from '../DTOs/Inventory/Publication';
 import {Accessory} from '../DTOs/Accessory/Accessory';
 import {BehaviorSubject} from 'rxjs';
+import {Order} from '../DTOs/Order/Order';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,18 @@ export class ShopService {
   constructor(public http: HttpClient) { }
 
   addItemToCart(item:any){
-    console.log("IMPLEMENT ADD TO CART");
     this.shoppingCart.push(item);
     this.shoppingCartSubject.next(this.shoppingCart)
-    console.log(this.shoppingCart);
   }
+
+  submitOrder(order:Order){
+    console.log("ORDER", order);
+
+    return this.http.post(`${this.baseUrl}order`, order);
+
+  }
+
+
 
 
 }

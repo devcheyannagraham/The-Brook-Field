@@ -11,12 +11,15 @@ import {Publication} from '../../DTOs/Inventory/Publication';
 import {PublicationItemFormat} from '../../Enums/PublicationItemFormat';
 import {LiteraryType} from '../../Enums/LiteraryType';
 import {Router} from '@angular/router';
+import {DatePipe} from '@angular/common';
+import {headers} from '../../Helpers/headers';
 
 @Component({
   selector: 'publication-item-form',
   imports: [
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DatePipe
   ],
   templateUrl: './publication-item-form.component.html',
   styleUrl: './publication-item-form.component.css'
@@ -27,6 +30,7 @@ export class PublicationItemFormComponent {
   @Input() publicationId: Number;
   publications: Publication[];
   publicationItem: PublicationItem;
+  publication: Publication;
 
   constructor(public formBuilder: FormBuilder, public pubService: PublicationService, public router: Router) {
   }
@@ -34,18 +38,16 @@ export class PublicationItemFormComponent {
   ngOnInit() {
     this.createForm();
     this.getPublications();
-    if (this.pubItemId) {
-      this.fillForm();
-    }
-
-    if (this.publicationId) {
-      this.publicationItemForm.get("publication").setValue(this.publicationId);
-    }
   }
 
   getPublications() {
     this.pubService.getPublications().subscribe(data => {
       this.publications = data;
+      if (this.pubItemId) this.fillForm();
+
+      if (this.publicationId) {
+        this.publicationItemForm.get("publication").setValue(this.publicationId);
+      }
     });
   }
 
@@ -79,6 +81,9 @@ export class PublicationItemFormComponent {
         .subscribe(data => {
           if (data) {
             this.publicationItem = data;
+            this.publication = this.publications.find(pub => pub.publicationId == data.publication.publicationId);
+            console.log("DATA", data);
+
             for (let key of Object.keys(data)) {
               // @ts-ignore
               if (data[key] != null && this.publicationItemForm.contains(key)) {
@@ -89,6 +94,7 @@ export class PublicationItemFormComponent {
             }
           }
           this.publicationItemForm.get("publication").setValue(data.publication.publicationId);
+
         });
     }
   }
@@ -108,6 +114,7 @@ export class PublicationItemFormComponent {
     for (let key of Object.keys(publicationItem)) {
       if (key == "publication" || key == "publicationItemType") continue;
       if (this.publicationItemForm.contains(key)) {
+        console.log("pubitemkey", key)
         // @ts-ignore
         publicationItem[key] = this.publicationItemForm.get(key).value;
       }
@@ -133,4 +140,5 @@ export class PublicationItemFormComponent {
   protected readonly PublicationItemType = PublicationItemType;
   protected readonly PublicationItemFormat = PublicationItemFormat;
   protected readonly LiteraryType = LiteraryType;
+  protected readonly headers = headers;
 }

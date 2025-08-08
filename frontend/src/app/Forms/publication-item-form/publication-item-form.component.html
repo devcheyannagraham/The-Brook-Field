@@ -1,13 +1,26 @@
 <h3>{{ pubItemId ? "Update" : "New" }} Publication Item</h3>
 
 <form [formGroup]="publicationItemForm" (ngSubmit)="addPublicationItem()">
-  <label for="publication">Publication
-    <select id="publication" name="publication" formControlName="publication">
-      @for (pub of publications; track pub.publicationId) {
-        <option value="{{pub.publicationId}}">{{ pub.title }}</option>
-      }
-    </select>
-  </label>
+
+  @if (this.publication) {
+    <h3> {{ publication.title }} </h3>
+    <ul>
+      <li>{{ headers.genre }}: {{ publication.genre }}</li>
+      <li>{{ headers.title }}: {{ publication.title }}</li>
+      <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
+      <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
+    </ul>
+
+  } @else {
+
+    <label for="publication">Publication
+      <select id="publication" name="publication" formControlName="publication">
+        @for (pub of publications; track pub.publicationId) {
+          <option value="{{pub.publicationId}}">{{ pub.title }}</option>
+        }
+      </select>
+    </label>
+  }
 
   @if (pubItemId != null && publicationItem != null) {
     <span> Publication Type: {{ publicationItem.publicationItemType }}</span>
@@ -23,9 +36,11 @@
 
 
   <!-- Publication Item Fields -->
-  <label for="quantity">Quantity
-    <input type="number" id="quantity" name="quantity" formControlName="quantity">
-  </label>
+  @if (pubItemId == null) {
+    <label for="quantity">Quantity
+      <input type="number" id="quantity" name="quantity" formControlName="quantity">
+    </label>
+  }
 
   <label for="edition">Edition
     <input type="text" id="edition" name="edition" formControlName="edition">

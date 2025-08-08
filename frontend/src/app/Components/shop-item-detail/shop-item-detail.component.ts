@@ -10,7 +10,6 @@ import {Publication} from '../../DTOs/Inventory/Publication';
 import {Journal} from '../../DTOs/Inventory/Journal';
 import {PublicationItemType} from '../../Enums/PublicationItemType';
 import {headers} from '../../Helpers/headers';
-import {TransactionType} from '../../Enums/TransactionType';
 import {Rental} from '../../DTOs/Order/Rental';
 import {Purchase} from '../../DTOs/Order/Purchase';
 
@@ -25,7 +24,7 @@ import {Purchase} from '../../DTOs/Order/Purchase';
 })
 export class ShopItemDetailComponent {
   publication: Publication;
-  publicationItems: PublicationItem[];
+  publicationItems: any[];
   books: Book[];
   journals: Journal[];
   literaryPieces: LiteraryPiece[]
@@ -74,20 +73,32 @@ export class ShopItemDetailComponent {
   }
 
   purchaseItem(item: PublicationItem) {
-    console.log("IMPLEMENT PURCHASE DTO");
     const purchase = new Purchase();
-    // purchase.actionType = TransactionType.PURCHASE;
-    purchase.item = item;
+    purchase.item = this.getItemType(item);
     purchase.transactionPrice = item.purchasePrice;
     this.shopService.addItemToCart(purchase);
   }
 
   rentItem(item: PublicationItem) {
-    console.log("IMPLEMENT rentalE DTO");
     const rental = new Rental();
-    rental.item = item;
+    rental.item = this.getItemType(item);
     rental.transactionPrice = item.rentalRate;
     this.shopService.addItemToCart(rental);
+  }
+
+  getItemType(item:PublicationItem){
+    let type = item.publicationItemType;
+    if(type == PublicationItemType.BOOK){
+      return new Book(item);
+    }
+    else if(type == PublicationItemType.JOURNAL){
+      return new Journal(item);
+    }
+    else if(type == PublicationItemType.LITERARY_PIECE){
+      return new LiteraryPiece(item);
+    }
+
+    return item;
   }
 
   goBack() {

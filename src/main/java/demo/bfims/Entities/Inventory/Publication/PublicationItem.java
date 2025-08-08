@@ -60,6 +60,7 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
         this.publication = new Publication(publicationItemDto.getPublication());
     }
 
+    //PubItemDto -> PubItem
     public static PublicationItem mapToPublicationItem(PublicationItemDto publicationItemDto) {
         PublicationItemType type = publicationItemDto.getPublicationItemType();
         if (type.equals(PublicationItemType.BOOK)) return new Book((BookDto) publicationItemDto);

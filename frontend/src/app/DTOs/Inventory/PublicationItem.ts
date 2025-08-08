@@ -20,7 +20,6 @@ export class PublicationItem extends Item {
     data = data[0];
     super(data);
     if (data) {
-      console.log("DATA IN PUBITEM", data)
       this.edition = data["edition"] || null;
       this.format = data["format"] || null;
       this.publicationItemType = data["publicationItemType"] || null;

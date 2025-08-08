@@ -13,7 +13,7 @@ export class AccessoryItem extends Item {
     if (data) {
       this.accessory = data["accessory"] || null;
       this.accessoryItemStatus = data["accessoryItemStatus"] || null;
-      this.itemType = ItemType.ACCESSORY_ITEM;
     }
+      this.itemType = ItemType.ACCESSORY_ITEM;
   }
 }

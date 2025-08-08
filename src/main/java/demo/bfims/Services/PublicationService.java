@@ -3,6 +3,7 @@ package demo.bfims.Services;
 import demo.bfims.DTOs.InventoryDTOs.Publication.*;
 import demo.bfims.Entities.Inventory.Publication.*;
 import demo.bfims.Enums.ItemType;
+import demo.bfims.Enums.PublicationItemType;
 import demo.bfims.Repo.ItemRepo;
 import demo.bfims.Repo.PublicationItemRepo;
 import demo.bfims.Repo.PublicationRepo;
@@ -26,10 +27,11 @@ public class PublicationService {
 
     @Transactional
     public PublicationItemDto newPublicationItem(PublicationItemDto publicationItemDto) {
-        System.out.println("PublicationItemDto:\n" + publicationItemDto);
         PublicationItem publicationItem = PublicationItem.mapToPublicationItem(publicationItemDto);
-        System.out.println("PublicationItem:\n" + publicationItem);
-        Long pubId = publicationItem.getPublication().getPublicationId();
+        Long pubId = null;
+        if (publicationItem != null) {
+            pubId = publicationItem.getPublication().getPublicationId();
+        }
         //shouldnt be null
         if (pubId != null) {
             Publication publication = publicationRepo.findById(pubId).orElse(null);
@@ -90,7 +92,6 @@ public class PublicationService {
         if (id == null) return null;
         List<PublicationItem> items = publicationItemRepo.findPublicationItemsByPublication_PublicationId(id);
         if (items == null) return null;
-
         return items.stream().map(PublicationItemDto::mapToPublicationItemDto).toList();
     }
 
