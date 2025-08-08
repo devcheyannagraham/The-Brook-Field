@@ -1,30 +1,23 @@
-<h3>{{ pubItemId ? "Update" : "New" }} Publication Item</h3>
+<button (click)="goBack()">Back</button>
 
+@if (publication) {
+  <h3> {{ publication.title }} </h3>
+  <ul>
+    <li>{{ headers.genre }}: {{ publication.genre }}</li>
+    <li>{{ headers.title }}: {{ publication.title }}</li>
+    <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
+    <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
+    @if (pubItemId != null) {
+      <li> {{ headers.publicationItemType }}: {{ publicationItem.publicationItemType }}</li>
+    }
+  </ul>
+}
+
+
+<h3>{{ pubItemId ? "Update" : "New" }} Publication Item</h3>
 <form [formGroup]="publicationItemForm" (ngSubmit)="addPublicationItem()">
 
-  @if (this.publication) {
-    <h3> {{ publication.title }} </h3>
-    <ul>
-      <li>{{ headers.genre }}: {{ publication.genre }}</li>
-      <li>{{ headers.title }}: {{ publication.title }}</li>
-      <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
-      <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
-    </ul>
-
-  } @else {
-
-    <label for="publication">Publication
-      <select id="publication" name="publication" formControlName="publication">
-        @for (pub of publications; track pub.publicationId) {
-          <option value="{{pub.publicationId}}">{{ pub.title }}</option>
-        }
-      </select>
-    </label>
-  }
-
-  @if (pubItemId != null && publicationItem != null) {
-    <span> Publication Type: {{ publicationItem.publicationItemType }}</span>
-  } @else {
+  @if (pubItemId == null && publicationItem == null) {
     <label for="publicationItemType">Publication Item Type
       <select id="publicationItemType" name="publicationItemType" formControlName="publicationItemType">
         <option value="{{PublicationItemType.BOOK}}">Book</option>

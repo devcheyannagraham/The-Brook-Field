@@ -11,7 +11,7 @@ import {Publication} from '../../DTOs/Inventory/Publication';
 import {PublicationItemFormat} from '../../Enums/PublicationItemFormat';
 import {LiteraryType} from '../../Enums/LiteraryType';
 import {Router} from '@angular/router';
-import {DatePipe} from '@angular/common';
+import {DatePipe, Location} from '@angular/common';
 import {headers} from '../../Helpers/headers';
 
 @Component({
@@ -28,33 +28,47 @@ export class PublicationItemFormComponent {
   publicationItemForm: FormGroup;
   @Input() pubItemId: Number;
   @Input() publicationId: Number;
-  publications: Publication[];
   publicationItem: PublicationItem;
   publication: Publication;
 
-  constructor(public formBuilder: FormBuilder, public pubService: PublicationService, public router: Router) {
+  constructor(public formBuilder: FormBuilder, public pubService: PublicationService, public router: Router, public location: Location) {
   }
 
   ngOnInit() {
     this.createForm();
-    this.getPublications();
+
+    //Populate form on update
+    if (this.pubItemId) {
+      this.getPublicationItem();
+    }
+
+    //Fetch Pub info to display
+    //New Pub Item
+    if (this.publicationId) {
+      this.getPublication();
+    }
   }
 
-  getPublications() {
-    this.pubService.getPublications().subscribe(data => {
-      this.publications = data;
-      if (this.pubItemId) this.fillForm();
-
-      if (this.publicationId) {
-        this.publicationItemForm.get("publication").setValue(this.publicationId);
-      }
-    });
+  getPublicationItem() {
+    this.pubService.getPublicationItemById(this.pubItemId)
+      .subscribe(pubItem => {
+        this.publicationItem = pubItem;
+        this.publication = this.publicationItem.publication;
+        this.fillForm();
+      });
   }
+
+  getPublication() {
+    this.pubService.getPublicationById(this.publicationId)
+      .subscribe(pub => {
+        this.publication = pub;
+      });
+  }
+
 
   createForm() {
     this.publicationItemForm = this.formBuilder.group({
       //PublicationItem fields
-      publication: [],
       publicationItemType: [],
       quantity: [1],
       edition: [''],
@@ -76,65 +90,40 @@ export class PublicationItemFormComponent {
   }
 
   fillForm() {
-    if (this.pubItemId) {
-      this.pubService.getPublicationItemById(this.pubItemId)
-        .subscribe(data => {
-          if (data) {
-            this.publicationItem = data;
-            this.publication = this.publications.find(pub => pub.publicationId == data.publication.publicationId);
-            console.log("DATA", data);
-
-            for (let key of Object.keys(data)) {
-              // @ts-ignore
-              if (data[key] != null && this.publicationItemForm.contains(key)) {
-                if (key === "publication") continue;
-                // @ts-ignore
-                this.publicationItemForm.get(key).setValue(data[key]);
-              }
-            }
-          }
-          this.publicationItemForm.get("publication").setValue(data.publication.publicationId);
-
-        });
+    if (this.publicationItem) {
+      console.log(this.publicationItem)
+      this.publicationItemForm.patchValue(this.publicationItem);
     }
   }
 
   addPublicationItem() {
     const formData = this.publicationItemForm.value;
-    let publicationItem = null;
+    const pubType = formData.publicationItemType;
+    let publicationItem = pubType === PublicationItemType.JOURNAL ? new Journal(formData) :
+      pubType == PublicationItemType.BOOK ? new Book(formData) :
+        pubType == PublicationItemType.LITERARY_PIECE ? new LiteraryPiece(formData) :
+          new PublicationItem(formData);
 
-    if (formData.publicationItemType === PublicationItemType.JOURNAL) {
-      publicationItem = new Journal();
-    } else if (formData.publicationItemType === PublicationItemType.LITERARY_PIECE) {
-      publicationItem = new LiteraryPiece();
-    } else {
-      publicationItem = new Book();
-    }
+    // publicationItem.publicationItemStatus = PublicationItemStatus.AVAILABLE;
 
-    for (let key of Object.keys(publicationItem)) {
-      if (key == "publication" || key == "publicationItemType") continue;
-      if (this.publicationItemForm.contains(key)) {
-        console.log("pubitemkey", key)
-        // @ts-ignore
-        publicationItem[key] = this.publicationItemForm.get(key).value;
-      }
-    }
-
-    publicationItem.publication = this.publications.find(pub => pub.publicationId == formData.publication);
-    publicationItem.publicationItemStatus = PublicationItemStatus.AVAILABLE;
     if (this.pubItemId) publicationItem.itemId = this.pubItemId;
+    publicationItem.publication = this.publication;
 
     console.log("PUBITEM IN ADD PUBITEM", publicationItem)
     this.createPublicationItem(publicationItem);
   }
 
+
   createPublicationItem(item: any) {
     this.pubService.newPublicationItem(item)
       .subscribe(resp => {
-        console.log("RESPONSE: \n", resp);
         // @ts-ignore
         this.router.navigateByUrl(`/publication/${resp[0]["publication"]["publicationId"]}`)
       })
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   protected readonly PublicationItemType = PublicationItemType;
