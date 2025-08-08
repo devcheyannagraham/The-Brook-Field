@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {AccessoryType} from '../../Enums/AccessoryType';
-import {ShopService} from '../../Services/shop.service';
 import {Publication} from '../../DTOs/Inventory/Publication';
 import {Accessory} from '../../DTOs/Accessory/Accessory';
 import {DatePipe} from '@angular/common';
@@ -8,8 +7,6 @@ import {headers} from '../../Helpers/headers';
 import {RouterLink} from '@angular/router';
 import {AccessoryService} from '../../Services/accessory.service';
 import {PublicationService} from '../../Services/publication.service';
-import {Purchase} from '../../DTOs/Order/Purchase';
-import {AccessoryItem} from '../../DTOs/Accessory/AccessoryItem';
 
 @Component({
   selector: 'shop',
@@ -28,7 +25,7 @@ export class ShopComponent {
 
   publications: Publication[];
 
-  constructor(public shopService: ShopService, public accessoryService: AccessoryService, public publicationService: PublicationService) {
+  constructor(public accessoryService: AccessoryService, public publicationService: PublicationService) {
   }
 
   ngOnInit() {
@@ -59,15 +56,4 @@ export class ShopComponent {
         }
       });
   }
-
-  addAccToCart(acc: Accessory) {
-    const purchase = new Purchase();
-    purchase.item =  new AccessoryItem();
-    // @ts-ignore
-    purchase.item["accessory"] = new Accessory(acc);
-    purchase.transactionPrice = acc.price;
-    // @ts-ignore
-    this.shopService.addItemToCart(purchase);
-  }
-
 }

@@ -1,0 +1,14 @@
+<button (click)="goBack()">Back</button>
+@if (accessory) {
+
+  <h3>{{ accessory.accessoryName }}</h3>
+  <ul>
+    <li>{{ headers.accessoryName }}: {{ accessory.accessoryName }}</li>
+    <li>{{ headers.accessoryType }}: {{ accessory.accessoryType }}</li>
+    <li>{{ headers.price }}: {{ accessory.price }}</li>
+    <li>{{ headers.quantity }}: {{ accessoryItems ? accessoryItems?.length : 0 }}</li>
+  </ul>
+  <button (click)="purchaseAccessoryItem()" [disabled]="accessoryItems?.length <= 0">
+    Purchase
+  </button>
+}

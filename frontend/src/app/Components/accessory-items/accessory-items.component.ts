@@ -37,7 +37,7 @@ export class AccessoryItemsComponent {
 
   getAccessoryItems() {
     if (this.accessId) {
-      this.accessoryService.getAccessoryItemsByAccessoryId(this.accessId)
+      this.accessoryService.getAvailableAccessoryItemsByAccessoryId(this.accessId)
         .subscribe(data => {
           this.accessoryItems = data;
         });

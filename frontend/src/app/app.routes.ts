@@ -8,7 +8,8 @@ import {AccessoriesComponent} from './Components/accessories/accessories.compone
 import {AccessoryItemsComponent} from './Components/accessory-items/accessory-items.component';
 import {OrderFormComponent} from './Forms/order-form/order-form.component';
 import {ShopComponent} from './Components/shop/shop.component';
-import {ShopItemDetailComponent} from './Components/shop-item-detail/shop-item-detail.component';
+import {ShopPublicationDetailComponent} from './Components/shop-publication-detail/shop-publication-detail.component';
+import {ShopAccessoryDetailComponent} from './Components/shop-accessory-detail/shop-accessory-detail.component';
 
 export const routes: Routes = [
   {
@@ -64,7 +65,12 @@ export const routes: Routes = [
     component: ShopComponent,
   },
   {
-    path: 'shop/:shopItemId',
-    component: ShopItemDetailComponent,
+    path: 'shop/publication/:shopItemId',
+    component: ShopPublicationDetailComponent,
   },
+  {
+    path: 'shop/accessory/:shopItemId',
+    component: ShopAccessoryDetailComponent,
+  },
+
 ];

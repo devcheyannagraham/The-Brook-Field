@@ -1,76 +1,72 @@
 <h2>Our Shop</h2>
-<h3>PUBLICATIONS</h3>
-<a routerLink = "/checkout">Checkout </a>
+<a routerLink="/checkout">Checkout </a>
 @if (publications) {
-  @for (pub of publications; track pub.publicationId) {
-
-    <div>
+  <div>
+    <h3>PUBLICATIONS</h3>
+    @for (pub of publications; track pub.publicationId) {
+      <h4>
+        <a [routerLink]="['/shop/publication',pub.publicationId]">
+          {{ pub.title }}
+        </a>
+      </h4>
       <ul>
-        <h4>
-          <a [routerLink]="['/shop',pub.publicationId]">
-            {{ pub.title }}
-          </a>
-        </h4>
         <li>{{ headers.genre }}: {{ pub.genre }}</li>
         <li>{{ headers.title }}: {{ pub.title }}</li>
         <li>{{ headers.datePublished }}: {{ pub.datePublished | date:"mediumDate" }}</li>
         <li>{{ headers.isbn }}: {{ pub.isbn }}</li>
       </ul>
-    </div>
-  }
+    }
+  </div>
 }
 
 @if (mugs) {
-  <h3>MUGS</h3>
-  @for (mug of mugs; track mug.accessoryId) {
-    <div>
-      <h3>{{ mug.accessoryName }}</h3>
+  <div>
+    <h3>MUGS</h3>
+    @for (mug of mugs; track mug.accessoryId) {
+      <h4>
+        <a [routerLink]="['/shop/accessory',mug.accessoryId]">
+          {{ mug.accessoryName }}
+        </a>
+      </h4>
       <ul>
         <li>{{ headers.accessoryName }}: {{ mug.accessoryName }}</li>
         <li>{{ headers.price }}: {{ mug.price }}</li>
-        <li>
-          <button (click)="addAccToCart(mug)">
-            Add To Cart
-          </button>
-        </li>
       </ul>
-    </div>
-  }
+    }
+  </div>
 }
 
 @if (pens) {
-  <h3>PENS</h3>
-  @for (pen of pens; track pen.accessoryId) {
-    <div>
-      <h3>{{ pen.accessoryName }}</h3>
+  <div>
+    <h3>PENS</h3>
+    @for (pen of pens; track pen.accessoryId) {
+      <h5>
+        <a [routerLink]="['/shop/accessory',pen.accessoryId]">
+          {{ pen.accessoryName }}
+        </a>
+      </h5>
       <ul>
         <li>{{ headers.accessoryName }}: {{ pen.accessoryName }}</li>
         <li>{{ headers.price }}: {{ pen.price }}</li>
-        <li>
-          <button (click)="addAccToCart(pen)">
-            Add To Cart
-          </button>
-        </li>
       </ul>
-    </div>
-  }
+    }
+  </div>
 }
 
 @if (bookmarks) {
-  <h3>BOOKMARKS</h3>
-  @for (bookmark of bookmarks; track bookmark.accessoryId) {
-    <div>
-      <h3>{{ bookmark.accessoryName }}</h3>
+  <div>
+    <h3>BOOKMARKS</h3>
+    @for (bookmark of bookmarks; track bookmark.accessoryId) {
+      <h5>
+        <a [routerLink]="['/shop/accessory',bookmark.accessoryId]">
+          {{ bookmark.accessoryName }}
+        </a>
+      </h5>
       <ul>
         <li>{{ headers.accessoryName }}: {{ bookmark.accessoryName }}</li>
         <li>{{ headers.price }}: {{ bookmark.price }}</li>
-        <li>
-          <button (click)="addAccToCart(bookmark)">
-            Add To Cart
-          </button>
-        </li>
       </ul>
-    </div>
-  }
+    }
+  </div>
 }
 
