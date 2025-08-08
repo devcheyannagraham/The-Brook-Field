@@ -121,7 +121,7 @@ export class PublicationItemFormComponent {
     }
 
     publicationItem.publication = this.publications.find(pub => pub.publicationId == formData.publication);
-    publicationItem.status = PublicationItemStatus.AVAILABLE;
+    publicationItem.publicationItemStatus = PublicationItemStatus.AVAILABLE;
     if (this.pubItemId) publicationItem.itemId = this.pubItemId;
 
     console.log("PUBITEM IN ADD PUBITEM", publicationItem)
