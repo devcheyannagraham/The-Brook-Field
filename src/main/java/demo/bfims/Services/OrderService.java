@@ -1,11 +1,11 @@
 package demo.bfims.Services;
 
 import demo.bfims.DTOs.OrderDTOs.*;
+import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
+import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Entities.Order.*;
-import demo.bfims.Repo.CustomerRepo;
-import demo.bfims.Repo.ItemRepo;
-import demo.bfims.Repo.OrderRepo;
-import demo.bfims.Repo.TransactionRepo;
+import demo.bfims.Enums.AccessoryItemStatus;
+import demo.bfims.Repo.*;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,37 +51,14 @@ public class OrderService {
 
     @Transactional
     public OrderDto newOrder(OrderDto orderDto) {
-        System.out.println("\nORDER NEW -" + orderDto);
-        Order order = new Order();
-        orderDto.getTransactions().forEach(transactionDto -> {
-            System.out.println("\nTRANSACTIONDTO -" + transactionDto);
-            Transaction transactionEntity = Transaction.mapToTransactionSubclass(transactionDto);
-            System.out.println("\nTRANSACTIONENTITY -" + transactionEntity);
-        });
+        Order order = new Order(orderDto);
+        Customer managedCustomer = entityManager.merge(new Customer(orderDto.getCustomer()));
+        order.setCustomer(managedCustomer); // only pulls if customer has id
 
-
-//        order.setTransactions(orderDto.getTransactions().stream()
-//                .map(transactionDto -> {
-//                    if (transactionDto.getTransactionType().equals(TransactionType.RENTAL)) {
-//                        return modelMapper.map(transactionDto, Rental.class);
-//                    } else if (transactionDto.getTransactionType().equals(TransactionType.PURCHASE)) {
-//                        return modelMapper.map(transactionDto, Purchase.class);
-//                    }
-//                    return null;
-//                }).toList());
-//
-//        // - If customer is detached (existing), it's re-attached and updated.
-//        Customer customer = modelMapper.map(orderDto.getCustomer(), Customer.class);
-//        if (customer.getId() == null && customer.getEmail() != null) {
-//            Customer foundCustomer = customerRepo.getCustomerByEmail(customer.getEmail()).orElse(null);
-//            if (foundCustomer != null) {
-//                customer = foundCustomer;
-//            }
-//        }
-//        Customer managedCustomer = entityManager.merge(customer);
-//        order.setCustomer(managedCustomer);
-//        return modelMapper.map(orderRepo.save(order), OrderDto.class);
-
-        return null;
+        Order savedOrder = orderRepo.save(order);
+        System.out.println("\nORDER SAVED -" + savedOrder);
+        OrderDto newOrderDto =  new OrderDto(savedOrder);
+        System.out.println("\nORDERDTO SAVED -" + newOrderDto);
+        return newOrderDto;
     }
 }

@@ -29,10 +29,6 @@ export class OrderFormComponent {
   constructor(public orderService: OrderService, public formBuilder: FormBuilder, public shopService: ShopService, public router:Router) {
   }
 
-  //display items
-  // display customer info (form)
-  //
-
   ngOnInit() {
     this.getOrderItems();
     this.createForm();
@@ -60,7 +56,6 @@ export class OrderFormComponent {
   }
 
   submitOrder() {
-    console.log("IMPLEMENT SUBMIT ORDER");
     const newOrder = new Order();
     newOrder.customer = new Customer(this.orderForm.value);
     newOrder.transactions = this.orderItems;

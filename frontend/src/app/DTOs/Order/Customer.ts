@@ -10,7 +10,6 @@ export class Customer {
   public country: String;
 
   constructor(formData:any){
-    console.log("New Customer", formData);
     this.firstName = formData["firstName"];
     this.lastName = formData["lastName"];
     this.email = formData["email"];
