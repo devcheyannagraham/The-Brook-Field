@@ -2,6 +2,7 @@ package demo.bfims.Entities.Inventory.Accessory;
 
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryDto;
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
+import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
 import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Enums.AccessoryItemStatus;
 import demo.bfims.Enums.ItemType;
@@ -26,10 +27,13 @@ public class AccessoryItem extends Item implements Purchaseable {
         this.setItemType(ItemType.ACCESSORY_ITEM);
     }
 
-    public AccessoryItem(AccessoryItemDto accessoryItemDto){
-        super(accessoryItemDto);
-        this.accessoryItemStatus = accessoryItemDto.getAccessoryItemStatus();
-        this.accessory = new Accessory(accessoryItemDto.getAccessory());
+    public AccessoryItem(ItemDto itemDto) {
+        super(itemDto);
+
+        if (itemDto instanceof AccessoryItemDto accessoryItemDto) {
+            this.accessoryItemStatus = accessoryItemDto.getAccessoryItemStatus();
+            this.accessory = new Accessory(accessoryItemDto.getAccessory());
+        }
     }
 
     public AccessoryItemStatus getAccessoryItemStatus() {

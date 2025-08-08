@@ -1,6 +1,7 @@
 package demo.bfims.DTOs.InventoryDTOs.Publication;
 
 import demo.bfims.Entities.Inventory.Publication.Book;
+import demo.bfims.Entities.Inventory.Publication.PublicationItem;
 import demo.bfims.Enums.PublicationItemType;
 
 public class BookDto extends PublicationItemDto {
@@ -9,8 +10,8 @@ public class BookDto extends PublicationItemDto {
         this.setPublicationItemType(PublicationItemType.BOOK);
     }
 
-    public BookDto(Book book) {
-        super(book);
+    public BookDto(PublicationItem publicationItem) {
+        super(publicationItem);
     }
 
     @Override

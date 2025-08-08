@@ -1,8 +1,6 @@
 package demo.bfims.DTOs.OrderDTOs;
 
-import demo.bfims.Entities.Order.Customer;
 import demo.bfims.Entities.Order.Order;
-import demo.bfims.Entities.Order.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,7 +23,7 @@ public class OrderDto {
         this.orderTotal = order.getOrderTotal();
         this.orderDate = order.getOrderDate();
         this.transactions = order.getTransactions().stream()
-                .map(TransactionDto::mapToTransactionDto).toList();
+                .map(TransactionDto::mapToTransactionDtoSubclass).toList();
     }
 
     public Long getId() {

@@ -8,7 +8,6 @@ import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Entities.Inventory.Publication.PublicationItem;
 import demo.bfims.Enums.ItemType;
 
-
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -25,17 +24,19 @@ public class ItemDto {
     public ItemDto() {
     }
 
+    //Construct ItemDto from Item
     public ItemDto(Item item){
         this.itemId = item.getItemId();
         this.itemType = item.getItemType();
     }
 
-    public static ItemDto mapToItemDto(Item item){
-        if(item.getItemType().equals(ItemType.PUBLICATION_ITEM)){
-            return PublicationItemDto.mapToPublicationItemDto((PublicationItem) item);
+//    Item => PublicationItemDto | AccessorytItemDto
+    public static ItemDto mapToItemDtoSubclass(Item item){
+        if(item instanceof PublicationItem){
+            return PublicationItemDto.mapToPublicationItemDtoSubclass((PublicationItem) item);
         }
-        else if(item.getItemType().equals(ItemType.ACCESSORY_ITEM)){
-            return new AccessoryItemDto((AccessoryItem) item);
+        else if(item instanceof AccessoryItem){
+            return new AccessoryItemDto(item);
         }
         return null;
     }

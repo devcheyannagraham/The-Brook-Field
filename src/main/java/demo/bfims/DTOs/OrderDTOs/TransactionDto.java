@@ -3,11 +3,11 @@ package demo.bfims.DTOs.OrderDTOs;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
-import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Entities.Order.Purchase;
 import demo.bfims.Entities.Order.Rental;
 import demo.bfims.Entities.Order.Transaction;
 import demo.bfims.Enums.TransactionType;
+
 import java.time.LocalDate;
 
 @JsonTypeInfo(
@@ -29,22 +29,20 @@ public class TransactionDto {
     public TransactionDto() {
     }
 
-    public TransactionDto(Transaction trans){
+//    Construct TransDto from Trans
+    public TransactionDto(Transaction trans) {
         this.transactionId = trans.getTransactionId();
         this.transactionType = trans.getTransactionType();
         this.transactionDate = trans.getTransactionDate();
         this.transactionPrice = trans.getTransactionPrice();
-        this.item = ItemDto.mapToItemDto(trans.getItem());
+        this.item = ItemDto.mapToItemDtoSubclass(trans.getItem());
     }
 
-    public static TransactionDto mapToTransactionDto(Transaction trans){
-        if(trans.getTransactionType() == TransactionType.PURCHASE){
-            return new PurchaseDto((Purchase) trans);
-        }
-        if(trans.getTransactionType() == TransactionType.RENTAL){
-            return new RentalDto((Rental) trans);
-        }
-        return new TransactionDto(trans);
+    //TransDto => Purchase | Rental
+    public static TransactionDto mapToTransactionDtoSubclass(Transaction trans) {
+        if (trans instanceof Purchase) return new PurchaseDto(trans);
+        if (trans instanceof Rental) return new RentalDto(trans);
+        return null;
     }
 
     public Long getTransactionId() {

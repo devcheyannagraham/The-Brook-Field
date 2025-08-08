@@ -1,6 +1,7 @@
 package demo.bfims.Entities.Inventory.Publication;
 
 import demo.bfims.DTOs.InventoryDTOs.Publication.LiteraryPieceDto;
+import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
 import demo.bfims.Enums.LiteraryType;
 import demo.bfims.Enums.PublicationItemFormat;
 import demo.bfims.Enums.PublicationItemStatus;
@@ -22,14 +23,17 @@ public class LiteraryPiece extends PublicationItem {
         this.literaryType = literaryType;
     }
 
-    public LiteraryPiece(LiteraryPieceDto literaryPieceDto) {
-        super(literaryPieceDto);
-        this.literaryType = literaryPieceDto.getLiteraryType();
+    public LiteraryPiece(PublicationItemDto publicationItemDto) {
+        super(publicationItemDto);
+        if (publicationItemDto instanceof LiteraryPieceDto literaryPieceDto) {
+            this.literaryType = literaryPieceDto.getLiteraryType();
+        }
     }
 
     public LiteraryType getLiteraryType() {
         return literaryType;
     }
+
     public void setLiteraryType(LiteraryType type) {
         this.literaryType = type;
     }

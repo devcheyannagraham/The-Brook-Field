@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {OrderService} from '../../Services/order.service';
 import {ShopService} from '../../Services/shop.service';
@@ -7,6 +7,9 @@ import {headers} from '../../Helpers/headers';
 import {ItemType} from '../../Enums/ItemType';
 import {AccessoryItem} from '../../DTOs/Accessory/AccessoryItem';
 import {TypeCast} from '../../Pipes/TypeCast';
+import {Order} from '../../DTOs/Order/Order';
+import {Customer} from '../../DTOs/Order/Customer';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'order-form',
@@ -23,44 +26,53 @@ export class OrderFormComponent {
   orderItems: Transaction[];
   orderTotal = 0;
 
-  constructor(public orderSerivce: OrderService, public formBuilder: FormBuilder, public shopService: ShopService){}
+  constructor(public orderService: OrderService, public formBuilder: FormBuilder, public shopService: ShopService, public router:Router) {
+  }
 
   //display items
   // display customer info (form)
   //
 
-  ngOnInit(){
+  ngOnInit() {
     this.getOrderItems();
     this.createForm();
 
   }
 
-  createForm(){
+  createForm() {
     this.orderForm = this.formBuilder.group({
-      firstName:[],
-      lastName:[],
+      firstName: [],
+      lastName: [],
       streetAddress: [],
       city: [],
-      state:[],
-      zip:[],
-      country:[],
-      email:[],
-      phoneNumber:[],
+      state: [],
+      zip: [],
+      country: [],
+      email: [],
+      phoneNumber: [],
     });
   }
 
-  getOrderItems(){
+  getOrderItems() {
     this.orderItems = this.shopService.shoppingCart;
-    console.log(this.orderItems);
     // @ts-ignore
-    this.orderTotal = this.orderItems.reduce((a,item) => a + item.transactionPrice,0);
+    this.orderTotal = this.orderItems.reduce((a, item) => a + item.transactionPrice, 0);
   }
 
-  submitOrder(){
+  submitOrder() {
     console.log("IMPLEMENT SUBMIT ORDER");
+    const newOrder = new Order();
+    newOrder.customer = new Customer(this.orderForm.value);
+    newOrder.transactions = this.orderItems;
+    newOrder.orderTotal = this.orderTotal;
 
-
-
+    this.shopService.submitOrder(newOrder)
+      .subscribe(resp => {
+      if(resp){
+        alert("order submitted");
+        this.router.navigateByUrl("/shop");
+      }
+    })
   }
 
   protected readonly headers = headers;

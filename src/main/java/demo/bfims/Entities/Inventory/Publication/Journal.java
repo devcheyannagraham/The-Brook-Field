@@ -1,6 +1,7 @@
 package demo.bfims.Entities.Inventory.Publication;
 
 import demo.bfims.DTOs.InventoryDTOs.Publication.JournalDto;
+import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
 import demo.bfims.Enums.PublicationItemFormat;
 import demo.bfims.Enums.PublicationItemStatus;
 import demo.bfims.Enums.PublicationItemType;
@@ -29,13 +30,16 @@ public class Journal extends PublicationItem {
         this.setPublicationItemType(PublicationItemType.JOURNAL);
     }
 
-    public Journal(JournalDto journalDto) {
+    public Journal(PublicationItemDto publicationItem) {
         //PubItem Fields
-        super(journalDto);
-        this.issueDate = journalDto.getIssueDate();
-        this.issueNumber = journalDto.getIssueNumber();
-        this.issueName = journalDto.getIssueName();
-        this.volume = journalDto.getVolume();
+        super(publicationItem);
+        if (publicationItem instanceof JournalDto journalDto) {
+            // donwncasting
+            this.issueDate = journalDto.getIssueDate();
+            this.issueNumber = journalDto.getIssueNumber();
+            this.issueName = journalDto.getIssueName();
+            this.volume = journalDto.getVolume();
+        }
     }
 
     public int getIssueNumber() {

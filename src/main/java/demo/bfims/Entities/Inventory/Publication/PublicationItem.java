@@ -2,10 +2,7 @@ package demo.bfims.Entities.Inventory.Publication;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import demo.bfims.DTOs.InventoryDTOs.Publication.BookDto;
-import demo.bfims.DTOs.InventoryDTOs.Publication.JournalDto;
-import demo.bfims.DTOs.InventoryDTOs.Publication.LiteraryPieceDto;
-import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
+import demo.bfims.DTOs.InventoryDTOs.Publication.*;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.PublicationItemFormat;
 import demo.bfims.Enums.PublicationItemStatus;
@@ -13,6 +10,7 @@ import demo.bfims.Enums.PublicationItemType;
 import demo.bfims.Interfaces.Purchaseable;
 import demo.bfims.Interfaces.Rentable;
 import jakarta.persistence.*;
+import org.yaml.snakeyaml.constructor.Construct;
 
 @Entity
 @JsonTypeInfo(
@@ -39,7 +37,7 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
     @Enumerated(EnumType.STRING)
     private PublicationItemType publicationItemType;
 
-    public PublicationItem( String edition, PublicationItemFormat format, Double purchasePrice, Double rentalRate ,  PublicationItemStatus status,Publication publication) {
+    public PublicationItem(String edition, PublicationItemFormat format, Double purchasePrice, Double rentalRate, PublicationItemStatus status, Publication publication) {
         this.format = format;
         this.status = status;
         this.publication = publication;
@@ -49,24 +47,26 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
         this.setItemType(ItemType.PUBLICATION_ITEM);
     }
 
-    public PublicationItem(PublicationItemDto publicationItemDto) {
-        super(publicationItemDto);
-        this.format = publicationItemDto.getFormat();
-        this.status = publicationItemDto.getStatus();
-        this.purchasePrice = publicationItemDto.getPurchasePrice();
-        this.rentalRate = publicationItemDto.getRentalRate();
-        this.edition = publicationItemDto.getEdition();
-        this.publicationItemType = publicationItemDto.getPublicationItemType();
-        this.publication = new Publication(publicationItemDto.getPublication());
+//    Construct PubItem from PubItemDto
+    public PublicationItem(ItemDto itemDto) {
+        super(itemDto);
+        if (itemDto instanceof PublicationItemDto publicationItemDto) {
+            this.format = publicationItemDto.getFormat();
+            this.status = publicationItemDto.getStatus();
+            this.purchasePrice = publicationItemDto.getPurchasePrice();
+            this.rentalRate = publicationItemDto.getRentalRate();
+            this.edition = publicationItemDto.getEdition();
+            this.publicationItemType = publicationItemDto.getPublicationItemType();
+            this.publication = new Publication(publicationItemDto.getPublication());
+        }
     }
 
-    //PubItemDto -> PubItem
-    public static PublicationItem mapToPublicationItem(PublicationItemDto publicationItemDto) {
+    //PubItemDto -> Book | LP | Journal
+    public static PublicationItem mapToPublicationItemSubclass(PublicationItemDto publicationItemDto) {
         PublicationItemType type = publicationItemDto.getPublicationItemType();
-        if (type.equals(PublicationItemType.BOOK)) return new Book((BookDto) publicationItemDto);
-        if (type.equals(PublicationItemType.JOURNAL)) return new Journal((JournalDto) publicationItemDto);
-        if (type.equals(PublicationItemType.LITERARY_PIECE))
-            return new LiteraryPiece((LiteraryPieceDto) publicationItemDto);
+        if (type.equals(PublicationItemType.BOOK)) return new Book(publicationItemDto);
+        if (type.equals(PublicationItemType.JOURNAL)) return new Journal(publicationItemDto);
+        if (type.equals(PublicationItemType.LITERARY_PIECE)) return new LiteraryPiece(publicationItemDto);
         return null;
     }
 

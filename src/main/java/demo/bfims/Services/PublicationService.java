@@ -3,7 +3,6 @@ package demo.bfims.Services;
 import demo.bfims.DTOs.InventoryDTOs.Publication.*;
 import demo.bfims.Entities.Inventory.Publication.*;
 import demo.bfims.Enums.ItemType;
-import demo.bfims.Enums.PublicationItemType;
 import demo.bfims.Repo.ItemRepo;
 import demo.bfims.Repo.PublicationItemRepo;
 import demo.bfims.Repo.PublicationRepo;
@@ -27,7 +26,7 @@ public class PublicationService {
 
     @Transactional
     public PublicationItemDto newPublicationItem(PublicationItemDto publicationItemDto) {
-        PublicationItem publicationItem = PublicationItem.mapToPublicationItem(publicationItemDto);
+        PublicationItem publicationItem = PublicationItem.mapToPublicationItemSubclass(publicationItemDto);
         Long pubId = null;
         if (publicationItem != null) {
             pubId = publicationItem.getPublication().getPublicationId();
@@ -46,7 +45,7 @@ public class PublicationService {
     public PublicationItemDto getPublicationItemById(Long id) {
         Item item = itemRepo.findById(id).orElse(null);
         if (item != null) {
-            return PublicationItemDto.mapToPublicationItemDto((PublicationItem) item);
+            return PublicationItemDto.mapToPublicationItemDtoSubclass((PublicationItem) item);
         }
         return null;
     }
@@ -92,7 +91,7 @@ public class PublicationService {
         if (id == null) return null;
         List<PublicationItem> items = publicationItemRepo.findPublicationItemsByPublication_PublicationId(id);
         if (items == null) return null;
-        return items.stream().map(PublicationItemDto::mapToPublicationItemDto).toList();
+        return items.stream().map(PublicationItemDto::mapToPublicationItemDtoSubclass).toList();
     }
 
     public PublicationDto newPublication(PublicationDto publicationDto) {

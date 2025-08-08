@@ -58,7 +58,7 @@
           @if (trans.item.itemType == ItemType.PUBLICATION_ITEM) {
             <td>{{ (trans.item | cast).publication.title }}</td>
           }
-          @if (trans.item.itemType == ItemType.ACCESSORY_ITEM) {
+          @else if (trans.item.itemType == ItemType.ACCESSORY_ITEM) {
             <td>{{ (trans.item | cast).accessory.accessoryName }}</td>
           }
 

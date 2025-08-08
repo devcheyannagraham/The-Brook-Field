@@ -3,6 +3,7 @@ package demo.bfims.DTOs.InventoryDTOs.Accessory;
 import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
+import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Enums.AccessoryItemStatus;
 import demo.bfims.Enums.ItemType;
 
@@ -15,10 +16,12 @@ public class AccessoryItemDto extends ItemDto {
         this.setItemType(ItemType.ACCESSORY_ITEM);
     }
 
-    public AccessoryItemDto(AccessoryItem accessoryItem) {
-        super(accessoryItem);
-        this.accessoryItemStatus = accessoryItem.getAccessoryItemStatus();
-        this.accessory = new AccessoryDto(accessoryItem.getAccessory());
+    public AccessoryItemDto(Item item) {
+        super(item);
+        if (item instanceof AccessoryItem accessoryItem) {
+            this.accessoryItemStatus = accessoryItem.getAccessoryItemStatus();
+            this.accessory = new AccessoryDto(accessoryItem.getAccessory());
+        }
     }
 
     public AccessoryDto getAccessory() {

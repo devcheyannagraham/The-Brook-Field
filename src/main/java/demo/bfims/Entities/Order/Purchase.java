@@ -1,6 +1,6 @@
 package demo.bfims.Entities.Order;
 
-import demo.bfims.DTOs.OrderDTOs.PurchaseDto;
+import demo.bfims.DTOs.OrderDTOs.TransactionDto;
 import demo.bfims.Enums.TransactionType;
 import jakarta.persistence.*;
 
@@ -11,7 +11,7 @@ public class Purchase extends Transaction {
         this.setTransactionType(TransactionType.PURCHASE);
     }
 
-    public Purchase(PurchaseDto purchaseDto) {
-        super(purchaseDto);
+    public Purchase(TransactionDto transDto) {
+        super(transDto);
     }
 }

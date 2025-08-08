@@ -1,6 +1,5 @@
 package demo.bfims.Entities.Order;
 
-import demo.bfims.DTOs.OrderDTOs.CustomerDto;
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
 import demo.bfims.Enums.TransactionType;
 import demo.bfims.Interfaces.Purchaseable;
@@ -38,7 +37,7 @@ public class Order {
         this.orderDate = LocalDateTime.now();
         this.orderTotal = orderDto.getOrderTotal();
         this.transactions = orderDto.getTransactions().stream()
-                .map(Transaction::mapToTransaction).toList();
+                .map(Transaction::mapToTransactionSubclass).toList();
     }
 
     public Long getId() {

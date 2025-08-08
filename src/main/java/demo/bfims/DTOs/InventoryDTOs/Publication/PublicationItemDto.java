@@ -5,9 +5,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import demo.bfims.Entities.Inventory.Publication.*;
 import demo.bfims.Enums.*;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -30,28 +27,32 @@ public class PublicationItemDto extends ItemDto {
     // only for making mulitple items
     private Integer quantity;
 
-
     public PublicationItemDto() {
         this.setItemType(ItemType.PUBLICATION_ITEM);
     }
 
-    public PublicationItemDto(PublicationItem publicationItem) {
-        super(publicationItem);
-        this.format = publicationItem.getFormat();
-        this.status = publicationItem.getStatus();
-        this.purchasePrice = publicationItem.getPurchasePrice();
-        this.rentalRate = publicationItem.getRentalRate();
-        this.edition = publicationItem.getEdition();
-        this.publicationItemType = publicationItem.getPublicationItemType();
-        this.publication = new PublicationDto(publicationItem.getPublication());
+
+    //    Construct PubItemDto from PubItem
+    public PublicationItemDto(Item item) {
+        super(item);
+        if (item instanceof PublicationItem publicationItem) {
+            this.format = publicationItem.getFormat();
+            this.status = publicationItem.getStatus();
+            this.purchasePrice = publicationItem.getPurchasePrice();
+            this.rentalRate = publicationItem.getRentalRate();
+            this.edition = publicationItem.getEdition();
+            this.publicationItemType = publicationItem.getPublicationItemType();
+            this.publication = new PublicationDto(publicationItem.getPublication());
+        }
     }
 
-    public static PublicationItemDto mapToPublicationItemDto(PublicationItem publicationItem) {
+    //PubItem -> BookDto | LPDto | JournalDto
+    public static PublicationItemDto mapToPublicationItemDtoSubclass(PublicationItem publicationItem) {
         PublicationItemType type = publicationItem.getPublicationItemType();
-        if (type.equals(PublicationItemType.BOOK)) return new BookDto((Book) publicationItem);
-        if (type.equals(PublicationItemType.JOURNAL)) return new JournalDto((Journal) publicationItem);
+        if (type.equals(PublicationItemType.BOOK)) return new BookDto(publicationItem);
+        if (type.equals(PublicationItemType.JOURNAL)) return new JournalDto(publicationItem);
         if (type.equals(PublicationItemType.LITERARY_PIECE))
-            return new LiteraryPieceDto((LiteraryPiece) publicationItem);
+            return new LiteraryPieceDto(publicationItem);
         return null;
     }
 

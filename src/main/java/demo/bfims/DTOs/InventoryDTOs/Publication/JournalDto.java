@@ -1,6 +1,7 @@
 package demo.bfims.DTOs.InventoryDTOs.Publication;
 
 import demo.bfims.Entities.Inventory.Publication.Journal;
+import demo.bfims.Entities.Inventory.Publication.PublicationItem;
 import demo.bfims.Enums.PublicationItemType;
 
 import java.time.LocalDate;
@@ -11,15 +12,18 @@ public class JournalDto extends PublicationItemDto {
     private String issueName;
     private String volume;
 
-    public JournalDto(){
+    public JournalDto() {
         this.setPublicationItemType(PublicationItemType.JOURNAL);
     }
-    public JournalDto(Journal journal) {
-        super(journal);
-        this.issueDate = journal.getIssueDate();
-        this.issueNumber = journal.getIssueNumber();
-        this.issueName = journal.getIssueName();
-        this.volume = journal.getVolume();
+
+    public JournalDto(PublicationItem publicationItem) {
+        super(publicationItem);
+        if (publicationItem instanceof Journal journal) {
+            this.issueDate = journal.getIssueDate();
+            this.issueNumber = journal.getIssueNumber();
+            this.issueName = journal.getIssueName();
+            this.volume = journal.getVolume();
+        }
     }
 
     public String getVolume() {

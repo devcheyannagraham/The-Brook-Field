@@ -21,9 +21,6 @@ import jakarta.persistence.*;
 })
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Item {
-    // Common interface for publications and bookmarks and mugs etc. lets see...
-    //Individual item, not class of item
-
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "item_generator")
     @TableGenerator(name = "item_generator")
@@ -34,17 +31,19 @@ public abstract class Item {
     public Item() {
     }
 
+    //Construct Item from ItemDto
     public Item(ItemDto  itemDto) {
         this.itemId = itemDto.getItemId();
         this.itemType = itemDto.getItemType();
     }
 
-    public static Item mapToItem(ItemDto itemDto){
-        if(itemDto.getItemType().equals(ItemType.PUBLICATION_ITEM)){
-            return PublicationItem.mapToPublicationItem((PublicationItemDto) itemDto);
+    //ItemDto => PublicationItem | Accessory Item
+    public static Item mapToItemSubclass(ItemDto itemDto){
+        if(itemDto instanceof PublicationItemDto){
+            return PublicationItem.mapToPublicationItemSubclass((PublicationItemDto) itemDto);
         }
-        else if(itemDto.getItemType().equals(ItemType.ACCESSORY_ITEM)){
-            return new AccessoryItem((AccessoryItemDto) itemDto);
+        else if(itemDto instanceof AccessoryItemDto){
+            return new AccessoryItem(itemDto);
         }
         return null;
     }
