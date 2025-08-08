@@ -1,9 +1,11 @@
 package demo.bfims.Entities.Order;
 
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
-import demo.bfims.Enums.TransactionType;
-import demo.bfims.Interfaces.Purchaseable;
-import demo.bfims.Interfaces.Rentable;
+import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
+import demo.bfims.Entities.Inventory.Publication.Item;
+import demo.bfims.Entities.Inventory.Publication.PublicationItem;
+import demo.bfims.Enums.AccessoryItemStatus;
+import demo.bfims.Enums.PublicationItemStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -23,7 +25,7 @@ public class Order {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime orderDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-    private List<Transaction> transactions;
+    private List<Transaction> transactions = new ArrayList<>();
     private Double orderTotal;
 
 
@@ -36,8 +38,8 @@ public class Order {
         this.customer = new Customer(orderDto.getCustomer());
         this.orderDate = LocalDateTime.now();
         this.orderTotal = orderDto.getOrderTotal();
-        this.transactions = orderDto.getTransactions().stream()
-                .map(Transaction::mapToTransactionSubclass).toList();
+        this.setTransactions(orderDto.getTransactions().stream()
+                .map(Transaction::mapToTransactionSubclass).toList());
     }
 
     public Long getId() {
@@ -74,15 +76,29 @@ public class Order {
     }
 
     public void addTransaction(Transaction transaction) {
-        this.transactions.add(transaction);
-        this.orderTotal += transaction.getTransactionPrice();
-        if (transaction.getTransactionType().equals(TransactionType.PURCHASE)) {
-            transaction.setTransactionPrice(((Purchaseable) transaction.getItem()).getPurchasePrice());
-        }
-        if (transaction.getTransactionType().equals(TransactionType.RENTAL)) {
-            transaction.setTransactionPrice(((Rentable) transaction.getItem()).getRentalRate());
-        }
         transaction.setOrder(this);
+        this.orderTotal += transaction.getTransactionPrice();
+
+        if (transaction instanceof Purchase purchase) {
+            Item item = purchase.getItem();
+            if (item instanceof AccessoryItem accessoryItem) {
+                accessoryItem.setAccessoryItemStatus(AccessoryItemStatus.PURCHASED);
+                transaction.setItem(accessoryItem);
+            }
+            if (item instanceof PublicationItem publicationItem) {
+                publicationItem.setPublicationItemStatus(PublicationItemStatus.PURCHASED);
+                transaction.setItem(publicationItem);
+            }
+        }
+        if (transaction instanceof Rental rental) {
+            Item item = rental.getItem();
+            if (item instanceof PublicationItem publicationItem) {
+                publicationItem.setPublicationItemStatus(PublicationItemStatus.RENTED);
+                transaction.setItem(publicationItem);
+            }
+        }
+
+        this.transactions.add(transaction);
     }
 
     public LocalDateTime getOrderDate() {
