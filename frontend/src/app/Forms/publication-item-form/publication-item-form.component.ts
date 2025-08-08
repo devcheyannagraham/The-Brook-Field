@@ -91,7 +91,6 @@ export class PublicationItemFormComponent {
 
   fillForm() {
     if (this.publicationItem) {
-      console.log(this.publicationItem)
       this.publicationItemForm.patchValue(this.publicationItem);
     }
   }
@@ -104,12 +103,9 @@ export class PublicationItemFormComponent {
         pubType == PublicationItemType.LITERARY_PIECE ? new LiteraryPiece(formData) :
           new PublicationItem(formData);
 
-    // publicationItem.publicationItemStatus = PublicationItemStatus.AVAILABLE;
-
     if (this.pubItemId) publicationItem.itemId = this.pubItemId;
     publicationItem.publication = this.publication;
 
-    console.log("PUBITEM IN ADD PUBITEM", publicationItem)
     this.createPublicationItem(publicationItem);
   }
 
