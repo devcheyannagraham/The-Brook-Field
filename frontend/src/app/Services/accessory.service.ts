@@ -21,7 +21,7 @@ export class AccessoryService {
     return this.http.get<Accessory>(`${this.baseUrl}accessory/${accessId}`);
   }
 
-  getAccessoryItemsByAccessoryId(accessId: Number) {
+  getAvailableAccessoryItemsByAccessoryId(accessId: Number) {
     return this.http.get<AccessoryItem[]>(`${this.baseUrl}accessory/accessoryitems/${accessId}`);
   }
 
