@@ -22,8 +22,8 @@ public class OrderDto {
         this.customer = new CustomerDto(order.getCustomer());
         this.orderTotal = order.getOrderTotal();
         this.orderDate = order.getOrderDate();
-        this.transactions = order.getTransactions().stream()
-                .map(TransactionDto::mapToTransactionDtoSubclass).toList();
+        this.setTransactions(order.getTransactions().stream()
+                .map(TransactionDto::mapToTransactionDtoSubclass).toList());
     }
 
     public Long getId() {
