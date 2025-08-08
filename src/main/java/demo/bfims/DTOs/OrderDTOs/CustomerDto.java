@@ -17,6 +17,7 @@ public class CustomerDto {
     public CustomerDto() {
     }
 
+//    construct customerDto from customer
     public CustomerDto(Customer customer){
         this.id = customer.getId();
         this.firstName = customer.getFirstName();

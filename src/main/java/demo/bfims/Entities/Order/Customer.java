@@ -24,6 +24,7 @@ public class Customer {
     public Customer() {
     }
 
+//    Construct Customer from customerDto
     public Customer(CustomerDto customerDto) {
         this.id = customerDto.getId();
         this.firstName = customerDto.getFirstName();
