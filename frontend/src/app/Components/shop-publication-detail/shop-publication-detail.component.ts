@@ -12,13 +12,14 @@ import {PublicationItemType} from '../../Enums/PublicationItemType';
 import {headers} from '../../Helpers/headers';
 import {Rental} from '../../DTOs/Order/Rental';
 import {Purchase} from '../../DTOs/Order/Purchase';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 
 @Component({
   selector: 'shop-item-detail',
   imports: [
-    DatePipe
+    DatePipe,
+    RouterLink
   ],
   templateUrl: './shop-publication-detail.component.html',
   styleUrl: './shop-publication-detail.component.css'

@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {AccessoryService} from '../../Services/accessory.service';
 import {ShopService} from '../../Services/shop.service';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {Accessory} from '../../DTOs/Accessory/Accessory';
 import {AccessoryItem} from '../../DTOs/Accessory/AccessoryItem';
 import {headers} from '../../Helpers/headers';
@@ -9,7 +9,9 @@ import {Purchase} from '../../DTOs/Order/Purchase';
 
 @Component({
   selector: 'shop-accessory-detail',
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './shop-accessory-detail.component.html',
   styleUrl: './shop-accessory-detail.component.css'
 })

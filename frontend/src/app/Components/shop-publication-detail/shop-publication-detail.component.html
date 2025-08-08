@@ -14,6 +14,8 @@
     <li>{{ headers.firstName }}: {{ publication.author.firstName }}</li>
     <li>{{ headers.lastName }}: {{ publication.author.lastName }}</li>
   </ul>
+  <a routerLink="/checkout"><button>Checkout</button> </a>
+
 
   @if (books && books.length) {
     <table>
