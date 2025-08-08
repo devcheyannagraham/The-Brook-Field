@@ -12,6 +12,7 @@ import {PublicationItemType} from '../../Enums/PublicationItemType';
 import {headers} from '../../Helpers/headers';
 import {Rental} from '../../DTOs/Order/Rental';
 import {Purchase} from '../../DTOs/Order/Purchase';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -19,10 +20,10 @@ import {Purchase} from '../../DTOs/Order/Purchase';
   imports: [
     DatePipe
   ],
-  templateUrl: './shop-item-detail.component.html',
-  styleUrl: './shop-item-detail.component.css'
+  templateUrl: './shop-publication-detail.component.html',
+  styleUrl: './shop-publication-detail.component.css'
 })
-export class ShopItemDetailComponent {
+export class ShopPublicationDetailComponent {
   publication: Publication;
   publicationItems: any[];
   books: Book[];
@@ -30,7 +31,7 @@ export class ShopItemDetailComponent {
   literaryPieces: LiteraryPiece[]
   @Input() shopItemId: Number;
 
-  constructor(public shopService: ShopService, public accessoryService: AccessoryService, public publicationService: PublicationService, public location: Location) {
+  constructor(public shopService: ShopService, public publicationService: PublicationService, public router: Router) {
   }
 
   ngOnInit() {
@@ -102,7 +103,7 @@ export class ShopItemDetailComponent {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigateByUrl("/shop");
   }
 
 
