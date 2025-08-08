@@ -1,4 +1,6 @@
-<h3>Checkout</h3>
+<button (click)="goBack()">Back</button>
+
+<h3>Enter Your Info</h3>
 
 <form [formGroup]="orderForm" (ngSubmit)="submitOrder()">
 
@@ -42,6 +44,8 @@
 </form>
 
 <div>
+  <h3>Review Order</h3>
+
   <table>
     <thead>
     <th>{{ headers.transactionType }}</th>
@@ -63,6 +67,7 @@
           }
 
           <td>{{ trans.transactionPrice }}</td>
+          <td><button (click)="removeFromCart(trans)">Remove</button></td>
         </tr>
 
       }

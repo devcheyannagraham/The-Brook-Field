@@ -26,7 +26,7 @@ export class OrderFormComponent {
   orderItems: Transaction[];
   orderTotal = 0;
 
-  constructor(public orderService: OrderService, public formBuilder: FormBuilder, public shopService: ShopService, public router:Router) {
+  constructor(public orderService: OrderService, public formBuilder: FormBuilder, public shopService: ShopService, public router: Router) {
   }
 
   ngOnInit() {
@@ -50,9 +50,11 @@ export class OrderFormComponent {
   }
 
   getOrderItems() {
-    this.orderItems = this.shopService.shoppingCart;
+    this.shopService.shoppingCartSubject.subscribe(items => {
+      this.orderItems = items;
     // @ts-ignore
-    this.orderTotal = this.orderItems.reduce((a, item) => a + item.transactionPrice, 0);
+      this.orderTotal = this.orderItems.reduce((a, item) => a + item.transactionPrice, 0);
+    })
   }
 
   submitOrder() {
@@ -63,11 +65,19 @@ export class OrderFormComponent {
 
     this.shopService.submitOrder(newOrder)
       .subscribe(resp => {
-      if(resp){
-        alert("order submitted");
-        this.router.navigateByUrl("/shop");
-      }
-    })
+        if (resp) {
+          alert("order submitted");
+          this.router.navigateByUrl("/shop");
+        }
+      })
+  }
+
+  removeFromCart(trans: Transaction) {
+    this.shopService.removeFromCart(trans);
+  }
+
+  goBack(){
+    this.router.navigateByUrl("/shop");
   }
 
   protected readonly headers = headers;
