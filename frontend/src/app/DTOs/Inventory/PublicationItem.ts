@@ -11,7 +11,7 @@ export class PublicationItem extends Item {
   public publicationItemType: PublicationItemType;
   public purchasePrice: Number;
   public rentalRate: Number;
-  public status: PublicationItemStatus;
+  public publicationItemStatus: PublicationItemStatus;
   public publication: Publication;
   public quantity: Number;
 
@@ -25,7 +25,7 @@ export class PublicationItem extends Item {
       this.publicationItemType = data["publicationItemType"] || null;
       this.purchasePrice = data["purchasePrice"] || null;
       this.rentalRate = data["rentalRate"] || null;
-      this.status = data["status"] || null;
+      this.publicationItemStatus = data["publicationItemStatus"] || null;
       this.publication = data["publication"] || null;
       this.quantity = data["quantity"] || null;
     }

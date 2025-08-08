@@ -36,7 +36,7 @@
             <td>{{ book.format }}</td>
             <td>{{ book.purchasePrice }}</td>
             <td>{{ book.rentalRate }}</td>
-            <td>{{ book.status }}</td>
+            <td>{{ book.publicationItemStatus }}</td>
             <td>
               <a [routerLink]="['/publicationitemform',book.itemId]">Edit</a>
               <button (click)="deleteItem(book.itemId)">delete</button>
@@ -70,7 +70,7 @@
             <td>{{ lp.format }}</td>
             <td>{{ lp.purchasePrice }}</td>
             <td>{{ lp.rentalRate }}</td>
-            <td>{{ lp.status }}</td>
+            <td>{{ lp.publicationItemStatus }}</td>
             <td>{{ lp.literaryType }}</td>
             <td>
               <a [routerLink]="['/publicationitemform',lp.itemId]">Edit</a>
@@ -106,7 +106,7 @@
             <td>{{ journal.format }}</td>
             <td>{{ journal.purchasePrice }}</td>
             <td>{{ journal.rentalRate }}</td>
-            <td>{{ journal.status }}</td>
+            <td>{{ journal.publicationItemStatus }}</td>
             <td>{{ journal.issueDate | date : "mediumDate" }}</td>
             <td>{{ journal.issueNumber }}</td>
             <td>{{ journal.issueName }}</td>

@@ -17,7 +17,7 @@ import demo.bfims.Enums.*;
 })
 public class PublicationItemDto extends ItemDto {
     private PublicationItemFormat format;
-    private PublicationItemStatus status;
+    private PublicationItemStatus publicationItemStatus;
     private PublicationDto publication;
     private PublicationItemType publicationItemType;
     private Double purchasePrice;
@@ -37,7 +37,7 @@ public class PublicationItemDto extends ItemDto {
         super(item);
         if (item instanceof PublicationItem publicationItem) {
             this.format = publicationItem.getFormat();
-            this.status = publicationItem.getStatus();
+            this.publicationItemStatus = publicationItem.getPublicationItemStatus();
             this.purchasePrice = publicationItem.getPurchasePrice();
             this.rentalRate = publicationItem.getRentalRate();
             this.edition = publicationItem.getEdition();
@@ -64,12 +64,12 @@ public class PublicationItemDto extends ItemDto {
         this.format = format;
     }
 
-    public PublicationItemStatus getStatus() {
-        return status;
+    public PublicationItemStatus getPublicationItemStatus() {
+        return publicationItemStatus;
     }
 
-    public void setStatus(PublicationItemStatus status) {
-        this.status = status;
+    public void setPublicationItemStatus(PublicationItemStatus publicationItemStatus) {
+        this.publicationItemStatus = publicationItemStatus;
     }
 
     public PublicationDto getPublication() {
@@ -124,7 +124,7 @@ public class PublicationItemDto extends ItemDto {
     public String toString() {
         return "PublicationItemDto{" +
                 "format=" + format +
-                ", status=" + status +
+                ", publicationItemStatus=" + publicationItemStatus +
                 ", publication=" + publication +
                 ", publicationItemType=" + publicationItemType +
                 ", purchasePrice=" + purchasePrice +

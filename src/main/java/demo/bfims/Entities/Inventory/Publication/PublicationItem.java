@@ -10,7 +10,6 @@ import demo.bfims.Enums.PublicationItemType;
 import demo.bfims.Interfaces.Purchaseable;
 import demo.bfims.Interfaces.Rentable;
 import jakarta.persistence.*;
-import org.yaml.snakeyaml.constructor.Construct;
 
 @Entity
 @JsonTypeInfo(
@@ -27,7 +26,7 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
     @Enumerated(EnumType.STRING)
     private PublicationItemFormat format;
     @Enumerated(EnumType.STRING)
-    private PublicationItemStatus status;
+    private PublicationItemStatus publicationItemStatus;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "publication_id")
     Publication publication;
@@ -37,9 +36,9 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
     @Enumerated(EnumType.STRING)
     private PublicationItemType publicationItemType;
 
-    public PublicationItem(String edition, PublicationItemFormat format, Double purchasePrice, Double rentalRate, PublicationItemStatus status, Publication publication) {
+    public PublicationItem(String edition, PublicationItemFormat format, Double purchasePrice, Double rentalRate, PublicationItemStatus publicationItemStatus, Publication publication) {
         this.format = format;
-        this.status = status;
+        this.publicationItemStatus = publicationItemStatus;
         this.publication = publication;
         this.purchasePrice = purchasePrice;
         this.rentalRate = rentalRate;
@@ -52,7 +51,7 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
         super(itemDto);
         if (itemDto instanceof PublicationItemDto publicationItemDto) {
             this.format = publicationItemDto.getFormat();
-            this.status = publicationItemDto.getStatus();
+            this.publicationItemStatus = publicationItemDto.getPublicationItemStatus();
             this.purchasePrice = publicationItemDto.getPurchasePrice();
             this.rentalRate = publicationItemDto.getRentalRate();
             this.edition = publicationItemDto.getEdition();
@@ -74,12 +73,12 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
         this.setItemType(ItemType.PUBLICATION_ITEM);
     }
 
-    public PublicationItemStatus getStatus() {
-        return status;
+    public PublicationItemStatus getPublicationItemStatus() {
+        return publicationItemStatus;
     }
 
-    public void setStatus(PublicationItemStatus status) {
-        this.status = status;
+    public void setPublicationItemStatus(PublicationItemStatus status) {
+        this.publicationItemStatus = status;
     }
 
     public PublicationItemFormat getFormat() {
@@ -134,7 +133,7 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
     public String toString() {
         return "PublicationItem{" +
                 "format=" + format +
-                ", status=" + status +
+                ", status=" + publicationItemStatus +
                 ", publication=" + publication +
                 ", purchasePrice=" + purchasePrice +
                 ", rentalRate=" + rentalRate +
