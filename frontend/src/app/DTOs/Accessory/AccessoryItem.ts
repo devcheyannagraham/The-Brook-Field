@@ -7,8 +7,13 @@ export class AccessoryItem extends Item {
   public accessory: Accessory;
   public accessoryItemStatus: AccessoryItemStatus;
 
-  constructor() {
-    super();
-    this.itemType = ItemType.ACCESSORY_ITEM;
+  constructor(...data: any) {
+    data = data[0];
+    super(data);
+    if (data) {
+      this.accessory = data["accessory"] || null;
+      this.accessoryItemStatus = data["accessoryItemStatus"] || null;
+      this.itemType = ItemType.ACCESSORY_ITEM;
+    }
   }
 }

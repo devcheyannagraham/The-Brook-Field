@@ -15,8 +15,21 @@ export class PublicationItem extends Item {
   public publication: Publication;
   public quantity: Number;
 
-  constructor() {
-    super();
+
+  constructor(...data: any) {
+    data = data[0];
+    super(data);
+    if (data) {
+      console.log("DATA IN PUBITEM", data)
+      this.edition = data["edition"] || null;
+      this.format = data["format"] || null;
+      this.publicationItemType = data["publicationItemType"] || null;
+      this.purchasePrice = data["purchasePrice"] || null;
+      this.rentalRate = data["rentalRate"] || null;
+      this.status = data["status"] || null;
+      this.publication = data["publication"] || null;
+      this.quantity = data["quantity"] || null;
+    }
     this.itemType = ItemType.PUBLICATION_ITEM;
   }
 }
