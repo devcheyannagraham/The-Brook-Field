@@ -24,11 +24,17 @@ public class PublicationController {
             return null;
         }
         List<PublicationItemDto> newItems = new ArrayList<>();
+        System.out.println("PublicationITEMDTO: " + publicationItemDto);
 
-        // Make multiple items of same type
-        int quantity = publicationItemDto.getQuantity();
-        for (int i = 0; i < quantity; i++) {
+        //updating single item
+        if (publicationItemDto.getQuantity() == null) {
             newItems.add(publicationService.newPublicationItem(publicationItemDto));
+        } else {
+            // Creating multiple or single new items of same type
+            int quantity = publicationItemDto.getQuantity();
+            for (int i = 0; i < quantity; i++) {
+                newItems.add(publicationService.newPublicationItem(publicationItemDto));
+            }
         }
         return newItems;
     }
@@ -84,7 +90,9 @@ public class PublicationController {
 
     @DeleteMapping("/publication/{id}")
     public Boolean deletePublicationById(@PathVariable Long id) {
-        if (id == null) { return false; }
+        if (id == null) {
+            return false;
+        }
         return publicationService.deletePublicationById(id);
     }
 

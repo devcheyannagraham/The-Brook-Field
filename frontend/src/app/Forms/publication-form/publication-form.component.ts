@@ -77,7 +77,7 @@ export class PublicationFormComponent {
     //   }
     // }
     publication.publicationId = this.publicationId || null;
-    publication.author.id = this.author.id || null;
+    publication.author.id = this.author?.id || null;
     console.log("NEW/UPDATED PUB", publication);
 
     this.createPublication(publication);
