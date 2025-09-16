@@ -106,8 +106,21 @@ export class ShopPublicationDetailComponent {
     return item;
   }
 
+  removeItemFromCart(id: number) {
+    this.shopService.removeFromCart(this.shopService.shoppingCart().get(id));
+  }
+
   goBack() {
     this.router.navigateByUrl("/shop");
+  }
+
+  getQuantity() {
+    if (this.shopService.shoppingCart().size == 0) {
+      return this.publicationItems().size;
+    }
+    else {
+      return [...this.publicationItems().values()].filter(item  => !this.shopService.shoppingCart().has(item.itemId)).length;
+    }
   }
 
 
