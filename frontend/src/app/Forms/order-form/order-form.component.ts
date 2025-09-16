@@ -1,14 +1,14 @@
-import {Component} from '@angular/core';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {OrderService} from '../../Services/order.service';
-import {ShopService} from '../../Services/shop.service';
-import {Transaction} from '../../DTOs/Order/Transaction';
-import {headers} from '../../Helpers/headers';
-import {ItemType} from '../../Enums/ItemType';
-import {AccessoryItem} from '../../DTOs/Accessory/AccessoryItem';
-import {TypeCast} from '../../Pipes/TypeCast';
-import {Customer} from '../../DTOs/Order/Customer';
-import {Router} from '@angular/router';
+import { Component, computed } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OrderService } from '../../Services/order.service';
+import { ShopService } from '../../Services/shop.service';
+import { Transaction } from '../../DTOs/Order/Transaction';
+import { headers } from '../../Helpers/headers';
+import { ItemType } from '../../Enums/ItemType';
+import { AccessoryItem } from '../../DTOs/Accessory/AccessoryItem';
+import { TypeCast } from '../../Pipes/TypeCast';
+import { Customer } from '../../DTOs/Order/Customer';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'order-form',
@@ -26,8 +26,11 @@ export class OrderFormComponent {
   orderTotal;
 
   constructor(public orderService: OrderService, public formBuilder: FormBuilder, public shopService: ShopService, public router: Router) {
-    this.orderItems = [...this.shopService.shoppingCart().values()];
-    this.orderTotal = this.shopService.cartTotal()
+    this.orderItems = computed(() => {
+      return [...this.shopService.shoppingCart().values()];
+    });
+
+    this.orderTotal = computed(() => this.shopService.cartTotal());
   }
 
   ngOnInit() {
@@ -64,7 +67,7 @@ export class OrderFormComponent {
     this.shopService.removeFromCart(trans);
   }
 
-  goBack(){
+  goBack() {
     this.router.navigateByUrl("/shop");
   }
 

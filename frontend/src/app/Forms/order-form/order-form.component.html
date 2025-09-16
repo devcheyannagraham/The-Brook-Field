@@ -54,7 +54,7 @@
     </thead>
 
     <tbody>
-      @for (trans of orderItems; track trans) {
+      @for (trans of orderItems(); track trans) {
         <tr>
 
           <td>{{ trans.transactionType }}</td>
@@ -73,7 +73,7 @@
       }
     <tr>
       <td colspan="2">Order Total</td>
-      <td>{{orderTotal}}</td>
+      <td>{{orderTotal()}}</td>
     </tr>
 
     </tbody>
