@@ -7,7 +7,6 @@ import {headers} from '../../Helpers/headers';
 import {ItemType} from '../../Enums/ItemType';
 import {AccessoryItem} from '../../DTOs/Accessory/AccessoryItem';
 import {TypeCast} from '../../Pipes/TypeCast';
-import {Order} from '../../DTOs/Order/Order';
 import {Customer} from '../../DTOs/Order/Customer';
 import {Router} from '@angular/router';
 
@@ -23,16 +22,16 @@ import {Router} from '@angular/router';
 })
 export class OrderFormComponent {
   orderForm: FormGroup;
-  orderItems: Transaction[];
-  orderTotal = 0;
+  orderItems;
+  orderTotal;
 
   constructor(public orderService: OrderService, public formBuilder: FormBuilder, public shopService: ShopService, public router: Router) {
+    this.orderItems = [...this.shopService.shoppingCart().values()];
+    this.orderTotal = this.shopService.cartTotal()
   }
 
   ngOnInit() {
-    this.getOrderItems();
     this.createForm();
-
   }
 
   createForm() {
@@ -49,21 +48,10 @@ export class OrderFormComponent {
     });
   }
 
-  getOrderItems() {
-    this.shopService.shoppingCartSubject.subscribe(items => {
-      this.orderItems = items;
-    // @ts-ignore
-      this.orderTotal = this.orderItems.reduce((a, item) => a + item.transactionPrice, 0);
-    })
-  }
 
   submitOrder() {
-    const newOrder = new Order();
-    newOrder.customer = new Customer(this.orderForm.value);
-    newOrder.transactions = this.orderItems;
-    newOrder.orderTotal = this.orderTotal;
-
-    this.shopService.submitOrder(newOrder)
+    let customer = new Customer(this.orderForm.value);
+    this.shopService.submitOrder(customer)
       .subscribe(resp => {
         if (resp) {
           alert("order submitted");
