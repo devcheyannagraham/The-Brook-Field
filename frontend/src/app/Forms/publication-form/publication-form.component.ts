@@ -20,7 +20,7 @@ export class PublicationFormComponent {
   publication: Publication;
   author: Author;
 
-  @Input() publicationId: Number;
+  @Input() publicationId: number;
 
   constructor(public formBuilder: FormBuilder, public pubService: PublicationService, public router: Router) {
   }

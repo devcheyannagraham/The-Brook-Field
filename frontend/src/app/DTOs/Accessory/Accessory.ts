@@ -1,11 +1,11 @@
 import {AccessoryType} from '../../Enums/AccessoryType';
 
 export class Accessory {
-  public accessoryId: Number;
+  public accessoryId: number;
   public accessoryType: AccessoryType
-  public accessoryName: String;
-  public quantity: Number;
-  public price: Number;
+  public accessoryName: string;
+  public quantity: number;
+  public price: number;
 
   constructor(...data: any) {
     data = data[0];

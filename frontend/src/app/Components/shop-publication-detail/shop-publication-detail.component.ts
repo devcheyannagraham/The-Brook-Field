@@ -1,18 +1,18 @@
-import {Component, Input} from '@angular/core';
-import {DatePipe, Location} from "@angular/common";
-import {ShopService} from '../../Services/shop.service';
-import {AccessoryService} from '../../Services/accessory.service';
-import {PublicationService} from '../../Services/publication.service';
-import {Book} from '../../DTOs/Inventory/Book';
-import {LiteraryPiece} from '../../DTOs/Inventory/LiteraryPiece';
-import {PublicationItem} from '../../DTOs/Inventory/PublicationItem';
-import {Publication} from '../../DTOs/Inventory/Publication';
-import {Journal} from '../../DTOs/Inventory/Journal';
-import {PublicationItemType} from '../../Enums/PublicationItemType';
-import {headers} from '../../Helpers/headers';
-import {Rental} from '../../DTOs/Order/Rental';
-import {Purchase} from '../../DTOs/Order/Purchase';
-import {Router, RouterLink} from '@angular/router';
+import { Component, computed, Input, signal } from '@angular/core';
+import { DatePipe, Location } from "@angular/common";
+import { ShopService } from '../../Services/shop.service';
+import { AccessoryService } from '../../Services/accessory.service';
+import { PublicationService } from '../../Services/publication.service';
+import { Book } from '../../DTOs/Inventory/Book';
+import { LiteraryPiece } from '../../DTOs/Inventory/LiteraryPiece';
+import { PublicationItem } from '../../DTOs/Inventory/PublicationItem';
+import { Publication } from '../../DTOs/Inventory/Publication';
+import { Journal } from '../../DTOs/Inventory/Journal';
+import { PublicationItemType } from '../../Enums/PublicationItemType';
+import { headers } from '../../Helpers/headers';
+import { Rental } from '../../DTOs/Order/Rental';
+import { Purchase } from '../../DTOs/Order/Purchase';
+import { Router, RouterLink } from '@angular/router';
 
 
 @Component({
@@ -26,11 +26,21 @@ import {Router, RouterLink} from '@angular/router';
 })
 export class ShopPublicationDetailComponent {
   publication: Publication;
-  publicationItems: any[];
-  books: Book[];
-  journals: Journal[];
-  literaryPieces: LiteraryPiece[]
-  @Input() shopItemId: Number;
+  publicationItems = signal(new Map<number, PublicationItem>());
+
+  books = computed(() => [...this.publicationItems().values()]
+    .filter(item => item.publicationItemType === PublicationItemType.BOOK)
+    .map(item => item as Book));
+
+  journals = computed(() => [...this.publicationItems().values()]
+    .filter(item => item.publicationItemType === PublicationItemType.JOURNAL)
+    .map(item => item as Journal));
+
+  literaryPieces = computed(() => [...this.publicationItems().values()]
+    .filter(item => item.publicationItemType === PublicationItemType.LITERARY_PIECE)
+    .map(item => item as LiteraryPiece));
+
+  @Input() shopItemId: number;
 
   constructor(public shopService: ShopService, public publicationService: PublicationService, public router: Router) {
   }
@@ -54,25 +64,18 @@ export class ShopPublicationDetailComponent {
       this.publicationService.getPublicationItemsByPublicationId(this.publication.publicationId)
         .subscribe(pubItems => {
           if (pubItems) {
-            this.publicationItems = pubItems;
-            this.filterPublicationItems();
+            let items = new Map<number, PublicationItem>();
+
+            pubItems.forEach(item => {
+              items.set(item.id, item);
+
+            })
+            this.publicationItems.set(items)
           }
         });
     }
   }
 
-  filterPublicationItems() {
-    this.books = this.publicationItems
-      .filter(item => item.publicationItemType === PublicationItemType.BOOK)
-      .map(item => item as Book);
-    this.journals = this.publicationItems
-      .filter(item => item.publicationItemType === PublicationItemType.JOURNAL)
-      .map(item => item as Journal);
-    this.literaryPieces = this.publicationItems
-      .filter(item => item.publicationItemType === PublicationItemType.LITERARY_PIECE)
-      .map(item => item as LiteraryPiece);
-
-  }
 
   purchaseItem(item: PublicationItem) {
     const purchase = new Purchase();
@@ -88,15 +91,15 @@ export class ShopPublicationDetailComponent {
     this.shopService.addItemToCart(rental);
   }
 
-  getItemType(item:PublicationItem){
+  getItemType(item: PublicationItem) {
     let type = item.publicationItemType;
-    if(type == PublicationItemType.BOOK){
+    if (type == PublicationItemType.BOOK) {
       return new Book(item);
     }
-    else if(type == PublicationItemType.JOURNAL){
+    else if (type == PublicationItemType.JOURNAL) {
       return new Journal(item);
     }
-    else if(type == PublicationItemType.LITERARY_PIECE){
+    else if (type == PublicationItemType.LITERARY_PIECE) {
       return new LiteraryPiece(item);
     }
 

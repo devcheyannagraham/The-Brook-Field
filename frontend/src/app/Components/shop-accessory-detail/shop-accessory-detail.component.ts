@@ -16,7 +16,7 @@ import {Purchase} from '../../DTOs/Order/Purchase';
   styleUrl: './shop-accessory-detail.component.css'
 })
 export class ShopAccessoryDetailComponent {
-  @Input () shopItemId: Number;
+  @Input () shopItemId: number;
   accessory: Accessory;
   accessoryItems: AccessoryItem[];
 

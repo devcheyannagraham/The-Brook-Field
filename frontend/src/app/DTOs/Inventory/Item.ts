@@ -1,7 +1,7 @@
 import {ItemType} from '../../Enums/ItemType';
 
 export class Item {
-  public itemId: Number;
+  public itemId: number;
   public itemType: ItemType;
 
   constructor(...data: any) {

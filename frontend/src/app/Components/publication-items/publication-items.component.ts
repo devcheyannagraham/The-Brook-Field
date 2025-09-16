@@ -26,7 +26,7 @@ export class PublicationItemsComponent {
   books: Book[];
   journals: Journal[];
   literaryPieces: LiteraryPiece[]
-  @Input() publicationId: Number;
+  @Input() publicationId: number;
 
 
   //For Template
@@ -76,7 +76,7 @@ export class PublicationItemsComponent {
       .map(item =>  item as LiteraryPiece);
   }
 
-  deleteItem(itemId: Number) {
+  deleteItem(itemId: number) {
     this.pubService.deletePublicationItem(itemId)
       .subscribe(result => {
         if (result) {
@@ -86,7 +86,7 @@ export class PublicationItemsComponent {
       });
   }
 
-  deletePublication(pubId: Number) {
+  deletePublication(pubId: number) {
     this.pubService.deletePublication(pubId)
       .subscribe(result => {
         if (result) {

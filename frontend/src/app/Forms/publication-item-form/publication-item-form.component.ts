@@ -26,8 +26,8 @@ import {headers} from '../../Helpers/headers';
 })
 export class PublicationItemFormComponent {
   publicationItemForm: FormGroup;
-  @Input() pubItemId: Number;
-  @Input() publicationId: Number;
+  @Input() pubItemId: number;
+  @Input() publicationId: number;
   publicationItem: PublicationItem;
   publication: Publication;
 

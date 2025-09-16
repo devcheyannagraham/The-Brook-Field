@@ -14,7 +14,7 @@ import {headers} from '../../Helpers/headers';
   styleUrl: './accessory-items.component.css'
 })
 export class AccessoryItemsComponent {
-  @Input() accessId: Number;
+  @Input() accessId: number;
   accessory: Accessory;
   accessoryItems: AccessoryItem[];
 
@@ -44,7 +44,7 @@ export class AccessoryItemsComponent {
     }
   }
 
-  deleteAccessory(accessId: Number) {
+  deleteAccessory(accessId: number) {
     this.accessoryService.deleteAccessory(accessId)
       .subscribe(result => {
         if (result) {
@@ -53,7 +53,7 @@ export class AccessoryItemsComponent {
       })
   }
 
-  deleteAccessoryItem(accessItemId: Number) {
+  deleteAccessoryItem(accessItemId: number) {
     if (accessItemId) {
       this.accessoryService.deleteAccessoryItem(accessItemId)
         .subscribe(result => {

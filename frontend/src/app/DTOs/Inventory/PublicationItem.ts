@@ -6,20 +6,22 @@ import {PublicationItemStatus} from '../../Enums/PublicationItemStatus';
 import {PublicationItemFormat} from '../../Enums/PublicationItemFormat';
 
 export class PublicationItem extends Item {
-  public edition: String;
+  public id: number;
+  public edition: string;
   public format: PublicationItemFormat;
   public publicationItemType: PublicationItemType;
-  public purchasePrice: Number;
-  public rentalRate: Number;
+  public purchasePrice: number;
+  public rentalRate: number;
   public publicationItemStatus: PublicationItemStatus;
   public publication: Publication;
-  public quantity: Number;
+  public quantity: number;
 
 
   constructor(...data: any) {
     data = data[0];
     super(data);
     if (data) {
+      this.id = data["id"] || null;
       this.edition = data["edition"] || null;
       this.format = data["format"] || null;
       this.publicationItemType = data["publicationItemType"] || null;

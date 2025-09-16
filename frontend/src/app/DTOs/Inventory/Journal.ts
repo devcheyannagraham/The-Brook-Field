@@ -3,9 +3,9 @@ import {PublicationItemType} from '../../Enums/PublicationItemType';
 
 export class Journal extends PublicationItem {
   public issueDate: Date;
-  public issueNumber: Number;
-  public issueName: String;
-  public volume: String;
+  public issueNumber: number;
+  public issueName: string;
+  public volume: string;
 
   constructor(...data: any) {
     data = data[0];

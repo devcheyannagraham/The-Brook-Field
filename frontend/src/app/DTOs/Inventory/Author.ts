@@ -1,8 +1,8 @@
 
 export class Author {
-  public id:Number;
-  public firstName:String;
-  public lastName:String;
+  public id: number;
+  public firstName: string;
+  public lastName: string;
 
   constructor(...data:any){
     data = data[0];

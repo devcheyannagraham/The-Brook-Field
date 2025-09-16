@@ -1,13 +1,13 @@
 export class Customer {
-  public id: Number;
-  public firstName: String;
-  public lastName: String;
-  public email: String;
-  public phoneNumber: String;
-  public city: String;
-  public state: String;
-  public zip: Number;
-  public country: String;
+  public id: number;
+  public firstName: string;
+  public lastName: string;
+  public email: string;
+  public phoneNumber: string;
+  public city: string;
+  public state: string;
+  public zip: number;
+  public country: string;
 
   constructor(formData:any){
     this.firstName = formData["firstName"];

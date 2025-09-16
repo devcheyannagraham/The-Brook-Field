@@ -1,12 +1,12 @@
 import {Author} from './Author';
 
 export class Publication {
-  public publicationId: Number;
+  public publicationId: number;
   public datePublished: Date;
-  public isbn: String;
-  public genre: String;
-  public quantity: Number; // May need to delete
-  public title: String;
+  public isbn: string;
+  public genre: string;
+  public quantity: number; // May need to delete
+  public title: string;
   public author: Author;
 
   constructor(...data:any){

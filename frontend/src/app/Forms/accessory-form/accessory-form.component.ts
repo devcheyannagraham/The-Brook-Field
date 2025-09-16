@@ -15,7 +15,7 @@ export class AccessoryFormComponent {
   accessoryForm: FormGroup;
   protected readonly AccessoryType = AccessoryType;
 
-  @Input() accessoryId: Number;
+  @Input() accessoryId: number;
 
   constructor(private formBuilder: FormBuilder, public accessoryService: AccessoryService, public router: Router) {
   }

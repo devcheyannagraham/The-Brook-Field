@@ -10,9 +10,10 @@ import {Transaction} from '../DTOs/Order/Transaction';
   providedIn: 'root'
 })
 export class ShopService {
-  baseUrl: String = "http://localhost:8080/";
+  baseUrl: string = "http://localhost:8080/";
   shoppingCartSubject = new BehaviorSubject<any[]>([]); // may not use
   shoppingCart: Transaction[] = [];
+  
 
   constructor(public http: HttpClient) {
   }

@@ -7,7 +7,7 @@ import {PublicationItem} from '../DTOs/Inventory/PublicationItem';
   providedIn: 'root',
 })
 export class PublicationService {
-  baseUrl: String = 'http://localhost:8080/';
+  baseUrl: string = 'http://localhost:8080/';
 
   constructor(private http: HttpClient) {
   }
@@ -28,23 +28,23 @@ export class PublicationService {
     return this.http.get<Publication[]>(`${this.baseUrl}publications`);
   }
 
-  getPublicationById(id: Number) {
+  getPublicationById(id: number) {
     return this.http.get<Publication>(`${this.baseUrl}publication/${id}`);
   }
 
-  getPublicationItemsByPublicationId(pubId: Number) {
+  getPublicationItemsByPublicationId(pubId: number) {
     return this.http.get<any[]>(`${this.baseUrl}publicationitems/${pubId}`);
   }
 
-  getPublicationItemById(pubItemId: Number){
+  getPublicationItemById(pubItemId: number){
     return this.http.get<PublicationItem>(`${this.baseUrl}publicationitem/${pubItemId}`);
   }
 
-  deletePublicationItem(itemId:Number){
+  deletePublicationItem(itemId: number){
     return this.http.delete(`${this.baseUrl}publicationitem/${itemId}`);
   }
 
-  deletePublication(pubId:Number){
+  deletePublication(pubId: number){
     return this.http.delete(`${this.baseUrl}publication/${pubId}`);
 
   }

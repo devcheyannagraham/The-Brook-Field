@@ -7,7 +7,7 @@ import {AccessoryItem} from '../DTOs/Accessory/AccessoryItem';
   providedIn: 'root'
 })
 export class AccessoryService {
-  baseUrl: String = 'http://localhost:8080/';
+  baseUrl: string = 'http://localhost:8080/';
 
   constructor(private http: HttpClient) {
   }
@@ -17,21 +17,21 @@ export class AccessoryService {
     return this.http.get<Accessory[]>(`${this.baseUrl}accessories`);
   }
 
-  getAccessory(accessId: Number) {
+  getAccessory(accessId: number) {
     return this.http.get<Accessory>(`${this.baseUrl}accessory/${accessId}`);
   }
 
-  getAvailableAccessoryItemsByAccessoryId(accessId: Number) {
+  getAvailableAccessoryItemsByAccessoryId(accessId: number) {
     return this.http.get<AccessoryItem[]>(`${this.baseUrl}accessory/accessoryitems/${accessId}`);
   }
 
   // DELETE
 
-  deleteAccessory(accessId: Number) {
+  deleteAccessory(accessId: number) {
     return this.http.delete(`${this.baseUrl}accessory/${accessId}`);
   }
 
-  deleteAccessoryItem(accessItemId: Number) {
+  deleteAccessoryItem(accessItemId: number) {
     return this.http.delete(`${this.baseUrl}accessoryitem/${accessItemId}`);
   }
 

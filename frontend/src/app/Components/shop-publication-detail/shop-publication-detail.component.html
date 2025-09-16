@@ -7,7 +7,7 @@
     <li>{{ headers.title }}: {{ publication.title }}</li>
     <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
     <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
-    <li>{{ headers.quantity }}: {{ publicationItems ? publicationItems.length : 0 }}</li>
+    <li>{{ headers.quantity }}: {{ publicationItems ? publicationItems().size : 0 }}</li>
   </ul>
   <h3> Author </h3>
   <ul>
@@ -17,7 +17,7 @@
   <a routerLink="/checkout"><button>Checkout</button> </a>
 
 
-  @if (books && books.length) {
+  @if (books() && books().length) {
     <table>
       <thead>
       <th>{{ headers.publicationItemType }}</th>
@@ -30,7 +30,7 @@
       </thead>
 
       <tbody>
-        @for (book of books; track book.itemId) {
+        @for (book of books(); track book.itemId) {
           <tr>
             <td>{{ book.publicationItemType }}</td>
             <td>{{ book.edition }}</td>
@@ -39,10 +39,10 @@
             <td>{{ book.rentalRate }}</td>
             <td>{{ book.publicationItemStatus }}</td>
             <td>
-              <button (click)="purchaseItem(book)">
+              <button (click)="purchaseItem(book)" [disabled]="publicationItems().has(book.itemId)">
                 Purchase
               </button>
-              <button (click)="rentItem(book)">
+              <button (click)="rentItem(book)"  [disabled]="publicationItems().has(book.itemId)">
                 Rent
               </button>
             </td>
@@ -55,7 +55,7 @@
   }
 
 
-  @if (literaryPieces && literaryPieces.length) {
+  @if (literaryPieces() && literaryPieces().length) {
     <table>
       <thead>
       <th>{{ headers.publicationItemType }}</th>
@@ -68,7 +68,7 @@
       <th></th>
       </thead>
       <tbody>
-        @for (lp of literaryPieces; track lp.itemId) {
+        @for (lp of literaryPieces(); track lp.itemId) {
           <tr>
             <td>{{ lp.publicationItemType }}</td>
             <td>{{ lp.edition }}</td>
@@ -78,10 +78,10 @@
             <td>{{ lp.publicationItemStatus }}</td>
             <td>{{ lp.literaryType }}</td>
             <td>
-              <button (click)="purchaseItem(lp)">
+              <button (click)="purchaseItem(lp)"  [disabled]="publicationItems().has(lp.itemId)">
                 Purchase
               </button>
-              <button (click)="rentItem(lp)">
+              <button (click)="rentItem(lp)"  [disabled]="publicationItems().has(lp.itemId)">
                 Rent
               </button>
             </td>
@@ -92,7 +92,7 @@
   } @else {
     <p> No Literary Pieces</p>
   }
-  @if (journals && journals.length) {
+  @if (journals() && journals().length) {
     <table>
       <thead>
       <th>{{ headers.publicationItemType }}</th>
@@ -108,7 +108,7 @@
       <th></th>
       </thead>
       <tbody>
-        @for (journal of journals; track journal.itemId) {
+        @for (journal of journals(); track journal.itemId) {
           <tr>
             <td>{{ journal.publicationItemType }}</td>
             <td>{{ journal.edition }}</td>
@@ -121,10 +121,10 @@
             <td>{{ journal.issueName }}</td>
             <td>{{ journal.volume }}</td>
             <td>
-              <button (click)="purchaseItem(journal)">
+              <button (click)="purchaseItem(journal)"  [disabled]="publicationItems().has(journal.itemId)">
                 Purchase
               </button>
-              <button (click)="rentItem(journal)">
+              <button (click)="rentItem(journal)"  [disabled]="publicationItems().has(journal.itemId)">
                 Rent
               </button>
             </td>
