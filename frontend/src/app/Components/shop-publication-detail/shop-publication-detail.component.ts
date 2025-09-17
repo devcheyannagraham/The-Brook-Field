@@ -1,5 +1,5 @@
 import { Component, computed, Input, signal } from '@angular/core';
-import { DatePipe} from "@angular/common";
+import { DatePipe } from "@angular/common";
 import { ShopService } from '../../Services/shop.service';
 import { PublicationService } from '../../Services/publication.service';
 import { Book } from '../../DTOs/Inventory/Book';
@@ -26,6 +26,7 @@ import { Router, RouterLink } from '@angular/router';
 export class ShopPublicationDetailComponent {
   publication: Publication;
   publicationItems = signal(new Map<number, PublicationItem>());
+  publicationItemsInCart = new Map<number, number>();
 
   books = computed(() => [...this.publicationItems().values()]
     .filter(item => item.publicationItemType === PublicationItemType.BOOK)
@@ -66,9 +67,11 @@ export class ShopPublicationDetailComponent {
             let items = new Map<number, PublicationItem>();
 
             pubItems.forEach(item => {
-              items.set(item.id, item);
-
-            })
+              items.set(item.itemId, item);
+              if (this.shopService.shoppingCart().has(item.itemId)) {
+                this.updatePublicationItemTotals(item);
+              }
+            });
             this.publicationItems.set(items)
           }
         });
@@ -81,6 +84,7 @@ export class ShopPublicationDetailComponent {
     purchase.item = this.getItemType(item);
     purchase.transactionPrice = item.purchasePrice;
     this.shopService.addItemToCart(purchase);
+    this.updatePublicationItemTotals(item);
   }
 
   rentItem(item: PublicationItem) {
@@ -88,6 +92,7 @@ export class ShopPublicationDetailComponent {
     rental.item = this.getItemType(item);
     rental.transactionPrice = item.rentalRate;
     this.shopService.addItemToCart(rental);
+    this.updatePublicationItemTotals(item);
   }
 
   getItemType(item: PublicationItem) {
@@ -105,8 +110,16 @@ export class ShopPublicationDetailComponent {
     return item;
   }
 
-  removeItemFromCart(id: number) {
-    this.shopService.removeFromCart(this.shopService.shoppingCart().get(id));
+  removeItemFromCart(item: PublicationItem) {
+    this.shopService.removeFromCart(item.itemId);
+
+    if (this.publicationItemsInCart.has(item.publication.publicationId)) {
+      this.publicationItemsInCart.set(item.publication.publicationId, this.publicationItemsInCart.get(item.publication.publicationId) - 1);
+      if (this.publicationItemsInCart.get(item.publication.publicationId) <= 0) {
+        this.publicationItemsInCart.set(item.publication.publicationId, 0);
+      }
+    }
+
   }
 
   goBack() {
@@ -118,8 +131,18 @@ export class ShopPublicationDetailComponent {
       return this.publicationItems().size;
     }
     else {
-      return [...this.publicationItems().values()].filter(item  => !this.shopService.shoppingCart().has(item.itemId)).length;
+      return [...this.publicationItems().values()].filter(item => !this.shopService.shoppingCart().has(item.itemId)).length;
     }
+  }
+
+  updatePublicationItemTotals(item: PublicationItem) {
+    if (this.publicationItemsInCart.has(item.publication.publicationId)) {
+      this.publicationItemsInCart.set(item.publication.publicationId, this.publicationItemsInCart.get(item.publication.publicationId) + 1);
+    }
+    else {
+      this.publicationItemsInCart.set(item.publication.publicationId, 1);
+    }
+
   }
 
 

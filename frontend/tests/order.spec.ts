@@ -4,7 +4,6 @@ test('test', async ({ page }) => {
   await page.goto('http://localhost:4200/shop');
   await page.getByRole('link', { name: 'Pride and Prejudice' }).click();
   await page.getByRole('button', { name: 'Purchase' }).first().click();
-  await page.getByRole('button', { name: 'Rent' }).nth(1).click();
   await page.getByRole('button', { name: 'Back' }).click();
   await page.getByRole('link', { name: 'Ceramic Mug' }).click();
   await page.getByRole('button', { name: 'Purchase' }).click();

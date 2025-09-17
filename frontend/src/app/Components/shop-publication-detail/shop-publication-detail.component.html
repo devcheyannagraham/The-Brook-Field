@@ -14,6 +14,7 @@
   <li>{{ headers.firstName }}: {{ publication.author.firstName }}</li>
   <li>{{ headers.lastName }}: {{ publication.author.lastName }}</li>
 </ul>
+<p>Total in cart: {{publicationItemsInCart.get(publication.publicationId) || 0}}</p>
 <a routerLink="/checkout"><button>Checkout</button> </a>
 
 
@@ -41,7 +42,7 @@
       <td>
         @if(shopService.shoppingCart().has(book.itemId)){
 
-        <button (click)="removeItemFromCart(book.itemId)">
+        <button (click)="removeItemFromCart(book)">
           Remove from Cart
         </button>
         }
@@ -89,7 +90,7 @@
       <td>
         @if(shopService.shoppingCart().has(lp.itemId)){
 
-        <button (click)="removeItemFromCart(lp.itemId)">
+        <button (click)="removeItemFromCart(lp)">
           Remove from Cart
         </button>
         }
@@ -141,7 +142,7 @@
       <td>
         @if(shopService.shoppingCart().has(journal.itemId)){
 
-        <button (click)="removeItemFromCart(journal.itemId)">
+        <button (click)="removeItemFromCart(journal)">
           Remove from Cart
         </button>
         }
