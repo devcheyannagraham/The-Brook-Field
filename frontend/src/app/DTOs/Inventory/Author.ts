@@ -9,7 +9,7 @@ export class Author {
     if(data){
       this.id = data["id"] || null;
       this.firstName = data["firstName"] || null;
-      this.firstName = data["firstName"] || null;
+      this.lastName = data["lastName"] || null;
     }
   }
 }

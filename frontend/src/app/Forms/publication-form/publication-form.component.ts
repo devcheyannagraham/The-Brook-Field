@@ -2,11 +2,9 @@ import {Component, Input, input} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule,} from '@angular/forms';
 import {PublicationService} from '../../Services/publication.service';
 import {Publication} from '../../DTOs/Inventory/Publication';
-import {Book} from '../../DTOs/Inventory/Book';
 import {Genre} from '../../Enums/Genre';
 import {Author} from '../../DTOs/Inventory/Author';
 import {Router} from '@angular/router';
-import {platformBrowser} from '@angular/platform-browser';
 
 @Component({
   selector: 'publication-form',
@@ -68,17 +66,8 @@ export class PublicationFormComponent {
   addPublication() {
     const publication = new Publication(this.publicationForm.get("publicationGroup").value);
     publication.author = new Author(this.publicationForm.get("authorGroup").value);
-
-    // for (let control in this.publicationForm.controls) {
-    //   if (control === "firstName") publication.author.firstName = this.publicationForm.get(control).value;
-    //   if (control === "lastName") publication.author.lastName = this.publicationForm.get(control).value;
-    //   else { // @ts-ignore
-    //     publication[control] = this.publicationForm.get(control).value;
-    //   }
-    // }
     publication.publicationId = this.publicationId || null;
     publication.author.id = this.author?.id || null;
-    console.log("NEW/UPDATED PUB", publication);
 
     this.createPublication(publication);
   }
