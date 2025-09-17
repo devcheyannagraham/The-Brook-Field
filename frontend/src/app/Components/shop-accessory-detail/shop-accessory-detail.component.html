@@ -1,15 +1,35 @@
 <button (click)="goBack()">Back</button>
 @if (accessory) {
 
-  <h3>{{ accessory.accessoryName }}</h3>
-  <ul>
-    <li>{{ headers.accessoryName }}: {{ accessory.accessoryName }}</li>
-    <li>{{ headers.accessoryType }}: {{ accessory.accessoryType }}</li>
-    <li>{{ headers.price }}: {{ accessory.price }}</li>
-    <li>{{ headers.quantity }}: {{ accessoryItems ? accessoryItems?.length : 0 }}</li>
-  </ul>
-  <button (click)="purchaseAccessoryItem()" [disabled]="accessoryItems?.length <= 0">
-    Purchase
-  </button>
-  <a routerLink="/checkout"><button>Checkout</button> </a>
+<h3>{{ accessory.accessoryName }}</h3>
+<ul>
+  <li>{{ headers.accessoryName }}: {{ accessory.accessoryName }}</li>
+  <li>{{ headers.accessoryType }}: {{ accessory.accessoryType }}</li>
+  <li>{{ headers.price }}: {{ accessory.price }}</li>
+  <li>{{ headers.quantity }}: {{ getQuantity() }}</li>
+</ul>
+
+@if(accessoryItemsInCart.has(accessory.accessoryId)){
+<p>Total in cart: {{accessoryItemsInCart.get(accessory.accessoryId).length}}</p>
+
+
+<button (click)="purchaseAccessoryItem()" [disabled]="getQuantity() <= 0">
+  +
+</button>
+<button (click)="removeAccessoryItem()" [disabled]="!(accessoryItemsInCart.get(accessory.accessoryId).length > 0)">
+ -
+</button>
+} @else {
+
+<button (click)="purchaseAccessoryItem()" [disabled]="accessoryItems().size == 0">
+  Purchase
+</button>
 }
+
+
+
+<a routerLink="/checkout"><button>Checkout</button> </a>
+
+}
+<!-- //Add + - remove all on accessory Item and disable when appropriate -->
+<!-- add itemsInCart to track which items from which accessory is in the carts -->

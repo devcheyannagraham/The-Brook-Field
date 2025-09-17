@@ -1,7 +1,6 @@
 import { Component, computed, Input, signal } from '@angular/core';
-import { DatePipe, Location } from "@angular/common";
+import { DatePipe} from "@angular/common";
 import { ShopService } from '../../Services/shop.service';
-import { AccessoryService } from '../../Services/accessory.service';
 import { PublicationService } from '../../Services/publication.service';
 import { Book } from '../../DTOs/Inventory/Book';
 import { LiteraryPiece } from '../../DTOs/Inventory/LiteraryPiece';

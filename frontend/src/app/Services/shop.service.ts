@@ -34,14 +34,24 @@ export class ShopService {
     return this.http.post(`${this.baseUrl}order`, newOrder);
   }
 
-  removeFromCart(trans: Transaction) {
-    this.shoppingCart.update(old => {
-      old.delete(trans.item.itemId);
-      this.cartTotal.update(old => old - trans.transactionPrice);
+  removeFromCart(trans: Transaction | number) {
+    if (trans instanceof (Transaction)) {
 
-      return new Map(old);
-    });
+      this.shoppingCart.update(old => {
+        old.delete(trans.item.itemId);
+        this.cartTotal.update(old => old - trans.transactionPrice);
+
+        return new Map(old);
+      });
+    }
+    else {
+      let cartItem = this.shoppingCart().get(trans);
+      this.removeFromCart(cartItem);
+
+    }
   }
+
+
 
 
 }
