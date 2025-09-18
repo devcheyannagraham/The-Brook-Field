@@ -11,4 +11,7 @@ import java.util.Optional;
 @Repository
 public interface TransactionRepo extends JpaRepository<Transaction, Long> {
     Optional<List<Transaction>> findAllTransactionsByTransactionDateAfter(LocalDate date);
+
+
+
 }

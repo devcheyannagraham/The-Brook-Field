@@ -3,21 +3,21 @@ package demo.bfims.DTOs.ReportDTOs;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Publication.Publication;
 
-public class ItemCount{
+public class ItemCountDto {
     Long id;
     String title;
     Integer count;
 
-    public ItemCount() {
+    public ItemCountDto() {
     }
 
-    public ItemCount(Publication pub, Integer count) {
+    public ItemCountDto(Publication pub, Integer count) {
         this.id = pub.getPublicationId();
         this.title = pub.getTitle();
         this.count = count;
     }
 
-    public ItemCount(Accessory acc,Integer count){
+    public ItemCountDto(Accessory acc, Integer count){
         this.id = acc.getAccessoryId();
         this.title = acc.getAccessoryName();
         this.count = count;
@@ -49,7 +49,7 @@ public class ItemCount{
 
     @Override
     public String toString() {
-        return "ItemCount{" +
+        return "ItemCountDto{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", count=" + count +

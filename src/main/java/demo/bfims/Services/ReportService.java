@@ -3,8 +3,7 @@ package demo.bfims.Services;
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryDto;
 import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationDto;
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
-import demo.bfims.DTOs.ReportDTOs.ItemCount;
-import demo.bfims.DTOs.ReportDTOs.ItemGroup;
+import demo.bfims.DTOs.ReportDTOs.ItemCountDto;
 import demo.bfims.DTOs.ReportDTOs.PopularItem;
 import demo.bfims.DTOs.ReportDTOs.PopularItemsDto;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
@@ -15,7 +14,6 @@ import demo.bfims.Entities.Order.Order;
 import demo.bfims.Entities.Order.Transaction;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Repo.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -101,8 +99,8 @@ public class ReportService {
         return popularItemsDto;
     }
 
-    public List<ItemCount> getLowInventoryItems() {
-        List<ItemCount> lowInventoryItems = new ArrayList<>();
+    public List<ItemCountDto> getLowInventoryItems() {
+        List<ItemCountDto> lowInventoryItems = new ArrayList<>();
 
         List<Publication> publications = publicationRepo.findAll();
         List<Accessory> accessories = accessoryRepo.findAll();
@@ -110,17 +108,17 @@ public class ReportService {
         publications.forEach(pub -> {
             int total = publicationItemRepo.countPublicationItemsByPublication_publicationId(pub.getPublicationId());
             if (total <= 5) {
-                lowInventoryItems.add(new ItemCount(pub, total));
+                lowInventoryItems.add(new ItemCountDto(pub, total));
             }
         });
 
         accessories.forEach(acc -> {
             int total = accessoryItemRepo.countAccessoryItemsByAccessory_AccessoryId(acc.getAccessoryId());
             if (total <= 5) {
-                lowInventoryItems.add(new ItemCount(acc, total));
+                lowInventoryItems.add(new ItemCountDto(acc, total));
             }
         });
-`        return lowInventoryItems;
+        return lowInventoryItems;
     }
 
     public List<OrderDto> getRecentOrders() {

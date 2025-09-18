@@ -1,8 +1,7 @@
 package demo.bfims.Controllers;
 
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
-import demo.bfims.DTOs.ReportDTOs.ItemCount;
-import demo.bfims.DTOs.ReportDTOs.ItemGroup;
+import demo.bfims.DTOs.ReportDTOs.ItemCountDto;
 import demo.bfims.DTOs.ReportDTOs.PopularItemsDto;
 import demo.bfims.Services.ReportService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +27,7 @@ public class ReportController {
 
     //low inventory items
     @GetMapping("/lowinventory")
-    public List<ItemCount> getLowInventoryItems() {
+    public List<ItemCountDto> getLowInventoryItems() {
         return reportService.getLowInventoryItems();
     }
 
