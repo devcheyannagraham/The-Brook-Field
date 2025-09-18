@@ -1,11 +1,8 @@
 package demo.bfims.Services;
 
-import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryDto;
-import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationDto;
-import demo.bfims.DTOs.OrderDTOs.OrderDto;
 import demo.bfims.DTOs.ReportDTOs.ItemCountDto;
-import demo.bfims.DTOs.ReportDTOs.PopularItem;
-import demo.bfims.DTOs.ReportDTOs.PopularItemsDto;
+import demo.bfims.DTOs.ReportDTOs.PopularItemDto;
+import demo.bfims.DTOs.ReportDTOs.RecentOrderDto;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
 import demo.bfims.Entities.Inventory.Publication.Publication;
@@ -23,16 +20,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class ReportService {
-    private ItemRepo itemRepo;
-    private OrderRepo orderRepo;
+    private final OrderRepo orderRepo;
     private final PublicationRepo publicationRepo;
     private final PublicationItemRepo publicationItemRepo;
     private final TransactionRepo transactionRepo;
     private final AccessoryRepo accessoryRepo;
     private final AccessoryItemRepo accessoryItemRepo;
 
-    public ReportService(ItemRepo itemRepo, OrderRepo orderRepo, PublicationRepo publicationRepo, PublicationItemRepo publicationItemRepo, TransactionRepo transactionRepo, AccessoryRepo accessoryRepo, AccessoryItemRepo accessoryItemRepo) {
-        this.itemRepo = itemRepo;
+    public ReportService(OrderRepo orderRepo, PublicationRepo publicationRepo, PublicationItemRepo publicationItemRepo, TransactionRepo transactionRepo, AccessoryRepo accessoryRepo, AccessoryItemRepo accessoryItemRepo) {
         this.orderRepo = orderRepo;
         this.publicationRepo = publicationRepo;
         this.publicationItemRepo = publicationItemRepo;
@@ -41,11 +36,11 @@ public class ReportService {
         this.accessoryItemRepo = accessoryItemRepo;
     }
 
-    public List<PopularItem> getPopularItems() {
-        // Get date for last 6 months
-        LocalDate sixMonthsAgo = LocalDate.now().minusMonths(6);
+    public List<PopularItemDto> getPopularItems() {
+        // Get date for last 3 months
+        LocalDate threeMonthsAgo = LocalDate.now().minusMonths(3);
 
-        List<Transaction> transactions = transactionRepo.findAllTransactionsByTransactionDateAfter(sixMonthsAgo).orElse(null);
+        List<Transaction> transactions = transactionRepo.findAllTransactionsByTransactionDateAfter(threeMonthsAgo).orElse(null);
 //        Get total transactions and sum of all transactions for each item
         Map<Long, Integer> publicationCountMap = new HashMap<>();
         Map<Long, Double> publicationProfitMap = new HashMap<>();
@@ -75,23 +70,23 @@ public class ReportService {
             });
         }
 
-        List<PopularItem> popularItems = new ArrayList<>();
+        List<PopularItemDto> popularItemDtos = new ArrayList<>();
 
         // get top 5 items by units sold
         publicationRepo.findAllById(getTopItems(publicationCountMap)).forEach(pub -> {
-            PopularItem popularItem = new PopularItem(pub);
-            popularItem.setTotalUnitsSold(publicationCountMap.get(pub.getPublicationId()));
-            popularItem.setTotalProfit(publicationProfitMap.get(pub.getPublicationId()));
-            popularItems.add(popularItem);
+            PopularItemDto popularItemDto = new PopularItemDto(pub);
+            popularItemDto.setTotalUnitsSold(publicationCountMap.get(pub.getPublicationId()));
+            popularItemDto.setTotalProfit(publicationProfitMap.get(pub.getPublicationId()));
+            popularItemDtos.add(popularItemDto);
         });
 
         accessoryRepo.findAllById(getTopItems(accessoryCountMap)).forEach(acc -> {
-            PopularItem popularItem = new PopularItem(acc);
-            popularItem.setTotalUnitsSold(accessoryCountMap.get(acc.getAccessoryId()));
-            popularItem.setTotalProfit(accessoryProfitMap.get(acc.getAccessoryId()));
-            popularItems.add(popularItem);
+            PopularItemDto popularItemDto = new PopularItemDto(acc);
+            popularItemDto.setTotalUnitsSold(accessoryCountMap.get(acc.getAccessoryId()));
+            popularItemDto.setTotalProfit(accessoryProfitMap.get(acc.getAccessoryId()));
+            popularItemDtos.add(popularItemDto);
         });
-        return popularItems;
+        return popularItemDtos;
     }
 
     public List<ItemCountDto> getLowInventoryItems() {
@@ -116,11 +111,11 @@ public class ReportService {
         return lowInventoryItems;
     }
 
-    public List<OrderDto> getRecentOrders() {
-        LocalDateTime sixMonthsAgo = LocalDateTime.now().minusMonths(6);
-        List<Order> results = orderRepo.findOrdersByOrderDateAfter(sixMonthsAgo).orElse(null);
+    public List<RecentOrderDto> getRecentOrders() {
+        LocalDateTime threeMonthsAgo = LocalDateTime.now().minusMonths(3);
+        List<Order> results = orderRepo.findOrdersByOrderDateAfter(threeMonthsAgo).orElse(null);
         if (results != null && !results.isEmpty()) {
-            return results.stream().map(OrderDto::new).collect(Collectors.toList());
+            return results.stream().map(RecentOrderDto::new).collect(Collectors.toList());
         }
         return null;
     }

@@ -3,21 +3,21 @@ package demo.bfims.DTOs.ReportDTOs;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Publication.Publication;
 
-public class PopularItem{
+public class PopularItemDto {
     Long id;
     String title;
     Integer totalUnitsSold;
     Double totalProfit;
 
-    public PopularItem() {
+    public PopularItemDto() {
     }
 
-    public PopularItem(Accessory acc){
+    public PopularItemDto(Accessory acc){
         this.id=acc.getAccessoryId();
         this.title=acc.getAccessoryName();
     }
 
-    public PopularItem(Publication pub){
+    public PopularItemDto(Publication pub){
         this.id=pub.getPublicationId();
         this.title=pub.getTitle();
     }
@@ -56,7 +56,7 @@ public class PopularItem{
 
     @Override
     public String toString() {
-        return "PopularItem{" +
+        return "PopularItemDto{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", totalUnitsSold=" + totalUnitsSold +
