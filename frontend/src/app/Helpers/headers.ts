@@ -29,6 +29,8 @@ export const headers = {
   email: "Email",
   transactionId: "Transaction ID",
   date: "Date",
-  inStock: "Total in Stock"
+  inStock: "Total in Stock",
+  itemType: "Item Type",
+  totalUnitsSold: "Total Sold",
 
 }

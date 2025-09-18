@@ -28,6 +28,7 @@ export class LowInventoryComponent {
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(lowInventoryItems => {
       this.lowInventoryItems = lowInventoryItems;
+      console.log(this.lowInventoryItems);
     })
   }
 

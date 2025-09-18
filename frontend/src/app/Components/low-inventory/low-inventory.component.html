@@ -3,14 +3,16 @@
         <thead>
             <tr>
                 <th>{{headers.itemId}}</th>
+                <th>{{headers.itemType}}</th>
                 <th>{{headers.title}}</th>
                 <th>{{headers.inStock}}</th>
             </tr>
         </thead>
         <tbody>
-            @for(item of lowInventoryItems;track item.id){
+            @for(item of lowInventoryItems;track `${item.id}-${item.itemType}`){
             <tr>
                 <td>{{item.id}}</td>
+                <td>{{item.itemType.toLocaleLowerCase()}}</td>
                 <td>{{item.title}}</td>
                 <td>{{item.count}}</td>
             </tr>
