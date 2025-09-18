@@ -41,7 +41,7 @@ public class ReportService {
         this.accessoryItemRepo = accessoryItemRepo;
     }
 
-    public PopularItemsDto getPopularItems() {
+    public List<PopularItem> getPopularItems() {
         // Get date for last 6 months
         LocalDate sixMonthsAgo = LocalDate.now().minusMonths(6);
 
@@ -75,28 +75,23 @@ public class ReportService {
             });
         }
 
-        // get top 5 items by units sold
-        PopularItemsDto popularItemsDto = new PopularItemsDto();
+        List<PopularItem> popularItems = new ArrayList<>();
 
+        // get top 5 items by units sold
         publicationRepo.findAllById(getTopItems(publicationCountMap)).forEach(pub -> {
-            PublicationDto pubDto = new PublicationDto(pub);
-            PopularItem<PublicationDto> popularPublicationDto = new PopularItem<>();
-            popularPublicationDto.setPopularItem(pubDto);
-            popularPublicationDto.setTotalUnitsSold(publicationCountMap.get(pub.getPublicationId()));
-            popularPublicationDto.setTotalProfit(publicationProfitMap.get(pub.getPublicationId()));
-            popularItemsDto.getPopularPublicationsDto().add(popularPublicationDto);
+            PopularItem popularItem = new PopularItem(pub);
+            popularItem.setTotalUnitsSold(publicationCountMap.get(pub.getPublicationId()));
+            popularItem.setTotalProfit(publicationProfitMap.get(pub.getPublicationId()));
+            popularItems.add(popularItem);
         });
 
         accessoryRepo.findAllById(getTopItems(accessoryCountMap)).forEach(acc -> {
-            AccessoryDto accDto = new AccessoryDto(acc);
-            PopularItem<AccessoryDto> popularAccessoryDto = new PopularItem<>();
-            popularAccessoryDto.setPopularItem(accDto);
-            popularAccessoryDto.setTotalUnitsSold(accessoryCountMap.get(acc.getAccessoryId()));
-            popularAccessoryDto.setTotalProfit(accessoryProfitMap.get(acc.getAccessoryId()));
-            popularItemsDto.getPopularAccessoriesDto().add(popularAccessoryDto);
-
+            PopularItem popularItem = new PopularItem(acc);
+            popularItem.setTotalUnitsSold(accessoryCountMap.get(acc.getAccessoryId()));
+            popularItem.setTotalProfit(accessoryProfitMap.get(acc.getAccessoryId()));
+            popularItems.add(popularItem);
         });
-        return popularItemsDto;
+        return popularItems;
     }
 
     public List<ItemCountDto> getLowInventoryItems() {
@@ -131,6 +126,7 @@ public class ReportService {
     }
 
     // Helper
+    // returns top 5 items
     public List<Long> getTopItems(Map<Long, Integer> map) {
         List<Map.Entry<Long, Integer>> entryList = new ArrayList<>(map.entrySet());
         entryList.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));

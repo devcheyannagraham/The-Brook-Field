@@ -2,7 +2,7 @@ package demo.bfims.Controllers;
 
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
 import demo.bfims.DTOs.ReportDTOs.ItemCountDto;
-import demo.bfims.DTOs.ReportDTOs.PopularItemsDto;
+import demo.bfims.DTOs.ReportDTOs.PopularItem;
 import demo.bfims.Services.ReportService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +21,7 @@ public class ReportController {
     //Popular items
 //    item id in order items the most
     @GetMapping("/popularitems")
-    public PopularItemsDto getPopularItems() {
+    public List<PopularItem> getPopularItems() {
         return reportService.getPopularItems();
     }
 

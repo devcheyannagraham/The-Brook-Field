@@ -8,9 +8,6 @@ public class ItemCountDto {
     String title;
     Integer count;
 
-    public ItemCountDto() {
-    }
-
     public ItemCountDto(Publication pub, Integer count) {
         this.id = pub.getPublicationId();
         this.title = pub.getTitle();

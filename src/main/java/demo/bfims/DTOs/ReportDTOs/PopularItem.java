@@ -1,16 +1,41 @@
 package demo.bfims.DTOs.ReportDTOs;
 
-public class PopularItem<T> {
-    T popularItem;
+import demo.bfims.Entities.Inventory.Accessory.Accessory;
+import demo.bfims.Entities.Inventory.Publication.Publication;
+
+public class PopularItem{
+    Long id;
+    String title;
     Integer totalUnitsSold;
     Double totalProfit;
 
-    public T getPopularItem() {
-        return popularItem;
+    public PopularItem() {
     }
 
-    public void setPopularItem(T popularItem) {
-        this.popularItem = popularItem;
+    public PopularItem(Accessory acc){
+        this.id=acc.getAccessoryId();
+        this.title=acc.getAccessoryName();
+    }
+
+    public PopularItem(Publication pub){
+        this.id=pub.getPublicationId();
+        this.title=pub.getTitle();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Integer getTotalUnitsSold() {
@@ -32,7 +57,8 @@ public class PopularItem<T> {
     @Override
     public String toString() {
         return "PopularItem{" +
-                "popularItem=" + popularItem +
+                "id=" + id +
+                ", title='" + title + '\'' +
                 ", totalUnitsSold=" + totalUnitsSold +
                 ", totalProfit=" + totalProfit +
                 '}';
