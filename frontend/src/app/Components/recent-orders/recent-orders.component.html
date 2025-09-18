@@ -1,1 +1,62 @@
-<p>recent-orders works!</p>
+<div>
+    <table>
+        @for(order of recentOrders;track order.orderId){
+        <thead>
+            <tr>
+                <th>{{headers.orderId}}</th>
+                <th>{{headers.firstName}}</th>
+                <th>{{headers.lastName}}</th>
+                <th>{{headers.email}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{order.orderId}}</td>
+                <td>{{order.customerFirstName}}</td>
+                <td>{{order.customerLastName}}</td>
+                <td>{{order.customerEmail}}</td>
+            </tr>
+
+            @for(trans of order.recentOrderTransactions; track trans.transactionId){
+            <tr>
+                <th>{{headers.transactionId}}</th>
+                <th>{{headers.price}}</th>
+                <th>{{headers.date}}</th>
+                <th>{{headers.transactionType}}</th>
+
+                @if(trans.publicationItemType ){
+                <th>{{headers.publicationItemType}}</th>
+                <th>{{headers.format}}</th>
+                <th>{{headers.genre}}</th>
+                <th>{{headers.title}}</th>
+                }
+
+                @if(trans.accessoryType){
+                <th>{{headers.accessoryType}}</th>
+                <th>{{headers.accessoryName}}</th>
+                }
+            </tr>
+            <tr>
+                <td>{{trans.transactionId}}</td>
+                <td>{{trans.transactionPrice| currency}}</td>
+                <td>{{trans.transactionDate}}</td>
+                <td>{{trans.transactionType}}</td>
+
+                @if(trans.publicationItemType ){
+                <td>{{trans.publicationItemType}}</td>
+                <td>{{trans.publicationItemFormat}}</td>
+                <td>{{trans.genre}}</td>
+                <td>{{trans.publicationTitle}}</td>
+                }
+                @if(trans.accessoryType){
+                <td>{{trans.accessoryType}}</td>
+                <td>{{trans.accessoryName}}</td>
+                }
+            </tr>
+            }
+            <br>
+
+        </tbody>
+        }
+    </table>
+</div>

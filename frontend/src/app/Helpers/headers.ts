@@ -23,5 +23,11 @@ export const headers = {
   transactionType: "Transaction Type",
   name: "Name",
   firstName: "First Name",
-  lastName: "Last Name"
+  lastName: "Last Name",
+  totalProfit: "Total Profit",
+  orderId: "Order ID",
+  email: "Email",
+  transactionId: "Transaction ID",
+  date: "Date"
+
 }

@@ -12,7 +12,7 @@
             <tr>
                 <td>{{item.title}}</td>
                 <td>{{item.totalUnitsSold}}</td>
-                <td>{{item.totalProfit.toLocaleString("en-US", {style: "currency", currency: "USD"})}}</td>
+                <td>{{item.totalProfit | currency}}</td>
             </tr>
             }
 

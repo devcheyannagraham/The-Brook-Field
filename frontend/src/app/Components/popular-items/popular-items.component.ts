@@ -2,10 +2,11 @@ import { Component, DestroyRef, inject } from '@angular/core';
 import { ReportsService } from '../../Services/reports.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PopularItemDto } from '../../DTOs/Report/PopularItemDto';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'popular-items',
-  imports: [],
+  imports: [CurrencyPipe],
   templateUrl: './popular-items.component.html',
   styleUrl: './popular-items.component.css'
 })
@@ -22,7 +23,6 @@ export class PopularItemsComponent {
     this.reportService.getPopularItems()
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(popularItems => {
-      console
       this.popularItems = popularItems;
     });
 
