@@ -23,6 +23,10 @@ public class ItemGroup {
         this.accessories = accessories;
     }
 
+    public void setPublications(List<PublicationDto> publications) {
+        this.publications = publications;
+    }
+
     @Override
     public String toString() {
         return "ItemGroup{" +
@@ -31,8 +35,5 @@ public class ItemGroup {
                 '}';
     }
 
-    public void setPublications(List<PublicationDto> publications) {
-        this.publications = publications;
-    }
 
 }

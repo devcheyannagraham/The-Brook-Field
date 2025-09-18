@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface PublicationItemRepo extends JpaRepository<PublicationItem, Long> {
     List<PublicationItem> findPublicationItemsByPublication_PublicationId(Long publicationId);
+
+    Integer countPublicationItemsByPublication_publicationId(Long publicationId);
 }

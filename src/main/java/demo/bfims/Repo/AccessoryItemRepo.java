@@ -11,4 +11,7 @@ public interface AccessoryItemRepo extends JpaRepository<AccessoryItem, Long> {
 
     //Find any available accessoryItem that matches the accessoryId
     AccessoryItem findTopAccessoryItemByAccessory_AccessoryIdAndAccessoryItemStatus(Long accessoryId, AccessoryItemStatus accessoryItemStatus);
+
+    Integer countAccessoryItemsByAccessory_AccessoryId(Long id);
+
 }
