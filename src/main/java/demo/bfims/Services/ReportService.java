@@ -1,6 +1,6 @@
 package demo.bfims.Services;
 
-import demo.bfims.DTOs.ReportDTOs.ItemCountDto;
+import demo.bfims.DTOs.ReportDTOs.InventoryCountDto;
 import demo.bfims.DTOs.ReportDTOs.PopularItemDto;
 import demo.bfims.DTOs.ReportDTOs.RecentOrderDto;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
@@ -89,8 +89,8 @@ public class ReportService {
         return popularItemDtos;
     }
 
-    public List<ItemCountDto> getLowInventoryItems() {
-        List<ItemCountDto> lowInventoryItems = new ArrayList<>();
+    public List<InventoryCountDto> getLowInventoryItems() {
+        List<InventoryCountDto> lowInventoryItems = new ArrayList<>();
 
         List<Publication> publications = publicationRepo.findAll();
         List<Accessory> accessories = accessoryRepo.findAll();
@@ -98,14 +98,14 @@ public class ReportService {
         publications.forEach(pub -> {
             int total = publicationItemRepo.countPublicationItemsByPublication_publicationId(pub.getPublicationId());
             if (total <= 5) {
-                lowInventoryItems.add(new ItemCountDto(pub, total));
+                lowInventoryItems.add(new InventoryCountDto(pub, total));
             }
         });
 
         accessories.forEach(acc -> {
             int total = accessoryItemRepo.countAccessoryItemsByAccessory_AccessoryId(acc.getAccessoryId());
             if (total <= 5) {
-                lowInventoryItems.add(new ItemCountDto(acc, total));
+                lowInventoryItems.add(new InventoryCountDto(acc, total));
             }
         });
         return lowInventoryItems;

@@ -1,0 +1,21 @@
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Total Items Sold</th>
+                <th>Total Profit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(item of popularItems;track item.id){
+            <tr>
+                <td>{{item.title}}</td>
+                <td>{{item.totalUnitsSold}}</td>
+                <td>{{item.totalProfit.toLocaleString("en-US", {style: "currency", currency: "USD"})}}</td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

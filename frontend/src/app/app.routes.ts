@@ -10,6 +10,9 @@ import {OrderFormComponent} from './Forms/order-form/order-form.component';
 import {ShopComponent} from './Components/shop/shop.component';
 import {ShopPublicationDetailComponent} from './Components/shop-publication-detail/shop-publication-detail.component';
 import {ShopAccessoryDetailComponent} from './Components/shop-accessory-detail/shop-accessory-detail.component';
+import { PopularItemsComponent } from './Components/popular-items/popular-items.component';
+import { LowInventoryComponent } from './Components/low-inventory/low-inventory.component';
+import { RecentOrdersComponent } from './Components/recent-orders/recent-orders.component';
 
 export const routes: Routes = [
   {
@@ -72,5 +75,16 @@ export const routes: Routes = [
     path: 'shop/accessory/:shopItemId',
     component: ShopAccessoryDetailComponent,
   },
-
+  {
+    path: 'report/popularitems',
+    component: PopularItemsComponent
+  },
+  {
+    path: 'report/lowinventory',
+    component: LowInventoryComponent
+  }, 
+  {
+    path: 'report/recentorders',
+    component: RecentOrdersComponent
+  }
 ];
