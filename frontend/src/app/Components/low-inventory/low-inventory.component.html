@@ -1,1 +1,21 @@
-<p>low-inventory works!</p>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>{{headers.itemId}}</th>
+                <th>{{headers.title}}</th>
+                <th>{{headers.inStock}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(item of lowInventoryItems;track item.id){
+            <tr>
+                <td>{{item.id}}</td>
+                <td>{{item.title}}</td>
+                <td>{{item.count}}</td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

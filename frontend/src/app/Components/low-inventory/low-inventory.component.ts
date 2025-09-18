@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { Component,inject, DestroyRef } from '@angular/core';
+import { InventoryCountDto } from '../../DTOs/Report/InventoryCountDto';
+import { headers } from '../../Helpers/headers';
+import { ReportsService } from '../../Services/reports.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
 
 @Component({
   selector: 'low-inventory',
@@ -7,5 +12,24 @@ import { Component } from '@angular/core';
   styleUrl: './low-inventory.component.css'
 })
 export class LowInventoryComponent {
+
+  destroyRef = inject(DestroyRef);
+  lowInventoryItems:InventoryCountDto[];
+  headers = headers;
+
+  constructor(public reportService: ReportsService) { } 
+
+  ngOnInit(){
+    this.getLowInventoryItems();
+  }
+
+  getLowInventoryItems(){
+    this.reportService.getLowInventoryItems()
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(lowInventoryItems => {
+      this.lowInventoryItems = lowInventoryItems;
+    })
+  }
+
 
 }
