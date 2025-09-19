@@ -5,10 +5,12 @@ import { PopularItemDto } from '../../../DTOs/Report/PopularItemDto';
 import { CurrencyPipe } from '@angular/common';
 import { headers } from '../../../Helpers/headers';
 import { BackComponent } from "../../back/back.component";
+import { ItemType } from '../../../Enums/ItemType';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'popular-items',
-  imports: [CurrencyPipe, BackComponent],
+  imports: [CurrencyPipe, BackComponent, RouterLink],
   templateUrl: './popular-items.component.html',
   styleUrl: './popular-items.component.css'
 })
@@ -16,6 +18,7 @@ export class PopularItemsComponent {
   destroyRef = inject(DestroyRef);
   popularItems:PopularItemDto[];
   headers = headers;
+  ItemType = ItemType;
 
   constructor(public reportService: ReportsService) { }
 

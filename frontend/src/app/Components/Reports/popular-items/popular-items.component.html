@@ -13,7 +13,18 @@
         <tbody>
             @for(item of popularItems;track `$${item.id}-${item.title}`){
             <tr>
-                <td>{{item.title}}</td>
+                <td> @if(item.itemType == ItemType.PUBLICATION_ITEM){
+
+                    <a [routerLink]="['/publication/',item.id]">
+                        {{item.title }}
+                    </a>
+                    }
+                    @if(item.itemType == ItemType.ACCESSORY_ITEM){
+                    <a routerLink="['/accessory/',item.id]">
+                        {{item.title }}
+                    </a>
+
+                    }</td>
                 <td>{{item.totalUnitsSold}}</td>
                 <td>{{item.totalProfit | currency}}</td>
             </tr>

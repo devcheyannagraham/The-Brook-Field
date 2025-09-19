@@ -2,12 +2,14 @@ package demo.bfims.DTOs.ReportDTOs;
 
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Publication.Publication;
+import demo.bfims.Enums.ItemType;
 
 public class PopularItemDto {
     Long id;
     String title;
     Integer totalUnitsSold;
     Double totalProfit;
+    ItemType itemType;
 
     public PopularItemDto() {
     }
@@ -15,11 +17,13 @@ public class PopularItemDto {
     public PopularItemDto(Accessory acc){
         this.id=acc.getAccessoryId();
         this.title=acc.getAccessoryName();
+        this.itemType = ItemType.ACCESSORY_ITEM;
     }
 
     public PopularItemDto(Publication pub){
         this.id=pub.getPublicationId();
         this.title=pub.getTitle();
+        this.itemType = ItemType.PUBLICATION_ITEM;
     }
 
     public Long getId() {
@@ -61,6 +65,16 @@ public class PopularItemDto {
                 ", title='" + title + '\'' +
                 ", totalUnitsSold=" + totalUnitsSold +
                 ", totalProfit=" + totalProfit +
+                ", itemType=" + itemType +
                 '}';
     }
+
+    public ItemType getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(ItemType itemType) {
+        this.itemType = itemType;
+    }
+
 }
