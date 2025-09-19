@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
-import {Accessory} from '../../DTOs/Accessory/Accessory';
-import {AccessoryItem} from '../../DTOs/Accessory/AccessoryItem';
-import {AccessoryService} from '../../Services/accessory.service';
-import {headers} from '../../Helpers/headers';
+import {Accessory} from '../../../DTOs/Accessory/Accessory';
+import {AccessoryItem} from '../../../DTOs/Accessory/AccessoryItem';
+import {AccessoryService} from '../../../Services/accessory.service';
+import {headers} from '../../../Helpers/headers';
 
 @Component({
   selector: 'accessory-items',

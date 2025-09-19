@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {AccessoryService} from '../../Services/accessory.service';
-import {Accessory} from '../../DTOs/Accessory/Accessory';
-import {headers} from '../../Helpers/headers';
+import {AccessoryService} from '../../../Services/accessory.service';
+import {Accessory} from '../../../DTOs/Accessory/Accessory';
+import {headers} from '../../../Helpers/headers';
 import {RouterLink} from '@angular/router';
 
 @Component({

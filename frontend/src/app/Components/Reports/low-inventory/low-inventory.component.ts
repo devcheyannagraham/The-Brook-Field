@@ -1,7 +1,7 @@
 import { Component,inject, DestroyRef } from '@angular/core';
-import { InventoryCountDto } from '../../DTOs/Report/InventoryCountDto';
-import { headers } from '../../Helpers/headers';
-import { ReportsService } from '../../Services/reports.service';
+import { InventoryCountDto } from '../../../DTOs/Report/InventoryCountDto';
+import { headers } from '../../../Helpers/headers';
+import { ReportsService } from '../../../Services/reports.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 

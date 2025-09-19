@@ -1,11 +1,11 @@
 import { Component, Input, signal } from '@angular/core';
-import { AccessoryService } from '../../Services/accessory.service';
-import { ShopService } from '../../Services/shop.service';
+import { AccessoryService } from '../../../Services/accessory.service';
+import { ShopService } from '../../../Services/shop.service';
 import { Router, RouterLink } from '@angular/router';
-import { Accessory } from '../../DTOs/Accessory/Accessory';
-import { AccessoryItem } from '../../DTOs/Accessory/AccessoryItem';
-import { headers } from '../../Helpers/headers';
-import { Purchase } from '../../DTOs/Order/Purchase';
+import { Accessory } from '../../../DTOs/Accessory/Accessory';
+import { AccessoryItem } from '../../../DTOs/Accessory/AccessoryItem';
+import { headers } from '../../../Helpers/headers';
+import { Purchase } from '../../../DTOs/Order/Purchase';
 
 @Component({
   selector: 'shop-accessory-detail',

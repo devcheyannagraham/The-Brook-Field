@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
-import {AccessoryType} from '../../Enums/AccessoryType';
-import {Publication} from '../../DTOs/Inventory/Publication';
-import {Accessory} from '../../DTOs/Accessory/Accessory';
+import {AccessoryType} from '../../../Enums/AccessoryType';
+import {Publication} from '../../../DTOs/Inventory/Publication';
+import {Accessory} from '../../../DTOs/Accessory/Accessory';
 import {DatePipe} from '@angular/common';
-import {headers} from '../../Helpers/headers';
+import {headers} from '../../../Helpers/headers';
 import {RouterLink} from '@angular/router';
-import {AccessoryService} from '../../Services/accessory.service';
-import {PublicationService} from '../../Services/publication.service';
+import {AccessoryService} from '../../../Services/accessory.service';
+import {PublicationService} from '../../../Services/publication.service';
 
 @Component({
   selector: 'shop',
