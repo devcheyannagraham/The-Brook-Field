@@ -9,6 +9,7 @@ import demo.bfims.Enums.PublicationItemStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class Order {
     private LocalDateTime orderDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<Transaction> transactions = new ArrayList<>();
-    private Double orderTotal;
+    private Double orderTotal = 0.0;
 
 
     public Order() {
@@ -40,6 +41,13 @@ public class Order {
         this.orderTotal = orderDto.getOrderTotal();
         this.setTransactions(orderDto.getTransactions().stream()
                 .map(Transaction::mapToTransactionSubclass).toList());
+    }
+
+    // For bootstrap
+    public Order(List<Transaction> trans, Customer customer){
+        this.orderDate = LocalDateTime.now();
+        trans.forEach(this::addTransaction);
+        this.customer = customer;
     }
 
     public Long getId() {

@@ -2,12 +2,14 @@ package demo.bfims.Entities.Order;
 
 import demo.bfims.DTOs.OrderDTOs.RentalDto;
 import demo.bfims.DTOs.OrderDTOs.TransactionDto;
+import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Enums.TransactionType;
 import demo.bfims.Enums.RentalStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class Rental extends Transaction { //is publication
@@ -50,6 +52,15 @@ public class Rental extends Transaction { //is publication
             this.dueDate = rentalDto.getDueDate();
             this.rentalStatus = rentalDto.getStatus();
         }
+    }
+
+//    For Bootstrap
+    public Rental(Item item, double price) {
+        this.setTransactionType(TransactionType.RENTAL);
+        this.setTransactionDate(LocalDate.now());
+        this.setRentalStatus(RentalStatus.RENTED);
+        this.setTransactionPrice(price);
+        this.setItem(item);
     }
 
 

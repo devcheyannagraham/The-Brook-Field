@@ -24,7 +24,21 @@ public class Customer {
     public Customer() {
     }
 
-//    Construct Customer from customerDto
+    // for bootstrap code
+    public Customer(String email, String firstName, String lastName, String phoneNumber, String address, String city, String state, String zipCode, String country) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.country = country;
+    }
+
+    //    Construct Customer from customerDto
     public Customer(CustomerDto customerDto) {
         this.id = customerDto.getId();
         this.firstName = customerDto.getFirstName();
