@@ -17,6 +17,7 @@ import { LandingPageComponent } from './Components/landing-page/landing-page.com
 import { LoginComponent } from './Components/Auth/login/login.component';
 import { HomeComponent } from './Components/Auth/home/home.component';
 import { AdminDashboardComponent } from './Components/Auth/admin-dashboard/admin-dashboard.component';
+import { authenticatedUserGuardGuard } from './authenticated-user-guard.guard';
 
 export const routes: Routes = [
   {
@@ -89,7 +90,8 @@ export const routes: Routes = [
   },
   {
     path: 'report/recentorders',
-    component: RecentOrdersComponent
+    component: RecentOrdersComponent,
+    canActivate: [authenticatedUserGuardGuard]
   },
   {
     path: 'home',
@@ -115,6 +117,10 @@ export const routes: Routes = [
   },
   {
     path: '',
-    component: LandingPageComponent
-  }
+    component: LandingPageComponent,
+  },
+  {
+    path: '**',
+    redirectTo: "",
+  },
 ];
