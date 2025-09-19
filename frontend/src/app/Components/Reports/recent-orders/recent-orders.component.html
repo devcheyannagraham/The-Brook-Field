@@ -52,11 +52,19 @@
                 <td>{{trans.publicationItemType}}</td>
                 <td>{{trans.publicationItemFormat}}</td>
                 <td>{{trans.genre}}</td>
-                <td>{{trans.publicationTitle}}</td>
+                <td>
+                    <a [routerLink]="['/publication/',trans.publicationId]">
+                        {{trans.publicationTitle }}
+                    </a>
+                </td>
                 }
                 @if(trans.accessoryType){
                 <td>{{trans.accessoryType}}</td>
-                <td>{{trans.accessoryName}}</td>
+                <td>
+                    <a [routerLink]="['/accessory/',trans.itemId]">
+                        {{trans.accessoryName }}
+                    </a>
+                </td>
                 }
             </tr>
             }

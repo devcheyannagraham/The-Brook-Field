@@ -20,7 +20,7 @@
                     </a>
                     }
                     @if(item.itemType == ItemType.ACCESSORY_ITEM){
-                    <a routerLink="['/accessory/',item.id]">
+                    <a [routerLink]="['/accessory/',item.id]">
                         {{item.title }}
                     </a>
 
