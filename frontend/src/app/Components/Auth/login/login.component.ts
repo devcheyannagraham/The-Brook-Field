@@ -5,10 +5,11 @@ import { UserDto } from '../../../DTOs/User/UserDto';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserRole } from '../../../Enums/UserRole';
+import { BackComponent } from "../../back/back.component";
 
 @Component({
   selector: 'login',
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, BackComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -74,7 +75,6 @@ export class LoginComponent {
 
 
   redirectUser(result: any, user: UserDto) {
-    console.log("In redirect", result)
     let userId = Number(result);
     if (Number.isNaN(userId)) {
       alert(result);

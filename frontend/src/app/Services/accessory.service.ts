@@ -38,7 +38,6 @@ export class AccessoryService {
   // CREATE
 
   newAccessory(accessory: Accessory) {
-    console.log("NEW ACCESSORY", accessory);
     return this.http.post(`${this.baseUrl}accessory`, accessory);
   }
 

@@ -56,7 +56,6 @@ export class PublicationItemsComponent {
       this.pubService.getPublicationItemsByPublicationId(this.publication.publicationId)
         .subscribe(pubItems => {
           if (pubItems) {
-            console.log("GPIBPI", pubItems);
             this.publicationItems = pubItems;
             this.filterPublicationItems();
           }

@@ -76,7 +76,6 @@ export class PublicationFormComponent {
   createPublication(pub: any) {
     this.pubService.newPublication(pub)
       .subscribe(resp => {
-        console.log("RESPONSE: ", resp);
         // @ts-ignore
         if (resp["publicationId"]) this.router.navigateByUrl(`/publication/${resp["publicationId"]}`);
       });

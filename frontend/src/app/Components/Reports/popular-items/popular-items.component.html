@@ -1,14 +1,17 @@
+<back />
+
 <div>
+    @if(popularItems && popularItems.length > 0){
     <table>
         <thead>
             <tr>
                 <th>{{headers.title}}</th>
-                <th>T{{headers.totalUnitsSold}}</th>
-                <th>T{{headers.totalProfit}}</th>
+                <th>{{headers.totalUnitsSold}}</th>
+                <th>{{headers.totalProfit}}</th>
             </tr>
         </thead>
         <tbody>
-            @for(item of popularItems;track item.id){
+            @for(item of popularItems;track `$${item.id}-${item.title}`){
             <tr>
                 <td>{{item.title}}</td>
                 <td>{{item.totalUnitsSold}}</td>
@@ -18,4 +21,8 @@
 
         </tbody>
     </table>
+    }
+    @else {
+    <p>No items to display</p>
+    }
 </div>

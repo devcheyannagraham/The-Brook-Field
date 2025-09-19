@@ -24,7 +24,6 @@ export class PublicationsComponent {
   getPublications() {
     this.pubService.getPublications().subscribe((data: any) => {
       this.publications = data;
-      console.log(this.publications);
     });
   }
 

@@ -27,7 +27,6 @@ export class AccessoriesComponent {
     this.accessoryService.getAccessories()
       .subscribe(data => {
         this.accessories = data;
-        console.log(this.accessories);
       });
   }
 

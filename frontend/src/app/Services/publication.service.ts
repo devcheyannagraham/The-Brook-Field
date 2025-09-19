@@ -13,14 +13,12 @@ export class PublicationService {
   }
 
   newPublication(pub: any) {
-    console.log("PUB", pub)
     return this.http
       .post(`${this.baseUrl}publication`, pub);
   }
 
   newPublicationItem(pubItem:any)
   {
-    console.log("PUBITEM: ", pubItem)
     return this.http.post(`${this.baseUrl}publicationitem`, pubItem);
   }
 

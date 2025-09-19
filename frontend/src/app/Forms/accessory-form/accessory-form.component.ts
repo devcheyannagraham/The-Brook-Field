@@ -4,10 +4,11 @@ import {AccessoryService} from '../../Services/accessory.service';
 import {Accessory} from '../../DTOs/Accessory/Accessory';
 import {AccessoryType} from '../../Enums/AccessoryType';
 import {Router} from '@angular/router';
+import { BackComponent } from "../../Components/back/back.component";
 
 @Component({
   selector: 'accessory-form',
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, BackComponent],
   templateUrl: './accessory-form.component.html',
   styleUrl: './accessory-form.component.css',
 })
@@ -39,7 +40,6 @@ export class AccessoryFormComponent {
     if (this.accessoryId) {
       this.accessoryService.getAccessory(this.accessoryId)
         .subscribe(data => {
-          console.log("FILL FORM DATA", data)
           for (let key of Object.keys(data)) {
             if (key != null && this.accessoryForm.contains(key)) {
               // @ts-ignore
@@ -63,7 +63,6 @@ export class AccessoryFormComponent {
   saveAccessory(accessory: Accessory) {
     this.accessoryService.newAccessory(accessory)
       .subscribe(data => {
-        console.log(data);
         // @ts-ignore
         this.router.navigateByUrl(`/accessory/${data["accessoryId"]}`)
 

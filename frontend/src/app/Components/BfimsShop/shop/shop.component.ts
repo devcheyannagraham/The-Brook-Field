@@ -7,13 +7,15 @@ import {headers} from '../../../Helpers/headers';
 import {RouterLink} from '@angular/router';
 import {AccessoryService} from '../../../Services/accessory.service';
 import {PublicationService} from '../../../Services/publication.service';
+import { BackComponent } from "../../back/back.component";
 
 @Component({
   selector: 'shop',
   imports: [
     DatePipe,
     RouterLink,
-  ],
+    BackComponent
+],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'
 })

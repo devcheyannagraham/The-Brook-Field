@@ -4,10 +4,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PopularItemDto } from '../../../DTOs/Report/PopularItemDto';
 import { CurrencyPipe } from '@angular/common';
 import { headers } from '../../../Helpers/headers';
+import { BackComponent } from "../../back/back.component";
 
 @Component({
   selector: 'popular-items',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, BackComponent],
   templateUrl: './popular-items.component.html',
   styleUrl: './popular-items.component.css'
 })

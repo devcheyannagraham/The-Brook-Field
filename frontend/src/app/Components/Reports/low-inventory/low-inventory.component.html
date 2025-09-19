@@ -1,4 +1,7 @@
+<back />
+
 <div>
+    @if(lowInventoryItems && lowInventoryItems.length > 0){
     <table>
         <thead>
             <tr>
@@ -20,4 +23,8 @@
 
         </tbody>
     </table>
+    }
+    @else {
+    <p>All Items above minimum threshold</p>
+    }
 </div>

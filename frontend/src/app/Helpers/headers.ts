@@ -32,5 +32,6 @@ export const headers = {
   inStock: "Total in Stock",
   itemType: "Item Type",
   totalUnitsSold: "Total Sold",
+  orderTotal: "Order Total"
 
 }
