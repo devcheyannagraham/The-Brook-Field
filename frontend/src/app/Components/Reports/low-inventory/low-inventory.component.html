@@ -6,7 +6,6 @@
         <thead>
             <tr>
                 <th>{{headers.itemId}}</th>
-                <th>{{headers.itemType}}</th>
                 <th>{{headers.title}}</th>
                 <th>{{headers.inStock}}</th>
             </tr>
@@ -15,8 +14,21 @@
             @for(item of lowInventoryItems;track `${item.id}-${item.itemType}`){
             <tr>
                 <td>{{item.id}}</td>
-                <td>{{item.itemType.toLocaleLowerCase()}}</td>
-                <td>{{item.title}}</td>
+                <td>
+                    @if(item.itemType == ItemType.PUBLICATION_ITEM){
+
+                    <a [routerLink]="['/publication/',item.id]">
+                        {{item.title }}
+                    </a>
+                    }
+                    @if(item.itemType == ItemType.ACCESSORY_ITEM){
+                    <a [routerLink]="['/accessory/',item.id]">
+                        {{item.title }}
+                    </a>
+
+                    }
+
+                </td>
                 <td>{{item.count}}</td>
             </tr>
             }

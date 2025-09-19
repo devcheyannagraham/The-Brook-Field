@@ -9,14 +9,15 @@ import {Book} from '../../../DTOs/Inventory/Book';
 import {headers} from '../../../Helpers/headers';
 import {DatePipe} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
-import {Location} from '@angular/common';
+import { BackComponent } from "../../back/back.component";
 
 @Component({
   selector: 'publication-items',
   imports: [
     DatePipe,
-    RouterLink
-  ],
+    RouterLink,
+    BackComponent
+],
   templateUrl: './publication-items.component.html',
   styleUrl: './publication-items.component.css'
 })
@@ -34,7 +35,7 @@ export class PublicationItemsComponent {
   Journal = Journal;
   headers = headers;
 
-  constructor(public pubService: PublicationService, public router: Router, public location: Location) {
+  constructor(public pubService: PublicationService, public router: Router) {
   }
 
   ngOnInit() {
@@ -92,10 +93,6 @@ export class PublicationItemsComponent {
           this.router.navigateByUrl("/publications");
         }
       })
-  }
-
-  goBack() {
-    this.router.navigateByUrl("/publications");
   }
 
 }

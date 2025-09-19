@@ -49,22 +49,27 @@ export const routes: Routes = [
   {
     path: 'publication/:publicationId',
     component: PublicationItemsComponent,
+        canActivate: [adminGuard]
   },
   {
     path: 'publications',
     component: PublicationsComponent,
+        canActivate: [adminGuard]
   },
   {
     path: 'accessory/:accessId',
     component: AccessoryItemsComponent,
+        canActivate: [adminGuard]
   },
   {
     path: 'accessories',
     component: AccessoriesComponent,
+        canActivate: [adminGuard]
   },
   {
     path: 'accessoryform/:accessoryId',
     component: AccessoryFormComponent,
+        canActivate: [adminGuard]
   },
   {
     path: 'accessoryform',
