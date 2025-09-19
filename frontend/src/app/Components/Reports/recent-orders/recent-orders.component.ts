@@ -1,8 +1,8 @@
 import { Component, DestroyRef, inject } from '@angular/core';
-import { RecentOrderDto } from '../../DTOs/Report/RecentOrderDto';
-import { ReportsService } from '../../Services/reports.service';
+import { RecentOrderDto } from '../../../DTOs/Report/RecentOrderDto';
+import { ReportsService } from '../../../Services/reports.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { headers } from '../../Helpers/headers';
+import { headers } from '../../../Helpers/headers';
 import { CurrencyPipe } from '@angular/common';
 
 

@@ -1,0 +1,24 @@
+<div>
+    <h2>{{actionType =="login"? "Login" : "Register" }}</h2>
+    <form (submit)="submitForm()">
+
+        <div class="grid">
+            <label for="email"> Email</label>
+            <input type="email" required [formControl]="email">
+
+            @if(emailError){
+            <p class="error">Invalid Email</p>
+            }
+        </div>
+        <div class="grid">
+            <label for="pwd"> Password</label>
+            <input type="password" required [formControl]="pwd">
+            @if(pwdError){
+            <p class="error">Invalid password</p>
+            }
+            <div>
+                <button type="submit">{{actionType =="login"? "Login" : "Register" }}</button>
+            </div>
+        </div>
+    </form>
+</div>

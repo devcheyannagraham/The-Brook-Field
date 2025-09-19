@@ -1,0 +1,14 @@
+.error{
+    font-size:smaller;
+    font-style: italic;
+    color:red;
+}
+
+input {
+    padding: 10px;
+    margin:10px;
+}
+
+.grid {
+    display:grid;
+}

@@ -1,9 +1,9 @@
 import { Component, DestroyRef, inject } from '@angular/core';
-import { ReportsService } from '../../Services/reports.service';
+import { ReportsService } from '../../../Services/reports.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { PopularItemDto } from '../../DTOs/Report/PopularItemDto';
+import { PopularItemDto } from '../../../DTOs/Report/PopularItemDto';
 import { CurrencyPipe } from '@angular/common';
-import { headers } from '../../Helpers/headers';
+import { headers } from '../../../Helpers/headers';
 
 @Component({
   selector: 'popular-items',

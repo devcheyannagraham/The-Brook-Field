@@ -1,0 +1,93 @@
+import { Component, DestroyRef, inject } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../../Services/auth.service';
+import { UserDto } from '../../../DTOs/User/UserDto';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, Router } from '@angular/router';
+
+@Component({
+  selector: 'login',
+  imports: [ReactiveFormsModule, FormsModule],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css'
+})
+export class LoginComponent {
+  email = new FormControl();
+  pwd = new FormControl();
+  destroyRef = inject(DestroyRef)
+  emailError = false;
+  pwdError = false;
+  actionType = '';
+
+  constructor(private authService: AuthService, public route: ActivatedRoute, public router: Router) { }
+
+  ngOnInit() {
+    this.actionType = this.route.snapshot.data["actionType"];
+  }
+
+
+  submitForm() {
+    if (this.actionType == "login") {
+      this.login();
+    }
+    else this.register();
+  }
+
+  login() {
+    if (this.validated()) {
+      let user = new UserDto(this.email.value, this.pwd.value);
+
+      this.authService.authenticateUser(user)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(result => {
+          this.redirect(result, user);
+        });
+    }
+  }
+
+  register() {
+    if (this.validated()) {
+      let user = new UserDto(this.email.value, this.pwd.value);
+      this.authService.newUser(user)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(result => {
+          this.redirect(result, user);
+        });
+    }
+  }
+
+  validated() {
+    let emailValue = this.email.value;
+    let pwdValue = this.pwd.value;
+    if (emailValue == null || emailValue.trim() == '') {
+      this.emailError = true;
+    }
+    else this.emailError = false;
+
+    if (pwdValue == null || pwdValue.trim() == '') {
+      this.pwdError = true;
+    }
+    else this.pwdError = false;
+    return !this.emailError && !this.pwdError;
+  }
+
+
+  redirect(result: any, user: UserDto) {
+    let userId = Number(result);
+    if (Number.isNaN(userId)) alert(result);
+    else {
+      this.authService.user.set(user);
+      this.authService.isAdmin(user)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(admin => {
+          if(admin == UserRole.ADMIN){
+            this.router.navigateByUrl("/adminDashboard");
+          }else {
+            this.router.navigateByUrl("/home");
+          }
+
+        });
+    }
+
+  }
+}

@@ -10,10 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = "http//localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
     UserService userService;
 
@@ -45,7 +44,7 @@ public class UserController {
         return new ResponseEntity<>(foundUser.getUserId().toString(), HttpStatus.OK);
     }
 
-    @PostMapping("/isAdmin")
+    @PostMapping("/isadmin")
     public ResponseEntity<String> getRole(HttpSession session, @RequestBody UserDto userDto) {
         if (userDto.getEmail() == null || userDto.getPassword() == null)
             return new ResponseEntity<>("Missing Credentials", HttpStatus.OK);
@@ -58,8 +57,8 @@ public class UserController {
             return new ResponseEntity<>("Invalid Session", HttpStatus.OK);
 
         if (foundUser.getUserRole().equals(UserRole.ADMIN))
-            return new ResponseEntity<>("Admin", HttpStatus.OK);
-        else return new ResponseEntity<>("Customer", HttpStatus.OK);
+            return new ResponseEntity<>(UserRole.ADMIN.toString(), HttpStatus.OK);
+        else return new ResponseEntity<>(UserRole.CUSTOMER.toString(), HttpStatus.OK);
     }
 
     @GetMapping("/logout")
