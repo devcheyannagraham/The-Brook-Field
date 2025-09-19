@@ -9,6 +9,7 @@ export class RecentOrderDto {
     customerFirstName:string;
     customerLastName:string;
     customerEmail:string;
+    orderTotal:number;
     recentOrderTransactions: {
         transactionId:number;
         transactionPrice:number;

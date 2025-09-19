@@ -4,11 +4,12 @@ import { ReportsService } from '../../../Services/reports.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { headers } from '../../../Helpers/headers';
 import { CurrencyPipe } from '@angular/common';
+import { BackComponent } from "../../back/back.component";
 
 
 @Component({
   selector: 'recent-orders',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, BackComponent],
   templateUrl: './recent-orders.component.html',
   styleUrl: './recent-orders.component.css'
 })

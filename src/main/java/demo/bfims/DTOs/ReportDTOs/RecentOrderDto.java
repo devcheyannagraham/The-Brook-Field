@@ -14,6 +14,7 @@ public class RecentOrderDto {
     private String customerFirstName;
     private String customerLastName;
     private String customerEmail;
+    private double orderTotal;
     private List<RecentOrderTransaction> recentOrderTransactions;
 
     public RecentOrderDto() {
@@ -24,6 +25,7 @@ public class RecentOrderDto {
         this.customerFirstName = order.getCustomer().getFirstName();
         this.customerLastName = order.getCustomer().getLastName();
         this.customerEmail = order.getCustomer().getEmail();
+        this.orderTotal = order.getOrderTotal();
         this.recentOrderTransactions = order
                 .getTransactions()
                 .stream()
@@ -221,6 +223,14 @@ public class RecentOrderDto {
         this.recentOrderTransactions = recentOrderTransactions;
     }
 
+    public double getOrderTotal() {
+        return orderTotal;
+    }
+
+    public void setOrderTotal(double orderTotal) {
+        this.orderTotal = orderTotal;
+    }
+
     @Override
     public String toString() {
         return "RecentOrderDto{" +
@@ -228,6 +238,7 @@ public class RecentOrderDto {
                 ", customerFirstName='" + customerFirstName + '\'' +
                 ", customerLastName='" + customerLastName + '\'' +
                 ", customerEmail='" + customerEmail + '\'' +
+                ", orderTotal=" + orderTotal +
                 ", recentOrderTransactions=" + recentOrderTransactions +
                 '}';
     }

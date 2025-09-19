@@ -1,4 +1,7 @@
+<back />
+
 <div>
+    @if(recentOrders && recentOrders.length > 0){
     <table>
         @for(order of recentOrders;track order.orderId){
         <thead>
@@ -7,6 +10,7 @@
                 <th>{{headers.firstName}}</th>
                 <th>{{headers.lastName}}</th>
                 <th>{{headers.email}}</th>
+                <th>{{headers.orderTotal}}</th>
             </tr>
         </thead>
         <tbody>
@@ -15,7 +19,9 @@
                 <td>{{order.customerFirstName}}</td>
                 <td>{{order.customerLastName}}</td>
                 <td>{{order.customerEmail}}</td>
+                <td>{{order.orderTotal |currency}}</td>
             </tr>
+            <br>
 
             @for(trans of order.recentOrderTransactions; track trans.transactionId){
             <tr>
@@ -55,8 +61,12 @@
             </tr>
             }
             <br>
+            <br>
 
         </tbody>
         }
     </table>
+    } @else {
+    <p>No Recent Orders</p>
+    }
 </div>
