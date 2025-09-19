@@ -13,6 +13,7 @@ import {ShopAccessoryDetailComponent} from './Components/shop-accessory-detail/s
 import { PopularItemsComponent } from './Components/popular-items/popular-items.component';
 import { LowInventoryComponent } from './Components/low-inventory/low-inventory.component';
 import { RecentOrdersComponent } from './Components/recent-orders/recent-orders.component';
+import { LandingPageComponent } from './Components/landing-page/landing-page.component';
 
 export const routes: Routes = [
   {
@@ -86,5 +87,8 @@ export const routes: Routes = [
   {
     path: 'report/recentorders',
     component: RecentOrdersComponent
+  }, {
+    path: '',
+    component: LandingPageComponent
   }
 ];

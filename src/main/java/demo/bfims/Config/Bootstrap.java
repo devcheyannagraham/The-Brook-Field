@@ -42,12 +42,12 @@ public class Bootstrap implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-//        this.bootstrap();
+        this.bootstrap();
     }
 
 //    @Transactional
     public void bootstrap() {
-        System.out.println("Bootstrap");
+//        System.out.println("Bootstrap");
 
         Accessory a1 = new Accessory("Classic Bookmark", AccessoryType.BOOKMARK, 2.99);
         Accessory a2 = new Accessory("Ceramic Mug", AccessoryType.MUG, 9.99);
