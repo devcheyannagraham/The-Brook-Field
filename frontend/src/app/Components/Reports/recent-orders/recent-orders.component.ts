@@ -19,19 +19,17 @@ export class RecentOrdersComponent {
   recentOrders: RecentOrderDto[];
   headers = headers;
 
-  constructor(public reportService: ReportsService) { } 
+  constructor(public reportService: ReportsService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getRecentOrders();
   }
 
-  getRecentOrders(){
+  getRecentOrders() {
     this.reportService.getRecentOrders()
-    .pipe(takeUntilDestroyed(this.destroyRef))
-    .subscribe(recentOrders => {
-      this.recentOrders = recentOrders;
-    })
+    .then(orders => {
+      this.recentOrders = orders;
+    });
   }
-
 
 }

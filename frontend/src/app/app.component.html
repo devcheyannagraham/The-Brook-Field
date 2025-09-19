@@ -1,6 +1,10 @@
 <header>
   <h1>BFIMS</h1>
- 
+  @if(authService.user != null){
+  <a routerLink="/logout">Logout</a>
+  }
+
+
 </header>
 
 <main>

@@ -1,6 +1,5 @@
 import { Component, computed } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { OrderService } from '../../Services/order.service';
 import { ShopService } from '../../Services/shop.service';
 import { Transaction } from '../../DTOs/Order/Transaction';
 import { headers } from '../../Helpers/headers';
@@ -25,7 +24,7 @@ export class OrderFormComponent {
   orderItems;
   orderTotal;
 
-  constructor(public orderService: OrderService, public formBuilder: FormBuilder, public shopService: ShopService, public router: Router) {
+  constructor(public formBuilder: FormBuilder, public shopService: ShopService, public router: Router) {
     this.orderItems = computed(() => {
       return [...this.shopService.shoppingCart().values()];
     });

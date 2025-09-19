@@ -120,6 +120,15 @@ public class ReportService {
         return null;
     }
 
+    public List<RecentOrderDto> getRecentOrders(Long userId) {
+        LocalDateTime threeMonthsAgo = LocalDateTime.now().minusMonths(3);
+        List<Order> results = orderRepo.findOrdersByOrderDateAfterAndCustomerId(threeMonthsAgo, userId).orElse(null);
+        if (results != null && !results.isEmpty()) {
+            return results.stream().map(RecentOrderDto::new).collect(Collectors.toList());
+        }
+        return null;
+    }
+
     // Helper
     // returns top 5 items
     public List<Long> getTopItems(Map<Long, Integer> map) {

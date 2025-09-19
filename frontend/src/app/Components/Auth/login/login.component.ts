@@ -3,13 +3,13 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule }
 import { AuthService } from '../../../Services/auth.service';
 import { UserDto } from '../../../DTOs/User/UserDto';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UserRole } from '../../../Enums/UserRole';
 import { BackComponent } from "../../back/back.component";
 
 @Component({
   selector: 'login',
-  imports: [ReactiveFormsModule, FormsModule, BackComponent],
+  imports: [ReactiveFormsModule, FormsModule, BackComponent, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -81,14 +81,14 @@ export class LoginComponent {
     }
 
     else {
+      user.userId = userId;
       this.authService.user.set(user);
-      this.authService.isAdmin()
-        .then(role => {
-          if (role == UserRole.ADMIN) {
-            this.router.navigateByUrl("/admindashboard");
-          } else {
-            this.router.navigateByUrl("/home");
-          }
+
+
+      this.authService.userIsAdmin()
+        .then(isAdmin => {
+          if (isAdmin) this.router.navigateByUrl("/admindashboard");
+          else this.router.navigateByUrl("/home");
         });
     }
   }

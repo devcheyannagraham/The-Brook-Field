@@ -6,6 +6,7 @@ import demo.bfims.DTOs.ReportDTOs.RecentOrderDto;
 import demo.bfims.Services.ReportService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -36,5 +37,10 @@ public class ReportController {
     @GetMapping("/recentorders")
     public List<RecentOrderDto> getRecentOrders() {
         return reportService.getRecentOrders();
+    }
+
+    @GetMapping("/recentorders/{userId}")
+    public List<RecentOrderDto> getRecentOrders(@PathVariable Long userId) {
+        return reportService.getRecentOrders(userId);
     }
 }

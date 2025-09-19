@@ -15,4 +15,6 @@ public interface OrderRepo extends JpaRepository<Order,Long> {
 
     Optional<List<Order>> findOrdersByCustomerId(long id);
     Optional<List<Order>> findOrdersByOrderDateAfter(LocalDateTime orderDate);
+    Optional<List<Order>> findOrdersByOrderDateAfterAndCustomerId(LocalDateTime orderDate, long id);
+
 }

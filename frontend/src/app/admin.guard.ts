@@ -3,7 +3,7 @@ import { CanActivateFn, RedirectCommand, Router } from '@angular/router';
 import { AuthService } from './Services/auth.service';
 import { UserRole } from './Enums/UserRole';
 
-export const adminGuard: CanActivateFn = (route, state) => {
+export const adminGuard: CanActivateFn = async (route, state) => {
 
   let authService = inject(AuthService);
   let router = inject(Router);
@@ -13,15 +13,11 @@ export const adminGuard: CanActivateFn = (route, state) => {
     return new RedirectCommand(router.parseUrl("/login"), { skipLocationChange: true });
   }
 
+  let result = await authService.userIsAdmin();
+  if (result) return true;
 
-  return authService.isAdmin()
-    .then(role => {
-      if (role == UserRole.ADMIN) return true;
-      else {
-        alert("Insufficient permissions!");
-        return new RedirectCommand(router.parseUrl("/home"), { skipLocationChange: true });
-      }
-    })
+  alert("Insufficient permissions!");
+  return new RedirectCommand(router.parseUrl("/home"), { skipLocationChange: true });
 
 };
 
