@@ -82,17 +82,14 @@ export class LoginComponent {
 
     else {
       this.authService.user.set(user);
-      this.authService.isAdmin(user)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(admin => {
-          if (admin == UserRole.ADMIN) {
+      this.authService.isAdmin()
+        .then(role => {
+          if (role == UserRole.ADMIN) {
             this.router.navigateByUrl("/admindashboard");
           } else {
             this.router.navigateByUrl("/home");
           }
-
         });
     }
-
   }
 }

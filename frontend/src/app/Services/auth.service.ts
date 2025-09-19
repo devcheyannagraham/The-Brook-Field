@@ -1,6 +1,8 @@
-import { Injectable, signal } from '@angular/core';
+import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { UserDto } from '../DTOs/User/UserDto';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { firstValueFrom } from 'rxjs';
 
 
 @Injectable({
@@ -9,6 +11,7 @@ import { UserDto } from '../DTOs/User/UserDto';
 export class AuthService {
   baseUrl: string = 'http://localhost:8080/';;
   user = signal<UserDto>(null);
+  destroyRef = inject(DestroyRef);
 
   constructor(private http: HttpClient) {
   }
@@ -23,8 +26,9 @@ export class AuthService {
   }
 
 
-  isAdmin(user: UserDto) {
-    return this.http.post(`${this.baseUrl}isadmin`, user, {responseType:'text', withCredentials: true});
+  async isAdmin() {
+    return await firstValueFrom(this.http.post(`${this.baseUrl}isadmin`, this.user(), {responseType:'text', withCredentials: true}))
+    .then(value => value);
   }
 
 

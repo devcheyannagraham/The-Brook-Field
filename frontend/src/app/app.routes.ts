@@ -17,28 +17,34 @@ import { LandingPageComponent } from './Components/landing-page/landing-page.com
 import { LoginComponent } from './Components/Auth/login/login.component';
 import { HomeComponent } from './Components/Auth/home/home.component';
 import { AdminDashboardComponent } from './Components/Auth/admin-dashboard/admin-dashboard.component';
-import { authenticatedUserGuardGuard } from './authenticated-user-guard.guard';
+import { authenticatedUserGuard } from './authenticated-user.guard';
+import { adminGuard } from './admin.guard';
 
 export const routes: Routes = [
   {
     path: 'publicationitemform/publication/:publicationId',
     component: PublicationItemFormComponent,
+    canActivate: [adminGuard]
   },
   {
     path: 'publicationitemform/:pubItemId',
     component: PublicationItemFormComponent,
+    canActivate: [adminGuard]
   },
   {
     path: 'publicationitemform',
     component: PublicationItemFormComponent,
+    canActivate: [adminGuard]
   },
   {
     path: 'publicationform/:publicationId',
     component: PublicationFormComponent,
+    canActivate: [adminGuard]
   },
   {
     path: 'publicationform',
     component: PublicationFormComponent,
+    canActivate: [adminGuard]
   },
   {
     path: 'publication/:publicationId',
@@ -63,10 +69,14 @@ export const routes: Routes = [
   {
     path: 'accessoryform',
     component: AccessoryFormComponent,
+    canActivate: [adminGuard]
+
   },
   {
     path: 'checkout',
     component: OrderFormComponent,
+    canActivate: [authenticatedUserGuard]
+
   },
   {
     path: 'shop',
@@ -86,20 +96,26 @@ export const routes: Routes = [
   },
   {
     path: 'report/lowinventory',
-    component: LowInventoryComponent
+    component: LowInventoryComponent,
+    canActivate: [adminGuard]
+
   },
   {
     path: 'report/recentorders',
     component: RecentOrdersComponent,
-    canActivate: [authenticatedUserGuardGuard]
+    canActivate: [authenticatedUserGuard]
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [authenticatedUserGuard]
+
   },
   {
     path: 'admindashboard',
-    component: AdminDashboardComponent
+    component: AdminDashboardComponent,
+    canActivate: [adminGuard]
+
   },
   {
     path: 'login',
