@@ -14,17 +14,17 @@ export class AuthService {
   }
 
   newUser(user: UserDto) {
-    return this.http.post(`${this.baseUrl}newuser`, user, {responseType:'text'});
+    return this.http.post(`${this.baseUrl}newuser`, user, {responseType:'text', withCredentials: true});
   }
 
 
   authenticateUser(user: UserDto) {
-    return this.http.post(`${this.baseUrl}authenticateuser`, user, {responseType:'text'});
+    return this.http.post(`${this.baseUrl}authenticateuser`, user, {responseType:'text', withCredentials: true});
   }
 
 
   isAdmin(user: UserDto) {
-    return this.http.post(`${this.baseUrl}isadmin`, user, {responseType:'text'});
+    return this.http.post(`${this.baseUrl}isadmin`, user, {responseType:'text', withCredentials: true});
   }
 
 

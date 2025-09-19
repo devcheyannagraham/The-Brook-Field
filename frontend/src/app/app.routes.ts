@@ -15,6 +15,8 @@ import { LowInventoryComponent } from './Components/Reports/low-inventory/low-in
 import { RecentOrdersComponent } from './Components/Reports/recent-orders/recent-orders.component';
 import { LandingPageComponent } from './Components/landing-page/landing-page.component';
 import { LoginComponent } from './Components/Auth/login/login.component';
+import { HomeComponent } from './Components/Auth/home/home.component';
+import { AdminDashboardComponent } from './Components/Auth/admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
   {
@@ -88,6 +90,14 @@ export const routes: Routes = [
   {
     path: 'report/recentorders',
     component: RecentOrdersComponent
+  },
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'admindashboard',
+    component: AdminDashboardComponent
   },
   {
     path: 'login',

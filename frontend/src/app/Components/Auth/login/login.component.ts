@@ -4,6 +4,7 @@ import { AuthService } from '../../../Services/auth.service';
 import { UserDto } from '../../../DTOs/User/UserDto';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserRole } from '../../../Enums/UserRole';
 
 @Component({
   selector: 'login',
@@ -40,7 +41,7 @@ export class LoginComponent {
       this.authService.authenticateUser(user)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(result => {
-          this.redirect(result, user);
+          this.redirectUser(result, user);
         });
     }
   }
@@ -51,7 +52,7 @@ export class LoginComponent {
       this.authService.newUser(user)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(result => {
-          this.redirect(result, user);
+          this.redirectUser(result, user);
         });
     }
   }
@@ -72,17 +73,21 @@ export class LoginComponent {
   }
 
 
-  redirect(result: any, user: UserDto) {
+  redirectUser(result: any, user: UserDto) {
+    console.log("In redirect", result)
     let userId = Number(result);
-    if (Number.isNaN(userId)) alert(result);
+    if (Number.isNaN(userId)) {
+      alert(result);
+    }
+
     else {
       this.authService.user.set(user);
       this.authService.isAdmin(user)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(admin => {
-          if(admin == UserRole.ADMIN){
-            this.router.navigateByUrl("/adminDashboard");
-          }else {
+          if (admin == UserRole.ADMIN) {
+            this.router.navigateByUrl("/admindashboard");
+          } else {
             this.router.navigateByUrl("/home");
           }
 
