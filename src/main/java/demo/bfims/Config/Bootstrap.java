@@ -6,11 +6,9 @@ import demo.bfims.Entities.Inventory.Publication.*;
 import demo.bfims.Entities.Order.Customer;
 import demo.bfims.Entities.Order.Purchase;
 import demo.bfims.Entities.Order.Rental;
+import demo.bfims.Entities.Users.User;
 import demo.bfims.Enums.*;
-import demo.bfims.Repo.AccessoryRepo;
-import demo.bfims.Repo.AuthorRepo;
-import demo.bfims.Repo.ItemRepo;
-import demo.bfims.Repo.PublicationRepo;
+import demo.bfims.Repo.*;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,21 +21,22 @@ import java.util.List;
 
 @Component
 public class Bootstrap implements CommandLineRunner {
-    @Autowired
     AccessoryRepo accessoryRepo;
-
-    @Autowired
     ItemRepo itemRepo;
-
-    @Autowired
     AuthorRepo authorRepo;
-
-    @Autowired
     PublicationRepo publicationRepo;
-
-    @Autowired
     EntityManager entityManager;
+    UserRepo userRepo;
 
+
+    public Bootstrap(AccessoryRepo accessoryRepo, ItemRepo itemRepo, AuthorRepo authorRepo, PublicationRepo publicationRepo, EntityManager entityManager, UserRepo userRepo) {
+        this.accessoryRepo = accessoryRepo;
+        this.itemRepo = itemRepo;
+        this.authorRepo = authorRepo;
+        this.publicationRepo = publicationRepo;
+        this.entityManager = entityManager;
+        this.userRepo = userRepo;
+    }
 
     @Override
     @Transactional
@@ -47,7 +46,16 @@ public class Bootstrap implements CommandLineRunner {
 
 //    @Transactional
     public void bootstrap() {
-//        System.out.println("Bootstrap");
+        System.out.println("Bootstrap");
+
+        //Create admin user
+        User admin = new User();
+        admin.setEmail("admin");
+        admin.setSalt(User.generateSalt());
+        admin.setPassword(User.hashPassword("admin", admin.getSalt()));
+        admin.setUserRole(UserRole.ADMIN);
+        userRepo.save(admin);
+
 
         Accessory a1 = new Accessory("Classic Bookmark", AccessoryType.BOOKMARK, 2.99);
         Accessory a2 = new Accessory("Ceramic Mug", AccessoryType.MUG, 9.99);

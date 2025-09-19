@@ -12,6 +12,7 @@ import { headers } from '../../../Helpers/headers';
 import { Rental } from '../../../DTOs/Order/Rental';
 import { Purchase } from '../../../DTOs/Order/Purchase';
 import { Router, RouterLink } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class ShopPublicationDetailComponent {
 
   @Input() shopItemId: number;
 
-  constructor(public shopService: ShopService, public publicationService: PublicationService, public router: Router) {
+  constructor(public shopService: ShopService, public publicationService: PublicationService, public router: Router, public location:Location) {
   }
 
   ngOnInit() {
@@ -123,7 +124,8 @@ export class ShopPublicationDetailComponent {
   }
 
   goBack() {
-    this.router.navigateByUrl("/shop");
+    // this.router.navigateByUrl("/shop");
+    this.location.back();
   }
 
   getQuantity() {

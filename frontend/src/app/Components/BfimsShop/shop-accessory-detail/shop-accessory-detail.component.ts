@@ -6,6 +6,7 @@ import { Accessory } from '../../../DTOs/Accessory/Accessory';
 import { AccessoryItem } from '../../../DTOs/Accessory/AccessoryItem';
 import { headers } from '../../../Helpers/headers';
 import { Purchase } from '../../../DTOs/Order/Purchase';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'shop-accessory-detail',
@@ -22,7 +23,7 @@ export class ShopAccessoryDetailComponent {
   accessoryItemsInCart = new Map<number, number[]>;
 
 
-  constructor(public accessoryService: AccessoryService, public shopService: ShopService, public router: Router) { }
+  constructor(public accessoryService: AccessoryService, public shopService: ShopService, public router: Router, public location:Location) { }
 
   ngOnInit() {
     this.getAccessory();
@@ -86,7 +87,8 @@ export class ShopAccessoryDetailComponent {
 
 
   goBack() {
-    this.router.navigateByUrl("/shop");
+    // this.router.navigateByUrl("/shop");
+    this.location.back();
   }
 
   protected readonly headers = headers;

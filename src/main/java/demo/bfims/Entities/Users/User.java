@@ -5,7 +5,10 @@ import demo.bfims.Entities.Order.Customer;
 import demo.bfims.Enums.UserRole;
 import jakarta.persistence.*;
 
-import java.util.Arrays;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import java.security.SecureRandom;
+import java.security.spec.KeySpec;
 
 
 @Entity
@@ -30,6 +33,26 @@ public class User {
         this.email = userDto.getEmail();
         this.userRole = UserRole.CUSTOMER;
     }
+
+    public static byte[] hashPassword(String plainTextPwd, byte[] salt) {
+        KeySpec keySpec = new PBEKeySpec(plainTextPwd.toCharArray(), salt, 65536, 128);
+        try {
+            SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBEWithHmacSHA256AndAES_128");
+            return secretKeyFactory.generateSecret(keySpec).getEncoded();
+
+        } catch (Exception e) {
+            System.out.println("Cannot create password. User not saved");
+            return null;
+        }
+    }
+
+    public static byte[] generateSalt() {
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+        return salt;
+    }
+
 
     public Long getUserId() {
         return userId;

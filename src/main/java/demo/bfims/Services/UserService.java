@@ -2,15 +2,10 @@ package demo.bfims.Services;
 
 import demo.bfims.DTOs.User.UserDto;
 import demo.bfims.Entities.Users.User;
-import demo.bfims.Enums.UserRole;
 import demo.bfims.Repo.CustomerRepo;
 import demo.bfims.Repo.UserRepo;
 import org.springframework.stereotype.Service;
 
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-import java.security.SecureRandom;
-import java.security.spec.KeySpec;
 
 @Service
 public class UserService {
@@ -40,47 +35,28 @@ public class UserService {
         customerRepo.getCustomerByEmail(userDto.getEmail()).ifPresent(user::setCustomer);
 
         // Generate salt
-        user.setSalt(generateSalt());
-
+        user.setSalt(User.generateSalt());
         // Hash password
-        byte[] hashedPassword = getPasswordHash(userDto.getPassword(), user.getSalt());
-        if (hashedPassword != null) {
-            user.setPassword(hashedPassword);
-            // Save user
-            return userRepo.save(user).getUserId();
-        }
+        user.setPassword(User.hashPassword(userDto.getPassword(), user.getSalt()));
 
-        return null;
+        // Error hashing password. Abort.
+        if (user.getPassword() == null) return null;
+
+        // Save user
+        return userRepo.save(user).getUserId();
+
+
     }
 
     public User authenticateUser(UserDto userDto) {
         User foundUser = userRepo.findByEmail(userDto.getEmail()).orElse(null);
         if (foundUser != null) {
-            byte[] hashedPassword = getPasswordHash(userDto.getPassword(), foundUser.getSalt());
+            byte[] hashedPassword = User.hashPassword(userDto.getPassword(), foundUser.getSalt());
             User fountUser = userRepo.findByEmailAndPassword(userDto.getEmail(), hashedPassword).orElse(null);
             if (fountUser != null) {
                 return foundUser;
             }
         }
         return null;
-    }
-
-    public byte[] getPasswordHash(String password, byte[] salt) {
-        KeySpec keySpec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
-        try {
-            SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBEWithHmacSHA256AndAES_128");
-            return secretKeyFactory.generateSecret(keySpec).getEncoded();
-
-        } catch (Exception e) {
-            System.out.println("Cannot create password. User not saved");
-            return null;
-        }
-    }
-
-    public byte[] generateSalt() {
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
-        return salt;
     }
 }

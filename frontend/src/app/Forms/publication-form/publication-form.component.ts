@@ -5,6 +5,7 @@ import {Publication} from '../../DTOs/Inventory/Publication';
 import {Genre} from '../../Enums/Genre';
 import {Author} from '../../DTOs/Inventory/Author';
 import {Router} from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'publication-form',
@@ -20,7 +21,7 @@ export class PublicationFormComponent {
 
   @Input() publicationId: number;
 
-  constructor(public formBuilder: FormBuilder, public pubService: PublicationService, public router: Router) {
+  constructor(public formBuilder: FormBuilder, public pubService: PublicationService, public router: Router, public location:Location) {
   }
 
   ngOnInit() {
@@ -81,8 +82,7 @@ export class PublicationFormComponent {
       });
   }
   goBack(){
-    if(this.publicationId) this.router.navigateByUrl(`/publication/${this.publicationId}`)
-    else this.router.navigateByUrl("/publications")
+    this.location.back();
   }
 
 }
