@@ -9,14 +9,12 @@ import {Book} from '../../../DTOs/Inventory/Book';
 import {headers} from '../../../Helpers/headers';
 import {DatePipe} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
-import { BackComponent } from "../../back/back.component";
 
 @Component({
   selector: 'publication-items',
   imports: [
     DatePipe,
     RouterLink,
-    BackComponent
 ],
   templateUrl: './publication-items.component.html',
   styleUrl: './publication-items.component.css'

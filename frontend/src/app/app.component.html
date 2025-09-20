@@ -1,7 +1,13 @@
 <header>
   <h1>BFIMS</h1>
-  @if(authService.user != null){
-  <a routerLink="/logout">Logout</a>
+  <back />
+  @if(authService.user() != null){
+  <button (click)="logout()">Logout</button>
+  }
+  @else {
+
+  <a routerLink="/login"><button>Login </button></a>
+  <a routerLink="/register"><button>Register </button></a>
   }
 
 

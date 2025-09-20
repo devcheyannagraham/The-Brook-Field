@@ -1,13 +1,4 @@
-<back />
 <div>
-    @if(actionType == "login"){
-        <a routerLink="/register">Register</a>
-    }
-    @if(actionType == "register"){
-        <a routerLink="/login">Login</a>
-    }
-
-
     <h2>{{actionType =="login"? "Login" : "Register" }}</h2>
     <form (submit)="submitForm()">
 

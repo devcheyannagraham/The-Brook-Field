@@ -11,6 +11,5 @@ export const authenticatedUserGuard: CanActivateFn = (route, state) => {
     alert("You must be logged in to view recent orders!");
     return new RedirectCommand(router.parseUrl("/login"),
       { skipLocationChange: true });
-  }
-  return true;
+  } else return true;
 };

@@ -66,10 +66,11 @@ public class UserController {
         else return new ResponseEntity<>(UserRole.CUSTOMER.toString(), HttpStatus.OK);
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpSession session) {
-        session.invalidate();
-        return new ResponseEntity<>("Logout", HttpStatus.OK);
+        if (session != null)
+            session.invalidate();
+        return new ResponseEntity<>("User logged out", HttpStatus.OK);
     }
 
 

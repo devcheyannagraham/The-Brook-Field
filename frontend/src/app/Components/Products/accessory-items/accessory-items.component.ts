@@ -4,13 +4,11 @@ import {Accessory} from '../../../DTOs/Accessory/Accessory';
 import {AccessoryItem} from '../../../DTOs/Accessory/AccessoryItem';
 import {AccessoryService} from '../../../Services/accessory.service';
 import {headers} from '../../../Helpers/headers';
-import { BackComponent } from "../../back/back.component";
 
 @Component({
   selector: 'accessory-items',
   imports: [
     RouterLink,
-    BackComponent
 ],
   templateUrl: './accessory-items.component.html',
   styleUrl: './accessory-items.component.css'

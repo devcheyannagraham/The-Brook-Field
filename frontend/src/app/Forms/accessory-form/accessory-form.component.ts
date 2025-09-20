@@ -4,11 +4,10 @@ import {AccessoryService} from '../../Services/accessory.service';
 import {Accessory} from '../../DTOs/Accessory/Accessory';
 import {AccessoryType} from '../../Enums/AccessoryType';
 import {Router} from '@angular/router';
-import { BackComponent } from "../../Components/back/back.component";
 
 @Component({
   selector: 'accessory-form',
-  imports: [ReactiveFormsModule, FormsModule, BackComponent],
+  imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './accessory-form.component.html',
   styleUrl: './accessory-form.component.css',
 })

@@ -21,7 +21,7 @@ export class ReportsService {
   }
 
   async getRecentOrders() {
-    if (this.authSerivce.user == null) return null;
+    if (this.authSerivce.user() == null) return null;
 
     let isAdmin = await this.authSerivce.userIsAdmin();
     if (isAdmin) {

@@ -4,13 +4,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PopularItemDto } from '../../../DTOs/Report/PopularItemDto';
 import { CurrencyPipe } from '@angular/common';
 import { headers } from '../../../Helpers/headers';
-import { BackComponent } from "../../back/back.component";
 import { ItemType } from '../../../Enums/ItemType';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../../Services/auth.service';
 
 @Component({
   selector: 'popular-items',
-  imports: [CurrencyPipe, BackComponent, RouterLink],
+  imports: [CurrencyPipe, RouterLink],
   templateUrl: './popular-items.component.html',
   styleUrl: './popular-items.component.css'
 })
@@ -20,7 +20,7 @@ export class PopularItemsComponent {
   headers = headers;
   ItemType = ItemType;
 
-  constructor(public reportService: ReportsService) { }
+  constructor(public reportService: ReportsService, public authService:AuthService) { }
 
   ngOnInit() {
     this.getPopularItems();

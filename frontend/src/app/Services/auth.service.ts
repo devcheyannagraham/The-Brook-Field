@@ -15,7 +15,7 @@ export class AuthService {
   user = signal<UserDto>(null);
   destroyRef = inject(DestroyRef);
 
-  constructor(private http: HttpClient, public router:Router) {
+  constructor(private http: HttpClient, public router: Router) {
   }
 
   newUser(user: UserDto) {
@@ -37,11 +37,13 @@ export class AuthService {
   }
 
 
-  logout(user: UserDto) {
-    firstValueFrom(this.http.get(`${this.baseUrl}logout`))
-    .then(() => {
-      this.router.navigateByUrl("/login");
-    });
+  logout() {
+    this.user.set(null);
+    this.http.post(`${this.baseUrl}logout`, null, { responseType: 'text', withCredentials: true })
+      .subscribe(result => {
+        alert(result)
+        this.router.navigateByUrl("/login");
+      });
   }
 
 }

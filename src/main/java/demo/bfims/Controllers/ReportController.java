@@ -4,6 +4,8 @@ import demo.bfims.DTOs.ReportDTOs.InventoryCountDto;
 import demo.bfims.DTOs.ReportDTOs.PopularItemDto;
 import demo.bfims.DTOs.ReportDTOs.RecentOrderDto;
 import demo.bfims.Services.ReportService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +43,7 @@ public class ReportController {
 
     @GetMapping("/recentorders/{userId}")
     public List<RecentOrderDto> getRecentOrders(@PathVariable Long userId) {
+        if (userId == null) return null;
         return reportService.getRecentOrders(userId);
     }
 }

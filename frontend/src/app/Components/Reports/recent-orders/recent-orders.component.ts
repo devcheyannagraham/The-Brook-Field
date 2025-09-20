@@ -1,16 +1,14 @@
 import { Component, DestroyRef, inject } from '@angular/core';
 import { RecentOrderDto } from '../../../DTOs/Report/RecentOrderDto';
 import { ReportsService } from '../../../Services/reports.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { headers } from '../../../Helpers/headers';
 import { CurrencyPipe } from '@angular/common';
-import { BackComponent } from "../../back/back.component";
 import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'recent-orders',
-  imports: [CurrencyPipe, BackComponent, RouterLink],
+  imports: [CurrencyPipe, RouterLink],
   templateUrl: './recent-orders.component.html',
   styleUrl: './recent-orders.component.css'
 })

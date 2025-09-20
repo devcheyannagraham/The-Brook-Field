@@ -1,15 +1,13 @@
 import { Component, DestroyRef, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {  FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../../Services/auth.service';
 import { UserDto } from '../../../DTOs/User/UserDto';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { UserRole } from '../../../Enums/UserRole';
-import { BackComponent } from "../../back/back.component";
 
 @Component({
   selector: 'login',
-  imports: [ReactiveFormsModule, FormsModule, BackComponent, RouterLink],
+  imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

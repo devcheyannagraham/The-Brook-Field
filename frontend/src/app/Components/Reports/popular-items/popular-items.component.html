@@ -1,7 +1,7 @@
-<back />
+@if(popularItems && popularItems.length > 0){
 
+@if(authService.userIsAdmin()){
 <div>
-    @if(popularItems && popularItems.length > 0){
     <table>
         <thead>
             <tr>
@@ -11,6 +11,7 @@
             </tr>
         </thead>
         <tbody>
+
             @for(item of popularItems;track `$${item.id}-${item.title}`){
             <tr>
                 <td> @if(item.itemType == ItemType.PUBLICATION_ITEM){
@@ -24,7 +25,8 @@
                         {{item.title }}
                     </a>
 
-                    }</td>
+                    }
+                </td>
                 <td>{{item.totalUnitsSold}}</td>
                 <td>{{item.totalProfit | currency}}</td>
             </tr>
@@ -32,8 +34,18 @@
 
         </tbody>
     </table>
-    }
-    @else {
-    <p>No items to display</p>
-    }
 </div>
+
+} @else {
+
+@for(item of popularItems;track `$${item.id}-${item.title}`){
+    <div>
+        <p>{{item.title}}</p>
+    </div>
+
+}
+
+}
+} @else {
+<p>No items to display</p>
+}
