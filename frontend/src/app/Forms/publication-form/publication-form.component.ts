@@ -80,8 +80,5 @@ export class PublicationFormComponent {
         if (resp["publicationId"]) this.router.navigateByUrl(`/publication/${resp["publicationId"]}`);
       });
   }
-  goBack(){
-    this.location.back();
-  }
 
 }

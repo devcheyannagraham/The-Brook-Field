@@ -86,10 +86,5 @@ export class ShopAccessoryDetailComponent {
   }
 
 
-  goBack() {
-    // this.router.navigateByUrl("/shop");
-    this.location.back();
-  }
-
   protected readonly headers = headers;
 }

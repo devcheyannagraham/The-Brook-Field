@@ -66,10 +66,6 @@ export class OrderFormComponent {
     this.shopService.removeFromCart(trans);
   }
 
-  goBack() {
-    this.router.navigateByUrl("/shop");
-  }
-
   protected readonly headers = headers;
   protected readonly ItemType = ItemType;
   protected readonly AccessoryItem = AccessoryItem;

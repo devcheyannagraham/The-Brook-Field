@@ -123,11 +123,6 @@ export class ShopPublicationDetailComponent {
 
   }
 
-  goBack() {
-    // this.router.navigateByUrl("/shop");
-    this.location.back();
-  }
-
   getQuantity() {
     if (this.shopService.shoppingCart().size == 0) {
       return this.publicationItems().size;

@@ -118,10 +118,6 @@ export class PublicationItemFormComponent {
       })
   }
 
-  goBack() {
-    this.location.back();
-  }
-
   protected readonly PublicationItemType = PublicationItemType;
   protected readonly PublicationItemFormat = PublicationItemFormat;
   protected readonly LiteraryType = LiteraryType;
