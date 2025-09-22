@@ -60,11 +60,9 @@ public class AccessoryService {
     }
 
     public List<AccessoryItemDto> getAvailableAccessoryItemsByAccessoryId(Long accessoryId) {
-        List<AccessoryItem> items = accessoryItemRepo.findAccessoryItemsByAccessory_AccessoryId(accessoryId);
-        System.out.println("Available Accessory Items: " + items);
+        List<AccessoryItem> items = accessoryItemRepo.findAccessoryItemByAccessory_AccessoryIdAndAccessoryItemStatus(accessoryId, AccessoryItemStatus.AVAILABLE);
         if (items == null) return null;
-
-        return items.stream().filter(item -> item.getAccessoryItemStatus().equals(AccessoryItemStatus.AVAILABLE)).map(AccessoryItemDto::new).toList();
+        return items.stream().map(AccessoryItemDto::new).toList();
     }
 
 

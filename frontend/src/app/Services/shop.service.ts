@@ -30,8 +30,11 @@ export class ShopService {
     newOrder.customer = customer;
     newOrder.transactions = [...this.shoppingCart().values()];
     newOrder.orderTotal = this.cartTotal();
+    this.shoppingCart.update(old => new Map<number, Transaction>())
+    this.cartTotal.set(0);
 
     return this.http.post(`${this.baseUrl}order`, newOrder);
+    
   }
 
   removeFromCart(trans: Transaction | number) {

@@ -9,7 +9,9 @@ import demo.bfims.Entities.Inventory.Publication.Publication;
 import demo.bfims.Entities.Inventory.Publication.PublicationItem;
 import demo.bfims.Entities.Order.Order;
 import demo.bfims.Entities.Order.Transaction;
+import demo.bfims.Enums.AccessoryItemStatus;
 import demo.bfims.Enums.ItemType;
+import demo.bfims.Enums.PublicationItemStatus;
 import demo.bfims.Repo.*;
 import org.springframework.stereotype.Service;
 
@@ -96,14 +98,14 @@ public class ReportService {
         List<Accessory> accessories = accessoryRepo.findAll();
 
         publications.forEach(pub -> {
-            int total = publicationItemRepo.countPublicationItemsByPublication_publicationId(pub.getPublicationId());
+            int total = publicationItemRepo.countPublicationItemsByPublication_publicationIdAndPublicationItemStatus(pub.getPublicationId(), PublicationItemStatus.AVAILABLE);
             if (total <= 5) {
                 lowInventoryItems.add(new InventoryCountDto(pub, total));
             }
         });
 
         accessories.forEach(acc -> {
-            int total = accessoryItemRepo.countAccessoryItemsByAccessory_AccessoryId(acc.getAccessoryId());
+            int total = accessoryItemRepo.countAccessoryItemsByAccessory_AccessoryIdAndAccessoryItemStatus(acc.getAccessoryId(), AccessoryItemStatus.AVAILABLE);
             if (total <= 5) {
                 lowInventoryItems.add(new InventoryCountDto(acc, total));
             }

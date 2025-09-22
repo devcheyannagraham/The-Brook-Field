@@ -56,7 +56,7 @@ public class PublicationService {
     public List<PublicationItemDto> getPublicationItems() {
         List<Item> items = itemRepo.findItemsByItemType(ItemType.PUBLICATION_ITEM).orElse(null);
         if (items != null) {
-            return items.stream().map(item -> new PublicationItemDto((PublicationItem) item)).toList();
+            return items.stream().map(PublicationItemDto::new).toList();
         }
         return null;
     }
@@ -92,6 +92,13 @@ public class PublicationService {
     public List<PublicationItemDto> getPublicationItemsByPublicationId(Long id) {
         if (id == null) return null;
         List<PublicationItem> items = publicationItemRepo.findPublicationItemsByPublication_PublicationId(id);
+        if (items == null) return null;
+        return items.stream().map(PublicationItemDto::mapToPublicationItemDtoSubclass).toList();
+    }
+
+    public List<PublicationItemDto> getAvailablePublicationItemsByPublicationId(Long id) {
+        if (id == null) return null;
+        List<PublicationItem> items = publicationItemRepo.findPublicationItemByPublication_PublicationIdAndPublicationItemStatus(id, PublicationItemStatus.AVAILABLE);
         if (items == null) return null;
         return items.stream().map(PublicationItemDto::mapToPublicationItemDtoSubclass).toList();
     }

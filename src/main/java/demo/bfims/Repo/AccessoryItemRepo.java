@@ -10,8 +10,8 @@ public interface AccessoryItemRepo extends JpaRepository<AccessoryItem, Long> {
     List<AccessoryItem> findAccessoryItemsByAccessory_AccessoryId(Long accessoryId);
 
     //Find any available accessoryItem that matches the accessoryId
-    AccessoryItem findTopAccessoryItemByAccessory_AccessoryIdAndAccessoryItemStatus(Long accessoryId, AccessoryItemStatus accessoryItemStatus);
+    List<AccessoryItem> findAccessoryItemByAccessory_AccessoryIdAndAccessoryItemStatus(Long accessoryId, AccessoryItemStatus accessoryItemStatus);
 
-    Integer countAccessoryItemsByAccessory_AccessoryId(Long id);
+    Integer countAccessoryItemsByAccessory_AccessoryIdAndAccessoryItemStatus(Long accessoryId, AccessoryItemStatus accessoryItemStatus);
 
 }

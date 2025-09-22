@@ -22,18 +22,27 @@ export class PublicationService {
     return this.http.post(`${this.baseUrl}publicationitem`, pubItem);
   }
 
+  //Get all pubs for list view
   getPublications() {
     return this.http.get<Publication[]>(`${this.baseUrl}publications`);
   }
 
+  //Get 1 publication
   getPublicationById(id: number) {
     return this.http.get<Publication>(`${this.baseUrl}publication/${id}`);
   }
 
+  //Get all pub items for specific pub
   getPublicationItemsByPublicationId(pubId: number) {
     return this.http.get<any[]>(`${this.baseUrl}publicationitems/${pubId}`);
   }
 
+  //Get available pub items for specific pub
+  getAvailablePublicationItemsByPublicationId(pubId: number) {
+    return this.http.get<any[]>(`${this.baseUrl}shop/publicationitems/${pubId}`);
+  }
+
+  // Get 1 pub item
   getPublicationItemById(pubItemId: number){
     return this.http.get<PublicationItem>(`${this.baseUrl}publicationitem/${pubItemId}`);
   }

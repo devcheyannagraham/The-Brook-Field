@@ -62,7 +62,7 @@ export class ShopPublicationDetailComponent {
 
   getPublicationItemsByPublicationId() {
     if (this.shopItemId) {
-      this.publicationService.getPublicationItemsByPublicationId(this.publication.publicationId)
+      this.publicationService.getAvailablePublicationItemsByPublicationId(this.publication.publicationId)
         .subscribe(pubItems => {
           if (pubItems) {
             let items = new Map<number, PublicationItem>();

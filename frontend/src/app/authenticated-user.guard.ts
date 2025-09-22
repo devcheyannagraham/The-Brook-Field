@@ -8,7 +8,7 @@ export const authenticatedUserGuard: CanActivateFn = (route, state) => {
   let router = inject(Router);
   
   if (authService.user() == null) {
-    alert("You must be logged in to view recent orders!");
+    alert("Login Required");
     return new RedirectCommand(router.parseUrl("/login"),
       { skipLocationChange: true });
   } else return true;

@@ -24,7 +24,6 @@ public class PublicationController {
             return null;
         }
         List<PublicationItemDto> newItems = new ArrayList<>();
-        System.out.println("PublicationITEMDTO: " + publicationItemDto);
 
         //updating single item
         if (publicationItemDto.getQuantity() == null) {
@@ -39,6 +38,7 @@ public class PublicationController {
         return newItems;
     }
 
+    // New Publication
     @PostMapping("/publication")
     public PublicationDto newPublication(@RequestBody PublicationDto publicationDto) {
         if (publicationDto == null) {
@@ -65,6 +65,13 @@ public class PublicationController {
     public List<PublicationItemDto> getPublicationItemsByPublicationId(@PathVariable Long pubId) {
         if (pubId == null) return null;
         return publicationService.getPublicationItemsByPublicationId(pubId);
+    }
+
+    //only get available pubItems for a pub
+    @GetMapping("/shop/publicationitems/{pubId}")
+    public List<PublicationItemDto> getAvailablePublicationItemsByPublicationId(@PathVariable Long pubId) {
+        if (pubId == null) return null;
+        return publicationService.getAvailablePublicationItemsByPublicationId(pubId);
     }
 
     // delete 1 pub item
