@@ -30,25 +30,18 @@ public class AccessoryController {
     }
 
     //get accessory items by acceossry id
+    // only returns availabe accessories supposidley
+    @GetMapping("/shop/accessory/accessoryitems/{accessoryId}")
+    public List<AccessoryItemDto> getAvailableAccessoryItemsByAccessoryId(@PathVariable Long accessoryId) {
+        if (accessoryId == null) return null;
+        return accessoryService.getAvailableAccessoryItemsByAccessoryId(accessoryId);
+    }
+
     @GetMapping("/accessory/accessoryitems/{accessoryId}")
     public List<AccessoryItemDto> getAccessoryItemsByAccessoryId(@PathVariable Long accessoryId) {
         if (accessoryId == null) return null;
         return accessoryService.getAccessoryItemsByAccessoryId(accessoryId);
     }
-
-    //Get all accessoryItems (may be useless)
-//    @GetMapping("/accessoryitems")
-//    public List<AccessoryItemDto> getAccessoryItems() {
-//        return accessoryService.getAccessoryItems();
-//    }
-
-
-    //Update Accessory // may be useless
-//    @PutMapping("/accessory")
-//    public AccessoryDto updateAccessory(@RequestBody AccessoryDto accessoryDto) {
-//        if (accessoryDto != null) return accessoryService.updateAccessory(accessoryDto);
-//        else return null;
-//    }
 
     //Update accessoryitem // may delete
     @PutMapping("/accessoryitem")
@@ -56,13 +49,6 @@ public class AccessoryController {
         if (accessoryItemDto != null) return accessoryService.updateAccessoryItem(accessoryItemDto);
         else return null;
     }
-
-    //Create new accessoryItem. Creates new accessory by default // may delete
-//    @PostMapping("/accessoryitem")
-//    public AccessoryItemDto newAccessory(@RequestBody AccessoryItemDto accessoryItemDto) {
-//        if (accessoryItemDto != null) return accessoryService.newAccessoryItem(accessoryItemDto);
-//        else return null;
-//    }
 
     // Create new accessory
     @PostMapping("/accessory")

@@ -55,9 +55,13 @@ public class OrderService {
         Customer managedCustomer = entityManager.merge(new Customer(orderDto.getCustomer()));
         order.setCustomer(managedCustomer); // only pulls if customer has id
 
+        // persist item status
+        List<Item> items = order.getTransactions().stream().map(Transaction::getItem).toList();
+        itemRepo.saveAll(items);
+
         Order savedOrder = orderRepo.save(order);
         System.out.println("\nORDER SAVED -" + savedOrder);
-        OrderDto newOrderDto =  new OrderDto(savedOrder);
+        OrderDto newOrderDto = new OrderDto(savedOrder);
         System.out.println("\nORDERDTO SAVED -" + newOrderDto);
         return newOrderDto;
     }

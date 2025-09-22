@@ -44,17 +44,6 @@ public class AccessoryService {
         return null;
     }
 
-    public List<AccessoryItemDto> getAccessoryItems() {
-        List<Item> accessoryItems = itemRepo.findItemsByItemType(ItemType.ACCESSORY_ITEM).orElse(null);
-        System.out.println("accessoryItems: " + accessoryItems);
-        if (accessoryItems != null && !accessoryItems.isEmpty()) {
-            return accessoryItems.stream().map(item -> {
-                AccessoryItem accessoryItem = (AccessoryItem) item;
-                return new AccessoryItemDto(accessoryItem);
-            }).toList();
-        }
-        return null;
-    }
 
     public AccessoryDto getAccessory(Long id) {
         Accessory accessory = accessoryRepo.findById(id).orElse(null);
@@ -70,18 +59,12 @@ public class AccessoryService {
         return items.stream().map(AccessoryItemDto::new).toList();
     }
 
-    // CREATES
-//    @Transactional
-    public AccessoryItemDto newAccessoryItem(AccessoryItemDto accessoryItemDto) {
-        AccessoryItem accessoryItem = new AccessoryItem(accessoryItemDto);
-        Accessory accessory = accessoryItem.getAccessory();
+    public List<AccessoryItemDto> getAvailableAccessoryItemsByAccessoryId(Long accessoryId) {
+        List<AccessoryItem> items = accessoryItemRepo.findAccessoryItemsByAccessory_AccessoryId(accessoryId);
+        System.out.println("Available Accessory Items: " + items);
+        if (items == null) return null;
 
-        if (accessory.getAccessoryId() != null) {
-            Accessory foundAccessory = accessoryRepo.findById(accessory.getAccessoryId()).orElse(null);
-            Accessory managedAccessory = entityManager.merge(foundAccessory);
-            accessoryItem.setAccessory(managedAccessory);
-        }
-        return new AccessoryItemDto(itemRepo.save(accessoryItem));
+        return items.stream().filter(item -> item.getAccessoryItemStatus().equals(AccessoryItemStatus.AVAILABLE)).map(AccessoryItemDto::new).toList();
     }
 
 
@@ -118,14 +101,6 @@ public class AccessoryService {
         }
     }
 
-
-    //UPDATES // May be useless
-    public AccessoryDto updateAccessory(AccessoryDto accessoryDto) {
-        Accessory accessory = new Accessory(accessoryDto);
-        Accessory updatedAccessory = accessoryRepo.save(accessory);
-        return new AccessoryDto(updatedAccessory);
-    }
-
     @Transactional
     public AccessoryItemDto updateAccessoryItem(AccessoryItemDto accessoryItemDto) {
         AccessoryItem accessoryItem = new AccessoryItem(accessoryItemDto);
@@ -133,6 +108,5 @@ public class AccessoryService {
         accessoryItem.setAccessory(managedAccessory);
         return new AccessoryItemDto(itemRepo.save(accessoryItem));
     }
-
 
 }
