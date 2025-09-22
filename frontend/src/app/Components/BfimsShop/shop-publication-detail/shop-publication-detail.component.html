@@ -6,7 +6,7 @@
   <li>{{ headers.title }}: {{ publication.title }}</li>
   <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
   <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
-  <li>{{ headers.quantity }}: {{ getQuantity() }}</li>
+  <li>{{ headers.quantity }}: {{ getQuantity() || "Out of Stock" }}</li>
 </ul>
 <h3> Author </h3>
 <ul>

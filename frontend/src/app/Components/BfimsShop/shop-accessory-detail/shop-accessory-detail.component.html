@@ -5,7 +5,7 @@
   <li>{{ headers.accessoryName }}: {{ accessory.accessoryName }}</li>
   <li>{{ headers.accessoryType }}: {{ accessory.accessoryType }}</li>
   <li>{{ headers.price }}: {{ accessory.price }}</li>
-  <li>{{ headers.quantity }}: {{ getQuantity() }}</li>
+  <li>{{ headers.quantity }}: {{ getQuantity() || "Out of Stock" }}</li>
 </ul>
 
 @if(accessoryItemsInCart.has(accessory.accessoryId)){
