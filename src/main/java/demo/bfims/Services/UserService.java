@@ -4,6 +4,7 @@ import demo.bfims.DTOs.User.UserDto;
 import demo.bfims.Entities.Users.User;
 import demo.bfims.Repo.CustomerRepo;
 import demo.bfims.Repo.UserRepo;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -56,6 +57,14 @@ public class UserService {
             if (fountUser != null) {
                 return foundUser;
             }
+        }
+        return null;
+    }
+
+    public UserDto reinstateUserByEmail(String email) {
+        User foundUser = userRepo.findByEmail(email).orElse(null);
+        if(foundUser != null) {
+            return new UserDto(foundUser);
         }
         return null;
     }

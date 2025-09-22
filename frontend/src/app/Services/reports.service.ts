@@ -4,7 +4,6 @@ import { PopularItemDto } from '../DTOs/Report/PopularItemDto';
 import { RecentOrderDto } from '../DTOs/Report/RecentOrderDto';
 import { InventoryCountDto } from '../DTOs/Report/InventoryCountDto';
 import { AuthService } from './auth.service';
-import { UserRole } from '../Enums/UserRole';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({

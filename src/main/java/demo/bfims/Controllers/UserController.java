@@ -24,8 +24,8 @@ public class UserController {
     public ResponseEntity<String> newUser(HttpServletRequest request, @RequestBody UserDto userDto) {
         Long userId = userService.newUser(userDto);
         if (userId == null) return new ResponseEntity<>("Username Unavailable", HttpStatus.OK);
-        request.getSession(true);
-        System.out.println("SessionID in New User: " + request.getSession(false).getId());
+        HttpSession session = request.getSession(true);
+        session.setAttribute("userId", userId);
         return new ResponseEntity<>(userId.toString(), HttpStatus.OK);
     }
 
@@ -38,10 +38,32 @@ public class UserController {
         if (foundUser == null)
             return new ResponseEntity<>("User does not exist", HttpStatus.OK);
 
-        request.getSession(true);
+        HttpSession session = request.getSession(true);
+        session.setAttribute("userId", foundUser.getUserId());
         System.out.println("SessionID in Authenticate User: " + request.getSession(false).getId());
 
         return new ResponseEntity<>(foundUser.getUserId().toString(), HttpStatus.OK);
+    }
+
+    @PostMapping("/reinstateuser")
+    public ResponseEntity<String> reinstateUser(HttpServletRequest request, @RequestBody UserDto userDto) {
+        if (userDto == null)
+            return new ResponseEntity<>("Missing Credentials", HttpStatus.OK);
+        if(userDto.getEmail() == null || userDto.getUserId() == null)
+            return new ResponseEntity<>("Missing Credentials", HttpStatus.OK);
+
+        if(request.getSession(false) == null)
+            return new ResponseEntity<>("Username Unavailable", HttpStatus.OK);
+
+        HttpSession session = request.getSession(false);
+        Long userId = (Long) session.getAttribute("userId");
+
+
+        if(userId == null)
+            return new ResponseEntity<>("Username Unavailable", HttpStatus.OK);
+
+        UserDto reinstatedUser = userService.reinstateUserByEmail(userDto.getEmail());
+        return new ResponseEntity<>(reinstatedUser.getUserId().toString(), HttpStatus.OK);
     }
 
     @PostMapping("/isadmin")

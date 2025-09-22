@@ -80,7 +80,7 @@ export class LoginComponent {
 
     else {
       user.userId = userId;
-      this.authService.user.set(user);
+      this.authService.setUser(user);
 
 
       this.authService.userIsAdmin()
