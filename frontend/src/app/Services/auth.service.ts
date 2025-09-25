@@ -29,9 +29,7 @@ export class AuthService {
     this.http.post(`${this.baseUrl}newuser`, user, { responseType: 'text', withCredentials: true })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: uuid => {
-          this.setUser(uuid, user);
-        },
+        next: uuid => this.setUser(uuid, user),
         error: error => alert(error.error)
       });
   }
@@ -49,11 +47,11 @@ export class AuthService {
   }
 
   reinstateUser(userUid: string) {
-    return firstValueFrom(this.http.post(`${this.baseUrl}reinstateuser`, userUid, { responseType: 'text', withCredentials: true }))
-      .then(email => {
-        if (email) {
-          this.setUser(userUid, new UserDto(email, null));
-        }
+    this.http.post(`${this.baseUrl}reinstateuser`, userUid, { responseType: 'text', withCredentials: true })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: email => this.setUser(userUid, new UserDto(email, null)),
+        error: (error) => alert(error.error)
       });
   }
 
@@ -61,9 +59,14 @@ export class AuthService {
   getUserRole() {
     if (this.user().userId != null) {
 
-      firstValueFrom(this.http.post(`${this.baseUrl}isadmin`, this.user().userId, { responseType: 'text', withCredentials: true }))
-        .then(role => {
-          if (role == UserRole.ADMIN) this.isAdmin = true;
+      this.http.post(`${this.baseUrl}isadmin`, this.user().userId, { responseType: 'text', withCredentials: true })
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
+          next: role => {
+            role == UserRole.ADMIN ? this.isAdmin = true : this.isAdmin = false;
+            this.navigateUser();
+          },
+          error: (error) => alert(error.error)
         });
     }
   }
@@ -80,12 +83,7 @@ export class AuthService {
       storage.setItem(AuthService.USER_UUID, uuid);
     }
 
-    new Promise((resolve, reject) => {
-      resolve(this.getUserRole())
-    })
-      .then(() => {
-        this.navigateUser();
-      });
+    this.getUserRole();
   }
 
   navigateUser() {

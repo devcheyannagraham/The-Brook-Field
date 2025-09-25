@@ -4,6 +4,7 @@ import { ReportsService } from '../../../Services/reports.service';
 import { headers } from '../../../Helpers/headers';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { RouterLink } from '@angular/router';
 })
 export class RecentOrdersComponent {
   destroyRef = inject(DestroyRef);
-  recentOrders: RecentOrderDto[];
+  recentOrders: RecentOrderDto[] | void;
   headers = headers;
 
   constructor(public reportService: ReportsService) { }

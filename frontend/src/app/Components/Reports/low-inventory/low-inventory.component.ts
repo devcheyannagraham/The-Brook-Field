@@ -16,7 +16,7 @@ import { ItemType } from '../../../Enums/ItemType';
 export class LowInventoryComponent {
 
   destroyRef = inject(DestroyRef);
-  lowInventoryItems:InventoryCountDto[];
+  lowInventoryItems:InventoryCountDto[] | void;
   headers = headers;
   ItemType = ItemType;
 
@@ -28,8 +28,7 @@ export class LowInventoryComponent {
 
   getLowInventoryItems(){
     this.reportService.getLowInventoryItems()
-    .pipe(takeUntilDestroyed(this.destroyRef))
-    .subscribe(lowInventoryItems => {
+    .then(lowInventoryItems => {
       this.lowInventoryItems = lowInventoryItems;
     })
   }

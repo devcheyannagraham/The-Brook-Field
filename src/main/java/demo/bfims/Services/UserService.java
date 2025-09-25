@@ -2,8 +2,11 @@ package demo.bfims.Services;
 
 import demo.bfims.DTOs.User.UserDto;
 import demo.bfims.Entities.Users.User;
+import demo.bfims.Enums.UserRole;
 import demo.bfims.Repo.CustomerRepo;
 import demo.bfims.Repo.UserRepo;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 
 
@@ -60,11 +63,29 @@ public class UserService {
         return null;
     }
 
-    public User reinstateUserById(Long userId) {
-        User foundUser = userRepo.findById(userId).orElse(null);
-        if(foundUser != null) {
-            return foundUser;
+    public User findUserById(Long userId) {
+        return userRepo.findById(userId).orElse(null);
+    }
+
+    public Long getUserId(HttpServletRequest request, String userUid) {
+        if (userUid == null || request == null) return null;
+
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            return (Long) session.getAttribute(userUid);
         }
         return null;
+    }
+
+    public boolean isSessionUserAdmin(HttpServletRequest request, String uuid) {
+        if (uuid == null || request == null) return false;
+
+        Long userId = this.getUserId(request, uuid);
+        if (userId == null) return false;
+
+        User foundUser = this.findUserById(userId);
+        if (foundUser == null) return false;
+
+        return foundUser.getUserRole().equals(UserRole.ADMIN);
     }
 }

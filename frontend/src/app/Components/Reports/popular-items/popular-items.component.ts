@@ -16,7 +16,7 @@ import { AuthService } from '../../../Services/auth.service';
 })
 export class PopularItemsComponent {
   destroyRef = inject(DestroyRef);
-  popularItems:PopularItemDto[];
+  popularItems:PopularItemDto[] | void;
   headers = headers;
   ItemType = ItemType;
 

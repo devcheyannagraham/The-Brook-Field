@@ -129,6 +129,7 @@ public class ReportService {
     }
 
     public List<RecentOrderDto> getRecentOrders(Long userId) {
+        if(userId == null) return null;
         LocalDateTime threeMonthsAgo = LocalDateTime.now().minusMonths(3);
         List<Order> results = orderRepo.findOrdersByOrderDateAfterAndCustomerId(threeMonthsAgo, userId).orElse(null);
         if (results != null && !results.isEmpty()) {

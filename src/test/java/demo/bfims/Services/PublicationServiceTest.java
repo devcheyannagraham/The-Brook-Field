@@ -8,7 +8,6 @@ import demo.bfims.Entities.Inventory.Publication.Publication;
 import demo.bfims.Entities.Inventory.Publication.PublicationItem;
 import demo.bfims.Enums.Genre;
 import org.junit.jupiter.api.*;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;

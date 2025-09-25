@@ -16,19 +16,23 @@ export class ReportsService {
   }
 
   getPopularItems() {
-    if (this.authSerivce.isAdmin) return firstValueFrom(this.http.get<PopularItemDto[]>(`${this.baseUrl}popularitems`));
-    else return firstValueFrom(this.http.get<PopularItemDto[]>(`${this.baseUrl}shop/popularitems`));
+    if (this.authSerivce.isAdmin) return firstValueFrom(this.http.get<PopularItemDto[]>(`${this.baseUrl}popularitems/${this.authSerivce.user().userId}`))
+      .catch(error => alert(error.error));
+    else return firstValueFrom(this.http.get<PopularItemDto[]>(`${this.baseUrl}shop/popularitems`))
+      .catch(error => alert(error.error));
   }
 
   getRecentOrders() {
     if (this.authSerivce.user() == null) return null;
-
-    if (this.authSerivce.isAdmin) return firstValueFrom(this.http.get<RecentOrderDto[]>(`${this.baseUrl}recentorders`));
-    else return firstValueFrom(this.http.get<RecentOrderDto[]>(`${this.baseUrl}recentorders/${this.authSerivce.user().userId}`));
+    return firstValueFrom(this.http.get<RecentOrderDto[]>(`${this.baseUrl}recentorders/${this.authSerivce.user().userId}`))
+      .catch(error => alert(error.error));
   }
 
   getLowInventoryItems() {
-    return this.http.get<InventoryCountDto[]>(`${this.baseUrl}lowinventory`);
+    if (this.authSerivce.user() == null) return null;
+    if (this.authSerivce.isAdmin) return firstValueFrom(this.http.get<InventoryCountDto[]>(`${this.baseUrl}lowinventory/${this.authSerivce.user().userId}`))
+      .catch(error => alert(error.error));
+    return null;
   }
 
 }
