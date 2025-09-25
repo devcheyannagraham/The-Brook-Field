@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject } from '@angular/core';
-import {  FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../../Services/auth.service';
 import { UserDto } from '../../../DTOs/User/UserDto';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -36,23 +36,14 @@ export class LoginComponent {
   login() {
     if (this.validated()) {
       let user = new UserDto(this.email.value, this.pwd.value);
-
-      this.authService.authenticateUser(user)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(result => {
-          this.redirectUser(result, user);
-        });
+      this.authService.authenticateUser(user);
     }
   }
 
   register() {
     if (this.validated()) {
       let user = new UserDto(this.email.value, this.pwd.value);
-      this.authService.newUser(user)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(result => {
-          this.redirectUser(result, user);
-        });
+      this.authService.newUser(user);
     }
   }
 
@@ -71,23 +62,4 @@ export class LoginComponent {
     return !this.emailError && !this.pwdError;
   }
 
-
-  redirectUser(result: any, user: UserDto) {
-    let userId = Number(result);
-    if (Number.isNaN(userId)) {
-      alert(result);
-    }
-
-    else {
-      user.userId = userId;
-      this.authService.setUser(user);
-
-
-      this.authService.userIsAdmin()
-        .then(isAdmin => {
-          if (isAdmin) this.router.navigateByUrl("/admindashboard");
-          else this.router.navigateByUrl("/home");
-        });
-    }
-  }
 }

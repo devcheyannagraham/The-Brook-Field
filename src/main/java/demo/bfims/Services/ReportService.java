@@ -3,6 +3,7 @@ package demo.bfims.Services;
 import demo.bfims.DTOs.ReportDTOs.InventoryCountDto;
 import demo.bfims.DTOs.ReportDTOs.PopularItemDto;
 import demo.bfims.DTOs.ReportDTOs.RecentOrderDto;
+import demo.bfims.DTOs.ReportDTOs.ShopPopularItemDto;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
 import demo.bfims.Entities.Inventory.Publication.Publication;
@@ -36,6 +37,11 @@ public class ReportService {
         this.transactionRepo = transactionRepo;
         this.accessoryRepo = accessoryRepo;
         this.accessoryItemRepo = accessoryItemRepo;
+    }
+
+    public List<ShopPopularItemDto> getShopPopularItems() {
+        List<PopularItemDto> popularItemDtos = this.getPopularItems();
+        return popularItemDtos.stream().map(ShopPopularItemDto::new).toList();
     }
 
     public List<PopularItemDto> getPopularItems() {

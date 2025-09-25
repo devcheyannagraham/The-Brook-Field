@@ -3,6 +3,7 @@ package demo.bfims.Controllers;
 import demo.bfims.DTOs.ReportDTOs.InventoryCountDto;
 import demo.bfims.DTOs.ReportDTOs.PopularItemDto;
 import demo.bfims.DTOs.ReportDTOs.RecentOrderDto;
+import demo.bfims.DTOs.ReportDTOs.ShopPopularItemDto;
 import demo.bfims.Services.ReportService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,11 @@ public class ReportController {
     @GetMapping("/popularitems")
     public List<PopularItemDto> getPopularItems() {
         return reportService.getPopularItems();
+    }
+
+    @GetMapping("/shop/popularitems")
+    public List<ShopPopularItemDto> getShopPopularItems() {
+        return reportService.getShopPopularItems();
     }
 
     //low inventory items

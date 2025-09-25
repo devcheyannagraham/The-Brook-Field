@@ -1,6 +1,6 @@
 @if(popularItems && popularItems.length > 0){
 
-@if(isAdmin){
+<!-- @if(isAdmin){ -->
 <div>
     <table>
         <thead>
@@ -36,16 +36,16 @@
     </table>
 </div>
 
-} @else {
+<!-- } @else { -->
 
 @for(item of popularItems;track `$${item.id}-${item.title}`){
-    <div>
-        <p>{{item.title}}</p>
-    </div>
+<div>
+    <p>{{item.title}}</p>
+</div>
 
 }
 
-}
-} @else {
+<!-- } -->
+}@else {
 <p>No items to display</p>
 }

@@ -19,24 +19,21 @@ export class PopularItemsComponent {
   popularItems:PopularItemDto[];
   headers = headers;
   ItemType = ItemType;
-  isAdmin = false;
 
   constructor(public reportService: ReportsService, public authService:AuthService) { 
-    this.authService.userIsAdmin().then(result =>this.isAdmin = result);
   }
-
+  
   ngOnInit() {
     this.getPopularItems();
-
+    
   }
-
+  
   getPopularItems() {
     this.reportService.getPopularItems()
-    .pipe(takeUntilDestroyed(this.destroyRef))
-    .subscribe(popularItems => {
-      this.popularItems = popularItems;
-    });
-
+    .then(items => {
+      console.log("ITEMS" , items)
+      this.popularItems = items;
+    })
   }
 
 }

@@ -16,22 +16,21 @@ export class ReportsService {
   }
 
   getPopularItems() {
-    return this.http.get<PopularItemDto[]>(`${this.baseUrl}popularitems`);
+      return this.authSerivce.userIsAdmin()
+      .then(isAdmin => {
+        if(isAdmin) return firstValueFrom(this.http.get<PopularItemDto[]>(`${this.baseUrl}popularitems`));
+        else return firstValueFrom(this.http.get<PopularItemDto[]>(`${this.baseUrl}shop/popularitems`));
+      })
   }
 
-  async getRecentOrders() {
+  getRecentOrders() {
     if (this.authSerivce.user() == null) return null;
 
-    let isAdmin = await this.authSerivce.userIsAdmin();
-    if (isAdmin) {
-      return firstValueFrom(this.http.get<RecentOrderDto[]>(`${this.baseUrl}recentorders`));
-    }
-    else {
-      let userId = this.authSerivce.user().userId;
-      console.log(userId)
-      return firstValueFrom(this.http.get<RecentOrderDto[]>(`${this.baseUrl}recentorders/${userId}`));
-    }
-
+    return this.authSerivce.userIsAdmin()
+      .then(isAdmin => {
+        if (isAdmin) return firstValueFrom(this.http.get<RecentOrderDto[]>(`${this.baseUrl}recentorders`));
+        else return firstValueFrom(this.http.get<RecentOrderDto[]>(`${this.baseUrl}recentorders/${this.authSerivce.user().userId}`));
+      })
   }
 
   getLowInventoryItems() {
