@@ -1,5 +1,5 @@
 <div>
-    <h2>{{actionType =="login"? "Login" : "Register" }}</h2>
+    <h2>{{actionType =="LOGIN"? "Login" : "Register" }}</h2>
     <form (submit)="submitForm()">
 
         <div class="grid">
@@ -16,9 +16,19 @@
             @if(pwdError){
             <p class="error">Invalid password</p>
             }
-            <div>
-                <button type="submit">{{actionType =="login"? "Login" : "Register" }}</button>
-            </div>
+        </div>
+        @if(actionType == "REGISTER"){
+        <div class="grid">
+            <label for="pwdConf"> Confirm Password</label>
+            <input type="password" required [formControl]="pwdConf">
+            @if(pwdConfError){
+            <p class="error">Passwords don't match!</p>
+            }
+        </div>
+
+        }
+        <div>
+            <button type="submit">{{actionType =="LOGIN"? "Login" : "Register" }}</button>
         </div>
     </form>
 </div>

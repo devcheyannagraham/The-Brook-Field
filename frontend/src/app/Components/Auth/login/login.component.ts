@@ -14,20 +14,23 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 export class LoginComponent {
   email = new FormControl();
   pwd = new FormControl();
+  pwdConf = new FormControl();
   destroyRef = inject(DestroyRef)
   emailError = false;
   pwdError = false;
-  actionType = '';
+  pwdConfError = false;
+  actionType: "LOGIN" | "REGISTER";
 
   constructor(private authService: AuthService, public route: ActivatedRoute, public router: Router) { }
 
   ngOnInit() {
-    this.actionType = this.route.snapshot.data["actionType"];
+    let actionType = this.route.snapshot.data["actionType"];
+    this.actionType = actionType == "login"? "LOGIN": "REGISTER";
   }
 
 
   submitForm() {
-    if (this.actionType == "login") {
+    if (this.actionType == "LOGIN") {
       this.login();
     }
     else this.register();
@@ -59,7 +62,13 @@ export class LoginComponent {
       this.pwdError = true;
     }
     else this.pwdError = false;
-    return !this.emailError && !this.pwdError;
+
+    if(this.actionType == "REGISTER"){
+      if(this.pwdConf.value == null || this.pwdConf.value.trim() == '' || this.pwdConf.value != this.pwd.value)
+        this.pwdConfError = true;
+      else this.pwdConfError = false;
+    }
+    return !this.emailError && !this.pwdError && !this.pwdConfError;
   }
 
 }
