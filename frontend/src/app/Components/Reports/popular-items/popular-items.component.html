@@ -1,6 +1,6 @@
 @if(popularItems && popularItems.length > 0){
 
-<!-- @if(isAdmin){ -->
+@if(authService.isAdmin){
 <div>
     <table>
         <thead>
@@ -36,16 +36,29 @@
     </table>
 </div>
 
-<!-- } @else { -->
+} @else {
 
 @for(item of popularItems;track `$${item.id}-${item.title}`){
 <div>
-    <p>{{item.title}}</p>
+    <img width="75px" height="120px" src="">
+    <p>
+        @if(item.itemType == ItemType.PUBLICATION_ITEM){
+
+        <a [routerLink]="['shop/publication/',item.id]">
+            {{item.title }}
+        </a>
+        }
+        @if(item.itemType == ItemType.ACCESSORY_ITEM){
+        <a [routerLink]="['shop/accessory/',item.id]">
+            {{item.title }}
+        </a>
+        }
+    </p>
 </div>
 
 }
 
-<!-- } -->
+}
 }@else {
 <p>No items to display</p>
 }

@@ -16,21 +16,15 @@ export class ReportsService {
   }
 
   getPopularItems() {
-      return this.authSerivce.userIsAdmin()
-      .then(isAdmin => {
-        if(isAdmin) return firstValueFrom(this.http.get<PopularItemDto[]>(`${this.baseUrl}popularitems`));
-        else return firstValueFrom(this.http.get<PopularItemDto[]>(`${this.baseUrl}shop/popularitems`));
-      })
+    if (this.authSerivce.isAdmin) return firstValueFrom(this.http.get<PopularItemDto[]>(`${this.baseUrl}popularitems`));
+    else return firstValueFrom(this.http.get<PopularItemDto[]>(`${this.baseUrl}shop/popularitems`));
   }
 
   getRecentOrders() {
     if (this.authSerivce.user() == null) return null;
 
-    return this.authSerivce.userIsAdmin()
-      .then(isAdmin => {
-        if (isAdmin) return firstValueFrom(this.http.get<RecentOrderDto[]>(`${this.baseUrl}recentorders`));
-        else return firstValueFrom(this.http.get<RecentOrderDto[]>(`${this.baseUrl}recentorders/${this.authSerivce.user().userId}`));
-      })
+    if (this.authSerivce.isAdmin) return firstValueFrom(this.http.get<RecentOrderDto[]>(`${this.baseUrl}recentorders`));
+    else return firstValueFrom(this.http.get<RecentOrderDto[]>(`${this.baseUrl}recentorders/${this.authSerivce.user().userId}`));
   }
 
   getLowInventoryItems() {

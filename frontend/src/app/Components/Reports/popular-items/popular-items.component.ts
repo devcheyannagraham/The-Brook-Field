@@ -25,13 +25,11 @@ export class PopularItemsComponent {
   
   ngOnInit() {
     this.getPopularItems();
-    
   }
   
   getPopularItems() {
     this.reportService.getPopularItems()
     .then(items => {
-      console.log("ITEMS" , items)
       this.popularItems = items;
     })
   }

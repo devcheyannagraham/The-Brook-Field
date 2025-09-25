@@ -1,4 +1,4 @@
-import { DestroyRef, inject } from '@angular/core';
+import { inject } from '@angular/core';
 import { CanActivateFn, RedirectCommand, Router } from '@angular/router';
 import { AuthService } from './Services/auth.service';
 
@@ -11,9 +11,8 @@ export const adminGuard: CanActivateFn = async (route, state) => {
     alert("Login Required");
     return new RedirectCommand(router.parseUrl("/login"), { skipLocationChange: true });
   }
+  if(authService.isAdmin) return true;
 
-  let result = await authService.userIsAdmin();
-  if (result) return true;
 
   alert("Insufficient permissions!");
   return new RedirectCommand(router.parseUrl("/home"), { skipLocationChange: true });

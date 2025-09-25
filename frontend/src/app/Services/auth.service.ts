@@ -1,7 +1,7 @@
 import { DestroyRef, Injectable, signal, inject } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { UserDto } from '../DTOs/User/UserDto';
-import { catchError, firstValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { UserRole } from '../Enums/UserRole';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -17,6 +17,7 @@ export class AuthService {
   storageAvailable = false;
   static SESSION_STORAGE: string = "sessionStorage";
   static USER_UUID: string = "userUUID";
+  isAdmin = false;
 
 
   constructor(private http: HttpClient, public router: Router) {
@@ -51,44 +52,46 @@ export class AuthService {
     return firstValueFrom(this.http.post(`${this.baseUrl}reinstateuser`, userUid, { responseType: 'text', withCredentials: true }))
       .then(email => {
         if (email) {
-          this.user.set(new UserDto(email, null));
-          this.navigateUser();
+          this.setUser(userUid, new UserDto(email, null));
         }
       });
   }
 
 
-  async userIsAdmin() {
+  getUserRole() {
     if (this.user().userId != null) {
 
-      return await firstValueFrom(this.http.post(`${this.baseUrl}isadmin`, this.user().userId, { responseType: 'text', withCredentials: true }))
+      firstValueFrom(this.http.post(`${this.baseUrl}isadmin`, this.user().userId, { responseType: 'text', withCredentials: true }))
         .then(role => {
-          if (role == UserRole.ADMIN) return true;
-          else return false;
+          if (role == UserRole.ADMIN) this.isAdmin = true;
         });
     }
-    return false;
   }
 
   setUser(uuid: string, user: UserDto) {
     user.password = null;
     user.userId = uuid;
     this.user.set(user);
+
+
     if (this.storageAvailable) {
       // @ts-ignore 7015
       let storage = window[AuthService.SESSION_STORAGE];
       storage.setItem(AuthService.USER_UUID, uuid);
     }
 
-    this.navigateUser();
+    new Promise((resolve, reject) => {
+      resolve(this.getUserRole())
+    })
+      .then(() => {
+        this.navigateUser();
+      });
   }
 
   navigateUser() {
-    this.userIsAdmin()
-      .then(isAdmin => {
-        if (isAdmin) this.router.navigateByUrl("/admindashboard");
-        else this.router.navigateByUrl("/home");
-      });
+    if (this.isAdmin)
+      this.router.navigateByUrl("/admindashboard");
+    else this.router.navigateByUrl("/home");
   }
 
 
