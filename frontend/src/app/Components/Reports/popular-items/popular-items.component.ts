@@ -1,6 +1,5 @@
 import { Component, DestroyRef, inject } from '@angular/core';
 import { ReportsService } from '../../../Services/reports.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PopularItemDto } from '../../../DTOs/Report/PopularItemDto';
 import { CurrencyPipe } from '@angular/common';
 import { headers } from '../../../Helpers/headers';
@@ -19,15 +18,19 @@ export class PopularItemsComponent {
   popularItems:PopularItemDto[] | void;
   headers = headers;
   ItemType = ItemType;
+  isAdmin : void | boolean = false;
 
   constructor(public reportService: ReportsService, public authService:AuthService) { 
   }
   
   ngOnInit() {
     this.getPopularItems();
+    
   }
   
   getPopularItems() {
+   (async() => this.isAdmin =  await this.authService.getUserRole())();
+
     this.reportService.getPopularItems()
     .then(items => {
       this.popularItems = items;

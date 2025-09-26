@@ -1,10 +1,10 @@
-import { DestroyRef, Injectable, signal, inject } from '@angular/core';
+import { DestroyRef, Injectable, signal, inject, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserDto } from '../DTOs/User/UserDto';
-import { firstValueFrom } from 'rxjs';
 import { UserRole } from '../Enums/UserRole';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { firstValueFrom } from 'rxjs';
 
 
 @Injectable({
@@ -17,79 +17,73 @@ export class AuthService {
   storageAvailable = false;
   static SESSION_STORAGE: string = "sessionStorage";
   static USER_UUID: string = "userUUID";
-  isAdmin = false;
-
 
   constructor(private http: HttpClient, public router: Router) {
     this.checkStorage();
-    this.getUser();
+  }
+  
+  ngOnInit(){
+    (async () => await this.getUser())();
   }
 
-  newUser(user: UserDto) {
+  register(user: UserDto) {
     this.http.post(`${this.baseUrl}newuser`, user, { responseType: 'text', withCredentials: true })
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: uuid => this.setUser(uuid, user),
-        error: error => alert(error.error)
-      });
-  }
-
-
-  authenticateUser(user: UserDto) {
-    return this.http.post(`${this.baseUrl}authenticateuser`, user, { responseType: 'text', withCredentials: true })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: uuid => {
           this.setUser(uuid, user);
+          this.navigateUser();
         },
-        error: error => alert(error.error)
+        error: error => alert("REGISTER:" + error.error)
       });
   }
 
-  reinstateUser(userUid: string) {
-    this.http.post(`${this.baseUrl}reinstateuser`, userUid, { responseType: 'text', withCredentials: true })
+
+  login(user: UserDto) {
+    this.http.post(`${this.baseUrl}authenticateuser`, user, { responseType: 'text', withCredentials: true })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: email => this.setUser(userUid, new UserDto(email, null)),
-        error: (error) => alert(error.error)
+        next: uuid => {
+          this.setUser(uuid, user);
+          this.navigateUser();
+        },
+        error: error => alert("LOGIN:ERROR:" + error.error)
       });
+  }
+
+  async reinstateUser(userUid: string) {
+    return firstValueFrom(this.http.post(`${this.baseUrl}reinstateuser`, userUid, { responseType: 'text', withCredentials: true }))
+      .then(email => email)
+      .catch(error => alert("REINSTATE:" + error.error));
   }
 
 
   getUserRole() {
-    if (this.user().userId != null) {
+    return firstValueFrom(this.http.post(`${this.baseUrl}isadmin`, this.user() && this.user().userId || null, { responseType: 'text', withCredentials: true }))
+      .then(role => role == UserRole.ADMIN)
+      .catch(error => alert("GET USER ROLE:" + error.error))
 
-      this.http.post(`${this.baseUrl}isadmin`, this.user().userId, { responseType: 'text', withCredentials: true })
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe({
-          next: role => {
-            role == UserRole.ADMIN ? this.isAdmin = true : this.isAdmin = false;
-            this.navigateUser();
-          },
-          error: (error) => alert(error.error)
-        });
-    }
   }
+
+
 
   setUser(uuid: string, user: UserDto) {
     user.password = null;
     user.userId = uuid;
     this.user.set(user);
 
-
     if (this.storageAvailable) {
       // @ts-ignore 7015
       let storage = window[AuthService.SESSION_STORAGE];
       storage.setItem(AuthService.USER_UUID, uuid);
     }
-
-    this.getUserRole();
   }
 
   navigateUser() {
-    if (this.isAdmin)
-      this.router.navigateByUrl("/admindashboard");
-    else this.router.navigateByUrl("/home");
+    this.getUserRole().then(isAdmin => {
+      if (isAdmin) this.router.navigateByUrl("/admindashboard");
+      else this.router.navigateByUrl("/home");
+    });
   }
 
 
@@ -103,7 +97,7 @@ export class AuthService {
 
     this.http.post(`${this.baseUrl}logout`, null, { responseType: 'text', withCredentials: true })
       .subscribe(result => {
-        alert(result)
+        alert("LOGOUT:" + result)
         this.router.navigateByUrl("/login");
       });
   }
@@ -120,13 +114,14 @@ export class AuthService {
 
   }
 
-  getUser() {
+  async getUser() {
     if (this.storageAvailable) {
       // @ts-ignore 7015
       let storage = window[AuthService.SESSION_STORAGE];
       let userUid = storage.getItem(AuthService.USER_UUID);
       if (userUid != null) {
-        this.reinstateUser(userUid);
+        let email = await this.reinstateUser(userUid);
+        if (email) this.setUser(userUid, new UserDto(email, null))
       }
     }
   }

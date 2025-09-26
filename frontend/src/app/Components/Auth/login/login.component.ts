@@ -39,14 +39,14 @@ export class LoginComponent {
   login() {
     if (this.validated()) {
       let user = new UserDto(this.email.value, this.pwd.value);
-      this.authService.authenticateUser(user);
+      this.authService.login(user);
     }
   }
 
   register() {
     if (this.validated()) {
       let user = new UserDto(this.email.value, this.pwd.value);
-      this.authService.newUser(user);
+      this.authService.register(user);
     }
   }
 
