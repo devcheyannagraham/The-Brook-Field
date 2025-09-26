@@ -1,6 +1,7 @@
 package demo.bfims.Entities.Order;
 
 import demo.bfims.DTOs.OrderDTOs.CustomerDto;
+import demo.bfims.Entities.Users.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -50,6 +51,11 @@ public class Customer {
         this.state = customerDto.getState();
         this.zipCode = customerDto.getZipCode();
         this.country = customerDto.getCountry();
+    }
+
+    public Customer(User user){
+        this.email = user.getEmail();
+        user.setCustomer(this);
     }
 
 
