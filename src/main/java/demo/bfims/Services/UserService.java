@@ -52,11 +52,12 @@ public class UserService {
     }
 
     public User authenticateUser(UserDto userDto) {
+        if(userDto.getEmail() == null || userDto.getPassword() == null) return null;
         User foundUser = userRepo.findByEmail(userDto.getEmail()).orElse(null);
         if (foundUser != null) {
             byte[] hashedPassword = User.hashPassword(userDto.getPassword(), foundUser.getSalt());
-            User fountUser = userRepo.findByEmailAndPassword(userDto.getEmail(), hashedPassword).orElse(null);
-            if (fountUser != null) {
+            User user = userRepo.findByEmailAndPassword(userDto.getEmail(), hashedPassword).orElse(null);
+            if (user != null) {
                 return foundUser;
             }
         }

@@ -2,7 +2,12 @@ import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
   await page.goto('http://localhost:4200/accessoryform');
-  await page.getByText('New AccessoryAccessory Name').click();
+  await page.locator('input[type="email"]').click();
+  await page.locator('input[type="email"]').fill('admin');
+  await page.locator('input[type="password"]').click();
+  await page.locator('input[type="password"]').fill('admin');
+  await page.getByRole('main').getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('link', { name: 'Add Accessory' }).click();
   await page.getByRole('textbox', { name: 'Accessory Name' }).click();
   await page.getByRole('textbox', { name: 'Accessory Name' }).fill('PW');
   await page.getByRole('textbox', { name: 'Accessory Name' }).press('Tab');

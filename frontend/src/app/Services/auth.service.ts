@@ -52,6 +52,7 @@ export class AuthService {
   }
 
   async reinstateUser(userUid: string) {
+    if(this.user() != null) return;
     return firstValueFrom(this.http.post(`${this.baseUrl}reinstateuser`, userUid, { responseType: 'text', withCredentials: true }))
       .then(email => email)
       .catch(error => alert("REINSTATE:" + error.error));
@@ -59,7 +60,8 @@ export class AuthService {
 
 
   getUserRole() {
-    return firstValueFrom(this.http.post(`${this.baseUrl}isadmin`, this.user() && this.user().userId || null, { responseType: 'text', withCredentials: true }))
+    if(this.user() == null) return null;
+    return firstValueFrom(this.http.post(`${this.baseUrl}isadmin`, this.user() && this.user().userId, { responseType: 'text', withCredentials: true }))
       .then(role => role == UserRole.ADMIN)
       .catch(error => alert("GET USER ROLE:" + error.error))
 
@@ -115,6 +117,9 @@ export class AuthService {
   }
 
   async getUser() {
+    console.log("GETUSER", this.user())
+    // skip if user already exists
+    if(this.user() != null) return;
     if (this.storageAvailable) {
       // @ts-ignore 7015
       let storage = window[AuthService.SESSION_STORAGE];
