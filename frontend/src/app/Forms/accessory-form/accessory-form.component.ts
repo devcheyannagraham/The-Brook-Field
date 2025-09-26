@@ -1,9 +1,9 @@
-import {Component, Input} from '@angular/core';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AccessoryService} from '../../Services/accessory.service';
-import {Accessory} from '../../DTOs/Accessory/Accessory';
-import {AccessoryType} from '../../Enums/AccessoryType';
-import {Router} from '@angular/router';
+import { Component, Input } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AccessoryService } from '../../Services/accessory.service';
+import { Accessory } from '../../DTOs/Accessory/Accessory';
+import { AccessoryType } from '../../Enums/AccessoryType';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'accessory-form',
@@ -38,13 +38,14 @@ export class AccessoryFormComponent {
   fillForm() {
     if (this.accessoryId) {
       this.accessoryService.getAccessoryById(this.accessoryId)
-        .subscribe(data => {
-          for (let key of Object.keys(data)) {
-            if (key != null && this.accessoryForm.contains(key)) {
-              // @ts-ignore
-              this.accessoryForm.get(key).setValue(data[key]);
+        .then(data => {
+          if (data)
+            for (let key of Object.keys(data)) {
+              if (key != null && this.accessoryForm.contains(key)) {
+                // @ts-ignore
+                this.accessoryForm.get(key).setValue(data[key]);
+              }
             }
-          }
         });
     }
   }
@@ -61,9 +62,9 @@ export class AccessoryFormComponent {
 
   saveAccessory(accessory: Accessory) {
     this.accessoryService.newAccessory(accessory)
-      .subscribe(data => {
+      .then(data => {
         // @ts-ignore
-        this.router.navigateByUrl(`/accessory/${data["accessoryId"]}`)
+        if (data) this.router.navigateByUrl(`/accessory/${data["accessoryId"]}`)
 
       });
   }

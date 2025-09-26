@@ -1,6 +1,5 @@
 package demo.bfims.Controllers;
 
-import demo.bfims.Config.Response;
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryDto;
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
 import demo.bfims.Services.AccessoryService;
@@ -64,7 +63,7 @@ public class AccessoryController {
     //Delete accessoryitem
     // Requires Admin access
     @DeleteMapping("/accessoryitem/{id}/{uuid}")
-    public Boolean deleteAccessoryItem(HttpServletRequest request, @PathVariable Long id, @PathVariable String uuid) {
+    public Integer deleteAccessoryItem(HttpServletRequest request, @PathVariable Long id, @PathVariable String uuid) {
         if (id != null && uuid != null && this.userService.isSessionUserAdmin(request, uuid))
             return accessoryService.deleteAccessoryItemById(id);
         else return null;
@@ -73,7 +72,7 @@ public class AccessoryController {
     //Delete 1 accessory
     // Requires Admin access
     @DeleteMapping("/accessory/{id}/{uuid}")
-    public Response deleteAccessory(HttpServletRequest request, @PathVariable Long id, @PathVariable String uuid) {
+    public Integer deleteAccessory(HttpServletRequest request, @PathVariable Long id, @PathVariable String uuid) {
         if (id != null && uuid != null && this.userService.isSessionUserAdmin(request, uuid))
             return accessoryService.deleteAccessory(id);
         else return null;

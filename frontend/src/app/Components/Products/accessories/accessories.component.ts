@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {AccessoryService} from '../../../Services/accessory.service';
-import {Accessory} from '../../../DTOs/Accessory/Accessory';
-import {headers} from '../../../Helpers/headers';
-import {RouterLink} from '@angular/router';
+import { Component } from '@angular/core';
+import { AccessoryService } from '../../../Services/accessory.service';
+import { Accessory } from '../../../DTOs/Accessory/Accessory';
+import { headers } from '../../../Helpers/headers';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'accessories',
@@ -25,8 +25,8 @@ export class AccessoriesComponent {
 
   getAccessories() {
     this.accessoryService.getAccessories()
-      .subscribe(data => {
-        this.accessories = data;
+      .then(data => {
+        if (data) this.accessories = data;
       });
   }
 

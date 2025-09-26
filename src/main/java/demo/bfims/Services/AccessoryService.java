@@ -1,12 +1,10 @@
 package demo.bfims.Services;
 
-import demo.bfims.Config.Response;
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryDto;
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
 import demo.bfims.Enums.AccessoryItemStatus;
-import demo.bfims.Enums.ResponseType;
 import demo.bfims.Repo.AccessoryItemRepo;
 import demo.bfims.Repo.AccessoryRepo;
 import demo.bfims.Repo.ItemRepo;
@@ -76,21 +74,13 @@ public class AccessoryService {
     //DELETES
 
     @Transactional
-    public Boolean deleteAccessoryItemById(Long id) {
-        try {
-            return itemRepo.deleteItemByItemId(id) >= 0;
-        } catch (Exception e) {
-            return false;
-        }
+    public Integer deleteAccessoryItemById(Long id) {
+        return itemRepo.deleteItemByItemId(id);
     }
 
     @Transactional
-    public Response deleteAccessory(Long id) {
-        Response response = new Response();
-        Integer rows = accessoryRepo.deleteByAccessoryId(id);
-        response.getMessages().put(ResponseType.SUCCESS.toString(), "Accessory has been removed successfully");
-        response.getMessages().put(ResponseType.MESSAGE.toString(), rows.toString() + " affected.");
-        return response;
+    public Integer deleteAccessory(Long id) {
+        return accessoryRepo.deleteByAccessoryId(id);
     }
 
 
