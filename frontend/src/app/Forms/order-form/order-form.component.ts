@@ -8,6 +8,7 @@ import { AccessoryItem } from '../../DTOs/Accessory/AccessoryItem';
 import { TypeCast } from '../../Pipes/TypeCast';
 import { Customer } from '../../DTOs/Order/Customer';
 import { Router } from '@angular/router';
+import { ToasterService } from '../../Services/toaster.service';
 
 @Component({
   selector: 'order-form',
@@ -24,7 +25,7 @@ export class OrderFormComponent {
   orderItems;
   orderTotal;
 
-  constructor(public formBuilder: FormBuilder, public shopService: ShopService, public router: Router) {
+  constructor(public formBuilder: FormBuilder, public shopService: ShopService, public router: Router, public toaster: ToasterService) {
     this.orderItems = computed(() => {
       return [...this.shopService.shoppingCart().values()];
     });
@@ -56,7 +57,7 @@ export class OrderFormComponent {
     this.shopService.submitOrder(customer)
       .subscribe(resp => {
         if (resp) {
-          alert("order submitted");
+          this.toaster.message.set({ class: "success", message: "order submitted" });
           this.router.navigateByUrl("/shop");
         }
       })

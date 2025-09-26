@@ -1,0 +1,7 @@
+<div id="toaster">
+    @if(toasterService.message() && showMessage){
+    <div [class]="toasterService.message().class">
+        <p>{{toasterService.message().message}}</p>
+    </div>
+    }
+</div>

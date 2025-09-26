@@ -1,5 +1,8 @@
 <header>
   <h1>BFIMS</h1>
+</header>
+<nav>
+
   <back />
   @if(authService.user() != null){
   <button (click)="logout()">Logout</button>
@@ -10,8 +13,8 @@
   <a routerLink="/register"><button>Register </button></a>
   }
 
-
-</header>
+</nav>
+<toaster />
 
 <main>
   <router-outlet></router-outlet>

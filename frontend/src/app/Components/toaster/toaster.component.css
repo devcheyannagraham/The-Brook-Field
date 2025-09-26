@@ -1,0 +1,19 @@
+.success {
+    background: green;
+}
+
+.info {
+    background: blue;
+}
+
+.error {
+    background:red;
+}
+
+#toaster {
+    min-height: 50px;
+}
+div {
+    color: white;
+    padding: 5px 0;
+}

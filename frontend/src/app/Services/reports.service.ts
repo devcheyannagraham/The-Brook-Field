@@ -5,6 +5,7 @@ import { RecentOrderDto } from '../DTOs/Report/RecentOrderDto';
 import { InventoryCountDto } from '../DTOs/Report/InventoryCountDto';
 import { AuthService } from './auth.service';
 import { firstValueFrom } from 'rxjs';
+import { ToasterService } from './toaster.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,34 +13,34 @@ import { firstValueFrom } from 'rxjs';
 export class ReportsService {
   baseUrl: string = 'http://localhost:8080/';
 
-  constructor(private http: HttpClient, private authSerivce: AuthService) {
+  constructor(private http: HttpClient, private authSerivce: AuthService, public toaster: ToasterService) {
   }
 
   getPopularItems() {
     if(this.authSerivce.user() == null) return null;
     return firstValueFrom(this.http.get<PopularItemDto[]>(`${this.baseUrl}popularitems/${this.authSerivce.user().userId}`, { withCredentials: true }))
       .then(items => items)
-      .catch(error => alert("POPULAR ITEMS:" + error.error));
+      .catch(error => this.toaster.message.set({ class: "error", message:error.error }));
   }
 
   getShopPopularItems() {
     return firstValueFrom(this.http.get<PopularItemDto[]>(`${this.baseUrl}shop/popularitems`))
       .then(items => items)
-      .catch(error => alert("POPULAR ITEMS:" + error.error));
+      .catch(error => this.toaster.message.set({ class: "error", message:error.error }));
   }
 
   getRecentOrders() {
     if(this.authSerivce.user() == null) return null;
     return firstValueFrom(this.http.get<RecentOrderDto[]>(`${this.baseUrl}recentorders/${this.authSerivce.user().userId}`, { withCredentials: true }))
       .then(items => items)
-      .catch(error => alert("RECENT ORDERS" + error.error));
+      .catch(error => this.toaster.message.set({ class: "error", message:error.error }));
   }
 
   getLowInventoryItems() {
     if(this.authSerivce.user() == null) return null;
     return firstValueFrom(this.http.get<InventoryCountDto[]>(`${this.baseUrl}lowinventory/${this.authSerivce.user().userId}`, { withCredentials: true }))
       .then(items => items)
-      .catch(error => alert("LOW INVENTORY:" + error.error));
+      .catch(error => this.toaster.message.set({ class: "error", message:error.error }));
   }
 
 }
