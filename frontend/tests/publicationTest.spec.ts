@@ -1,7 +1,13 @@
 import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
-  await page.goto('http://localhost:4200/publicationform');
+await page.goto('http://localhost:4200/publicationform');
+await page.locator('input[type="email"]').click();
+await page.locator('input[type="email"]').fill('admin');
+await page.locator('input[type="email"]').press('Tab');
+await page.locator('input[type="password"]').fill('admin');
+await page.getByRole('main').getByRole('button', { name: 'Login' }).click();
+await page.getByRole('link', { name: 'Add Publication' }).click();
   await page.getByRole('textbox', { name: 'Title' }).click();
   await page.getByRole('textbox', { name: 'Title' }).fill('pw');
   await page.getByLabel('Genre SciFiComedyFantasyYouth').selectOption('SCIFI');
@@ -48,14 +54,6 @@ test('test', async ({ page }) => {
   await expect(page.locator('publication-items')).toContainText('Genre: COMEDY');
   await expect(page.locator('publication-items')).toContainText('Date Published: Sep 17, 2025');
   await page.getByRole('main').click();
-  await page.getByRole('link', { name: 'Add Items' }).click();
-  await page.getByLabel('Publication Item Type').selectOption('JOURNAL');
-  await page.getByRole('spinbutton', { name: 'Quantity' }).click();
-  await page.getByRole('spinbutton', { name: 'Quantity' }).click();
-  await page.getByRole('spinbutton', { name: 'Quantity' }).click();
-  await page.getByRole('spinbutton', { name: 'Quantity' }).click();
-  await page.getByRole('spinbutton', { name: 'Quantity' }).fill('3');
-  await page.getByText('Back pw updated Genre:').click();
   await page.getByRole('link', { name: 'Add Items' }).click();
   await page.getByLabel('Publication Item Type').selectOption('JOURNAL');
   await page.getByRole('spinbutton', { name: 'Quantity' }).click();

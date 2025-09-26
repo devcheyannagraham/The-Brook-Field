@@ -1,7 +1,8 @@
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Publication} from '../DTOs/Inventory/Publication';
-import {PublicationItem} from '../DTOs/Inventory/PublicationItem';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Publication } from '../DTOs/Inventory/Publication';
+import { PublicationItem } from '../DTOs/Inventory/PublicationItem';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,17 +10,17 @@ import {PublicationItem} from '../DTOs/Inventory/PublicationItem';
 export class PublicationService {
   baseUrl: string = 'http://localhost:8080/';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
-  newPublication(pub: any) {
-    return this.http
-      .post(`${this.baseUrl}publication`, pub);
+  //Get all pub items for specific pub
+  getPublicationItemsByPublicationId(pubId: number) {
+    return this.http.get<any[]>(`${this.baseUrl}publicationitems/${pubId}/${this.authService.user().userId}`, { withCredentials: true });
   }
 
-  newPublicationItem(pubItem:any)
-  {
-    return this.http.post(`${this.baseUrl}publicationitem`, pubItem);
+  //Get available pub items for specific pub
+  getAvailablePublicationItemsByPublicationId(pubId: number) {
+    return this.http.get<any[]>(`${this.baseUrl}shop/publicationitems/${pubId}`);
   }
 
   //Get all pubs for list view
@@ -32,27 +33,28 @@ export class PublicationService {
     return this.http.get<Publication>(`${this.baseUrl}publication/${id}`);
   }
 
-  //Get all pub items for specific pub
-  getPublicationItemsByPublicationId(pubId: number) {
-    return this.http.get<any[]>(`${this.baseUrl}publicationitems/${pubId}`);
-  }
-
-  //Get available pub items for specific pub
-  getAvailablePublicationItemsByPublicationId(pubId: number) {
-    return this.http.get<any[]>(`${this.baseUrl}shop/publicationitems/${pubId}`);
-  }
 
   // Get 1 pub item
-  getPublicationItemById(pubItemId: number){
-    return this.http.get<PublicationItem>(`${this.baseUrl}publicationitem/${pubItemId}`);
+  getPublicationItemById(pubItemId: number) {
+    return this.http.get<PublicationItem>(`${this.baseUrl}publicationitem/${pubItemId}/${this.authService.user().userId}`, { withCredentials: true });
   }
 
-  deletePublicationItem(itemId: number){
-    return this.http.delete(`${this.baseUrl}publicationitem/${itemId}`);
+
+  newPublication(pub: any) {
+    return this.http
+      .post(`${this.baseUrl}publication/${this.authService.user().userId}`, pub, { withCredentials: true });
   }
 
-  deletePublication(pubId: number){
-    return this.http.delete(`${this.baseUrl}publication/${pubId}`);
+  newPublicationItem(pubItem: any) {
+    return this.http.post(`${this.baseUrl}publicationitem/${this.authService.user().userId}`, pubItem, { withCredentials: true });
+  }
+
+  deletePublicationItem(itemId: number) {
+    return this.http.delete(`${this.baseUrl}publicationitem/${itemId}/${this.authService.user().userId}`, { withCredentials: true });
+  }
+
+  deletePublication(pubId: number) {
+    return this.http.delete(`${this.baseUrl}publication/${pubId}/${this.authService.user().userId}`, { withCredentials: true });
 
   }
 

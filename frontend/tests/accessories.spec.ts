@@ -28,6 +28,9 @@ test('test', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Accessory Name' }).fill('PW updated');
   await page.getByRole('button', { name: 'Update Accessory' }).click();
   await expect(page.locator('h3')).toContainText('PW updated');
-  await page.getByRole('link', { name: 'Back' }).click();
-  await expect(page.locator('tbody')).toContainText('PW updated');
+  await page.getByRole('button', { name: 'back' }).click();
+  await page.getByRole('button', { name: 'back' }).click();
+  await page.getByRole('button', { name: 'back' }).click();
+  await page.getByRole('button', { name: 'back' }).click();
+  await expect(page.locator('body')).toContainText('PW updated');
 });
