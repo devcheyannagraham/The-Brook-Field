@@ -8,8 +8,10 @@ import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
 import demo.bfims.Entities.Inventory.Publication.Publication;
 import demo.bfims.Entities.Inventory.Publication.PublicationItem;
+import demo.bfims.Entities.Order.Customer;
 import demo.bfims.Entities.Order.Order;
 import demo.bfims.Entities.Order.Transaction;
+import demo.bfims.Entities.Users.User;
 import demo.bfims.Enums.AccessoryItemStatus;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.PublicationItemStatus;
@@ -29,14 +31,18 @@ public class ReportService {
     private final TransactionRepo transactionRepo;
     private final AccessoryRepo accessoryRepo;
     private final AccessoryItemRepo accessoryItemRepo;
+    private final CustomerRepo customerRepo;
+    private final UserRepo userRepo;
 
-    public ReportService(OrderRepo orderRepo, PublicationRepo publicationRepo, PublicationItemRepo publicationItemRepo, TransactionRepo transactionRepo, AccessoryRepo accessoryRepo, AccessoryItemRepo accessoryItemRepo) {
+    public ReportService(OrderRepo orderRepo, PublicationRepo publicationRepo, PublicationItemRepo publicationItemRepo, TransactionRepo transactionRepo, AccessoryRepo accessoryRepo, AccessoryItemRepo accessoryItemRepo, CustomerRepo customerRepo, UserRepo userRepo) {
         this.orderRepo = orderRepo;
         this.publicationRepo = publicationRepo;
         this.publicationItemRepo = publicationItemRepo;
         this.transactionRepo = transactionRepo;
         this.accessoryRepo = accessoryRepo;
         this.accessoryItemRepo = accessoryItemRepo;
+        this.customerRepo = customerRepo;
+        this.userRepo = userRepo;
     }
 
     public List<ShopPopularItemDto> getShopPopularItems() {
@@ -129,11 +135,17 @@ public class ReportService {
     }
 
     public List<RecentOrderDto> getRecentOrders(Long userId) {
-        if(userId == null) return null;
+        if (userId == null) return null;
         LocalDateTime threeMonthsAgo = LocalDateTime.now().minusMonths(3);
-        List<Order> results = orderRepo.findOrdersByOrderDateAfterAndCustomerId(threeMonthsAgo, userId).orElse(null);
-        if (results != null && !results.isEmpty()) {
-            return results.stream().map(RecentOrderDto::new).collect(Collectors.toList());
+
+        // UserId != CustomerId
+        User user = userRepo.findUserByUserId(userId).orElse(null);
+        if (user != null && user.getCustomer() != null && user.getCustomer().getId() != null) {
+
+            List<Order> results = orderRepo.findOrdersByOrderDateAfterAndCustomerId(threeMonthsAgo, user.getCustomer().getId()).orElse(null);
+            if (results != null && !results.isEmpty()) {
+                return results.stream().map(RecentOrderDto::new).collect(Collectors.toList());
+            }
         }
         return null;
     }
