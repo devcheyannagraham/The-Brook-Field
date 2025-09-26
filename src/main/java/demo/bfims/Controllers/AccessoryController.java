@@ -6,7 +6,6 @@ import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
 import demo.bfims.Services.AccessoryService;
 import demo.bfims.Services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,11 +29,10 @@ public class AccessoryController {
     }
 
     // get specific accessory
-    // Requires Admin access
-    @GetMapping("/accessory/{accessoryId}/{uuid}")
-    public AccessoryDto newAccessory(HttpServletRequest request, @PathVariable Long accessoryId, @PathVariable String uuid) {
-        if (accessoryId != null && uuid != null && this.userService.isSessionUserAdmin(request, uuid))
-            return accessoryService.getAccessory(accessoryId);
+    @GetMapping("/accessory/{accessoryId}")
+    public AccessoryDto getAccessoryById(@PathVariable Long accessoryId) {
+        if (accessoryId != null)
+            return accessoryService.getAccessoryById(accessoryId);
         else return null;
     }
 
@@ -51,15 +49,6 @@ public class AccessoryController {
     public List<AccessoryItemDto> getAccessoryItemsByAccessoryId(HttpServletRequest request, @PathVariable Long accessoryId, @PathVariable String uuid) {
         if (accessoryId != null && uuid != null && this.userService.isSessionUserAdmin(request, uuid))
             return accessoryService.getAccessoryItemsByAccessoryId(accessoryId);
-        else return null;
-    }
-
-    //Update accessoryitem // may delete
-    // Requires Admin access
-    @PutMapping("/accessoryitem/{uuid}")
-    public AccessoryItemDto updateAccessoryItem(HttpServletRequest request, @RequestBody AccessoryItemDto accessoryItemDto, @PathVariable String uuid) {
-        if (accessoryItemDto != null && uuid != null && this.userService.isSessionUserAdmin(request, uuid))
-            return accessoryService.updateAccessoryItem(accessoryItemDto);
         else return null;
     }
 

@@ -1,6 +1,5 @@
 package demo.bfims.Entities.Inventory.Accessory;
 
-import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryDto;
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
 import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
 import demo.bfims.Entities.Inventory.Publication.Item;

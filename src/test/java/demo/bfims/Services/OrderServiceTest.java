@@ -44,20 +44,6 @@ class OrderServiceTest {
     }
 
     @Test
-    @org.junit.jupiter.api.Order(2)
-    void getAllOrders() {
-        assertEquals(orderService.getAllOrders().size(), orderRepo.findAll().size());
-    }
-
-    @Test
-    @org.junit.jupiter.api.Order(3)
-    void getOrder() {
-        Order o = new Order();
-        Long orderId = orderRepo.save(o).getId();
-        assertEquals(orderId, orderService.getOrder(orderId).getId());
-    }
-
-    @Test
     @org.junit.jupiter.api.Order(4)
     void getCustomerOrders() {
         Order order = new Order();

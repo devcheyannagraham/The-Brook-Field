@@ -37,7 +37,7 @@ export class AccessoryFormComponent {
 
   fillForm() {
     if (this.accessoryId) {
-      this.accessoryService.getAccessory(this.accessoryId)
+      this.accessoryService.getAccessoryById(this.accessoryId)
         .subscribe(data => {
           for (let key of Object.keys(data)) {
             if (key != null && this.accessoryForm.contains(key)) {

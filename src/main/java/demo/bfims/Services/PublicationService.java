@@ -8,7 +8,6 @@ import demo.bfims.Repo.ItemRepo;
 import demo.bfims.Repo.PublicationItemRepo;
 import demo.bfims.Repo.PublicationRepo;
 import jakarta.persistence.EntityManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,14 +15,17 @@ import java.util.List;
 
 @Service
 public class PublicationService {
-    @Autowired
-    private ItemRepo itemRepo;
-    @Autowired
-    private PublicationRepo publicationRepo;
-    @Autowired
-    EntityManager entityManager;
-    @Autowired
-    private PublicationItemRepo publicationItemRepo;
+    private final ItemRepo itemRepo;
+    private final PublicationRepo publicationRepo;
+    private final EntityManager entityManager;
+    private final PublicationItemRepo publicationItemRepo;
+
+    public PublicationService(ItemRepo itemRepo, PublicationRepo publicationRepo, EntityManager entityManager, PublicationItemRepo publicationItemRepo) {
+        this.itemRepo = itemRepo;
+        this.publicationRepo = publicationRepo;
+        this.entityManager = entityManager;
+        this.publicationItemRepo = publicationItemRepo;
+    }
 
     @Transactional
     public PublicationItemDto newPublicationItem(PublicationItemDto publicationItemDto) {

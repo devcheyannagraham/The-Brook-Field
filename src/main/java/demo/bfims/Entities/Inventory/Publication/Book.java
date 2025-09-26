@@ -1,6 +1,5 @@
 package demo.bfims.Entities.Inventory.Publication;
 
-import demo.bfims.DTOs.InventoryDTOs.Publication.BookDto;
 import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
 import demo.bfims.Enums.PublicationItemFormat;
 import demo.bfims.Enums.PublicationItemStatus;

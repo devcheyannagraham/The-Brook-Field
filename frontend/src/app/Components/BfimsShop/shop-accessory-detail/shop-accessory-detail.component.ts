@@ -31,7 +31,7 @@ export class ShopAccessoryDetailComponent {
 
   getAccessory() {
     if (this.shopItemId) {
-      this.accessoryService.getAccessory(this.shopItemId)
+      this.accessoryService.getAccessoryById(this.shopItemId)
         .subscribe(acc => {
           this.accessory = acc;
           this.accessoryService.getAvailableAccessoryItemsByAccessoryId(acc.accessoryId)

@@ -1,6 +1,5 @@
 package demo.bfims.Entities.Inventory.Publication;
 
-import demo.bfims.DTOs.InventoryDTOs.Publication.AuthorDto;
 import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationDto;
 import demo.bfims.Enums.Genre;
 import jakarta.persistence.*;

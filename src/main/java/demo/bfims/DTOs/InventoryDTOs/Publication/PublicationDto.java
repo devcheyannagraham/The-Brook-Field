@@ -1,6 +1,5 @@
 package demo.bfims.DTOs.InventoryDTOs.Publication;
 
-import demo.bfims.Entities.Inventory.Publication.Author;
 import demo.bfims.Entities.Inventory.Publication.Publication;
 import demo.bfims.Enums.Genre;
 
