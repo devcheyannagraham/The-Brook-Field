@@ -33,26 +33,29 @@ public class OrderService {
         Customer managedCustomer = null;
 
         Customer customer = order.getCustomer();
-        // Get customer by id,email, or user email (Creates new Customer)
-        if (customer != null) {
-            if (customer.getId() != null) {
-                managedCustomer = entityManager.merge(customer);
-            } else if (!customer.getEmail().isBlank()) {
-                Customer foundCustomer = customerRepo.getCustomerByEmail(customer.getEmail()).orElse(null);
-                if (foundCustomer != null) {
-                    managedCustomer = entityManager.merge(foundCustomer);
-                } else {
-                    User user = this.userRepo.findByEmail(customer.getEmail()).orElse(null);
-                    if (user != null) {
-                        Customer newCustomer = new Customer(user);
-                        entityManager.persist(newCustomer);
-                        managedCustomer = entityManager.merge(newCustomer);
-                    }
-                }
+        if (customer == null) return null;
+
+        // Get customer by Id
+        if (customer.getId() != null) {
+            managedCustomer = entityManager.merge(customer);
+        } else if (customer.getEmail().isBlank()) return null;
+        // Get custome by Email
+        Customer foundCustomer = customerRepo.getCustomerByEmail(customer.getEmail()).orElse(null);
+        if (foundCustomer != null) {
+            managedCustomer = entityManager.merge(foundCustomer);
+        } else {
+            // Get customer by user email
+            User user = this.userRepo.findByEmail(customer.getEmail()).orElse(null);
+            if (user != null) {
+                Customer newCustomer = new Customer(user);
+                entityManager.persist(newCustomer);
+                managedCustomer = entityManager.merge(newCustomer);
             }
         }
+        // customer couldnt be found return
+        if (managedCustomer == null) return null;
 
-        order.setCustomer(managedCustomer); // only pulls if customer has id
+        order.setCustomer(managedCustomer);
 
         // persist item status
         List<Item> items = order.getTransactions().stream().map(Transaction::getItem).toList();
