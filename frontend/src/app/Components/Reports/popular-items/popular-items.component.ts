@@ -15,26 +15,33 @@ import { AuthService } from '../../../Services/auth.service';
 })
 export class PopularItemsComponent {
   destroyRef = inject(DestroyRef);
-  popularItems:PopularItemDto[] | void;
+  popularItems: PopularItemDto[] | void;
   headers = headers;
   ItemType = ItemType;
-  isAdmin : void | boolean = false;
+  isAdmin: void | boolean = false;
 
-  constructor(public reportService: ReportsService, public authService:AuthService) { 
+  constructor(public reportService: ReportsService, public authService: AuthService) {
   }
-  
+
   ngOnInit() {
     this.getPopularItems();
-    
-  }
-  
-  getPopularItems() {
-   (async() => this.isAdmin =  await this.authService.getUserRole())();
 
-    this.reportService.getPopularItems()
-    .then(items => {
-      this.popularItems = items;
-    })
+  }
+
+  getPopularItems() {
+    this.authService.getUserRole()
+      .then(isAdmin => {
+        if (isAdmin) {
+          this.isAdmin = true;
+          this.reportService.getPopularItems()
+          .then(items => this.popularItems = items);
+        }
+        else {
+          this.isAdmin = false;
+          this.reportService.getShopPopularItems()
+          .then(items => this.popularItems = items);
+        }
+      });
   }
 
 }
