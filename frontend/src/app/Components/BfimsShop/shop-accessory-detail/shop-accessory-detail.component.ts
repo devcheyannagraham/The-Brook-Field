@@ -7,12 +7,14 @@ import { AccessoryItem } from '../../../DTOs/Accessory/AccessoryItem';
 import { headers } from '../../../Helpers/headers';
 import { Purchase } from '../../../DTOs/Order/Purchase';
 import { Location } from '@angular/common';
+import { CartComponent } from "../cart/cart.component";
 
 @Component({
   selector: 'shop-accessory-detail',
   imports: [
-    RouterLink
-  ],
+    RouterLink,
+    CartComponent
+],
   templateUrl: './shop-accessory-detail.component.html',
   styleUrl: './shop-accessory-detail.component.css'
 })

@@ -80,8 +80,6 @@ export const routes: Routes = [
   {
     path: 'checkout',
     component: OrderFormComponent,
-    canActivate: [authenticatedUserGuard]
-
   },
   {
     path: 'shop',

@@ -1,3 +1,5 @@
+<cart/>
+
 @if (publication) {
 
 <h3> {{ publication.title }} </h3>
@@ -14,7 +16,7 @@
   <li>{{ headers.lastName }}: {{ publication.author.lastName }}</li>
 </ul>
 <p>Total in cart: {{publicationItemsInCart.get(publication.publicationId) || 0}}</p>
-<a routerLink="/checkout"><button>Checkout</button> </a>
+
 
 
 @if (books() && books().length) {

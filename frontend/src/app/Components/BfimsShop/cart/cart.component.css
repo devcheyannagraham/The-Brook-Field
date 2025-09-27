@@ -1,0 +1,12 @@
+#cart {
+    display: flex;
+    align-items: baseline;
+}
+p {
+    margin: 5px 5px 5px 0;
+    padding: 5px 5px 5px 0;
+}
+.title {
+    font-weight: bold;
+    font-size: larger;
+}

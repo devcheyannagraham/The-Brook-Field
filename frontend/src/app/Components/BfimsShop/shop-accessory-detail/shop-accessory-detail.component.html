@@ -1,3 +1,4 @@
+<cart />
 @if (accessory) {
 
 <h3>{{ accessory.accessoryName }}</h3>
@@ -16,7 +17,7 @@
   +
 </button>
 <button (click)="removeAccessoryItem()" [disabled]="!(accessoryItemsInCart.get(accessory.accessoryId).length > 0)">
- -
+  -
 </button>
 } @else {
 
@@ -24,11 +25,4 @@
   Purchase
 </button>
 }
-
-
-
-<a routerLink="/checkout"><button>Checkout</button> </a>
-
 }
-<!-- //Add + - remove all on accessory Item and disable when appropriate -->
-<!-- add itemsInCart to track which items from which accessory is in the carts -->

@@ -10,14 +10,16 @@ import { PublicationService } from '../../../Services/publication.service';
 import { SearchComponent } from '../../search/search.component';
 import { ItemType } from '../../../Enums/ItemType';
 import { ReportsService } from '../../../Services/reports.service';
+import { CartComponent } from "../cart/cart.component";
 
 @Component({
   selector: 'shop',
   imports: [
     DatePipe,
     RouterLink,
-    SearchComponent
-  ],
+    SearchComponent,
+    CartComponent
+],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'
 })
