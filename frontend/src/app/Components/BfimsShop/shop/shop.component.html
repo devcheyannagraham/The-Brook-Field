@@ -1,5 +1,41 @@
 <h2>Our Shop</h2>
 <a routerLink="/checkout">Checkout </a>
+<search title="store items">
+  <search-component (searchEvent)="showSearchItems($event)"/>
+</search>
+
+@if(searchData){
+  @if(searchData.length == 0){
+    <p>No Results Found.</p>
+  }
+  <table>
+    <thead>
+      <th>Item</th>
+    </thead>
+    <tbody>
+      @for(item of searchData; track `${item.id}-${item.itemType}`){
+        <tr>
+            @if(item.itemType == itemType.PUBLICATION_ITEM){
+
+                    <a [routerLink]="['/shop/publication/',item.id]">
+                        {{item.title }}
+                    </a>
+                    }
+                    @if(item.itemType == itemType.ACCESSORY_ITEM){
+                    <a [routerLink]="['shop/accessory/',item.id]">
+                        {{item.title }}
+                    </a>
+                    }
+        </tr>
+      }
+    </tbody>
+  </table>
+  <button (click)="closeSearch()">Close Search</button>
+}
+
+
+
+
 @if (publications) {
   <div>
     <h3>PUBLICATIONS</h3>

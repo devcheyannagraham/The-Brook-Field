@@ -44,14 +44,9 @@ export class ReportsService {
   }
 
   searchTerms(terms: string) {
-    this.http.get<InventoryCountDto>(`${this.baseUrl}search/${terms}`)
-      .subscribe(results => {
-        if (results) {
-          console.log(results);
-        }
-      })
+    if (terms.trim() == null) return null;
+    return firstValueFrom(this.http.get<InventoryCountDto[]>(`${this.baseUrl}search/${terms}`))
+      .then(results => results)
+      .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
-
-
-
 }

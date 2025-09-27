@@ -7,12 +7,16 @@ import { headers } from '../../../Helpers/headers';
 import { RouterLink } from '@angular/router';
 import { AccessoryService } from '../../../Services/accessory.service';
 import { PublicationService } from '../../../Services/publication.service';
+import { SearchComponent } from '../../search/search.component';
+import { InventoryCountDto } from '../../../DTOs/Report/InventoryCountDto';
+import { ItemType } from '../../../Enums/ItemType';
 
 @Component({
   selector: 'shop',
   imports: [
     DatePipe,
     RouterLink,
+    SearchComponent
   ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'
@@ -22,6 +26,8 @@ export class ShopComponent {
   pens: Accessory[] = [];
   bookmarks: Accessory[] = [];
   protected readonly headers = headers;
+  searchData: InventoryCountDto[];
+  itemType = ItemType;
 
   publications: Publication[];
 
@@ -57,5 +63,13 @@ export class ShopComponent {
           }
         }
       });
+  }
+
+  showSearchItems(data:InventoryCountDto[]){
+    this.searchData = data;
+  }
+
+  closeSearch(){
+    this.searchData = null;
   }
 }
