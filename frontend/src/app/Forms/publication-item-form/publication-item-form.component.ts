@@ -1,18 +1,18 @@
-import {Component, Input} from '@angular/core';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {PublicationService} from '../../Services/publication.service';
-import {PublicationItemType} from '../../Enums/PublicationItemType';
-import {PublicationItem} from '../../DTOs/Inventory/PublicationItem';
-import {PublicationItemStatus} from '../../Enums/PublicationItemStatus';
-import {Journal} from '../../DTOs/Inventory/Journal';
-import {LiteraryPiece} from '../../DTOs/Inventory/LiteraryPiece';
-import {Book} from '../../DTOs/Inventory/Book';
-import {Publication} from '../../DTOs/Inventory/Publication';
-import {PublicationItemFormat} from '../../Enums/PublicationItemFormat';
-import {LiteraryType} from '../../Enums/LiteraryType';
-import {Router} from '@angular/router';
-import {DatePipe, Location} from '@angular/common';
-import {headers} from '../../Helpers/headers';
+import { Component, Input } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { PublicationService } from '../../Services/publication.service';
+import { PublicationItemType } from '../../Enums/PublicationItemType';
+import { PublicationItem } from '../../DTOs/Inventory/PublicationItem';
+import { PublicationItemStatus } from '../../Enums/PublicationItemStatus';
+import { Journal } from '../../DTOs/Inventory/Journal';
+import { LiteraryPiece } from '../../DTOs/Inventory/LiteraryPiece';
+import { Book } from '../../DTOs/Inventory/Book';
+import { Publication } from '../../DTOs/Inventory/Publication';
+import { PublicationItemFormat } from '../../Enums/PublicationItemFormat';
+import { LiteraryType } from '../../Enums/LiteraryType';
+import { Router } from '@angular/router';
+import { DatePipe, Location } from '@angular/common';
+import { headers } from '../../Helpers/headers';
 
 @Component({
   selector: 'publication-item-form',
@@ -51,17 +51,19 @@ export class PublicationItemFormComponent {
 
   getPublicationItem() {
     this.pubService.getPublicationItemById(this.pubItemId)
-      .subscribe(pubItem => {
-        this.publicationItem = pubItem;
-        this.publication = this.publicationItem.publication;
-        this.fillForm();
+      .then(pubItem => {
+        if (pubItem) {
+          this.publicationItem = pubItem;
+          this.publication = this.publicationItem.publication;
+          this.fillForm();
+        }
       });
   }
 
   getPublication() {
     this.pubService.getPublicationById(this.publicationId)
-      .subscribe(pub => {
-        this.publication = pub;
+      .then(pub => {
+        if(pub) this.publication = pub;
       });
   }
 
@@ -112,7 +114,7 @@ export class PublicationItemFormComponent {
 
   createPublicationItem(item: any) {
     this.pubService.newPublicationItem(item)
-      .subscribe(resp => {
+      .then(resp => {
         // @ts-ignore
         this.router.navigateByUrl(`/publication/${resp[0]["publication"]["publicationId"]}`)
       })

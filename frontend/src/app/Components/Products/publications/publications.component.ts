@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {PublicationService} from '../../../Services/publication.service';
-import {DatePipe} from '@angular/common';
-import {headers} from '../../../Helpers/headers';
-import {RouterLink} from '@angular/router';
+import { Component } from '@angular/core';
+import { PublicationService } from '../../../Services/publication.service';
+import { DatePipe } from '@angular/common';
+import { headers } from '../../../Helpers/headers';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'publications',
@@ -22,9 +22,10 @@ export class PublicationsComponent {
   }
 
   getPublications() {
-    this.pubService.getPublications().subscribe((data: any) => {
-      this.publications = data;
-    });
+    this.pubService.getPublications()
+      .then((data: any) => {
+        if (data) this.publications = data;
+      });
   }
 
 }

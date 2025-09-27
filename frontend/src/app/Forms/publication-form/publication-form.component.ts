@@ -1,10 +1,10 @@
-import {Component, Input, input} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule,} from '@angular/forms';
-import {PublicationService} from '../../Services/publication.service';
-import {Publication} from '../../DTOs/Inventory/Publication';
-import {Genre} from '../../Enums/Genre';
-import {Author} from '../../DTOs/Inventory/Author';
-import {Router} from '@angular/router';
+import { Component, Input, input } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, } from '@angular/forms';
+import { PublicationService } from '../../Services/publication.service';
+import { Publication } from '../../DTOs/Inventory/Publication';
+import { Genre } from '../../Enums/Genre';
+import { Author } from '../../DTOs/Inventory/Author';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -21,7 +21,7 @@ export class PublicationFormComponent {
 
   @Input() publicationId: number;
 
-  constructor(public formBuilder: FormBuilder, public pubService: PublicationService, public router: Router, public location:Location) {
+  constructor(public formBuilder: FormBuilder, public pubService: PublicationService, public router: Router, public location: Location) {
   }
 
   ngOnInit() {
@@ -31,10 +31,12 @@ export class PublicationFormComponent {
 
   getPublication() {
     this.pubService.getPublicationById(this.publicationId)
-      .subscribe(data => {
-        this.publication = data;
-        this.author = data.author;
-        this.fillForm();
+      .then(data => {
+        if (data) {
+          this.publication = data;
+          this.author = data.author;
+          this.fillForm();
+        }
       });
 
   }
@@ -75,7 +77,7 @@ export class PublicationFormComponent {
 
   createPublication(pub: any) {
     this.pubService.newPublication(pub)
-      .subscribe(resp => {
+      .then(resp => {
         // @ts-ignore
         if (resp["publicationId"]) this.router.navigateByUrl(`/publication/${resp["publicationId"]}`);
       });

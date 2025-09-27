@@ -43,7 +43,7 @@ export class ShopPublicationDetailComponent {
 
   @Input() shopItemId: number;
 
-  constructor(public shopService: ShopService, public publicationService: PublicationService, public router: Router, public location:Location) {
+  constructor(public shopService: ShopService, public publicationService: PublicationService, public router: Router, public location: Location) {
   }
 
   ngOnInit() {
@@ -53,9 +53,11 @@ export class ShopPublicationDetailComponent {
   getPublicationData() {
     if (this.shopItemId) {
       this.publicationService.getPublicationById(this.shopItemId)
-        .subscribe(pub => {
-          this.publication = pub;
-          this.getPublicationItemsByPublicationId();
+        .then(pub => {
+          if (pub) {
+            this.publication = pub;
+            this.getPublicationItemsByPublicationId();
+          }
         });
     }
   }
@@ -63,7 +65,7 @@ export class ShopPublicationDetailComponent {
   getPublicationItemsByPublicationId() {
     if (this.shopItemId) {
       this.publicationService.getAvailablePublicationItemsByPublicationId(this.publication.publicationId)
-        .subscribe(pubItems => {
+        .then(pubItems => {
           if (pubItems) {
             let items = new Map<number, PublicationItem>();
 

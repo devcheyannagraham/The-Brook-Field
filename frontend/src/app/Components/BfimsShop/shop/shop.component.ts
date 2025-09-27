@@ -35,8 +35,8 @@ export class ShopComponent {
 
   getPublications() {
     this.publicationService.getPublications()
-      .subscribe(data => {
-        this.publications = data;
+      .then(data => {
+        if (data) this.publications = data;
       });
   }
 
