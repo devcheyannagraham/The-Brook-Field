@@ -150,8 +150,33 @@ public class ReportService {
         return null;
     }
 
+    public List<InventoryCountDto> searchItems(String terms) {
+        List<InventoryCountDto> foundItems = new ArrayList<>();
+        List<Publication> publicationsContainAuthor = publicationRepo.getPublicationsByAuthor_FirstNameContainingOrAuthor_LastNameContaining(terms, terms).orElse(null);
+        List<Publication> publicationsContainTitle = publicationRepo.getPublicationsByTitleContaining(terms).orElse(null);
+        List<Accessory> accessoriesContainName = accessoryRepo.getAccessoriesByAccessoryNameContaining(terms);
+
+        if (publicationsContainAuthor != null) {
+            publicationsContainAuthor.forEach(pub -> {
+                foundItems.add(new InventoryCountDto(pub, 1));
+            });
+        }
+        if (publicationsContainTitle != null) {
+            publicationsContainTitle.forEach(pub -> {
+                foundItems.add(new InventoryCountDto(pub, 1));
+            });
+        }
+        if (accessoriesContainName != null) {
+            accessoriesContainName.forEach(pub -> {
+                foundItems.add(new InventoryCountDto(pub, 1));
+            });
+        }
+        return foundItems;
+    }
+
+
     // Helper
-    // returns top 5 items
+// returns top 5 items
     public List<Long> getTopItems(Map<Long, Integer> map) {
         List<Map.Entry<Long, Integer>> entryList = new ArrayList<>(map.entrySet());
         entryList.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));

@@ -17,30 +17,41 @@ export class ReportsService {
   }
 
   getPopularItems() {
-    if(this.authSerivce.user() == null) return null;
+    if (this.authSerivce.user() == null) return null;
     return firstValueFrom(this.http.get<PopularItemDto[]>(`${this.baseUrl}popularitems/${this.authSerivce.user().userId}`, { withCredentials: true }))
       .then(items => items)
-      .catch(error => this.toaster.message.set({ class: "error", message:error.error }));
+      .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
 
   getShopPopularItems() {
     return firstValueFrom(this.http.get<PopularItemDto[]>(`${this.baseUrl}shop/popularitems`))
       .then(items => items)
-      .catch(error => this.toaster.message.set({ class: "error", message:error.error }));
+      .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
 
   getRecentOrders() {
-    if(this.authSerivce.user() == null) return null;
+    if (this.authSerivce.user() == null) return null;
     return firstValueFrom(this.http.get<RecentOrderDto[]>(`${this.baseUrl}recentorders/${this.authSerivce.user().userId}`, { withCredentials: true }))
       .then(items => items)
-      .catch(error => this.toaster.message.set({ class: "error", message:error.error }));
+      .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
 
   getLowInventoryItems() {
-    if(this.authSerivce.user() == null) return null;
+    if (this.authSerivce.user() == null) return null;
     return firstValueFrom(this.http.get<InventoryCountDto[]>(`${this.baseUrl}lowinventory/${this.authSerivce.user().userId}`, { withCredentials: true }))
       .then(items => items)
-      .catch(error => this.toaster.message.set({ class: "error", message:error.error }));
+      .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
+
+  searchTerms(terms: string) {
+    this.http.get<InventoryCountDto>(`${this.baseUrl}search/${terms}`)
+      .subscribe(results => {
+        if (results) {
+          console.log(results);
+        }
+      })
+  }
+
+
 
 }

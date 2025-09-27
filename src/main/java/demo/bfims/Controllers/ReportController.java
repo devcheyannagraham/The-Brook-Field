@@ -57,4 +57,12 @@ public class ReportController {
             return reportService.getRecentOrders();
         else return reportService.getRecentOrders(this.userService.getUserId(request, userUid));
     }
+
+    @GetMapping("/search/{terms}")
+    public List<InventoryCountDto> searchItems(@PathVariable String terms) {
+        if (terms.isEmpty()) return null;
+        return this.reportService.searchItems(terms);
+    }
+
+
 }
