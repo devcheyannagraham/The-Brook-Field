@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PopularItemDto } from '../DTOs/Report/PopularItemDto';
 import { RecentOrderDto } from '../DTOs/Report/RecentOrderDto';
@@ -12,6 +12,7 @@ import { ToasterService } from './toaster.service';
 })
 export class ReportsService {
   baseUrl: string = 'http://localhost:8080/';
+  searchResults = signal<InventoryCountDto[] | null>(null);
 
   constructor(private http: HttpClient, private authSerivce: AuthService, public toaster: ToasterService) {
   }
@@ -46,7 +47,7 @@ export class ReportsService {
   searchTerms(terms: string) {
     if (terms.trim() == null) return null;
     return firstValueFrom(this.http.get<InventoryCountDto[]>(`${this.baseUrl}search/${terms}`))
-      .then(results => results)
+      .then(results => this.searchResults.set(results))
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
 }

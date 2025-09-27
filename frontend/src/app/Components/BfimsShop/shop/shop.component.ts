@@ -8,8 +8,8 @@ import { RouterLink } from '@angular/router';
 import { AccessoryService } from '../../../Services/accessory.service';
 import { PublicationService } from '../../../Services/publication.service';
 import { SearchComponent } from '../../search/search.component';
-import { InventoryCountDto } from '../../../DTOs/Report/InventoryCountDto';
 import { ItemType } from '../../../Enums/ItemType';
+import { ReportsService } from '../../../Services/reports.service';
 
 @Component({
   selector: 'shop',
@@ -26,12 +26,11 @@ export class ShopComponent {
   pens: Accessory[] = [];
   bookmarks: Accessory[] = [];
   protected readonly headers = headers;
-  searchData: InventoryCountDto[];
   itemType = ItemType;
 
   publications: Publication[];
 
-  constructor(public accessoryService: AccessoryService, public publicationService: PublicationService) {
+  constructor(public accessoryService: AccessoryService, public publicationService: PublicationService, public reportService: ReportsService) {
   }
 
   ngOnInit() {
@@ -65,11 +64,7 @@ export class ShopComponent {
       });
   }
 
-  showSearchItems(data:InventoryCountDto[]){
-    this.searchData = data;
-  }
-
   closeSearch(){
-    this.searchData = null;
+    this.reportService.searchResults.set(null);
   }
 }

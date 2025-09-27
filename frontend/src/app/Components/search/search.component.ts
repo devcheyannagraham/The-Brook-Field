@@ -1,7 +1,6 @@
-import { Component, output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ReportsService } from '../../Services/reports.service';
-import { InventoryCountDto } from '../../DTOs/Report/InventoryCountDto';
 
 @Component({
   selector: 'search-component',
@@ -11,18 +10,13 @@ import { InventoryCountDto } from '../../DTOs/Report/InventoryCountDto';
 })
 export class SearchComponent {
   searchInput = new FormControl();
-  searchEvent = output<InventoryCountDto[]>();
 
   constructor(public reportService: ReportsService) { }
 
   search() {
-    console.log("searching")
     let value = this.searchInput.value;
     if (value.trim() != null) {
-      this.reportService.searchTerms(value)
-        .then(data => {
-          this.searchEvent.emit(data || []);
-        });
+      this.reportService.searchTerms(value);
     }
   }
 }
