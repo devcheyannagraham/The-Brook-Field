@@ -13,7 +13,7 @@ import { ToasterService } from './toaster.service';
 })
 export class AuthService {
   destroyRef = inject(DestroyRef);
-  baseUrl: string = 'http://localhost:8080/';
+  baseUrl: string = 'https://localhost:8080/';
   user = signal<UserDto>(null);
   storageAvailable = false;
   static SESSION_STORAGE: string = "sessionStorage";

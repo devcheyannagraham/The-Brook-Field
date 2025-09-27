@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
-  await page.goto('http://localhost:4200/accessoryform');
+  await page.goto('https://localhost:4200/accessoryform');
   await page.locator('input[type="email"]').click();
   await page.locator('input[type="email"]').fill('admin');
   await page.locator('input[type="password"]').click();

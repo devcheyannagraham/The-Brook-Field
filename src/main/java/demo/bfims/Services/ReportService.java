@@ -8,7 +8,6 @@ import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
 import demo.bfims.Entities.Inventory.Publication.Publication;
 import demo.bfims.Entities.Inventory.Publication.PublicationItem;
-import demo.bfims.Entities.Order.Customer;
 import demo.bfims.Entities.Order.Order;
 import demo.bfims.Entities.Order.Transaction;
 import demo.bfims.Entities.Users.User;

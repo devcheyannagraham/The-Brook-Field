@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
+@CrossOrigin(origins = "https://localhost:4200", allowCredentials = "true")
 public class PublicationController {
     PublicationService publicationService;
     UserService userService;

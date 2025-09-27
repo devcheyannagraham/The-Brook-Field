@@ -14,7 +14,7 @@ import java.util.UUID;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
+@CrossOrigin(origins = "https://localhost:4200", allowCredentials = "true")
 public class UserController {
     UserService userService;
 

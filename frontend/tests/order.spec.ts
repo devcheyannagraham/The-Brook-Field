@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
-    await page.goto('http://localhost:4200/');
+    await page.goto('https://localhost:4200/');
     await page.getByRole('button', { name: 'Login' }).click();
     await page.locator('input[type="email"]').click();
     await page.locator('input[type="email"]').fill('admin');
@@ -9,7 +9,7 @@ test('test', async ({ page }) => {
     await page.locator('input[type="password"]').fill('admin');
     await page.getByRole('main').getByRole('button', { name: 'Login' }).click();
     await expect(page.getByText('BFIMSbackLogout')).toBeVisible();
-    await page.goto('http://localhost:4200/shop');
+    await page.goto('https://localhost:4200/shop');
     await expect(page.getByText('BFIMSbackLogin Register')).toBeVisible();
     await page.getByRole('link', { name: 'The Great Gatsby' }).click();
     await page.getByRole('button', { name: 'Rent' }).first().click();
@@ -22,7 +22,7 @@ test('test', async ({ page }) => {
     await expect(page.locator('h2')).toContainText('Our Shop');
     await page.getByRole('link', { name: 'The Great Gatsby' }).click();
     await expect(page.locator('shop-item-detail')).toContainText('Quantity: 1');
-    await page.goto('http://localhost:4200/');
+    await page.goto('https://localhost:4200/');
     await page.getByRole('button', { name: 'Login' }).click();
     await page.locator('input[type="email"]').click();
     await page.locator('input[type="email"]').fill('admin');
@@ -30,7 +30,7 @@ test('test', async ({ page }) => {
     await page.locator('input[type="password"]').fill('admin');
     await page.getByRole('main').getByRole('button', { name: 'Login' }).click();
     await expect(page.getByText('BFIMSbackLogout')).toBeVisible();
-    await page.goto('http://localhost:4200/shop');
+    await page.goto('https://localhost:4200/shop');
     await expect(page.getByText('BFIMSbackLogin Register')).toBeVisible();
     await page.getByRole('link', { name: 'The Great Gatsby' }).click();
     await page.getByRole('button', { name: 'Rent' }).first().click();

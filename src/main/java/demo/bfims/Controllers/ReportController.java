@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
+@CrossOrigin(origins = "https://localhost:4200", allowCredentials = "true")
 public class ReportController {
 
     private final ReportService reportService;

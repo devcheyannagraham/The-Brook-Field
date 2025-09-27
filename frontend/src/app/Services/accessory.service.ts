@@ -10,7 +10,7 @@ import { ToasterService } from './toaster.service';
   providedIn: 'root'
 })
 export class AccessoryService {
-  baseUrl: string = 'http://localhost:8080/';
+  baseUrl: string = 'https://localhost:8080/';
   destroyRef = inject(DestroyRef);
 
   constructor(private http: HttpClient, private authService: AuthService, private toaster: ToasterService) {
