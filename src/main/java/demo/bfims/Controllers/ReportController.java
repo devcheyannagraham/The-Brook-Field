@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
@@ -59,7 +60,7 @@ public class ReportController {
     }
 
     @GetMapping("/search/{terms}")
-    public List<InventoryCountDto> searchItems(@PathVariable String terms) {
+    public Set<InventoryCountDto> searchItems(@PathVariable String terms) {
         if (terms.isEmpty()) return null;
         return this.reportService.searchItems(terms);
     }

@@ -150,8 +150,8 @@ public class ReportService {
         return null;
     }
 
-    public List<InventoryCountDto> searchItems(String terms) {
-        List<InventoryCountDto> foundItems = new ArrayList<>();
+    public Set<InventoryCountDto> searchItems(String terms) {
+        Set<InventoryCountDto> foundItems = new HashSet<>();
         List<Publication> publicationsContainAuthor = publicationRepo.getPublicationsByAuthor_FirstNameContainingOrAuthor_LastNameContaining(terms, terms).orElse(null);
         List<Publication> publicationsContainTitle = publicationRepo.getPublicationsByTitleContaining(terms).orElse(null);
         List<Accessory> accessoriesContainName = accessoryRepo.getAccessoriesByAccessoryNameContaining(terms);

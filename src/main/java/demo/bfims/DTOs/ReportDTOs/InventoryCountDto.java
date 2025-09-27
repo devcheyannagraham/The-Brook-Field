@@ -4,6 +4,8 @@ import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Publication.Publication;
 import demo.bfims.Enums.ItemType;
 
+import java.util.Objects;
+
 public class InventoryCountDto {
     Long id;
     ItemType itemType;
@@ -64,6 +66,17 @@ public class InventoryCountDto {
                 ", title='" + title + '\'' +
                 ", count=" + count +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof InventoryCountDto that)) return false;
+        return Objects.equals(id, that.id) && itemType == that.itemType && Objects.equals(title, that.title) && Objects.equals(count, that.count);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, itemType, title, count);
     }
 }
 
