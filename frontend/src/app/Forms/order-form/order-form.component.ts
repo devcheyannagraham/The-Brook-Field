@@ -55,12 +55,7 @@ export class OrderFormComponent {
   submitOrder() {
     let customer = new Customer(this.orderForm.value);
     this.shopService.submitOrder(customer)
-      .subscribe(resp => {
-        if (resp) {
-          this.toaster.message.set({ class: "success", message: "order submitted" });
-          this.router.navigateByUrl("/shop");
-        }
-      })
+      .then(() => this.router.navigateByUrl("/shop"));
   }
 
   removeFromCart(trans: Transaction) {

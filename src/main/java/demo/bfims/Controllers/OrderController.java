@@ -17,9 +17,7 @@ public class OrderController {
     }
 
     @PostMapping("/order")
-    public OrderDto newOrder(@RequestBody OrderDto order) {
-        return orderService.newOrder(order);
+    public void newOrder(@RequestBody OrderDto order) {
+        orderService.newOrder(order);
     }
-
-
 }
