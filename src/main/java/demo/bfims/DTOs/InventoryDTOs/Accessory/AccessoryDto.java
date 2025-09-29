@@ -64,6 +64,14 @@ public class AccessoryDto {
         this.price = price;
     }
 
+    public SVGIcon getSvgIcon() {
+        return svgIcon;
+    }
+
+    public void setSvgIcon(SVGIcon svgIcon) {
+        this.svgIcon = svgIcon;
+    }
+
     @Override
     public String toString() {
         return "AccessoryDto{" +

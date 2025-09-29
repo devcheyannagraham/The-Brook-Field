@@ -1,0 +1,18 @@
+.shop-item
+{
+    width: 50%;
+    display:flex;
+    align-items: flex-end;
+}
+
+.shop-section {
+    display:flex;
+    flex-wrap:wrap;
+    width:100%;
+}
+
+.top-items {
+    display:flex;
+    justify-content: space-around;
+}
+
