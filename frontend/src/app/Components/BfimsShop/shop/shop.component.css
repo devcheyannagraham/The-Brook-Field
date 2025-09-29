@@ -1,18 +1,26 @@
 .shop-item
 {
-    width: 50%;
+    width: 45%;
     display:flex;
+    min-width: 475px;
     align-items: flex-end;
+    margin: 15px;
+    padding:15px;
 }
 
 .shop-section {
     display:flex;
     flex-wrap:wrap;
     width:100%;
+    align-items: center;
 }
 
 .top-items {
     display:flex;
     justify-content: space-around;
+}
+
+.title{
+    font-size:larger;
 }
 

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AccessoryType } from '../../../Enums/AccessoryType';
 import { Publication } from '../../../DTOs/Inventory/Publication';
 import { Accessory } from '../../../DTOs/Accessory/Accessory';
-import { DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { headers } from '../../../Helpers/headers';
 import { RouterLink } from '@angular/router';
 import { AccessoryService } from '../../../Services/accessory.service';
@@ -20,7 +20,8 @@ import { SVGIconComponent } from "../../svgicon/svgicon.component";
     RouterLink,
     SearchComponent,
     CartComponent,
-    SVGIconComponent
+    SVGIconComponent,
+    CurrencyPipe
 ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'

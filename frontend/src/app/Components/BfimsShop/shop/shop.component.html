@@ -52,11 +52,11 @@
     <div class="shop-item">
       <svgicon [icon]="pub.svgIcon" [className]="'shop-icon'" />
       <div>
-        <h4>
+        <p class="title">
           <a [routerLink]="['/shop/publication',pub.publicationId]">
             {{ pub.title }}
           </a>
-        </h4>
+        </p>
         <ul>
           <li>{{ headers.genre }}: {{ pub.genre }}</li>
           <li>{{ headers.title }}: {{ pub.title }}</li>
@@ -78,14 +78,14 @@
     <div class="shop-item">
       <svgicon [icon]="mug.svgIcon" [className]="'shop-icon'" />
       <div>
-        <h4>
+        <p class="title">
           <a [routerLink]="['/shop/accessory',mug.accessoryId]">
             {{ mug.accessoryName }}
           </a>
-        </h4>
+        </p>
         <ul>
           <li>{{ headers.accessoryName }}: {{ mug.accessoryName }}</li>
-          <li>{{ headers.price }}: {{ mug.price }}</li>
+          <li>{{ headers.price }}: {{ mug.price | currency }}</li>
         </ul>
       </div>
     </div>
@@ -102,14 +102,14 @@
     <div class="shop-item">
       <svgicon [icon]="pen.svgIcon" [className]="'shop-icon'" />
       <div>
-        <h5>
+        <p class="title">
           <a [routerLink]="['/shop/accessory',pen.accessoryId]">
             {{ pen.accessoryName }}
           </a>
-        </h5>
+        </p>
         <ul>
           <li>{{ headers.accessoryName }}: {{ pen.accessoryName }}</li>
-          <li>{{ headers.price }}: {{ pen.price }}</li>
+          <li>{{ headers.price }}: {{ pen.price |currency}}</li>
         </ul>
       </div>
     </div>
@@ -126,14 +126,14 @@
     <div class="shop-item">
       <svgicon [icon]="bookmark.svgIcon" [className]="'shop-icon'" />
       <div>
-        <h5>
+        <p class="title">
           <a [routerLink]="['/shop/accessory',bookmark.accessoryId]">
             {{ bookmark.accessoryName }}
           </a>
-        </h5>
+        </p>
         <ul>
           <li>{{ headers.accessoryName }}: {{ bookmark.accessoryName }}</li>
-          <li>{{ headers.price }}: {{ bookmark.price }}</li>
+          <li>{{ headers.price }}: {{ bookmark.price|currency}}</li>
         </ul>
       </div>
     </div>
