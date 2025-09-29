@@ -1,9 +1,10 @@
 <h2>Our Shop</h2>
-<cart/>
+<cart />
 <search title="store items">
   <search-component />
 </search>
 
+<!-- DISPLAY SEARCH RESULTS -->
 @if(reportService.searchResults()){
 @if(reportService.searchResults().length == 0){
 <p>No Results Found.</p>
@@ -43,17 +44,20 @@
 <div>
   <h3>PUBLICATIONS</h3>
   @for (pub of publications; track pub.publicationId) {
-  <h4>
-    <a [routerLink]="['/shop/publication',pub.publicationId]">
-      {{ pub.title }}
-    </a>
-  </h4>
-  <ul>
-    <li>{{ headers.genre }}: {{ pub.genre }}</li>
-    <li>{{ headers.title }}: {{ pub.title }}</li>
-    <li>{{ headers.datePublished }}: {{ pub.datePublished | date:"mediumDate" }}</li>
-    <li>{{ headers.isbn }}: {{ pub.isbn }}</li>
-  </ul>
+  <div>
+    <svgicon [icon]="pub.svgIcon" />
+    <h4>
+      <a [routerLink]="['/shop/publication',pub.publicationId]">
+        {{ pub.title }}
+      </a>
+    </h4>
+    <ul>
+      <li>{{ headers.genre }}: {{ pub.genre }}</li>
+      <li>{{ headers.title }}: {{ pub.title }}</li>
+      <li>{{ headers.datePublished }}: {{ pub.datePublished | date:"mediumDate" }}</li>
+      <li>{{ headers.isbn }}: {{ pub.isbn }}</li>
+    </ul>
+  </div>
   }
 </div>
 }

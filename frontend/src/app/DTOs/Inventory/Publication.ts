@@ -1,3 +1,4 @@
+import { SVGIcon } from '../SVGIcon';
 import {Author} from './Author';
 
 export class Publication {
@@ -8,6 +9,7 @@ export class Publication {
   public quantity: number; // May need to delete
   public title: string;
   public author: Author;
+  public svgIcon:SVGIcon;
 
   constructor(...data:any){
     data = data[0];

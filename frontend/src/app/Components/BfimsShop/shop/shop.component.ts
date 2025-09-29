@@ -11,6 +11,7 @@ import { SearchComponent } from '../../search/search.component';
 import { ItemType } from '../../../Enums/ItemType';
 import { ReportsService } from '../../../Services/reports.service';
 import { CartComponent } from "../cart/cart.component";
+import { SVGIconComponent } from "../../svgicon/svgicon.component";
 
 @Component({
   selector: 'shop',
@@ -18,7 +19,8 @@ import { CartComponent } from "../cart/cart.component";
     DatePipe,
     RouterLink,
     SearchComponent,
-    CartComponent
+    CartComponent,
+    SVGIconComponent
 ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'

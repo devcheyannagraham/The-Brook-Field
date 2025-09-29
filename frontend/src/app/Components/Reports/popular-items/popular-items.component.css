@@ -1,4 +1,5 @@
-.book-svgIcon {
+.publication-icon { 
+    /* // not working */
     fill:var(--copper);
     width: 100px;
     height: 100px;

@@ -3,4 +3,5 @@ export class SVGIcon {
     pathD:string;
     className:string;
     xmlns:string;
+    svgIcon:SVGIcon;
 }
