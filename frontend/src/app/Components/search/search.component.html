@@ -1,4 +1,8 @@
 <div id="search-component">
-    <input type="text" [formControl]="searchInput">
-    <button (click)="search()">Search</button>
+    <search>
+        <form>
+            <input type="text" [formControl]="searchInput">
+            <button type="submit" (click)="search()">Search</button>
+        </form>
+    </search>
 </div>

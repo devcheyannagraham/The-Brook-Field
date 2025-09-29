@@ -9,35 +9,43 @@
 
 <!-- DISPLAY SEARCH RESULTS -->
 @if(reportService.searchResults()){
-@if(reportService.searchResults().length == 0){
-<p>No Results Found.</p>
-}
-@else {
+<div class="search-results">
 
-<table>
-  <thead>
-    <th>Item</th>
-  </thead>
-  <tbody>
-    @for(item of reportService.searchResults(); track `${item.id}-${item.itemType}`){
-    <tr>
-      @if(item.itemType == itemType.PUBLICATION_ITEM){
+  <h3>SEARCH RESULTS</h3>
+  @if(reportService.searchResults()?.length == 0){
+  <p>No Results Found.</p>
+  }
+  @else {
 
-      <a [routerLink]="['/shop/publication/',item.id]">
-        {{item.title }}
-      </a>
+  <table>
+    <thead>
+      <th>Item</th>
+    </thead>
+    <tbody>
+      @for(item of reportService.searchResults(); track `${item.id}-${item.itemType}`){
+      <tr>
+        <td>
+          @if(item.itemType == itemType.PUBLICATION_ITEM){
+
+          <a [routerLink]="['/shop/publication/',item.id]">
+            {{item.title }}
+          </a>
+          }
+          @if(item.itemType == itemType.ACCESSORY_ITEM){
+          <a [routerLink]="['/shop/accessory/',item.id]">
+            {{item.title }}
+          </a>
+          }
+        </td>
+      </tr>
       }
-      @if(item.itemType == itemType.ACCESSORY_ITEM){
-      <a [routerLink]="['/shop/accessory/',item.id]">
-        {{item.title }}
-      </a>
-      }
-    </tr>
-    }
-  </tbody>
-</table>
-}
-<button (click)="closeSearch()">Close Search</button>
+    <tfoot>
+
+      <button (click)="closeSearch()">Close Search</button>
+    </tfoot>
+  </table>
+  }
+</div>
 }
 
 

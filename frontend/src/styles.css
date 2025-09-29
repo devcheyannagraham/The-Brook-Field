@@ -1,12 +1,13 @@
 :root {
     --myrtle-green: #587B7F;
     --eggshell: #faf3dd;
-    --copper: #c27028;
     --rich-black: #051014;
     --tyrian-purple: #5f1a37;
     --platinum: #D8DDDE;
     --ivory: f5fbef;
+    /* ICON COLORS */
     --powder-blue: #9EADC8;
+    --copper: #c27028;
     --ecru: #A89F68;
     --sunglow: #FFCB47;
     --reseda-green: #89937C;
@@ -22,7 +23,7 @@ body {
     margin: auto;
     padding-left: 20px;
     padding-right: 20px;
-    padding-bottom:150px;
+    padding-bottom: 150px;
 }
 
 main {
@@ -43,10 +44,10 @@ a:hover {
     color: var(--tyrian-purple)
 }
 
-button{
+button {
     cursor: pointer;
     background-color: var(--myrtle-green);
-    color: var(--platinum);
+    color: white;
     border-radius: 5px;
     margin: 5px;
     padding: 10px;
@@ -57,14 +58,24 @@ button{
 }
 
 button a {
-    color:var(--platinum);
+    color: white;
     text-transform: uppercase;
     text-decoration: none;
 }
 
-button:hover, button a:hover {
+button:hover,
+button a:hover,
+button:hover:not(disabled) {
     color: var(--rich-black);
 }
+
+button:disabled {
+    opacity: 0.5;
+    cursor: unset;
+    color:initial;
+}
+
+
 
 
 
@@ -76,8 +87,9 @@ button:hover, button a:hover {
 }
 
 .shop-icon {
-    max-width: 125px;
-    height: 125px;
+    max-width: 100px;
+    height: 100px;
+    margin: 5px;
 }
 
 .pen-icon {
@@ -94,4 +106,34 @@ button:hover, button a:hover {
 
 .publication-icon {
     fill: var(--copper);
+}
+
+/* TABLE STYLES */
+table {
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+    border-bottom: 5px solid var(--platinum);
+}
+
+thead {
+    background: var(--tyrian-purple);
+    color: white;
+}
+
+th {
+    border-radius: 5px;
+    margin: 20px;
+    padding: 10px;
+
+}
+
+tr,
+td, tbody {
+    padding: 15px;
+    margin: 15px;
+}
+
+tr:nth-child(even) {
+    background-color:#f9ffdb;
 }
