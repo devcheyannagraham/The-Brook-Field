@@ -1,5 +1,6 @@
 package demo.bfims.DTOs.InventoryDTOs.Publication;
 
+import demo.bfims.Config.SVGIcon;
 import demo.bfims.Entities.Inventory.Publication.Publication;
 import demo.bfims.Enums.Genre;
 
@@ -12,6 +13,7 @@ public class PublicationDto {
     private AuthorDto author;
     private String title;
     private String isbn;
+    private SVGIcon svgIcon;
 
     public PublicationDto(){}
 
@@ -22,6 +24,7 @@ public class PublicationDto {
         this.title = publication.getTitle();
         this.isbn = publication.getIsbn();
         this.author = new AuthorDto(publication.getAuthor());
+        this.svgIcon = publication.getSvgIcon();
     }
 
     public Long getPublicationId() {
@@ -72,6 +75,14 @@ public class PublicationDto {
         this.isbn = isbn;
     }
 
+    public SVGIcon getSvgIcon() {
+        return svgIcon;
+    }
+
+    public void setSvgIcon(SVGIcon svgIcon) {
+        this.svgIcon = svgIcon;
+    }
+
     @Override
     public String toString() {
         return "PublicationDto{" +
@@ -81,6 +92,7 @@ public class PublicationDto {
                 ", author=" + author +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
+                ", svgIcon=" + svgIcon +
                 '}';
     }
 }

@@ -6,6 +6,10 @@
     --tyrian-purple: #5f1a37;
     --platinum: #D8DDDE;
     --ivory: f5fbef;
+    --powder-blue:#9EADC8;
+    --ecru:#A89F68;
+    --sunglow:#FFCB47;
+    --reseda-green:#89937C;
 }
 
 body {
@@ -17,7 +21,7 @@ body {
 }
 
 a {
-    color: var(--tyrian-purple);
+    color: var(--reseda-green);
     text-transform: capitalize;
     font-weight: bold;
 }
@@ -37,8 +41,28 @@ button {
 
 button:hover {
     color: var(--rich-black);
-    
+
 }
 
-TODO
-icons for mugs, bookmarks, journals, literary pieces, etc. save to db or have it added when instantiated from orm.
+.popular-item-icon {
+    fill: var(--copper);
+    max-width: 75px;
+    height: 75px;
+}
+
+.pen-icon {
+    fill: var(--powder-blue);
+}
+.mug-icon {
+    fill: var(--ecru);
+}
+.bookmark-icon {
+    fill: var(--sunglow);
+}
+
+
+/* TODO icons for mugs,
+bookmarks,
+journals,
+literary pieces,
+etc. save to db or have it added when instantiated from orm. */

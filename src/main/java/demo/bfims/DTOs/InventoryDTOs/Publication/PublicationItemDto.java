@@ -2,8 +2,12 @@ package demo.bfims.DTOs.InventoryDTOs.Publication;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import demo.bfims.Config.SVGIcon;
+import demo.bfims.Config.SVGIconFactory;
 import demo.bfims.Entities.Inventory.Publication.*;
 import demo.bfims.Enums.*;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.PrePersist;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
@@ -23,6 +27,8 @@ public class PublicationItemDto extends ItemDto {
     private Double purchasePrice;
     private Double rentalRate;
     private String edition;
+    @Embedded
+    private SVGIcon svgIcon;
 
     // only for making mulitple items
     private Integer quantity;
@@ -54,6 +60,11 @@ public class PublicationItemDto extends ItemDto {
         if (type.equals(PublicationItemType.LITERARY_PIECE))
             return new LiteraryPieceDto(publicationItem);
         return null;
+    }
+
+    @PrePersist
+    public void prePersist(){
+        this.svgIcon = SVGIconFactory.CreatePublicationItemIcon(this.publicationItemType);
     }
 
     public PublicationItemFormat getFormat() {
@@ -112,6 +123,14 @@ public class PublicationItemDto extends ItemDto {
         this.publicationItemType = publicationItemType;
     }
 
+    public SVGIcon getSvgIcon() {
+        return svgIcon;
+    }
+
+    public void setSvgIcon(SVGIcon svgIcon) {
+        this.svgIcon = svgIcon;
+    }
+
     public Integer getQuantity() {
         return quantity;
     }
@@ -130,6 +149,7 @@ public class PublicationItemDto extends ItemDto {
                 ", purchasePrice=" + purchasePrice +
                 ", rentalRate=" + rentalRate +
                 ", edition='" + edition + '\'' +
+                ", svgIcon=" + svgIcon +
                 ", quantity=" + quantity +
                 "} " + super.toString();
     }

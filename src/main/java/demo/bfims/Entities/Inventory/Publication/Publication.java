@@ -1,5 +1,7 @@
 package demo.bfims.Entities.Inventory.Publication;
 
+import demo.bfims.Config.SVGIcon;
+import demo.bfims.Config.SVGIconFactory;
 import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationDto;
 import demo.bfims.Enums.Genre;
 import jakarta.persistence.*;
@@ -19,6 +21,9 @@ public class Publication {
     private Author author;
     private String title;
     private String isbn;
+    @Embedded
+    private SVGIcon svgIcon;
+
 
     public Publication() {
     }
@@ -38,6 +43,20 @@ public class Publication {
         this.isbn = publicationDto.getIsbn();
         this.author = new Author(publicationDto.getAuthor());
         this.publicationId = publicationDto.getPublicationId();
+        this.svgIcon = publicationDto.getSvgIcon();
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.svgIcon = SVGIconFactory.CreatePublicationIcon();
+    }
+
+    public SVGIcon getSvgIcon() {
+        return svgIcon;
+    }
+
+    public void setSvgIcon(SVGIcon svgIcon) {
+        this.svgIcon = svgIcon;
     }
 
     public LocalDate getDatePublished() {
@@ -93,10 +112,11 @@ public class Publication {
         return "Publication{" +
                 "publicationId=" + publicationId +
                 ", genre=" + genre +
-                ", date_published=" + datePublished +
+                ", datePublished=" + datePublished +
                 ", author=" + author +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
+                ", svgIcon=" + svgIcon +
                 '}';
     }
 }

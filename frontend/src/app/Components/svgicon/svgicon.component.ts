@@ -9,5 +9,6 @@ import { SVGIcon } from '../../DTOs/SVGIcon';
 })
 export class SVGIconComponent {
   @Input() icon:SVGIcon;
+  @Input() className:string;
 
 }

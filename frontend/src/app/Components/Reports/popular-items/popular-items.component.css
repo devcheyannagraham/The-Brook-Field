@@ -1,9 +1,4 @@
-.publication-icon { 
-    /* // not working */
-    fill:var(--copper);
-    width: 100px;
-    height: 100px;
-}
+
  .book-card-holder {
     display: flex;
     flex-wrap: wrap;

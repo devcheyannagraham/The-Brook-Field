@@ -27,6 +27,7 @@ public class PopularItemDto {
         this.id=pub.getPublicationId();
         this.title=pub.getTitle();
         this.itemType = ItemType.PUBLICATION_ITEM;
+        this.svgIcon = pub.getSvgIcon();
     }
 
     public Long getId() {
