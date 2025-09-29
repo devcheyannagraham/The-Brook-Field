@@ -6,10 +6,11 @@ import { headers } from '../../../Helpers/headers';
 import { ItemType } from '../../../Enums/ItemType';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../Services/auth.service';
+import { SVGIconComponent } from "../../svgicon/svgicon.component";
 
 @Component({
   selector: 'popular-items',
-  imports: [CurrencyPipe, RouterLink],
+  imports: [CurrencyPipe, RouterLink, SVGIconComponent],
   templateUrl: './popular-items.component.html',
   styleUrl: './popular-items.component.css'
 })
