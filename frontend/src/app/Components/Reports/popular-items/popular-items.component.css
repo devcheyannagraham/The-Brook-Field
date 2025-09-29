@@ -1,0 +1,16 @@
+.book-svgIcon {
+    fill:var(--copper);
+    width: 100px;
+    height: 100px;
+}
+ .book-card-holder {
+    display: flex;
+    flex-wrap: wrap;
+ }
+
+ .book-card {
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+    margin:10px;
+ }

@@ -1,16 +1,20 @@
 package demo.bfims.DTOs.ReportDTOs;
 
+import demo.bfims.Config.SVGIcon;
 import demo.bfims.Enums.ItemType;
 
 public class ShopPopularItemDto {
     Long id;
     String title;
     ItemType itemType;
+    SVGIcon svgIcon;
 
     public ShopPopularItemDto(PopularItemDto popularItemDto) {
         this.id = popularItemDto.getId();
         this.title = popularItemDto.getTitle();
         this.itemType = popularItemDto.getItemType();
+        this.svgIcon = popularItemDto.getSvgIcon();
+
     }
 
     public Long getId() {
@@ -37,12 +41,21 @@ public class ShopPopularItemDto {
         this.itemType = itemType;
     }
 
+    public SVGIcon getSvgIcon() {
+        return svgIcon;
+    }
+
+    public void setSvgIcon(SVGIcon svgIcon) {
+        this.svgIcon = svgIcon;
+    }
+
     @Override
     public String toString() {
         return "ShopPopularItemDto{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", itemType=" + itemType +
+                ", svgIcon=" + svgIcon +
                 '}';
     }
 }

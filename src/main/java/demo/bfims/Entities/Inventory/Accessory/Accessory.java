@@ -1,6 +1,8 @@
 package demo.bfims.Entities.Inventory.Accessory;
 
 
+import demo.bfims.Config.SVGIcon;
+import demo.bfims.Config.SVGIconFactory;
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryDto;
 import demo.bfims.Enums.AccessoryType;
 import jakarta.persistence.*;
@@ -14,6 +16,8 @@ public class Accessory {
     private AccessoryType accessoryType;
     private String accessoryName;
     private double price;
+    @Embedded
+    private SVGIcon svgIcon;
 
     public Long getAccessoryId() {
         return accessoryId;
@@ -33,6 +37,11 @@ public class Accessory {
         this.accessoryName = accessoryDto.getAccessoryName();
         this.price = accessoryDto.getPrice();
         this.accessoryId = accessoryDto.getAccessoryId();
+    }
+
+    @PrePersist
+    private void prePersist() {
+        this.svgIcon = SVGIconFactory.CreateAccessoryItemIcon(this.accessoryType);
     }
 
     public void setAccessoryId(Long accessoryId) {
@@ -63,6 +72,14 @@ public class Accessory {
         this.price = price;
     }
 
+    public SVGIcon getSvgIcon() {
+        return svgIcon;
+    }
+
+    public void setSvgIcon(SVGIcon icon) {
+        this.svgIcon = icon;
+    }
+
     @Override
     public String toString() {
         return "Accessory{" +
@@ -70,6 +87,7 @@ public class Accessory {
                 ", accessoryType=" + accessoryType +
                 ", accessoryName='" + accessoryName + '\'' +
                 ", price=" + price +
+                ", icon=" + svgIcon +
                 '}';
     }
 }

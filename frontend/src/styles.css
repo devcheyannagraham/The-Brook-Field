@@ -1,1 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --myrtle-green: #587B7F;
+    --eggshell: #faf3dd;
+    --copper: #c27028;
+    --rich-black: #051014;
+    --tyrian-purple: #5f1a37;
+    --platinum: #D8DDDE;
+    --ivory: f5fbef;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    background-color: var(--ivory);
+    color: var(--rich-black);
+    letter-spacing: 1px;
+}
+
+a {
+    color: var(--tyrian-purple);
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+button {
+    cursor: pointer;
+    background-color: var(--myrtle-green);
+    color: var(--platinum);
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid var(--platinum);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    color: var(--rich-black);
+    
+}
+
+TODO
+icons for mugs, bookmarks, journals, literary pieces, etc. save to db or have it added when instantiated from orm.

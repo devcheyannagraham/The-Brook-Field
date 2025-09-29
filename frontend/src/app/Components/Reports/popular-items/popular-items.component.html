@@ -1,3 +1,5 @@
+<h2>Popular Items</h2>
+
 @if(popularItems && popularItems.length > 0){
 
 @if(isAdmin){
@@ -37,26 +39,41 @@
 </div>
 
 } @else {
+<div class="book-card-holder">
 
-@for(item of popularItems;track `$${item.id}-${item.title}`){
-<div>
-    <img width="75px" height="120px" src="">
-    <p>
-        @if(item.itemType == ItemType.PUBLICATION_ITEM){
+    @for(item of popularItems;track `$${item.id}-${item.title}`){
 
-        <a [routerLink]="['shop/publication/',item.id]">
-            {{item.title }}
-        </a>
+    <div class="book-card">
+
+        @if(item.svgIcon != null){
+        <svg class={{item.svgIcon.className}} [attr.xlmns]="item.svgIcon.xmlns" [attr.viewBox]="item.svgIcon.viewBox">
+            <path [attr.d]="item.svgIcon.pathD"/>
+        </svg>
         }
-        @if(item.itemType == ItemType.ACCESSORY_ITEM){
-        <a [routerLink]="['shop/accessory/',item.id]">
-            {{item.title }}
-        </a>
+        @else {
+
+        <svg class="book-svgIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+            <path
+                d="M220-80q-24 0-42-18t-18-42v-680q0-24 18-42t42-18h520q24 0 42 18t18 42v680q0 24-18 42t-42 18H220Zm0-60h520v-680h-60v266l-97-56-97 56v-266H220v680Zm0 0v-680 680Zm266-414 97-56 97 56-97-56-97 56Z" />
+        </svg>
         }
-    </p>
+        <p>
+            @if(item.itemType == ItemType.PUBLICATION_ITEM){
+
+            <a [routerLink]="['shop/publication/',item.id]">
+                {{item.title }}
+            </a>
+            }
+            @if(item.itemType == ItemType.ACCESSORY_ITEM){
+            <a [routerLink]="['shop/accessory/',item.id]">
+                {{item.title }}
+            </a>
+            }
+        </p>
+    </div>
+
+    }
 </div>
-
-}
 
 }
 }@else {

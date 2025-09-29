@@ -1,11 +1,12 @@
 <header>
-  <h1>BFIMS</h1>
+  <h1> The Brook & Field</h1>
 </header>
 <nav>
 
   <back />
   @if(authService.user() != null){
   <button (click)="logout()">Logout</button>
+  <p>Hi {{authService.user().email}}</p>
   }
   @else {
 

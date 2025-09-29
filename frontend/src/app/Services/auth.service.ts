@@ -22,8 +22,8 @@ export class AuthService {
   constructor(private http: HttpClient, public router: Router, public toaster: ToasterService) {
     this.checkStorage();
   }
-  
-  ngOnInit(){
+
+  ngOnInit() {
     (async () => await this.getUser())();
   }
 
@@ -35,7 +35,7 @@ export class AuthService {
           this.setUser(uuid, user);
           this.navigateUser();
         },
-        error: error => this.toaster.message.set({ class: "error", message:error.error })
+        error: error => this.toaster.message.set({ class: "error", message: error.error })
       });
   }
 
@@ -48,23 +48,23 @@ export class AuthService {
           this.setUser(uuid, user);
           this.navigateUser();
         },
-        error: error => this.toaster.message.set({ class: "error", message:error.error })
+        error: error => this.toaster.message.set({ class: "error", message: error.error })
       });
   }
 
   async reinstateUser(userUid: string) {
-    if(this.user() != null) return;
+    if (this.user() != null) return;
     return firstValueFrom(this.http.post(`${this.baseUrl}reinstateuser`, userUid, { responseType: 'text', withCredentials: true }))
       .then(email => email)
-      .catch(error => this.toaster.message.set({ class: "error", message:error.error }));
+      .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
 
 
   getUserRole() {
-    if(this.user() == null) return null;
+    if (this.user() == null) return null;
     return firstValueFrom(this.http.post(`${this.baseUrl}isadmin`, this.user() && this.user().userId, { responseType: 'text', withCredentials: true }))
       .then(role => role == UserRole.ADMIN)
-      .catch(error => this.toaster.message.set({ class: "error", message:error.error }));
+      .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
 
   }
 
@@ -100,7 +100,7 @@ export class AuthService {
 
     this.http.post(`${this.baseUrl}logout`, null, { responseType: 'text', withCredentials: true })
       .subscribe(result => {
-        this.toaster.message.set({ class: "info", message: result});
+        this.toaster.message.set({ class: "info", message: result });
         this.router.navigateByUrl("/login");
       });
   }
@@ -120,7 +120,7 @@ export class AuthService {
   async getUser() {
     console.log("GETUSER", this.user())
     // skip if user already exists
-    if(this.user() != null) return;
+    if (this.user() != null) return;
     if (this.storageAvailable) {
       // @ts-ignore 7015
       let storage = window[AuthService.SESSION_STORAGE];

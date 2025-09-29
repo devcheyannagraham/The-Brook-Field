@@ -1,5 +1,6 @@
 package demo.bfims.DTOs.InventoryDTOs.Accessory;
 
+import demo.bfims.Config.SVGIcon;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Enums.AccessoryType;
 
@@ -10,6 +11,7 @@ public class AccessoryDto {
     private double price;
     // needed to create items on new accessory
     private int quantity;
+    private SVGIcon svgIcon;
 
     public AccessoryDto() {
     }
@@ -19,6 +21,7 @@ public class AccessoryDto {
         this.accessoryType = accessory.getAccessoryType();
         this.accessoryName = accessory.getAccessoryName();
         this.price = accessory.getPrice();
+        this.svgIcon = accessory.getSvgIcon();
     }
 
     public Long getAccessoryId() {
@@ -67,8 +70,9 @@ public class AccessoryDto {
                 "accessoryId=" + accessoryId +
                 ", accessoryType=" + accessoryType +
                 ", accessoryName='" + accessoryName + '\'' +
-                ", quantity=" + quantity +
                 ", price=" + price +
+                ", quantity=" + quantity +
+                ", svgIcon=" + svgIcon +
                 '}';
     }
 }

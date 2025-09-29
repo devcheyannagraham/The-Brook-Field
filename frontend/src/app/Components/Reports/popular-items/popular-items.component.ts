@@ -29,19 +29,26 @@ export class PopularItemsComponent {
   }
 
   getPopularItems() {
-    this.authService.getUserRole()
-      .then(isAdmin => {
-        if (isAdmin) {
-          this.isAdmin = true;
-          this.reportService.getPopularItems()
-          .then(items => this.popularItems = items);
-        }
-        else {
-          this.isAdmin = false;
-          this.reportService.getShopPopularItems()
-          .then(items => this.popularItems = items);
-        }
-      });
-  }
+    if (this.authService.user() != null) {
+      this.authService.getUserRole()
+        .then(isAdmin => {
+          if (isAdmin) {
+            this.isAdmin = true;
+            this.reportService.getPopularItems()
+              .then(items => this.popularItems = items);
+          } else {
+            this.isAdmin = false;
+            this.reportService.getShopPopularItems()
+              .then(items => this.popularItems = items);
+          }
+        });
+    }
+    else {
+      this.isAdmin = false;
+      this.reportService.getShopPopularItems()
+        .then(items => {console.log(items);this.popularItems = items});
 
+    }
+
+  }
 }

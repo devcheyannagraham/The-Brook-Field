@@ -1,4 +1,4 @@
-package demo.bfims.Config.GlobalExceptionHandler;
+package demo.bfims.Config;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

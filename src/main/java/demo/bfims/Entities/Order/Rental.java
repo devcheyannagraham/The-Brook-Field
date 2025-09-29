@@ -9,7 +9,6 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 public class Rental extends Transaction { //is publication
@@ -24,12 +23,12 @@ public class Rental extends Transaction { //is publication
     private RentalStatus rentalStatus;
 
     @PrePersist
-    private void setup() {
+    private void prePersist() {
         //Calculate due date when the record is persisted
         this.setDueDate(LocalDate.now().plusWeeks(3));
-
-        // set initial rental status
-        this.setRentalStatus(RentalStatus.RENTED);
+//
+//        // set initial rental status
+//        this.setRentalStatus(RentalStatus.RENTED);
     }
 
     // update rental status when retrieving record

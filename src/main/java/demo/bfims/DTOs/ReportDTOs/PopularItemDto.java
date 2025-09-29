@@ -1,5 +1,6 @@
 package demo.bfims.DTOs.ReportDTOs;
 
+import demo.bfims.Config.SVGIcon;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Publication.Publication;
 import demo.bfims.Enums.ItemType;
@@ -10,6 +11,7 @@ public class PopularItemDto {
     Integer totalUnitsSold;
     Double totalProfit;
     ItemType itemType;
+    SVGIcon svgIcon;
 
     public PopularItemDto() {
     }
@@ -18,6 +20,7 @@ public class PopularItemDto {
         this.id=acc.getAccessoryId();
         this.title=acc.getAccessoryName();
         this.itemType = ItemType.ACCESSORY_ITEM;
+        this.svgIcon = acc.getSvgIcon();
     }
 
     public PopularItemDto(Publication pub){
@@ -58,17 +61,6 @@ public class PopularItemDto {
         this.totalProfit = totalProfit;
     }
 
-    @Override
-    public String toString() {
-        return "PopularItemDto{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", totalUnitsSold=" + totalUnitsSold +
-                ", totalProfit=" + totalProfit +
-                ", itemType=" + itemType +
-                '}';
-    }
-
     public ItemType getItemType() {
         return itemType;
     }
@@ -77,4 +69,23 @@ public class PopularItemDto {
         this.itemType = itemType;
     }
 
+    public SVGIcon getSvgIcon() {
+        return svgIcon;
+    }
+
+    public void setSvgIcon(SVGIcon svgIcon) {
+        this.svgIcon = svgIcon;
+    }
+
+    @Override
+    public String toString() {
+        return "PopularItemDto{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", totalUnitsSold=" + totalUnitsSold +
+                ", totalProfit=" + totalProfit +
+                ", itemType=" + itemType +
+                ", svgIcon=" + svgIcon +
+                '}';
+    }
 }

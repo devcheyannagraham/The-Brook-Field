@@ -1,4 +1,5 @@
 import {AccessoryType} from '../../Enums/AccessoryType';
+import {SVGIcon} from '../SVGIcon';
 
 export class Accessory {
   public accessoryId: number;
@@ -6,6 +7,7 @@ export class Accessory {
   public accessoryName: string;
   public quantity: number;
   public price: number;
+  public svgIcon:SVGIcon;
 
   constructor(...data: any) {
     data = data[0];
