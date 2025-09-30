@@ -1,134 +1,141 @@
-
 @if (publication) {
 
-  <h3> {{ publication.title }} </h3>
-    <ul>
-      <li>{{ headers.genre }}: {{ publication.genre }}</li>
-      <li>{{ headers.title }}: {{ publication.title }}</li>
-      <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
-      <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
-      <li>{{ headers.quantity }}: {{ publicationItems ? publicationItems.length : 0 }}</li>
-    </ul>
+<h3> {{ publication.title }} </h3>
+<ul>
+  <li>{{ headers.genre }}: {{ publication.genre }}</li>
+  <li>{{ headers.title }}: {{ publication.title }}</li>
+  <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
+  <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
+  <li>{{ headers.quantity }}: {{ publicationItems ? publicationItems.length : 0 }}</li>
+</ul>
 
-  <h3> Author </h3>
-    <ul>
-      <li>{{ headers.firstName }}: {{ publication.author.firstName }}</li>
-      <li>{{ headers.lastName }}: {{ publication.author.lastName }}</li>
-    </ul>
-
-
-    <a [routerLink]="['/publicationform',publication.publicationId]">Update Publication</a>
-    <button
-      [disabled]="!(publicationItems && publicationItems.length == 0)"
-      (click)="deletePublication(publication.publicationId)">Delete Publication
-    </button>
-    <a [routerLink]="['/publicationitemform/publication',publication.publicationId]">Add Items</a>
-
-  @if (books && books.length) {
-    <table>
-      <thead>
-      <th>{{ headers.publicationItemType }}</th>
-      <th>{{ headers.edition }}</th>
-      <th>{{ headers.format }}</th>
-      <th>{{ headers.purchasePrice }}</th>
-      <th>{{ headers.rentalRate }}</th>
-      <th>{{ headers.status }}</th>
-      <th></th>
-      </thead>
-
-      <tbody>
-        @for (book of books; track book.itemId) {
-          <tr>
-            <td>{{ book.publicationItemType }}</td>
-            <td>{{ book.edition }}</td>
-            <td>{{ book.format }}</td>
-            <td>{{ book.purchasePrice }}</td>
-            <td>{{ book.rentalRate }}</td>
-            <td>{{ book.publicationItemStatus }}</td>
-            <td>
-              <a [routerLink]="['/publicationitemform',book.itemId]">Edit</a>
-              <button (click)="deleteItem(book.itemId)">delete</button>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  } @else {
-    <p> No Books</p>
-  }
+<h3> Author </h3>
+<ul>
+  <li>{{ headers.firstName }}: {{ publication.author.firstName }}</li>
+  <li>{{ headers.lastName }}: {{ publication.author.lastName }}</li>
+</ul>
 
 
-  @if (literaryPieces && literaryPieces.length) {
-    <table>
-      <thead>
-      <th>{{ headers.publicationItemType }}</th>
-      <th>{{ headers.edition }}</th>
-      <th>{{ headers.format }}</th>
-      <th>{{ headers.purchasePrice }}</th>
-      <th>{{ headers.rentalRate }}</th>
-      <th>{{ headers.status }}</th>
-      <th>{{ headers.literaryType }}</th>
-      <th></th>
-      </thead>
-      <tbody>
-        @for (lp of literaryPieces; track lp.itemId) {
-          <tr>
-            <td>{{ lp.publicationItemType }}</td>
-            <td>{{ lp.edition }}</td>
-            <td>{{ lp.format }}</td>
-            <td>{{ lp.purchasePrice }}</td>
-            <td>{{ lp.rentalRate }}</td>
-            <td>{{ lp.publicationItemStatus }}</td>
-            <td>{{ lp.literaryType }}</td>
-            <td>
-              <a [routerLink]="['/publicationitemform',lp.itemId]">Edit</a>
-              <button (click)="deleteItem(lp.itemId)">delete</button>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  } @else {
-    <p> No Literary Pieces</p>
-  }
-  @if (journals && journals.length) {
-    <table>
-      <thead>
-      <th>{{ headers.publicationItemType }}</th>
-      <th>{{ headers.edition }}</th>
-      <th>{{ headers.format }}</th>
-      <th>{{ headers.purchasePrice }}</th>
-      <th>{{ headers.rentalRate }}</th>
-      <th>{{ headers.status }}</th>
-      <th>{{ headers.issueDate }}</th>
-      <th>{{ headers.issueNumber }}</th>
-      <th>{{ headers.issueName }}</th>
-      <th>{{ headers.volume }}</th>
-      <th></th>
-      </thead>
-      <tbody>
-        @for (journal of journals; track journal.itemId) {
-          <tr>
-            <td>{{ journal.publicationItemType }}</td>
-            <td>{{ journal.edition }}</td>
-            <td>{{ journal.format }}</td>
-            <td>{{ journal.purchasePrice }}</td>
-            <td>{{ journal.rentalRate }}</td>
-            <td>{{ journal.publicationItemStatus }}</td>
-            <td>{{ journal.issueDate | date : "mediumDate" }}</td>
-            <td>{{ journal.issueNumber }}</td>
-            <td>{{ journal.issueName }}</td>
-            <td>{{ journal.volume }}</td>
-            <td>
-              <a [routerLink]="['/publicationitemform',journal.itemId]">Edit</a>
-              <button (click)="deleteItem(journal.itemId)">delete</button>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  } @else {
-    <p>No Journals</p>
-  }
+<a [routerLink]="['/publicationform',publication.publicationId]">
+  <button>Update Publication</button>
+</a>
+<button [disabled]="!(publicationItems && publicationItems.length == 0)"
+  (click)="deletePublication(publication.publicationId)">
+  Delete Publication
+</button>
+<a [routerLink]="['/publicationitemform/publication',publication.publicationId]"><button>Add Items</button></a>
+
+<h3>Books</h3>
+@if (books && books.length) {
+<table>
+  <thead>
+    <th>{{ headers.publicationItemType }}</th>
+    <th>{{ headers.edition }}</th>
+    <th>{{ headers.format }}</th>
+    <th>{{ headers.purchasePrice }}</th>
+    <th>{{ headers.rentalRate }}</th>
+    <th>{{ headers.status }}</th>
+    <th></th>
+  </thead>
+
+  <tbody>
+    @for (book of books; track book.itemId) {
+    <tr>
+      <td>{{ book.publicationItemType }}</td>
+      <td>{{ book.edition }}</td>
+      <td>{{ book.format }}</td>
+      <td>{{ book.purchasePrice }}</td>
+      <td>{{ book.rentalRate }}</td>
+      <td>{{ book.publicationItemStatus }}</td>
+      <td>
+        <a [routerLink]="['/publicationitemform',book.itemId]"><button>Edit</button></a>
+        <button (click)="deleteItem(book.itemId)">delete</button>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
+} @else {
+<p> No Books</p>
 }
 
+
+<h3>Literary Pieces</h3>
+@if (literaryPieces && literaryPieces.length) {
+
+<table>
+  <thead>
+    <th>{{ headers.publicationItemType }}</th>
+    <th>{{ headers.edition }}</th>
+    <th>{{ headers.format }}</th>
+    <th>{{ headers.purchasePrice }}</th>
+    <th>{{ headers.rentalRate }}</th>
+    <th>{{ headers.literaryType }}</th>
+    <th>{{ headers.status }}</th>
+    <th></th>
+  </thead>
+  <tbody>
+    @for (lp of literaryPieces; track lp.itemId) {
+    <tr>
+      <td>{{ lp.publicationItemType }}</td>
+      <td>{{ lp.edition }}</td>
+      <td>{{ lp.format }}</td>
+      <td>{{ lp.purchasePrice }}</td>
+      <td>{{ lp.rentalRate }}</td>
+      <td>{{ lp.literaryType }}</td>
+      <td>{{ lp.publicationItemStatus }}</td>
+      <td>
+        <a [routerLink]="['/publicationitemform',lp.itemId]"><button>Edit</button></a>
+        <button (click)="deleteItem(lp.itemId)">delete</button>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
+} @else {
+<p> No Literary Pieces</p>
+}
+
+
+
+<h3>Journals</h3>
+@if (journals && journals.length) {
+<table>
+  <thead>
+    <th>{{ headers.publicationItemType }}</th>
+    <th>{{ headers.edition }}</th>
+    <th>{{ headers.format }}</th>
+    <th>{{ headers.purchasePrice }}</th>
+    <th>{{ headers.rentalRate }}</th>
+    <th>{{ headers.issueDate }}</th>
+    <th>{{ headers.issueNumber }}</th>
+    <th>{{ headers.issueName }}</th>
+    <th>{{ headers.volume }}</th>
+    <th>{{ headers.status }}</th>
+    <th></th>
+  </thead>
+  <tbody>
+    @for (journal of journals; track journal.itemId) {
+    <tr>
+      <td>{{ journal.publicationItemType }}</td>
+      <td>{{ journal.edition }}</td>
+      <td>{{ journal.format }}</td>
+      <td>{{ journal.purchasePrice }}</td>
+      <td>{{ journal.rentalRate }}</td>
+      <td>{{ journal.issueDate | date : "mediumDate" }}</td>
+      <td>{{ journal.issueNumber }}</td>
+      <td>{{ journal.issueName }}</td>
+      <td>{{ journal.volume }}</td>
+      <td>{{ journal.publicationItemStatus }}</td>
+      <td>
+        <a [routerLink]="['/publicationitemform',journal.itemId]"><button>Edit</button></a>
+        <button (click)="deleteItem(journal.itemId)">delete</button>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
+} @else {
+<p>No Journals</p>
+}
+}

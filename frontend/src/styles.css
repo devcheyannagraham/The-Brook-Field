@@ -134,7 +134,7 @@ td, tbody {
     margin: 15px;
 }
 
-tr:nth-child(even) {
+tr:nth-child(even){
     background-color:#f9ffdb;
 }
 
