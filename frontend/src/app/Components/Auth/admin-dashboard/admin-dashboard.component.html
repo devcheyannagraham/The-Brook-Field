@@ -1,17 +1,14 @@
 <div id="admin-dashboard">
-    <p>
-        <a routerLink="/report/popularitems">View Popular Items</a>
-        <a routerLink="/report/lowinventory">View Low Inventory Items</a>
-        <a routerLink="/report/recentorders">View Recent Orders</a>
-    </p>
-
-    <p>
-        <a routerLink="/publicationform">Add Publication</a>
-    </p>
-
+    <h2>Things To Do</h2>
+    <div>
+        <ul>
+            <li> <a routerLink="/report/popularitems">View Popular Items</a></li>
+            <li><a routerLink="/report/lowinventory">View Low Inventory Items</a></li>
+            <li><a routerLink="/report/recentorders">View Recent Orders</a>
+            <li><a routerLink="/publicationform">Add A Publication</a></li>
+            <li><a routerLink="/accessoryform">Add An Accessory</a></li>
+        </ul>
+    </div>
     <publications />
-    <p>
-        <a routerLink="/accessoryform">Add Accessory</a>
-    </p>
     <accessories />
 </div>

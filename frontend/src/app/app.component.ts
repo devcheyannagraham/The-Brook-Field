@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {  RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from './Services/auth.service';
 import { BackComponent } from "./Components/back/back.component";
 import { ToasterComponent } from "./Components/toaster/toaster.component";
@@ -11,7 +11,7 @@ import { ToasterComponent } from "./Components/toaster/toaster.component";
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'frontend';
+  window = window;
   constructor(public authService: AuthService) {
   }
 

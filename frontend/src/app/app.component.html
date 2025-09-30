@@ -7,12 +7,14 @@
   @if(authService.user() != null){
   <button (click)="logout()">Logout</button>
   <p>Hi {{authService.user().email}}</p>
+  @if(authService.isAdmin() && (!window.location.href.includes("admindashboard"))){
+  <a routerLink="/admindashboard"><button>Admin Dashboard </button></a>
+  }
   }
   @else {
-
   <a routerLink="/login"><button>Login </button></a>
   <a routerLink="/register"><button>Register </button></a>
-}
+  }
 </nav>
 <toaster />
 

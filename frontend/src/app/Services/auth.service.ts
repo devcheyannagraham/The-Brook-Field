@@ -18,6 +18,7 @@ export class AuthService {
   storageAvailable = false;
   static SESSION_STORAGE: string = "sessionStorage";
   static USER_UUID: string = "userUUID";
+  isAdmin = signal(false);
 
   constructor(private http: HttpClient, public router: Router, public toaster: ToasterService) {
     this.checkStorage();
@@ -63,7 +64,14 @@ export class AuthService {
   getUserRole() {
     if (this.user() == null) return null;
     return firstValueFrom(this.http.post(`${this.baseUrl}isadmin`, this.user() && this.user().userId, { responseType: 'text', withCredentials: true }))
-      .then(role => role == UserRole.ADMIN)
+      .then(role => {
+        if (role == UserRole.ADMIN) {
+          this.isAdmin.set(true);
+          return true;
+        }
+        else this.isAdmin.set(false);
+        return false;
+      })
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
 
   }
