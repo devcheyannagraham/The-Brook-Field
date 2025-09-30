@@ -1,39 +1,38 @@
 @if (accessory) {
 
-  <h3>{{ accessory.accessoryName }}</h3>
-  <ul>
-    <li>{{ headers.accessoryName }}: {{ accessory.accessoryName }}</li>
-    <li>{{ headers.accessoryType }}: {{ accessory.accessoryType }}</li>
-    <li>{{ headers.price }}: {{ accessory.price }}</li>
-    <li>{{ headers.quantity }}: {{ accessoryItems ? accessoryItems.length : 0 }}</li>
-  </ul>
-  <a [routerLink]="['/accessoryform',accessory.accessoryId]">Update Accessory</a>
-  <button
-    [disabled]="!(accessoryItems && accessoryItems.length == 0)" (click)="deleteAccessory(accessory.accessoryId)">
-    Delete Accessory
-  </button>
+<h3>{{ accessory.accessoryName }}</h3>
+<ul>
+  <li>{{ headers.accessoryName }}: {{ accessory.accessoryName }}</li>
+  <li>{{ headers.accessoryType }}: {{ accessory.accessoryType }}</li>
+  <li>{{ headers.price }}: {{ accessory.price }}</li>
+  <li>{{ headers.quantity }}: {{ accessoryItems ? accessoryItems.length : 0 }}</li>
+</ul>
+<a [routerLink]="['/accessoryform',accessory.accessoryId]"><button>Update Accessory</button></a>
+<button [disabled]="!(accessoryItems && accessoryItems.length == 0)" (click)="deleteAccessory(accessory.accessoryId)">
+  Delete Accessory
+</button>
 }
 
 @if (accessoryItems && accessoryItems.length) {
-  <table>
-    <thead>
+<table>
+  <thead>
     <th>{{ headers.itemId }}</th>
     <th>{{ headers.accessoryItemStatus }}</th>
     <th></th>
-    </thead>
+  </thead>
 
-    <tbody>
-      @for (acc of accessoryItems; track acc.itemId) {
-        <tr>
-          <td>{{ acc.itemId }}</td>
-          <td>{{ acc.accessoryItemStatus }}</td>
-          <td>
-            <button (click)="deleteAccessoryItem(acc.itemId)">delete</button>
-          </td>
-        </tr>
-      }
-    </tbody>
-  </table>
+  <tbody>
+    @for (acc of accessoryItems; track acc.itemId) {
+    <tr>
+      <td>{{ acc.itemId }}</td>
+      <td>{{ acc.accessoryItemStatus }}</td>
+      <td>
+        <button (click)="deleteAccessoryItem(acc.itemId)">delete</button>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
 } @else {
-  <p>No Items</p>
+<p>No Items</p>
 }
