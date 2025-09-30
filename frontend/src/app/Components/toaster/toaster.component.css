@@ -1,19 +1,25 @@
 .success {
-    background: green;
+    background: var(--myrtle-green);
 }
 
 .info {
-    background: blue;
+    background: #393E41;
 }
 
 .error {
-    background:red;
+    background:#E94F37;
 }
 
+
 #toaster {
-    min-height: 50px;
-}
-div {
     color: white;
-    padding: 5px 0;
+    position:fixed;
+    bottom:0;
+    opacity: 0.9;
+    text-transform: uppercase;
+    margin:10px auto;
+    padding: 5px;
+    font-size:.8rem;
+    border-radius:5px;
+    width:95%
 }

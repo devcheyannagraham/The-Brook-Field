@@ -22,7 +22,7 @@ export class ToasterComponent {
     this.showMessage = true;
     setTimeout(() => {
       this.showMessage = false;
-    }, 3000);
+    }, 5000);
   }
 
 }
