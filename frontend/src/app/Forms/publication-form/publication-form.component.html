@@ -3,38 +3,45 @@
 <form [formGroup]="publicationForm" (ngSubmit)="addPublication()">
   <div formGroupName="publicationGroup">
 
-    <label for="pub-title">Title
-      <input id="pub-title" name="pub-title" formControlName="title" type="text">
-    </label>
 
-    <label for="pub-genre">Genre
+    <div class="label-group">
+      <label for="pub-title">Title</label>
+      <input id="pub-title" name="pub-title" formControlName="title" type="text">
+    </div>
+
+    <div class="label-group">
+      <label for="pub-genre">Genre</label>
       <select id="pub-genre" name="pub-genre" formControlName="genre">
         <option value="{{Genre.SCIFI}}">SciFi</option>
         <option value="{{Genre.COMEDY}}">Comedy</option>
         <option value="{{Genre.FANTASY}}">Fantasy</option>
         <option value="{{Genre.YOUTH}}">Youth</option>
       </select>
-    </label>
+    </div>
 
-    <label for="isbn">ISBN
+    <div class="label-group">
+      <label for="isbn">ISBN</label>
       <input id="isbn" name="isbn" formControlName="isbn" type="number">
-    </label>
+    </div>
 
-    <label for="pub-date">Publish Date
+    <div class="label-group">
+      <label for="pub-date">Publish Date</label>
       <input id="pub-date" name="pub-date" formControlName="datePublished" type=date>
-    </label>
+    </div>
   </div>
 
   <!--  Author-->
   <h4>Author Details</h4>
   <div formGroupName="authorGroup">
-    <label for="firstName">First Name
+    <div class="label-group">
+      <label for="firstName">First Name</label>
       <input id="firstName" name="firstName" formControlName="firstName" type=text>
-    </label>
+    </div>
 
-    <label for="lastName">Last Name
+    <div class="label-group">
+      <label for="lastName">Last Name</label>
       <input id="lastName" name="lastName" formControlName="lastName" type=text>
-    </label>
+    </div>
   </div>
 
   <button type="submit">Submit</button>

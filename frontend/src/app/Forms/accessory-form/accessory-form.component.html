@@ -1,24 +1,27 @@
+<h3>{{ accessoryId ? "Update" : "New" }} Accessory</h3>
 <form [formGroup]="accessoryForm" (ngSubmit)="addAccessory()">
-
-  <h3>{{ accessoryId ? "Update" : "New" }} Accessory</h3>
-  <label for="accessoryName">Accessory Name
+  <div class="label-group">
+    <label for="accessoryName">Accessory Name</label>
     <input type="text" id="accessoryName" name="accessoryName" formControlName="accessoryName">
-  </label>
+  </div>
 
-  <label for="accessoryType">Accessory Type
+  <div class="label-group">
+    <label for="accessoryType">Accessory Type</label>
     <select id="accessoryType" name="accessoryType" formControlName="accessoryType">
       <option value="{{AccessoryType.BOOKMARK}}">Bookmark</option>
       <option value="{{AccessoryType.MUG}}">Mug</option>
       <option value="{{AccessoryType.PEN}}">Pen</option>
     </select>
-  </label>
+  </div>
 
-  <label for="price">Price
+  <div class="label-group">
+    <label for="price">Price</label>
     <input type="text" id="price" name="price" formControlName="price">
-  </label>
+  </div>
 
-  <label for="quantity">Quantity
+  <div class="label-group">
+    <label for="quantity">Quantity</label>
     <input type="text" id="quantity" name="quantity" formControlName="quantity">
-  </label>
+  </div>
   <button type="submit">{{ accessoryId ? "Update Accessory" : "Add Accessory" }}</button>
 </form>

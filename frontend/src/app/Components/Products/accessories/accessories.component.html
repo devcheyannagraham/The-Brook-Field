@@ -1,3 +1,5 @@
+<h3>Accessories</h3>
+
 <table>
   <thead>
   <th>{{ headers.accessoryName }}</th>
@@ -11,7 +13,7 @@
           <a [routerLink]="['/accessory',acc.accessoryId]">{{ acc.accessoryName }}</a>
         </td>
         <td>{{ acc.accessoryType }}</td>
-        <td>{{ acc.price }}</td>
+        <td>{{ acc.price | currency }}</td>
       </tr>
     }
   </tbody>

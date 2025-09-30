@@ -3,11 +3,13 @@ import { AccessoryService } from '../../../Services/accessory.service';
 import { Accessory } from '../../../DTOs/Accessory/Accessory';
 import { headers } from '../../../Helpers/headers';
 import { RouterLink } from '@angular/router';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'accessories',
   imports: [
-    RouterLink
+    RouterLink,
+    CurrencyPipe
   ],
   templateUrl: './accessories.component.html',
   styleUrl: './accessories.component.css'

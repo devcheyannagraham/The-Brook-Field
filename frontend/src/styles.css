@@ -142,4 +142,19 @@ tr:nth-child(even){
     width:50%;
 }
 
-/* style pub pages  */
+/* FORM STYLES */
+
+.label-group{
+    display:grid;
+}
+
+input, select {
+    padding: 15px;
+    margin:15px;
+}
+
+.error{
+    font-size:smaller;
+    font-style: italic;
+    color:red;
+}

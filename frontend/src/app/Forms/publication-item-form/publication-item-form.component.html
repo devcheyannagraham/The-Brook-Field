@@ -1,14 +1,14 @@
 @if (publication) {
-  <h3> {{ publication.title }} </h3>
-  <ul>
-    <li>{{ headers.genre }}: {{ publication.genre }}</li>
-    <li>{{ headers.title }}: {{ publication.title }}</li>
-    <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
-    <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
-    @if (pubItemId != null) {
-      <li> {{ headers.publicationItemType }}: {{ publicationItem.publicationItemType }}</li>
-    }
-  </ul>
+<h3> {{ publication.title }} </h3>
+<ul>
+  <li>{{ headers.genre }}: {{ publication.genre }}</li>
+  <li>{{ headers.title }}: {{ publication.title }}</li>
+  <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
+  <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
+  @if (pubItemId != null) {
+  <li> {{ headers.publicationItemType }}: {{ publicationItem.publicationItemType }}</li>
+  }
+</ul>
 }
 
 
@@ -16,75 +16,89 @@
 <form [formGroup]="publicationItemForm" (ngSubmit)="addPublicationItem()">
 
   @if (pubItemId == null && publicationItem == null) {
-    <label for="publicationItemType">Publication Item Type
-      <select id="publicationItemType" name="publicationItemType" formControlName="publicationItemType">
-        <option value="{{PublicationItemType.BOOK}}">Book</option>
-        <option value="{{PublicationItemType.JOURNAL}}">Journal</option>
-        <option value="{{PublicationItemType.LITERARY_PIECE}}">Literary Piece</option>
-      </select>
-    </label>
+  <div class="label-group">
+    <label for="publicationItemType">Publication Item Type</label>
+    <select id="publicationItemType" name="publicationItemType" formControlName="publicationItemType">
+      <option value="{{PublicationItemType.BOOK}}">Book</option>
+      <option value="{{PublicationItemType.JOURNAL}}">Journal</option>
+      <option value="{{PublicationItemType.LITERARY_PIECE}}">Literary Piece</option>
+    </select>
+  </div>
+
   }
 
 
   <!-- Publication Item Fields -->
   @if (pubItemId == null) {
-    <label for="quantity">Quantity
-      <input type="number" id="quantity" name="quantity" formControlName="quantity">
-    </label>
+  <div class="label-group">
+    <label for="quantity">Quantity</label>
+    <input type="number" id="quantity" name="quantity" formControlName="quantity">
+  </div>
+
   }
 
-  <label for="edition">Edition
+  <div class="label-group">
+    <label for="edition">Edition</label>
     <input type="text" id="edition" name="edition" formControlName="edition">
-  </label>
+  </div>
 
-  <label for="format">Format
+  <div class="label-group">
+    <label for="format">Format</label>
     <select id="format" name="format" formControlName="format">
-      <option value="{{PublicationItemFormat.AUDIOBOOK}}">AudioBook</option>
+      <option value="{{PublicationItemFormat.AUDIOBOOK}}">AudioBook</option>d
       <option value="{{PublicationItemFormat.HARDCOPY}}">HardCopy</option>
       <option value="{{PublicationItemFormat.EBOOK}}">EBook</option>
     </select>
-  </label>
+  </div>
 
-  <label for="purchasePrice">Purchase Price
+  <div class="label-group">
+    <label for="purchasePrice">Purchase Price</label>
     <input type="number" id="purchasePrice" name="purchasePrice" formControlName="purchasePrice">
-  </label>
+  </div>
 
-  <label for="rentalRate">Rental Rate
+  <div class="label-group">
+    <label for="rentalRate">Rental Rate</label>
     <input type="number" id="rentalRate" name="rentalRate" formControlName="rentalRate">
-  </label>
+  </div>
 
 
   <!-- Journal Fields -->
   @if (publicationItemForm.get("publicationItemType").value === PublicationItemType.JOURNAL) {
-    <label for="issueDate">Issue Date
-      <input type="date" id="issueDate" name="issueDate" formControlName="issueDate">
-    </label>
+  <div class="label-group">
+    <label for="issueDate">Issue Date</label>
+    <input type="date" id="issueDate" name="issueDate" formControlName="issueDate">
+  </div>
 
-    <label for="issueNumber">Issue Number
-      <input type="number" id="issueNumber" name="issueNumber" formControlName="issueNumber">
-    </label>
+  <div class="label-group">
+    <label for="issueNumber">Issue Number</label>
+    <input type="number" id="issueNumber" name="issueNumber" formControlName="issueNumber">
+  </div>
 
-    <label for="issueName">Issue Name
-      <input type="text" id="issueName" name="issueName" formControlName="issueName">
-    </label>
+  <div class="label-group">
+    <label for="issueName">Issue Name</label>
+    <input type="text" id="issueName" name="issueName" formControlName="issueName">
+  </div>
 
-    <label for="volume">Volume
-      <input type="text" id="volume" name="volume" formControlName="volume">
-    </label>
+  <div class="label-group">
+    <label for="volume">Volume</label>
+    <input type="text" id="volume" name="volume" formControlName="volume">
+  </div>
   }
 
 
   <!-- Literary Piece fields -->
-  @if (publicationItemForm.get("publicationItemType").value === PublicationItemType.LITERARY_PIECE) {
-    <label for="literaryType">Literary Type
-      <select id="literaryType" name="literaryType" formControlName="literaryType">
-        <option value="{{LiteraryType.ARTICLE}}">Article</option>
-        <option value="{{LiteraryType.ESSAY}}">Essay</option>
-        <option value="{{LiteraryType.POEM}}">Poem</option>
-        <option value="{{LiteraryType.STORY}}">Story</option>
-        <option value="{{LiteraryType.REVIEW}}">Review</option>
-      </select>
-    </label>
+  @if (publicationItemForm.get("publicationItemType").value === PublicationItemType.LITERARY_PIECE)
+  {
+  <div class="label-group">
+    <label for="literaryType">Literary Type</label>
+    <select id="literaryType" name="literaryType" formControlName="literaryType">
+      <option value="{{LiteraryType.ARTICLE}}">Article</option>
+      <option value="{{LiteraryType.ESSAY}}">Essay</option>
+      <option value="{{LiteraryType.POEM}}">Poem</option>
+      <option value="{{LiteraryType.STORY}}">Story</option>
+      <option value="{{LiteraryType.REVIEW}}">Review</option>
+    </select>
+  </div>
   }
 
   <button type="submit">Submit</button>

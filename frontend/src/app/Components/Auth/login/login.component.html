@@ -2,7 +2,7 @@
     <h2>{{actionType =="LOGIN"? "Login" : "Register" }}</h2>
     <form (submit)="submitForm()">
 
-        <div class="grid">
+        <div class="label-group">
             <label for="email"> Email</label>
             <input type="email" required [formControl]="email">
 
@@ -10,7 +10,7 @@
             <p class="error">Invalid Email</p>
             }
         </div>
-        <div class="grid">
+        <div class="label-group">
             <label for="pwd"> Password</label>
             <input type="password" required [formControl]="pwd">
             @if(pwdError){
@@ -18,7 +18,7 @@
             }
         </div>
         @if(actionType == "REGISTER"){
-        <div class="grid">
+        <div class="label-group">
             <label for="pwdConf"> Confirm Password</label>
             <input type="password" required [formControl]="pwdConf">
             @if(pwdConfError){
