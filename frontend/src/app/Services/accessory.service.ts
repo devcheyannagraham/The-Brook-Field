@@ -46,7 +46,10 @@ export class AccessoryService {
 
   newAccessory(accessory: Accessory) {
     return firstValueFrom(this.http.post(`${this.baseUrl}accessory/${this.authService.user().userId}`, accessory, { withCredentials: true }))
-      .then(items => items)
+       .then(items => {
+        this.toaster.message.set({ class: "success", message: "Accessory Added."})
+        return items;
+      })
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
 
@@ -55,13 +58,19 @@ export class AccessoryService {
 
   deleteAccessoryItem(accessItemId: number) {
     return firstValueFrom(this.http.delete(`${this.baseUrl}accessoryitem/${accessItemId}/${this.authService.user().userId}`, { withCredentials: true }))
-      .then(items => items)
+       .then(items => {
+        this.toaster.message.set({ class: "success", message: "Accessory Item Deleted."})
+        return items;
+      })
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
 
   deleteAccessory(accessId: number) {
     return firstValueFrom(this.http.delete(`${this.baseUrl}accessory/${accessId}/${this.authService.user().userId}`, { withCredentials: true }))
-      .then(items => items)
+       .then(items => {
+        this.toaster.message.set({ class: "success", message: "Accessory Deleted."})
+        return items;
+      })
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
 
