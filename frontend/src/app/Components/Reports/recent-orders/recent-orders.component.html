@@ -1,77 +1,104 @@
 <div>
+    <h3>Recent Orders</h3>
     @if(recentOrders && recentOrders.length > 0){
-    <table>
-        @for(order of recentOrders;track order.orderId){
-        <thead>
-            <tr>
-                <th>{{headers.orderId}}</th>
-                <th>{{headers.firstName}}</th>
-                <th>{{headers.lastName}}</th>
-                <th>{{headers.email}}</th>
-                <th>{{headers.orderTotal}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{order.orderId}}</td>
-                <td>{{order.customerFirstName}}</td>
-                <td>{{order.customerLastName}}</td>
-                <td>{{order.customerEmail}}</td>
-                <td>{{order.orderTotal |currency}}</td>
-            </tr>
-            <br>
+    @for(order of recentOrders;track order.orderId){
+    <div class="overflow">
+        <table>
+            <thead>
+                <tr>
+                    <th>{{headers.orderId}}</th>
+                    <th>{{headers.firstName}}</th>
+                    <th>{{headers.lastName}}</th>
+                    <th>{{headers.email}}</th>
+                    <th>{{headers.orderTotal}}</th>
+                </tr>
+            </thead>
+            <tbody>
 
-            @for(trans of order.recentOrderTransactions; track trans.transactionId){
-            <tr>
-                <th>{{headers.transactionId}}</th>
-                <th>{{headers.price}}</th>
-                <th>{{headers.date}}</th>
-                <th>{{headers.transactionType}}</th>
+                <tr>
+                    <td>{{order.orderId}}</td>
+                    <td>{{order.customerFirstName}}</td>
+                    <td>{{order.customerLastName}}</td>
+                    <td>{{order.customerEmail}}</td>
+                    <td>{{order.orderTotal |currency}}</td>
+                </tr>
+                <br>
+            </tbody>
+        </table>
+    </div>
 
-                @if(trans.publicationItemType ){
-                <th>{{headers.publicationItemType}}</th>
-                <th>{{headers.format}}</th>
-                <th>{{headers.genre}}</th>
-                <th>{{headers.title}}</th>
-                }
+    @for(trans of order.recentOrderTransactions; track trans.transactionId){
+    <div class="overflow sub-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>{{headers.transactionId}}</th>
+                    <th>{{headers.price}}</th>
+                    <th>{{headers.date}}</th>
+                    <th>{{headers.transactionType}}</th>
 
-                @if(trans.accessoryType){
-                <th>{{headers.accessoryType}}</th>
-                <th>{{headers.accessoryName}}</th>
-                }
-            </tr>
-            <tr>
-                <td>{{trans.transactionId}}</td>
-                <td>{{trans.transactionPrice| currency}}</td>
-                <td>{{trans.transactionDate}}</td>
-                <td>{{trans.transactionType}}</td>
+                    @if(trans.publicationItemType ){
+                    <th>{{headers.publicationItemType}}</th>
+                    <th>{{headers.format}}</th>
+                    <th>{{headers.genre}}</th>
+                    <th>{{headers.title}}</th>
+                    }
 
-                @if(trans.publicationItemType ){
-                <td>{{trans.publicationItemType}}</td>
-                <td>{{trans.publicationItemFormat}}</td>
-                <td>{{trans.genre}}</td>
-                <td>
-                    <a [routerLink]="['/publication/',trans.publicationId]">
-                        {{trans.publicationTitle }}
-                    </a>
-                </td>
-                }
-                @if(trans.accessoryType){
-                <td>{{trans.accessoryType}}</td>
-                <td>
-                    <a [routerLink]="['/accessory/',trans.itemId]">
-                        {{trans.accessoryName }}
-                    </a>
-                </td>
-                }
-            </tr>
-            }
-            <br>
-            <br>
+                    @if(trans.accessoryType){
+                    <th>{{headers.accessoryType}}</th>
+                    <th>{{headers.accessoryName}}</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
 
-        </tbody>
-        }
-    </table>
+                <tr>
+                    <td>{{trans.transactionId}}</td>
+                    <td>{{trans.transactionPrice| currency}}</td>
+                    <td>{{trans.transactionDate}}</td>
+                    <td>{{trans.transactionType}}</td>
+
+                    @if(trans.publicationItemType ){
+                    <td>{{trans.publicationItemType}}</td>
+                    <td>{{trans.publicationItemFormat}}</td>
+                    <td>{{trans.genre}}</td>
+                    <td>
+                        @if(authService.isAdmin()){
+                        <a [routerLink]="['/publication/',trans.publicationId]">
+                            {{trans.publicationTitle }}
+                        </a>
+
+                        }@else {
+                        <a [routerLink]="['/shop/publication/',trans.publicationId]">
+                            {{trans.publicationTitle }}
+                        </a>
+                        }
+                    </td>
+                    }
+                    @if(trans.accessoryType){
+                    <td>{{trans.accessoryType}}</td>
+                    <td>
+
+                         @if(authService.isAdmin()){
+                        <a [routerLink]="['/accessory/',trans.accessoryId]">
+                            {{trans.accessoryName }}
+                        </a>
+
+                        }@else {
+                        <a [routerLink]="['/shop/accessory/',trans.accessoryId]">
+                            {{trans.accessoryName }}
+                        </a>
+                        }
+                    </td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    }
+    <br>
+    <br>
+    }
     } @else {
     <p>No Recent Orders</p>
     }

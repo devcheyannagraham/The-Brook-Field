@@ -1,3 +1,12 @@
 h1 {
     font-family: Garamond, serif;
 }
+
+h1 a {
+    text-decoration: none;
+    color:initial;
+
+}
+h1 a:hover {
+    text-decoration: underline;
+}

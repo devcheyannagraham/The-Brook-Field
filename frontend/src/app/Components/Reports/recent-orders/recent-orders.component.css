@@ -1,0 +1,15 @@
+.sub-table th {
+    background:var(--chinese-violet);
+}
+
+
+td {
+    min-width: 125px;
+    text-align: center;
+
+}
+
+.overflow{
+    overflow-x: auto;
+    width: 100%;
+}

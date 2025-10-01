@@ -1,20 +1,28 @@
 <header>
-  <h1> The Brook & Field</h1>
+  <h1> <a routerLink="/">The Brook & Field</a></h1>
 </header>
-<nav>
 
+<nav>
   <back />
-  @if(authService.user() != null){
+
+  @if(authService.user() != null)
+  {
   <button (click)="logout()">Logout</button>
-  <p>Hi {{authService.user().email}}</p>
-  @if(authService.isAdmin() && (!window.location.href.includes("admindashboard"))){
+  <button><a routerLink="/home">Home</a></button>
+
+  @if(authService.isAdmin() && (!window.location.href.includes("admindashboard")))
+  {
   <a routerLink="/admindashboard"><button>Admin Dashboard </button></a>
   }
+
+  <p>Welcome, {{authService.user().email.toUpperCase()}}!</p>
   }
+
   @else {
   <a routerLink="/login"><button>Login </button></a>
   <a routerLink="/register"><button>Register </button></a>
   }
+
 </nav>
 <toaster />
 

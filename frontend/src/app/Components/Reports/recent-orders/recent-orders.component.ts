@@ -5,6 +5,7 @@ import { headers } from '../../../Helpers/headers';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import { AuthService } from '../../../Services/auth.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class RecentOrdersComponent {
   recentOrders: RecentOrderDto[] | void;
   headers = headers;
 
-  constructor(public reportService: ReportsService) { }
+  constructor(public reportService: ReportsService, public authService:AuthService) { }
 
   ngOnInit() {
     this.getRecentOrders();

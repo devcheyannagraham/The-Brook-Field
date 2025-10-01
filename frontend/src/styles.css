@@ -5,6 +5,7 @@
     --tyrian-purple: #5f1a37;
     --platinum: #D8DDDE;
     --ivory: ##FFFFF0;
+    --chinese-violet:#71677c;
     /* ICON COLORS */
     --powder-blue: #9EADC8;
     --copper: #c27028;
@@ -24,6 +25,7 @@ body {
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 150px;
+    overflow-x:hidden;
 }
 
 main {

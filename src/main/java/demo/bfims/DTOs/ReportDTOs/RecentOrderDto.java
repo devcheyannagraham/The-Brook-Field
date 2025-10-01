@@ -46,6 +46,7 @@ public class RecentOrderDto {
         private PublicationItemType publicationItemType;
         private AccessoryType accessoryType;
         private String accessoryName;
+        private Long AccessoryId;
 
         public RecentOrderTransaction(Transaction transaction) {
             this.transactionId = transaction.getTransactionId();
@@ -65,6 +66,7 @@ public class RecentOrderDto {
                 this.itemId = accItem.getItemId();
                 this.accessoryType = accItem.getAccessory().getAccessoryType();
                 this.accessoryName = accItem.getAccessory().getAccessoryName();
+                this.AccessoryId = accItem.getAccessory().getAccessoryId();
             }
         }
 
@@ -164,6 +166,14 @@ public class RecentOrderDto {
             this.accessoryName = accessoryName;
         }
 
+        public Long getAccessoryId() {
+            return AccessoryId;
+        }
+
+        public void setAccessoryId(Long accessoryId) {
+            AccessoryId = accessoryId;
+        }
+
         @Override
         public String toString() {
             return "RecentOrderTransaction{" +
@@ -179,6 +189,7 @@ public class RecentOrderDto {
                     ", publicationItemType=" + publicationItemType +
                     ", accessoryType=" + accessoryType +
                     ", accessoryName='" + accessoryName + '\'' +
+                    ", AccessoryId=" + AccessoryId +
                     '}';
         }
     }

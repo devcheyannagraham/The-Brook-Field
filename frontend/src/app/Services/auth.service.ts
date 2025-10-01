@@ -91,10 +91,7 @@ export class AuthService {
   }
 
   navigateUser() {
-    this.getUserRole().then(isAdmin => {
-      if (isAdmin) this.router.navigateByUrl("/admindashboard");
-      else this.router.navigateByUrl("/home");
-    });
+    this.getUserRole().then(() => this.router.navigateByUrl("/"));
   }
 
 

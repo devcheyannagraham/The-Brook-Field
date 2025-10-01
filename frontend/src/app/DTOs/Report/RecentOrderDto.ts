@@ -13,15 +13,16 @@ export class RecentOrderDto {
     recentOrderTransactions: {
         transactionId:number;
         transactionPrice:number;
-        transactionDate: Date,
+        transactionDate: Date;
         transactionType: TransactionType;
         itemId:number;
         publicationId:number;
-        publicationItemFormat: PublicationItemFormat,
-        publicationItemType: PublicationItemType,
-        genre:Genre,
-        publicationTitle:string,
-        accessoryType: AccessoryType
-        accessoryName: string
+        publicationItemFormat: PublicationItemFormat;
+        publicationItemType: PublicationItemType;
+        genre:Genre;
+        publicationTitle:string;
+        accessoryType: AccessoryType;
+        accessoryName: string;
+        accessoryId:number;
     }[]
 }
