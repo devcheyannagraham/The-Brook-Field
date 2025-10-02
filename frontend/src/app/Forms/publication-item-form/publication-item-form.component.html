@@ -61,6 +61,17 @@
     <input type="number" id="rentalRate" name="rentalRate" formControlName="rentalRate">
   </div>
 
+  @if(pubItemId) {
+  <div class="label-group">
+    <label for="publicationItemStatus">Status</label>
+    <select id="publicationItemStatus" name="publicationItemStatus" formControlName="publicationItemStatus">
+      <option value="{{PublicationItemStatus.AVAILABLE}}">Available</option>d
+      <option value="{{PublicationItemStatus.PURCHASED}}">Purchased</option>
+      <option value="{{PublicationItemStatus.RENTED}}">Rented</option>
+    </select>
+  </div>
+  }
+
 
   <!-- Journal Fields -->
   @if (publicationItemForm.get("publicationItemType").value === PublicationItemType.JOURNAL) {

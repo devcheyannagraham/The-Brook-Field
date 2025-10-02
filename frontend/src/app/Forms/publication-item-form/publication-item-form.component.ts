@@ -77,6 +77,7 @@ export class PublicationItemFormComponent {
       format: [''],
       purchasePrice: [''],
       rentalRate: [''],
+      publicationItemStatus: [''],
 
       //No additional Book Fields
       //Journal Fields
@@ -124,4 +125,6 @@ export class PublicationItemFormComponent {
   protected readonly PublicationItemFormat = PublicationItemFormat;
   protected readonly LiteraryType = LiteraryType;
   protected readonly headers = headers;
+  protected readonly PublicationItemStatus = PublicationItemStatus;
+  
 }
