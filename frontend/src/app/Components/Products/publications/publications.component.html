@@ -1,20 +1,23 @@
 <h3> Publications </h3>
 <table>
   <thead>
-  <th>{{ headers["genre"] }}</th>
-  <th>{{ headers["title"] }}</th>
-  <th>{{ headers["datePublished"] }}</th>
-  <th>{{ headers["isbn"] }}</th>
+    <th></th>
+    <th>{{ headers["genre"] }}</th>
+    <th>{{ headers["title"] }}</th>
+    <th>{{ headers["datePublished"] }}</th>
+    <th>{{ headers["isbn"] }}</th>
   </thead>
   <tbody>
     @for (pub of publications; track pub) {
-      <tr>
-
-        <td>{{ pub["genre"] }}</td>
-        <td><a routerLink="/publication/{{pub.publicationId}}">{{ pub["title"] }}</a></td>
-        <td>{{ pub["datePublished"] | date:'mediumDate' }}</td>
-        <td>{{ pub["isbn"] }}</td>
-      </tr>
+    <tr>
+      <td>
+        <svgicon [icon]="pub.svgIcon" [className]="'table-icon'" />
+      </td>
+      <td>{{ pub["genre"] }}</td>
+      <td><a routerLink="/publication/{{pub.publicationId}}">{{ pub["title"] }}</a></td>
+      <td>{{ pub["datePublished"] | date:'mediumDate' }}</td>
+      <td>{{ pub["isbn"] }}</td>
+    </tr>
     }
   </tbody>
 </table>

@@ -6,7 +6,7 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public class SVGIcon {
     String viewBox;
-    @Column(length=500)
+    @Column(length=1000)
     String pathD;
     String className;
     String xmlns;

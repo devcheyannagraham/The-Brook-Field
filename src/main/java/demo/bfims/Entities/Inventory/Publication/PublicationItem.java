@@ -2,6 +2,8 @@ package demo.bfims.Entities.Inventory.Publication;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import demo.bfims.Config.SVGIcon;
+import demo.bfims.Config.SVGIconFactory;
 import demo.bfims.DTOs.InventoryDTOs.Publication.*;
 import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.PublicationItemFormat;
@@ -35,6 +37,8 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
     private String edition;
     @Enumerated(EnumType.STRING)
     private PublicationItemType publicationItemType;
+    @Embedded
+    private SVGIcon svgIcon;
 
     public PublicationItem(String edition, PublicationItemFormat format, Double purchasePrice, Double rentalRate, PublicationItemStatus publicationItemStatus, Publication publication) {
         this.format = format;
@@ -46,7 +50,7 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
         this.setItemType(ItemType.PUBLICATION_ITEM);
     }
 
-//    Construct PubItem from PubItemDto
+    //    Construct PubItem from PubItemDto
     public PublicationItem(ItemDto itemDto) {
         super(itemDto);
         if (itemDto instanceof PublicationItemDto publicationItemDto) {
@@ -57,6 +61,7 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
             this.edition = publicationItemDto.getEdition();
             this.publicationItemType = publicationItemDto.getPublicationItemType();
             this.publication = new Publication(publicationItemDto.getPublication());
+            this.svgIcon = publicationItemDto.getSvgIcon();
         }
     }
 
@@ -67,6 +72,14 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
         if (type.equals(PublicationItemType.JOURNAL)) return new Journal(publicationItemDto);
         if (type.equals(PublicationItemType.LITERARY_PIECE)) return new LiteraryPiece(publicationItemDto);
         return null;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        if (this.publicationItemType.equals(PublicationItemType.LITERARY_PIECE)) {
+            this.svgIcon = SVGIconFactory.CreateLiteraryPieceIcon(((LiteraryPiece) this).getLiteraryType());
+        } else
+            this.svgIcon = SVGIconFactory.CreatePublicationItemIcon(this.publicationItemType);
     }
 
     public PublicationItem() {
@@ -129,16 +142,25 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
         this.publicationItemType = publicationItemType;
     }
 
+    public SVGIcon getSvgIcon() {
+        return svgIcon;
+    }
+
+    public void setSvgIcon(SVGIcon svgIcon) {
+        this.svgIcon = svgIcon;
+    }
+
     @Override
     public String toString() {
         return "PublicationItem{" +
                 "format=" + format +
-                ", status=" + publicationItemStatus +
+                ", publicationItemStatus=" + publicationItemStatus +
                 ", publication=" + publication +
                 ", purchasePrice=" + purchasePrice +
                 ", rentalRate=" + rentalRate +
                 ", edition='" + edition + '\'' +
                 ", publicationItemType=" + publicationItemType +
+                ", svgIcon=" + svgIcon +
                 "} " + super.toString();
     }
 }

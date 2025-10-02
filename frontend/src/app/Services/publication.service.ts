@@ -56,7 +56,7 @@ export class PublicationService {
   newPublication(pub: any) {
     return firstValueFrom(this.http.post(`${this.baseUrl}publication/${this.authService.user().userId}`, pub, { withCredentials: true }))
       .then(items => {
-        this.toaster.message.set({ class: "success", message: "Publication Added."})
+        this.toaster.message.set({ class: "success", message: "Publication Added." })
         return items;
       })
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
@@ -65,7 +65,7 @@ export class PublicationService {
   newPublicationItem(pubItem: any) {
     return firstValueFrom(this.http.post(`${this.baseUrl}publicationitem/${this.authService.user().userId}`, pubItem, { withCredentials: true }))
       .then(items => {
-        this.toaster.message.set({ class: "success", message: "Publication Item Added."})
+        this.toaster.message.set({ class: "success", message: "Publication Item Added." })
         return items;
       })
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
@@ -74,7 +74,7 @@ export class PublicationService {
   deletePublicationItem(itemId: number) {
     return firstValueFrom(this.http.delete(`${this.baseUrl}publicationitem/${itemId}/${this.authService.user().userId}`, { withCredentials: true }))
       .then(items => {
-        this.toaster.message.set({ class: "success", message: "Publication Item Deleted."})
+        this.toaster.message.set({ class: "success", message: "Publication Item Deleted." })
         return items;
       })
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
@@ -83,7 +83,7 @@ export class PublicationService {
   deletePublication(pubId: number) {
     return firstValueFrom(this.http.delete(`${this.baseUrl}publication/${pubId}/${this.authService.user().userId}`, { withCredentials: true }))
       .then(items => {
-        this.toaster.message.set({ class: "success", message: "Publication Deleted."})
+        this.toaster.message.set({ class: "success", message: "Publication Deleted." })
         return items;
       })
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));

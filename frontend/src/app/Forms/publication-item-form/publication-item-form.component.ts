@@ -63,7 +63,7 @@ export class PublicationItemFormComponent {
   getPublication() {
     this.pubService.getPublicationById(this.publicationId)
       .then(pub => {
-        if(pub) this.publication = pub;
+        if (pub) this.publication = pub;
       });
   }
 
@@ -126,5 +126,4 @@ export class PublicationItemFormComponent {
   protected readonly LiteraryType = LiteraryType;
   protected readonly headers = headers;
   protected readonly PublicationItemStatus = PublicationItemStatus;
-  
 }

@@ -9,12 +9,14 @@ import { Book } from '../../../DTOs/Inventory/Book';
 import { headers } from '../../../Helpers/headers';
 import { DatePipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { SVGIconComponent } from '../../svgicon/svgicon.component';
 
 @Component({
   selector: 'publication-items',
   imports: [
     DatePipe,
     RouterLink,
+    SVGIconComponent
   ],
   templateUrl: './publication-items.component.html',
   styleUrl: './publication-items.component.css'

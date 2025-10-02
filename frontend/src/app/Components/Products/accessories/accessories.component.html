@@ -2,19 +2,23 @@
 
 <table>
   <thead>
-  <th>{{ headers.accessoryName }}</th>
-  <th>{{ headers.accessoryType }}</th>
-  <th>{{ headers.price }}</th>
+    <th></th>
+    <th>{{ headers.accessoryName }}</th>
+    <th>{{ headers.accessoryType }}</th>
+    <th>{{ headers.price }}</th>
   </thead>
   <tbody>
     @for (acc of accessories; track acc.accessoryId) {
-      <tr>
-        <td>
-          <a [routerLink]="['/accessory',acc.accessoryId]">{{ acc.accessoryName }}</a>
-        </td>
-        <td>{{ acc.accessoryType }}</td>
-        <td>{{ acc.price | currency }}</td>
-      </tr>
+    <tr>
+      <td>
+        <svgicon [icon]="acc.svgIcon" [className]="'table-icon'" />
+      </td>
+      <td>
+        <a [routerLink]="['/accessory',acc.accessoryId]">{{ acc.accessoryName }}</a>
+      </td>
+      <td>{{ acc.accessoryType }}</td>
+      <td>{{ acc.price | currency }}</td>
+    </tr>
     }
   </tbody>
 </table>

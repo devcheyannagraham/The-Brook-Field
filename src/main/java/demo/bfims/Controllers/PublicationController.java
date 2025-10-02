@@ -99,7 +99,7 @@ public class PublicationController {
     @DeleteMapping("/publication/{id}/{uuid}")
     public Boolean deletePublicationById(HttpServletRequest request, @PathVariable String uuid, @PathVariable Long id) {
         if (uuid != null && id != null && this.userService.isSessionUserAdmin(request, uuid))
-        return publicationService.deletePublicationById(id);
+            return publicationService.deletePublicationById(id);
         else return false;
     }
 }

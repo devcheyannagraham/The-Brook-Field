@@ -4,6 +4,8 @@ import {ItemType} from '../../Enums/ItemType'
 import {PublicationItemType} from '../../Enums/PublicationItemType';
 import {PublicationItemStatus} from '../../Enums/PublicationItemStatus';
 import {PublicationItemFormat} from '../../Enums/PublicationItemFormat';
+import { SVGIcon } from '../SVGIcon';
+
 
 export class PublicationItem extends Item {
   public id: number;
@@ -15,6 +17,7 @@ export class PublicationItem extends Item {
   public publicationItemStatus: PublicationItemStatus;
   public publication: Publication;
   public quantity: number;
+  public svgIcon:SVGIcon;
 
 
   constructor(...data: any) {
@@ -30,6 +33,7 @@ export class PublicationItem extends Item {
       this.publicationItemStatus = data["publicationItemStatus"] || null;
       this.publication = data["publication"] || null;
       this.quantity = data["quantity"] || null;
+      this.svgIcon = data["svgIcon"] || null;
     }
     this.itemType = ItemType.PUBLICATION_ITEM;
   }

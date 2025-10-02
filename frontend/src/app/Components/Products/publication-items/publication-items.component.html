@@ -27,34 +27,40 @@
 
 <h3>Books</h3>
 @if (books && books.length) {
-<table>
-  <thead>
-    <th>{{ headers.publicationItemType }}</th>
-    <th>{{ headers.edition }}</th>
-    <th>{{ headers.format }}</th>
-    <th>{{ headers.purchasePrice }}</th>
-    <th>{{ headers.rentalRate }}</th>
-    <th>{{ headers.status }}</th>
-    <th></th>
-  </thead>
+<div class="overflow">
+  <table>
+    <thead>
+      <th></th>
+      <th>{{ headers.publicationItemType }}</th>
+      <th>{{ headers.edition }}</th>
+      <th>{{ headers.format }}</th>
+      <th>{{ headers.purchasePrice }}</th>
+      <th>{{ headers.rentalRate }}</th>
+      <th>{{ headers.status }}</th>
+      <th></th>
+    </thead>
 
-  <tbody>
-    @for (book of books; track book.itemId) {
-    <tr>
-      <td>{{ book.publicationItemType }}</td>
-      <td>{{ book.edition }}</td>
-      <td>{{ book.format }}</td>
-      <td>{{ book.purchasePrice }}</td>
-      <td>{{ book.rentalRate }}</td>
-      <td>{{ book.publicationItemStatus }}</td>
-      <td>
-        <a [routerLink]="['/publicationitemform',book.itemId]"><button>Edit</button></a>
-        <button (click)="deleteItem(book.itemId)">delete</button>
-      </td>
-    </tr>
-    }
-  </tbody>
-</table>
+    <tbody>
+      @for (book of books; track book.itemId) {
+      <tr>
+        <td>
+          <svgicon [icon]="book.svgIcon" [className]="'table-icon'" />
+        </td>
+        <td>{{ book.publicationItemType }}</td>
+        <td>{{ book.edition }}</td>
+        <td>{{ book.format }}</td>
+        <td>{{ book.purchasePrice }}</td>
+        <td>{{ book.rentalRate }}</td>
+        <td>{{ book.publicationItemStatus }}</td>
+        <td>
+          <a [routerLink]="['/publicationitemform',book.itemId]"><button>Edit</button></a>
+          <button (click)="deleteItem(book.itemId)">delete</button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
 } @else {
 <p> No Books</p>
 }
@@ -62,36 +68,43 @@
 
 <h3>Literary Pieces</h3>
 @if (literaryPieces && literaryPieces.length) {
+<div class="overflow">
 
-<table>
-  <thead>
-    <th>{{ headers.publicationItemType }}</th>
-    <th>{{ headers.edition }}</th>
-    <th>{{ headers.format }}</th>
-    <th>{{ headers.purchasePrice }}</th>
-    <th>{{ headers.rentalRate }}</th>
-    <th>{{ headers.literaryType }}</th>
-    <th>{{ headers.status }}</th>
-    <th></th>
-  </thead>
-  <tbody>
-    @for (lp of literaryPieces; track lp.itemId) {
-    <tr>
-      <td>{{ lp.publicationItemType }}</td>
-      <td>{{ lp.edition }}</td>
-      <td>{{ lp.format }}</td>
-      <td>{{ lp.purchasePrice }}</td>
-      <td>{{ lp.rentalRate }}</td>
-      <td>{{ lp.literaryType }}</td>
-      <td>{{ lp.publicationItemStatus }}</td>
-      <td>
-        <a [routerLink]="['/publicationitemform',lp.itemId]"><button>Edit</button></a>
-        <button (click)="deleteItem(lp.itemId)">delete</button>
-      </td>
-    </tr>
-    }
-  </tbody>
-</table>
+  <table>
+    <thead>
+      <th></th>
+      <th>{{ headers.publicationItemType }}</th>
+      <th>{{ headers.edition }}</th>
+      <th>{{ headers.format }}</th>
+      <th>{{ headers.purchasePrice }}</th>
+      <th>{{ headers.rentalRate }}</th>
+      <th>{{ headers.literaryType }}</th>
+      <th>{{ headers.status }}</th>
+      <th></th>
+    </thead>
+    <tbody>
+      @for (lp of literaryPieces; track lp.itemId) {
+      <tr>
+        <td>
+          <svgicon [icon]="lp.svgIcon" [className]="'table-icon'" />
+        </td>
+        <td>{{ lp.literaryType }}</td>
+        <td>{{ lp.edition }}</td>
+        <td>{{ lp.format }}</td>
+        <td>{{ lp.purchasePrice }}</td>
+        <td>{{ lp.rentalRate }}</td>
+        <td>{{ lp.literaryType }}</td>
+        <td>{{ lp.publicationItemStatus }}</td>
+        <td>
+          <a [routerLink]="['/publicationitemform',lp.itemId]"><button>Edit</button></a>
+          <button (click)="deleteItem(lp.itemId)">delete</button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
 } @else {
 <p> No Literary Pieces</p>
 }
@@ -100,41 +113,48 @@
 
 <h3>Journals</h3>
 @if (journals && journals.length) {
-<table>
-  <thead>
-    <th>{{ headers.publicationItemType }}</th>
-    <th>{{ headers.edition }}</th>
-    <th>{{ headers.format }}</th>
-    <th>{{ headers.purchasePrice }}</th>
-    <th>{{ headers.rentalRate }}</th>
-    <th>{{ headers.issueDate }}</th>
-    <th>{{ headers.issueNumber }}</th>
-    <th>{{ headers.issueName }}</th>
-    <th>{{ headers.volume }}</th>
-    <th>{{ headers.status }}</th>
-    <th></th>
-  </thead>
-  <tbody>
-    @for (journal of journals; track journal.itemId) {
-    <tr>
-      <td>{{ journal.publicationItemType }}</td>
-      <td>{{ journal.edition }}</td>
-      <td>{{ journal.format }}</td>
-      <td>{{ journal.purchasePrice }}</td>
-      <td>{{ journal.rentalRate }}</td>
-      <td>{{ journal.issueDate | date : "mediumDate" }}</td>
-      <td>{{ journal.issueNumber }}</td>
-      <td>{{ journal.issueName }}</td>
-      <td>{{ journal.volume }}</td>
-      <td>{{ journal.publicationItemStatus }}</td>
-      <td>
-        <a [routerLink]="['/publicationitemform',journal.itemId]"><button>Edit</button></a>
-        <button (click)="deleteItem(journal.itemId)">delete</button>
-      </td>
-    </tr>
-    }
-  </tbody>
-</table>
+<div class="overflow">
+  <table>
+    <thead>
+      <th></th>
+      <th>{{ headers.publicationItemType }}</th>
+      <th>{{ headers.edition }}</th>
+      <th>{{ headers.format }}</th>
+      <th>{{ headers.purchasePrice }}</th>
+      <th>{{ headers.rentalRate }}</th>
+      <th>{{ headers.issueDate }}</th>
+      <th>{{ headers.issueNumber }}</th>
+      <th>{{ headers.issueName }}</th>
+      <th>{{ headers.volume }}</th>
+      <th>{{ headers.status }}</th>
+      <th></th>
+    </thead>
+    <tbody>
+      @for (journal of journals; track journal.itemId) {
+      <tr>
+        <td>
+          <svgicon [icon]="journal.svgIcon" [className]="'table-icon'" />
+        </td>
+        <td>{{ journal.publicationItemType }}</td>
+        <td>{{ journal.edition }}</td>
+        <td>{{ journal.format }}</td>
+        <td>{{ journal.purchasePrice }}</td>
+        <td>{{ journal.rentalRate }}</td>
+        <td>{{ journal.issueDate | date : "mediumDate" }}</td>
+        <td>{{ journal.issueNumber }}</td>
+        <td>{{ journal.issueName }}</td>
+        <td>{{ journal.volume }}</td>
+        <td>{{ journal.publicationItemStatus }}</td>
+        <td>
+          <a [routerLink]="['/publicationitemform',journal.itemId]"><button>Edit</button></a>
+          <button (click)="deleteItem(journal.itemId)">delete</button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
 } @else {
 <p>No Journals</p>
 }

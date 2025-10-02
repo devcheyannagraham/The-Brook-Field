@@ -5,13 +5,20 @@
     --tyrian-purple: #5f1a37;
     --platinum: #D8DDDE;
     --ivory: ##FFFFF0;
-    --chinese-violet:#71677c;
+    --chinese-violet: #71677c;
     /* ICON COLORS */
     --powder-blue: #9EADC8;
     --copper: #c27028;
     --ecru: #A89F68;
     --sunglow: #FFCB47;
     --reseda-green: #89937C;
+    --verdigris:#56A3A6;
+    --rose-taupe:#945D5E;
+    --cambridge-blue:#91C7B1;
+    --palatinate:#531253;
+    --paynes-gray:#555B6E;
+    --apricot:#FFD6BA;
+    --eggplant:#5E4C5A; 
 }
 
 body {
@@ -25,7 +32,7 @@ body {
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 150px;
-    overflow-x:hidden;
+    overflow-x: hidden;
 }
 
 main {
@@ -74,8 +81,10 @@ button:hover:not(disabled) {
 button:disabled {
     opacity: 0.5;
     cursor: unset;
-    color:initial;
+    color: initial;
 }
+
+
 
 
 
@@ -94,6 +103,10 @@ button:disabled {
     margin: 5px;
 }
 
+.table-icon {
+    width: 50px;
+}
+
 .pen-icon {
     fill: var(--powder-blue);
 }
@@ -110,6 +123,51 @@ button:disabled {
     fill: var(--copper);
 }
 
+.book-icon {
+    fill: var(--verdigris);
+
+}
+
+.review-icon {
+    fill: var(--rose-taupe);
+
+}
+
+.essay-icon {
+    fill: var(--cambridge-blue);
+
+}
+
+.poem-icon {
+    fill: var(--palatinate);
+
+}
+
+.story-icon {
+    fill: var(--paynes-gray);
+
+}
+
+.article-icon {
+    fill: var(--apricot);
+
+}
+
+.journal-icon {
+    fill: var(--eggplant);
+
+}
+
+
+
+
+
+
+
+
+
+
+
 /* TABLE STYLES */
 table {
     width: 100%;
@@ -118,7 +176,7 @@ table {
     border-bottom: 5px solid var(--platinum);
 }
 
-thead th{
+thead th {
     background: var(--tyrian-purple);
     color: white;
 }
@@ -131,32 +189,47 @@ th {
 
 
 tr,
-td, tbody {
+td,
+tbody {
     padding: 15px;
     margin: 15px;
 }
 
-tr:nth-child(even){
-    background-color:#f9ffdb;
+tr:nth-child(even) {
+    background-color: #f9ffdb;
 }
 
-.search-results table{
-    width:50%;
+.search-results table {
+    width: 50%;
 }
+
+.overflow {
+    overflow-x: auto;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
 
 /* FORM STYLES */
 
-.label-group{
-    display:grid;
+.label-group {
+    display: grid;
 }
 
-input, select {
+input,
+select {
     padding: 15px;
-    margin:15px;
+    margin: 15px;
 }
 
-.error{
-    font-size:smaller;
+.error {
+    font-size: smaller;
     font-style: italic;
-    color:red;
+    color: red;
 }
