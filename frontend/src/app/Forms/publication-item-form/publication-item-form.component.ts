@@ -106,7 +106,10 @@ export class PublicationItemFormComponent {
         pubType == PublicationItemType.LITERARY_PIECE ? new LiteraryPiece(formData) :
           new PublicationItem(formData);
 
-    if (this.pubItemId) publicationItem.itemId = this.pubItemId;
+    if (this.pubItemId) {
+      publicationItem.itemId = this.pubItemId;
+      publicationItem.svgIcon = this.publicationItem.svgIcon;
+    }
     publicationItem.publication = this.publication;
 
     this.createPublicationItem(publicationItem);

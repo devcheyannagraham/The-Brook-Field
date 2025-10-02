@@ -12,7 +12,7 @@ import { SVGIconComponent } from "../../svgicon/svgicon.component";
     RouterLink,
     CurrencyPipe,
     SVGIconComponent
-],
+  ],
   templateUrl: './accessories.component.html',
   styleUrl: './accessories.component.css'
 })

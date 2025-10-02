@@ -37,6 +37,7 @@ public class Accessory {
         this.accessoryName = accessoryDto.getAccessoryName();
         this.price = accessoryDto.getPrice();
         this.accessoryId = accessoryDto.getAccessoryId();
+        this.svgIcon = accessoryDto.getSvgIcon();
     }
 
     @PrePersist

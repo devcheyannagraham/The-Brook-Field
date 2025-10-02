@@ -1,5 +1,5 @@
 import { SVGIcon } from '../SVGIcon';
-import {Author} from './Author';
+import { Author } from './Author';
 
 export class Publication {
   public publicationId: number;
@@ -9,11 +9,11 @@ export class Publication {
   public quantity: number; // May need to delete
   public title: string;
   public author: Author;
-  public svgIcon:SVGIcon;
+  public svgIcon: SVGIcon;
 
-  constructor(...data:any){
+  constructor(...data: any) {
     data = data[0];
-    if(data){
+    if (data) {
       this.publicationId = data["publicationId"] || null;
       this.datePublished = data["datePublished"] || null;
       this.isbn = data["isbn"] || null;
@@ -21,6 +21,7 @@ export class Publication {
       this.quantity = data["quantity"] || null;
       this.title = data["title"] || null;
       this.author = data["author"] || null;
+      this.svgIcon = data["svgIcon"] || null;
     }
   }
 

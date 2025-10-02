@@ -13,16 +13,17 @@ import { Router } from '@angular/router';
 })
 export class AccessoryFormComponent {
   accessoryForm: FormGroup;
-  protected readonly AccessoryType = AccessoryType;
-
+  AccessoryType = AccessoryType;
+  accessory: Accessory;
   @Input() accessoryId: number;
+
 
   constructor(private formBuilder: FormBuilder, public accessoryService: AccessoryService, public router: Router) {
   }
 
   ngOnInit() {
     this.createForm();
-    if (this.accessoryId) this.fillForm();
+    if (this.accessoryId) this.getAccessory();
   }
 
   createForm() {
@@ -35,28 +36,28 @@ export class AccessoryFormComponent {
     });
   }
 
-  fillForm() {
+  getAccessory() {
     if (this.accessoryId) {
       this.accessoryService.getAccessoryById(this.accessoryId)
-        .then(data => {
-          if (data)
-            for (let key of Object.keys(data)) {
-              if (key != null && this.accessoryForm.contains(key)) {
-                // @ts-ignore
-                this.accessoryForm.get(key).setValue(data[key]);
-              }
-            }
-        });
+        .then(acc => {
+          if (acc) {
+            this.accessory = acc;
+            this.fillForm();
+          }
+        })
+    }
+  }
+
+  fillForm() {
+    if (this.accessory) {
+      this.accessoryForm.patchValue(this.accessory);
     }
   }
 
 
   addAccessory() {
-    let accessory = new Accessory();
-    for (let key of Object.keys(accessory)) {
-      // @ts-ignore
-      if (this.accessoryForm.contains(key)) accessory[key] = this.accessoryForm.get(key).value;
-    }
+    let accessory = new Accessory(this.accessoryForm.value);
+    accessory.svgIcon = this.accessory.svgIcon;
     this.saveAccessory(accessory);
   }
 

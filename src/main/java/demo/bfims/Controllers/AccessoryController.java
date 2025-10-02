@@ -51,7 +51,7 @@ public class AccessoryController {
         else return null;
     }
 
-    // Create new accessory
+    // Create new/update accessory
     // Requires Admin access
     @PostMapping("/accessory/{uuid}")
     public AccessoryDto newAccessory(HttpServletRequest request, @RequestBody AccessoryDto accessoryDto, @PathVariable String uuid) {

@@ -17,6 +17,7 @@ export class Accessory {
       this.accessoryType = data["accessoryType"] || null;
       this.quantity = data["quantity"] || null;
       this.price = data["price"] || null;
+      this.svgIcon = data["svgIcon"] || null;
     }
   }
 }

@@ -71,6 +71,8 @@ export class PublicationFormComponent {
     publication.author = new Author(this.publicationForm.get("authorGroup").value);
     publication.publicationId = this.publicationId || null;
     publication.author.id = this.author?.id || null;
+    //add icon if pub already exists
+    if(this.publication) publication.svgIcon = this.publication.svgIcon;
 
     this.createPublication(publication);
   }
