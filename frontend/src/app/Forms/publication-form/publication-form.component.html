@@ -5,28 +5,54 @@
 
 
     <div class="label-group">
-      <label for="pub-title">Title</label>
+      <label for="pub-title">Title<span class="required">*</span></label>
       <input id="pub-title" name="pub-title" formControlName="title" type="text">
+
+      @if(publicationForm.get("publicationGroup").get("title").touched && publicationForm.get("publicationGroup").get("title")?.hasError("required")){
+      <div class="error">Title is required.</div>
+      }
+      @if(publicationForm.get("publicationGroup").get("title").touched && publicationForm.get("publicationGroup").get("title")?.hasError("minlength")){
+      <div class="error">Min 3 chars</div>
+      }
+      @if(publicationForm.get("publicationGroup").get("title").touched && publicationForm.get("publicationGroup").get("title")?.hasError("maxlength")){
+      <div class="error">Max 100 chars.</div>
+      }
+
     </div>
 
     <div class="label-group">
-      <label for="pub-genre">Genre</label>
+      <label for="pub-genre">Genre<span class="required">*</span></label>
       <select id="pub-genre" name="pub-genre" formControlName="genre">
         <option value="{{Genre.SCIFI}}">SciFi</option>
         <option value="{{Genre.COMEDY}}">Comedy</option>
         <option value="{{Genre.FANTASY}}">Fantasy</option>
         <option value="{{Genre.YOUTH}}">Youth</option>
       </select>
+
+      @if(publicationForm.get("publicationGroup").get("genre").touched && publicationForm.get("publicationGroup").get("genre")?.hasError("required")){
+      <div class="error">Genre is required.</div>
+      }
     </div>
 
     <div class="label-group">
-      <label for="isbn">ISBN</label>
+      <label for="isbn">ISBN<span class="required">*</span></label>
       <input id="isbn" name="isbn" formControlName="isbn" type="number">
+
+      @if(publicationForm.get("publicationGroup").get("isbn").touched && publicationForm.get("publicationGroup").get("isbn")?.hasError("required")){
+      <div class="error">ISBN is required.</div>
+      }
+      @if(publicationForm.get("publicationGroup").get("isbn").touched && publicationForm.get("publicationGroup").get("isbn")?.hasError("pattern")){
+      <div class="error">ISBN's are 10 or 13 digits</div>
+      }
     </div>
 
     <div class="label-group">
-      <label for="pub-date">Publish Date</label>
+      <label for="pub-date">Publish Date<span class="required">*</span></label>
       <input id="pub-date" name="pub-date" formControlName="datePublished" type=date>
+
+      @if(publicationForm.get("publicationGroup").get("datePublished").touched && publicationForm.get("publicationGroup").get("datePublished")?.hasError("required")){
+      <div class="error">Date is required.</div>
+      }
     </div>
   </div>
 
@@ -34,13 +60,37 @@
   <h4>Author Details</h4>
   <div formGroupName="authorGroup">
     <div class="label-group">
-      <label for="firstName">First Name</label>
+      <label for="firstName">First Name<span class="required">*</span></label>
       <input id="firstName" name="firstName" formControlName="firstName" type=text>
+
+      @if(publicationForm.get("authorGroup").get("firstName").touched && publicationForm.get("authorGroup").get("firstName")?.hasError("required")){
+      <div class="error">First Name is required.</div>
+      }
+      @if(publicationForm.get("authorGroup").get("firstName").touched && publicationForm.get("authorGroup").get("firstName")?.hasError("minlength")){
+      <div class="error">Min 3 chars</div>
+      }
+      @if(publicationForm.get("authorGroup").get("firstName").touched && publicationForm.get("authorGroup").get("firstName")?.hasError("maxlength")){
+      <div class="error">Max 100 chars.</div>
+      }
+
+
     </div>
 
     <div class="label-group">
-      <label for="lastName">Last Name</label>
+      <label for="lastName">Last Name<span class="required">*</span></label>
       <input id="lastName" name="lastName" formControlName="lastName" type=text>
+
+      @if(publicationForm.get("authorGroup").get("lastName").touched && publicationForm.get("authorGroup").get("lastName")?.hasError("required")){
+      <div class="error">Last Name is required.</div>
+      }
+      @if(publicationForm.get("authorGroup").get("lastName").touched && publicationForm.get("authorGroup").get("lastName")?.hasError("minlength")){
+      <div class="error">Min 3 chars</div>
+      }
+      @if(publicationForm.get("authorGroup").get("lastName").touched && publicationForm.get("authorGroup").get("lastName")?.hasError("maxlength")){
+      <div class="error">Max 100 chars.</div>
+      }
+
+
     </div>
   </div>
 

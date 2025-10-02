@@ -43,7 +43,7 @@
 <form [formGroup]="orderForm" (ngSubmit)="submitOrder()">
 
   <div class="label-group">
-    <label for="firstName">First Name</label>
+    <label for="firstName">First Name<span class="required">*</span></label>
     <input type="text" id="firstName" name="firstName" formControlName="firstName">
 
     @if(orderForm.get("firstName").touched && orderForm.get("firstName")?.hasError("required")){
@@ -58,7 +58,7 @@
   </div>
 
   <div class="label-group">
-    <label for="lastName">Last Name</label>
+    <label for="lastName">Last Name<span class="required">*</span></label>
     <input type="text" id="lastName" name="lastName" formControlName="lastName">
 
     @if(orderForm.get("lastName").touched && orderForm.get("lastName")?.hasError("required")){
@@ -73,7 +73,7 @@
   </div>
 
   <div class="label-group">
-    <label for="address">Street address</label>
+    <label for="address">Street address<span class="required">*</span></label>
     <input type="text" id="address" name="address" formControlName="address">
 
     @if(orderForm.get("address").touched && orderForm.get("address")?.hasError("required")){
@@ -88,7 +88,7 @@
   </div>
 
   <div class="label-group">
-    <label for="city">City</label>
+    <label for="city">City<span class="required">*</span></label>
     <input type="text" id="city" name="city" formControlName="city">
 
     @if(orderForm.get("city").touched && orderForm.get("city")?.hasError("required")){
@@ -103,7 +103,7 @@
   </div>
 
   <div class="label-group">
-    <label for="state">State</label>
+    <label for="state">State<span class="required">*</span></label>
     <input type="text" id="state" name="state" formControlName="state">
 
     @if(orderForm.get("state").touched && orderForm.get("state")?.hasError("required")){
@@ -118,7 +118,7 @@
   </div>
 
   <div class="label-group">
-    <label for="zipCode">ZipCode</label>
+    <label for="zipCode">ZipCode<span class="required">*</span></label>
     <input type="number" id="zipCode" name="zipCode" formControlName="zipCode">
 
     @if(orderForm.get("zipCode").touched && orderForm.get("zipCode")?.hasError("required")){
@@ -130,7 +130,7 @@
   </div>
 
   <div class="label-group">
-    <label for="country">Country</label>
+    <label for="country">Country<span class="required">*</span></label>
     <input type="text" id="country" name="country" formControlName="country">
 
     @if(orderForm.get("country").touched && orderForm.get("country")?.hasError("required")){
@@ -145,7 +145,7 @@
   </div>
 
   <div class="label-group">
-    <label for="email">Email</label>
+    <label for="email">Email<span class="required">*</span></label>
     <input type="email" id="email" name="email" formControlName="email">
 
     @if(orderForm.get("email").touched && orderForm.get("email")?.hasError("required")){
@@ -157,7 +157,7 @@
   </div>
 
   <div class="label-group">
-    <label for="phoneNumber">Phone</label>
+    <label for="phoneNumber">Phone<span class="required">*</span></label>
     <input type="tel" id="phoneNumber" name="phoneNumber" formControlName="phoneNumber">
 
     @if(orderForm.get("phoneNumber").touched && orderForm.get("phoneNumber")?.hasError("required")){
@@ -168,5 +168,5 @@
     }
   </div>
 
-  <button type="submit"> Submit Order </button>
+  <button type="submit" [disabled]="shopService.shoppingCart().size <= 0"> Submit Order </button>
 </form>
