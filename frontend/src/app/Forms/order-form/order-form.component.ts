@@ -60,11 +60,7 @@ export class OrderFormComponent {
         .then(customer => {
           if (customer) {
             this.currentCustomer = JSON.parse(customer);
-            for (let key of Object.keys(this.currentCustomer)) {
-              if (key != null && this.orderForm.contains(key)) {
-                this.orderForm.get(key).setValue(this.currentCustomer[key]);
-              }
-            }
+            this.orderForm.patchValue(this.currentCustomer);
           };
         });
     }
