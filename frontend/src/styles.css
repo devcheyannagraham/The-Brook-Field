@@ -220,6 +220,8 @@ tr:nth-child(even) {
 
 .label-group {
     display: grid;
+    margin: 10px;
+    padding: 10px;
 }
 
 input,
@@ -232,4 +234,8 @@ select {
     font-size: smaller;
     font-style: italic;
     color: red;
+}
+
+.required{
+    color:red;
 }

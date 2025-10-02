@@ -1,27 +1,61 @@
 <h3>{{ accessoryId ? "Update" : "New" }} Accessory</h3>
 <form [formGroup]="accessoryForm" (ngSubmit)="addAccessory()">
   <div class="label-group">
-    <label for="accessoryName">Accessory Name</label>
+    <label for="accessoryName">Accessory Name<span class="required">*</span></label>
     <input type="text" id="accessoryName" name="accessoryName" formControlName="accessoryName">
+
+    @if(accessoryForm.get("accessoryName").touched && accessoryForm.get("accessoryName")?.hasError("required")){
+    <div class="error">Name is required.</div>
+    }
+    @if(accessoryForm.get("accessoryName").touched && accessoryForm.get("accessoryName")?.hasError("minlength")){
+    <div class="error">Min 5 Chars</div>
+    }
+    @if(accessoryForm.get("accessoryName").touched && accessoryForm.get("accessoryName")?.hasError("maxlength")){
+    <div class="error">Max 25 chars.</div>
+    }
   </div>
 
   <div class="label-group">
-    <label for="accessoryType">Accessory Type</label>
+    <label for="accessoryType">Accessory Type<span class="required">*</span></label>
     <select id="accessoryType" name="accessoryType" formControlName="accessoryType">
       <option value="{{AccessoryType.BOOKMARK}}">Bookmark</option>
       <option value="{{AccessoryType.MUG}}">Mug</option>
       <option value="{{AccessoryType.PEN}}">Pen</option>
     </select>
+
+    @if(accessoryForm.get("accessoryType").touched && accessoryForm.get("accessoryType")?.hasError("required")){
+    <div class="error">Type is required.</div>
+    }
   </div>
 
   <div class="label-group">
-    <label for="price">Price</label>
+    <label for="price">Price<span class="required">*</span></label>
     <input type="text" id="price" name="price" formControlName="price">
+
+    @if(accessoryForm.get("price").touched && accessoryForm.get("price")?.hasError("required")){
+    <div class="error">Price is required.</div>
+    }
+    @if(accessoryForm.get("price").touched && accessoryForm.get("price")?.hasError("min")){
+    <div class="error">Min $0.10</div>
+    }
+    @if(accessoryForm.get("price").touched && accessoryForm.get("price")?.hasError("max")){
+    <div class="error">Max $99,999.00</div>
+    }
   </div>
 
   <div class="label-group">
-    <label for="quantity">Quantity</label>
+    <label for="quantity">Quantity<span class="required">*</span></label>
     <input type="text" id="quantity" name="quantity" formControlName="quantity">
+
+    @if(accessoryForm.get("quantity").touched && accessoryForm.get("quantity")?.hasError("required")){
+    <div class="error">Quantity is required.</div>
+    }
+    @if(accessoryForm.get("quantity").touched && accessoryForm.get("quantity")?.hasError("min")){
+    <div class="error">Min 0</div>
+    }
+    @if(accessoryForm.get("quantity").touched && accessoryForm.get("quantity")?.hasError("max")){
+    <div class="error">Max 99,999</div>
+    }
   </div>
   <button type="submit">{{ accessoryId ? "Update Accessory" : "Add Accessory" }}</button>
 </form>
