@@ -2,10 +2,8 @@ package demo.bfims.Controllers;
 
 import demo.bfims.DTOs.OrderDTOs.CustomerDto;
 import demo.bfims.DTOs.User.UserDto;
-import demo.bfims.Entities.Order.Customer;
 import demo.bfims.Entities.Users.User;
 import demo.bfims.Enums.UserRole;
-import demo.bfims.Repo.CustomerRepo;
 import demo.bfims.Services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -13,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -33,6 +32,40 @@ public class UserController {
         HttpSession session = request.getSession(true);
         session.setAttribute(uuid.toString(), userId);
         return new ResponseEntity<>(uuid.toString(), HttpStatus.OK);
+    }
+
+    @PostMapping("/newadminuser/{uuid}")
+    public ResponseEntity<String> newAdminUser(HttpServletRequest request, @RequestBody UserDto userDto, @PathVariable String uuid) {
+        if (userDto == null || uuid == null || userDto.getEmail().isBlank() || userDto.getPassword().isBlank())
+            return null;
+
+        if (userService.isSessionUserAdmin(request, uuid)) {
+            Long newAdminId = userService.newUser(userDto);
+            User newAdmin = userService.findUserById(newAdminId);
+            if (newAdmin == null) return new ResponseEntity<>("Username Unavailable", HttpStatus.NOT_FOUND);
+            newAdmin.setUserRole(UserRole.ADMIN);
+            userService.saveAdminUser(newAdmin);
+            return new ResponseEntity<>("Admin User Added", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Username Unavailable", HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/adminusers/{uuid}")
+    public List<UserDto> getAdminUsers(HttpServletRequest request, @PathVariable String uuid) {
+        if (uuid == null) return null;
+        if (userService.isSessionUserAdmin(request, uuid)) {
+            return userService.getAdminUsers();
+        }
+        return null;
+    }
+
+    @DeleteMapping("/deleteuser/{userId}/{uuid}")
+    public ResponseEntity<String> deleteUser(HttpServletRequest request, @PathVariable Long userId, @PathVariable String uuid) {
+        if(uuid == null || userId == null) return new ResponseEntity<>("Username Unavailable", HttpStatus.NOT_FOUND);
+        if (userService.isSessionUserAdmin(request, uuid)) {
+            if(userService.deleteUser(userId) > 0) return new ResponseEntity<>("User Deleted Successfully", HttpStatus.OK);
+            else return new ResponseEntity<>("User Unavailable", HttpStatus.NOT_FOUND);
+        } return null;
     }
 
     @PostMapping("/authenticateuser")
@@ -82,12 +115,12 @@ public class UserController {
 
     @PostMapping("/getcustomer")
     public CustomerDto getCustomer(HttpServletRequest request, @RequestBody String uuid) {
-        if(request.getSession(false) == null) return null;
-        if(uuid == null) return null;
+        if (request.getSession(false) == null) return null;
+        if (uuid == null) return null;
         Long userId = userService.getUserId(request, uuid);
-        if(userId == null) return null;
+        if (userId == null) return null;
         User foundUser = userService.findUserById(userId);
-        if(foundUser == null) return null;
+        if (foundUser == null) return null;
         return userService.getCustomerByUser(foundUser);
     }
 

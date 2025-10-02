@@ -1,0 +1,57 @@
+<div>
+    <h2>New Admin User</h2>
+    <form (submit)="submitForm()">
+
+        <div class="label-group">
+            <label for="email"> Email</label>
+            <input type="email" required [formControl]="email">
+
+            @if(emailError){
+            <p class="error">Invalid Email</p>
+            }
+        </div>
+        <div class="label-group">
+            <label for="pwd"> Password</label>
+            <input type="password" required [formControl]="pwd">
+            @if(pwdError){
+            <p class="error">Invalid password</p>
+            }
+        </div>
+        <div class="label-group">
+            <label for="pwdConf"> Confirm Password</label>
+            <input type="password" required [formControl]="pwdConf">
+            @if(pwdConfError){
+            <p class="error">Passwords don't match!</p>
+            }
+        </div>
+        <div>
+            <button type="submit">Create user</button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <h3>Admin Users</h3>
+    @if(adminUsers){
+    <table>
+        <thead>
+            <tr>
+                <th>User</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(admin of adminUsers;track admin.userId){
+            <tr>
+                <td>{{admin?.email}}
+                    <button (click)="deleteUser(admin.userId)"
+                        [disabled]="adminUsers.length <=1 || authService.user()?.email == admin?.email">Delete</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    } @else {
+    <p>No Users</p>
+    }
+</div>

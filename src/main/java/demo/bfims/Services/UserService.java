@@ -10,6 +10,9 @@ import demo.bfims.Repo.UserRepo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -32,7 +35,6 @@ public class UserService {
 
         if (userRepo.findByEmail(userDto.getEmail()).orElse(null) != null) {
             // user already exists
-            System.out.println(userDto.getEmail() + " already exists");
             return null;
         }
 
@@ -49,13 +51,28 @@ public class UserService {
 
         // Save user
         return userRepo.save(user).getUserId();
+    }
 
+    public void saveAdminUser(User admin) {
+        if (admin != null) {
+            userRepo.save(admin);
+        }
+    }
 
+    public List<UserDto> getAdminUsers() {
+        List<User> admins = userRepo.findAllByUserRole(UserRole.ADMIN).orElse(null);
+        if (admins == null) return null;
+        return admins.stream().map(UserDto::new).toList();
+    }
+
+    @Transactional
+    public Integer deleteUser(Long userId) {
+        return userRepo.deleteUserByUserId(userId);
     }
 
     public CustomerDto getCustomerByUser(User user) {
-        if(user == null) return null;
-        if(user.getCustomer() == null) return null;
+        if (user == null) return null;
+        if (user.getCustomer() == null) return null;
 
         Customer customer = customerRepo.getCustomerById(user.getCustomer().getId()).orElse(null);
         if (customer == null) return null;

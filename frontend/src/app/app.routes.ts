@@ -19,6 +19,7 @@ import { HomeComponent } from './Components/Auth/home/home.component';
 import { AdminDashboardComponent } from './Components/Auth/admin-dashboard/admin-dashboard.component';
 import { authenticatedUserGuard } from './authenticated-user.guard';
 import { adminGuard } from './admin.guard';
+import { UserManagementComponent } from './Components/Auth/user-management/user-management.component';
 
 export const routes: Routes = [
   {
@@ -49,27 +50,27 @@ export const routes: Routes = [
   {
     path: 'publication/:publicationId',
     component: PublicationItemsComponent,
-        canActivate: [adminGuard]
+    canActivate: [adminGuard]
   },
   {
     path: 'publications',
     component: PublicationsComponent,
-        canActivate: [adminGuard]
+    canActivate: [adminGuard]
   },
   {
     path: 'accessory/:accessId',
     component: AccessoryItemsComponent,
-        canActivate: [adminGuard]
+    canActivate: [adminGuard]
   },
   {
     path: 'accessories',
     component: AccessoriesComponent,
-        canActivate: [adminGuard]
+    canActivate: [adminGuard]
   },
   {
     path: 'accessoryform/:accessoryId',
     component: AccessoryFormComponent,
-        canActivate: [adminGuard]
+    canActivate: [adminGuard]
   },
   {
     path: 'accessoryform',
@@ -117,6 +118,12 @@ export const routes: Routes = [
   {
     path: 'admindashboard',
     component: AdminDashboardComponent,
+    canActivate: [adminGuard]
+
+  },
+  {
+    path: 'users',
+    component: UserManagementComponent,
     canActivate: [adminGuard]
 
   },
