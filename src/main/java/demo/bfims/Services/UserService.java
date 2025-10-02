@@ -1,6 +1,8 @@
 package demo.bfims.Services;
 
+import demo.bfims.DTOs.OrderDTOs.CustomerDto;
 import demo.bfims.DTOs.User.UserDto;
+import demo.bfims.Entities.Order.Customer;
 import demo.bfims.Entities.Users.User;
 import demo.bfims.Enums.UserRole;
 import demo.bfims.Repo.CustomerRepo;
@@ -51,8 +53,17 @@ public class UserService {
 
     }
 
+    public CustomerDto getCustomerByUser(User user) {
+        if(user == null) return null;
+        if(user.getCustomer() == null) return null;
+
+        Customer customer = customerRepo.getCustomerById(user.getCustomer().getId()).orElse(null);
+        if (customer == null) return null;
+        return new CustomerDto(customer);
+    }
+
     public User authenticateUser(UserDto userDto) {
-        if(userDto.getEmail() == null || userDto.getPassword() == null) return null;
+        if (userDto.getEmail() == null || userDto.getPassword() == null) return null;
         User foundUser = userRepo.findByEmail(userDto.getEmail()).orElse(null);
         if (foundUser != null) {
             byte[] hashedPassword = User.hashPassword(userDto.getPassword(), foundUser.getSalt());

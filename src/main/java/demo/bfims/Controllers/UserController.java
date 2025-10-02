@@ -1,8 +1,11 @@
 package demo.bfims.Controllers;
 
+import demo.bfims.DTOs.OrderDTOs.CustomerDto;
 import demo.bfims.DTOs.User.UserDto;
+import demo.bfims.Entities.Order.Customer;
 import demo.bfims.Entities.Users.User;
 import demo.bfims.Enums.UserRole;
+import demo.bfims.Repo.CustomerRepo;
 import demo.bfims.Services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -75,6 +78,17 @@ public class UserController {
         if (session != null)
             session.invalidate();
         return new ResponseEntity<>("User logged out", HttpStatus.OK);
+    }
+
+    @PostMapping("/getcustomer")
+    public CustomerDto getCustomer(HttpServletRequest request, @RequestBody String uuid) {
+        if(request.getSession(false) == null) return null;
+        if(uuid == null) return null;
+        Long userId = userService.getUserId(request, uuid);
+        if(userId == null) return null;
+        User foundUser = userService.findUserById(userId);
+        if(foundUser == null) return null;
+        return userService.getCustomerByUser(foundUser);
     }
 
 

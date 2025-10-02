@@ -9,6 +9,7 @@ import { TypeCast } from '../../Pipes/TypeCast';
 import { Customer } from '../../DTOs/Order/Customer';
 import { Router } from '@angular/router';
 import { ToasterService } from '../../Services/toaster.service';
+import { AuthService } from '../../Services/auth.service';
 
 @Component({
   selector: 'order-form',
@@ -24,8 +25,9 @@ export class OrderFormComponent {
   orderForm: FormGroup;
   orderItems;
   orderTotal;
+  currentCustomer: any = null;
 
-  constructor(public formBuilder: FormBuilder, public shopService: ShopService, public router: Router, public toaster: ToasterService) {
+  constructor(public formBuilder: FormBuilder, public shopService: ShopService, public router: Router, public toaster: ToasterService, public authService: AuthService) {
     this.orderItems = computed(() => {
       return [...this.shopService.shoppingCart().values()];
     });
@@ -35,20 +37,37 @@ export class OrderFormComponent {
 
   ngOnInit() {
     this.createForm();
+    this.getCustomerInfo();
   }
 
   createForm() {
     this.orderForm = this.formBuilder.group({
       firstName: [],
       lastName: [],
-      streetAddress: [],
+      address: [],
       city: [],
       state: [],
-      zip: [],
+      zipCode: [],
       country: [],
       email: [],
       phoneNumber: [],
     });
+  }
+
+  getCustomerInfo() {
+    if (this.authService.user()) {
+      this.authService.getCustomerInfo()
+        .then(customer => {
+          if (customer) {
+            this.currentCustomer = JSON.parse(customer);
+            for (let key of Object.keys(this.currentCustomer)) {
+              if (key != null && this.orderForm.contains(key)) {
+                this.orderForm.get(key).setValue(this.currentCustomer[key]);
+              }
+            }
+          };
+        });
+    }
   }
 
 

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { firstValueFrom } from 'rxjs';
 import { ToasterService } from './toaster.service';
+import { Customer } from '../DTOs/Order/Customer';
 
 
 @Injectable({
@@ -123,7 +124,6 @@ export class AuthService {
   }
 
   async getUser() {
-    console.log("GETUSER", this.user())
     // skip if user already exists
     if (this.user() != null) return;
     if (this.storageAvailable) {
@@ -135,6 +135,15 @@ export class AuthService {
         if (email) this.setUser(userUid, new UserDto(email, null))
       }
     }
+  }
+
+  getCustomerInfo() {
+    if (this.user() == null) return null;
+
+    return firstValueFrom(this.http.post(`${this.baseUrl}getcustomer`, this.user().userId, { responseType: "text" , withCredentials: true }))
+      .then(customer => customer)
+      .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
+
   }
 
 }

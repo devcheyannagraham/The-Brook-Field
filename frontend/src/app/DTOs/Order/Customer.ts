@@ -6,8 +6,9 @@ export class Customer {
   public phoneNumber: string;
   public city: string;
   public state: string;
-  public zip: number;
+  public zipCode: number;
   public country: string;
+  public address:string;
 
   constructor(formData:any){
     this.firstName = formData["firstName"];
@@ -16,7 +17,8 @@ export class Customer {
     this.phoneNumber = formData["firstName"];
     this.city = formData["city"];
     this.state = formData["state"];
-    this.zip = formData["zip"];
+    this.zipCode = formData["zipCode"];
     this.country = formData["country"];
+    this.address = formData["address"]
   }
 }
