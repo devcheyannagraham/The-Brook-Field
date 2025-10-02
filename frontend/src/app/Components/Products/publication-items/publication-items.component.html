@@ -74,11 +74,11 @@
     <thead>
       <th></th>
       <th>{{ headers.publicationItemType }}</th>
+      <th>{{ headers.literaryType }}</th>
       <th>{{ headers.edition }}</th>
       <th>{{ headers.format }}</th>
       <th>{{ headers.purchasePrice }}</th>
       <th>{{ headers.rentalRate }}</th>
-      <th>{{ headers.literaryType }}</th>
       <th>{{ headers.status }}</th>
       <th></th>
     </thead>
@@ -88,12 +88,12 @@
         <td>
           <svgicon [icon]="lp.svgIcon" [className]="'table-icon'" />
         </td>
+        <td>{{ lp.publicationItemType }}</td>
         <td>{{ lp.literaryType }}</td>
         <td>{{ lp.edition }}</td>
         <td>{{ lp.format }}</td>
         <td>{{ lp.purchasePrice }}</td>
         <td>{{ lp.rentalRate }}</td>
-        <td>{{ lp.literaryType }}</td>
         <td>{{ lp.publicationItemStatus }}</td>
         <td>
           <a [routerLink]="['/publicationitemform',lp.itemId]"><button>Edit</button></a>

@@ -47,7 +47,7 @@ export class PopularItemsComponent {
     else {
       this.isAdmin = false;
       this.reportService.getShopPopularItems()
-        .then(items => {console.log(items);this.popularItems = items});
+        .then(items => this.popularItems = items);
 
     }
 

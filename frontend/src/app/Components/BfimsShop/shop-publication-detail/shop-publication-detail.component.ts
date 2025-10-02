@@ -11,17 +11,18 @@ import { PublicationItemType } from '../../../Enums/PublicationItemType';
 import { headers } from '../../../Helpers/headers';
 import { Rental } from '../../../DTOs/Order/Rental';
 import { Purchase } from '../../../DTOs/Order/Purchase';
-import { Router, RouterLink } from '@angular/router';
+import { Router} from '@angular/router';
 import { Location } from '@angular/common';
 import { CartComponent } from "../cart/cart.component";
+import { SVGIconComponent } from '../../svgicon/svgicon.component';
 
 
 @Component({
   selector: 'shop-item-detail',
   imports: [
     DatePipe,
-    RouterLink,
-    CartComponent
+    CartComponent,
+    SVGIconComponent
 ],
   templateUrl: './shop-publication-detail.component.html',
   styleUrl: './shop-publication-detail.component.css'

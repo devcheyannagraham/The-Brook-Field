@@ -54,7 +54,6 @@ export class ShopComponent {
     this.accessoryService.getAccessories()
       .then(data => {
         if (data) {
-          console.log("shop-data", data)
           for (let acc of data) {
             if (acc.accessoryType == AccessoryType.PEN) {
               this.pens.push(acc);

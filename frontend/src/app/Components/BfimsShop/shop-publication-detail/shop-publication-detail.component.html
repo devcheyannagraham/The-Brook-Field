@@ -1,4 +1,4 @@
-<cart/>
+<cart />
 
 @if (publication) {
 
@@ -18,150 +18,170 @@
 <p>Total in cart: {{publicationItemsInCart.get(publication.publicationId) || 0}}</p>
 
 
-
+<h3>Books</h3>
 @if (books() && books().length) {
-<table>
-  <thead>
-    <th>{{ headers.publicationItemType }}</th>
-    <th>{{ headers.edition }}</th>
-    <th>{{ headers.format }}</th>
-    <th>{{ headers.purchasePrice }}</th>
-    <th>{{ headers.rentalRate }}</th>
-    <th>{{ headers.status }}</th>
-    <th></th>
-  </thead>
+<div class="overflow">
+  <table>
+    <thead>
+      <th></th>
+      <th>{{ headers.publicationItemType }}</th>
+      <th>{{ headers.edition }}</th>
+      <th>{{ headers.format }}</th>
+      <th>{{ headers.purchasePrice }}</th>
+      <th>{{ headers.rentalRate }}</th>
+      <th>{{ headers.status }}</th>
+      <th></th>
+    </thead>
 
-  <tbody>
-    @for (book of books(); track book.itemId) {
-    <tr>
-      <td>{{ book.publicationItemType }}</td>
-      <td>{{ book.edition }}</td>
-      <td>{{ book.format }}</td>
-      <td>{{ book.purchasePrice }}</td>
-      <td>{{ book.rentalRate }}</td>
-      <td>{{ book.publicationItemStatus }}</td>
-      <td>
-        @if(shopService.shoppingCart().has(book.itemId)){
+    <tbody>
+      @for (book of books(); track book.itemId) {
+      <tr>
+        <td>
+          <svgicon [icon]="book.svgIcon" [className]="'table-icon'" />
+        </td>
+        <td>{{ book.publicationItemType }}</td>
+        <td>{{ book.edition }}</td>
+        <td>{{ book.format }}</td>
+        <td>{{ book.purchasePrice }}</td>
+        <td>{{ book.rentalRate }}</td>
+        <td>{{ book.publicationItemStatus }}</td>
+        <td>
+          @if(shopService.shoppingCart().has(book.itemId)){
 
-        <button (click)="removeItemFromCart(book)">
-          Remove from Cart
-        </button>
-        }
-        @else {
+          <button (click)="removeItemFromCart(book)">
+            Remove from Cart
+          </button>
+          }
+          @else {
 
-        <button (click)="purchaseItem(book)">
-          Purchase
-        </button>
-        <button (click)="rentItem(book)">
-          Rent
-        </button>
-        }
-      </td>
-    </tr>
-    }
-  </tbody>
-</table>
+          <button (click)="purchaseItem(book)">
+            Purchase
+          </button>
+          <button (click)="rentItem(book)">
+            Rent
+          </button>
+          }
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
 } @else {
 <p> No Books</p>
 }
 
-
+<h3>Literary Pieces</h3>
 @if (literaryPieces() && literaryPieces().length) {
-<table>
-  <thead>
-    <th>{{ headers.publicationItemType }}</th>
-    <th>{{ headers.edition }}</th>
-    <th>{{ headers.format }}</th>
-    <th>{{ headers.purchasePrice }}</th>
-    <th>{{ headers.rentalRate }}</th>
-    <th>{{ headers.status }}</th>
-    <th>{{ headers.literaryType }}</th>
-    <th></th>
-  </thead>
-  <tbody>
-    @for (lp of literaryPieces(); track lp.itemId) {
-    <tr>
-      <td>{{ lp.publicationItemType }}</td>
-      <td>{{ lp.edition }}</td>
-      <td>{{ lp.format }}</td>
-      <td>{{ lp.purchasePrice }}</td>
-      <td>{{ lp.rentalRate }}</td>
-      <td>{{ lp.publicationItemStatus }}</td>
-      <td>{{ lp.literaryType }}</td>
-      <td>
-        @if(shopService.shoppingCart().has(lp.itemId)){
+<div class="overflow">
+  <table>
+    <thead>
+      <th></th>
+      <th>{{ headers.publicationItemType }}</th>
+      <th>{{ headers.literaryType }}</th>
+      <th>{{ headers.edition }}</th>
+      <th>{{ headers.format }}</th>
+      <th>{{ headers.purchasePrice }}</th>
+      <th>{{ headers.rentalRate }}</th>
+      <th>{{ headers.status }}</th>
+      <th></th>
+    </thead>
+    <tbody>
+      @for (lp of literaryPieces(); track lp.itemId) {
+      <tr>
+        <td>
+          <svgicon [icon]="lp.svgIcon" [className]="'table-icon'" />
+        </td>
+        <td>{{ lp.publicationItemType }}</td>
+        <td>{{ lp.literaryType }}</td>
+        <td>{{ lp.edition }}</td>
+        <td>{{ lp.format }}</td>
+        <td>{{ lp.purchasePrice }}</td>
+        <td>{{ lp.rentalRate }}</td>
+        <td>{{ lp.publicationItemStatus }}</td>
+        <td>
+          @if(shopService.shoppingCart().has(lp.itemId)){
 
-        <button (click)="removeItemFromCart(lp)">
-          Remove from Cart
-        </button>
-        }
-        @else {
+          <button (click)="removeItemFromCart(lp)">
+            Remove from Cart
+          </button>
+          }
+          @else {
 
-        <button (click)="purchaseItem(lp)">
-          Purchase
-        </button>
-        <button (click)="rentItem(lp)">
-          Rent
-        </button>
-        }
-      </td>
-    </tr>
-    }
-  </tbody>
-</table>
+          <button (click)="purchaseItem(lp)">
+            Purchase
+          </button>
+          <button (click)="rentItem(lp)">
+            Rent
+          </button>
+          }
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
 } @else {
 <p> No Literary Pieces</p>
 }
+
+<h3>Journals</h3>
 @if (journals() && journals().length) {
-<table>
-  <thead>
-    <th>{{ headers.publicationItemType }}</th>
-    <th>{{ headers.edition }}</th>
-    <th>{{ headers.format }}</th>
-    <th>{{ headers.purchasePrice }}</th>
-    <th>{{ headers.rentalRate }}</th>
-    <th>{{ headers.status }}</th>
-    <th>{{ headers.issueDate }}</th>
-    <th>{{ headers.issueNumber }}</th>
-    <th>{{ headers.issueName }}</th>
-    <th>{{ headers.volume }}</th>
-    <th></th>
-  </thead>
-  <tbody>
-    @for (journal of journals(); track journal.itemId) {
-    <tr>
-      <td>{{ journal.publicationItemType }}</td>
-      <td>{{ journal.edition }}</td>
-      <td>{{ journal.format }}</td>
-      <td>{{ journal.purchasePrice }}</td>
-      <td>{{ journal.rentalRate }}</td>
-      <td>{{ journal.publicationItemStatus }}</td>
-      <td>{{ journal.issueDate | date : "mediumDate" }}</td>
-      <td>{{ journal.issueNumber }}</td>
-      <td>{{ journal.issueName }}</td>
-      <td>{{ journal.volume }}</td>
-      <td>
-        @if(shopService.shoppingCart().has(journal.itemId)){
+<div class="overflow">
+  <table>
+    <thead>
+      <th></th>
+      <th>{{ headers.publicationItemType }}</th>
+      <th>{{ headers.edition }}</th>
+      <th>{{ headers.format }}</th>
+      <th>{{ headers.purchasePrice }}</th>
+      <th>{{ headers.rentalRate }}</th>
+      <th>{{ headers.status }}</th>
+      <th>{{ headers.issueDate }}</th>
+      <th>{{ headers.issueNumber }}</th>
+      <th>{{ headers.issueName }}</th>
+      <th>{{ headers.volume }}</th>
+      <th></th>
+    </thead>
+    <tbody>
+      @for (journal of journals(); track journal.itemId) {
+      <tr>
+        <td>
+          <svgicon [icon]="journal.svgIcon" [className]="'table-icon'" />
+        </td>
+        <td>{{ journal.publicationItemType }}</td>
+        <td>{{ journal.edition }}</td>
+        <td>{{ journal.format }}</td>
+        <td>{{ journal.purchasePrice }}</td>
+        <td>{{ journal.rentalRate }}</td>
+        <td>{{ journal.publicationItemStatus }}</td>
+        <td>{{ journal.issueDate | date : "mediumDate" }}</td>
+        <td>{{ journal.issueNumber }}</td>
+        <td>{{ journal.issueName }}</td>
+        <td>{{ journal.volume }}</td>
+        <td>
+          @if(shopService.shoppingCart().has(journal.itemId)){
 
-        <button (click)="removeItemFromCart(journal)">
-          Remove from Cart
-        </button>
-        }
-        @else {
+          <button (click)="removeItemFromCart(journal)">
+            Remove from Cart
+          </button>
+          }
+          @else {
 
-        <button (click)="purchaseItem(journal)">
-          Purchase
-        </button>
-        <button (click)="rentItem(journal)">
-          Rent
-        </button>
-        }
-      </td>
-    </tr>
-    }
-  </tbody>
-</table>
-} @else {
-<p>No Journals</p>
-}
-}
+          <button (click)="purchaseItem(journal)">
+            Purchase
+          </button>
+          <button (click)="rentItem(journal)">
+            Rent
+          </button>
+          }
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  </div>
+  } @else {
+  <p>No Journals</p>
+  }
+  }
