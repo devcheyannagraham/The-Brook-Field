@@ -7,32 +7,44 @@
   <li>{{ headers.price }}: {{ accessory.price }}</li>
   <li>{{ headers.quantity }}: {{ accessoryItems ? accessoryItems.length : 0 }}</li>
 </ul>
-<a [routerLink]="['/accessoryform',accessory.accessoryId]"><button>Update Accessory</button></a>
+
+<button><a routerLink="/accessories">View All Accessories</a></button>
+<button><a routerLink="/accessoryform">New Accessory</a></button>
+<button><a [routerLink]="['/accessoryform',accessory.accessoryId]">Update Accessory</a></button>
 <button [disabled]="!(accessoryItems && accessoryItems.length == 0)" (click)="deleteAccessory(accessory.accessoryId)">
   Delete Accessory
 </button>
 }
 
-@if (accessoryItems && accessoryItems.length) {
-<table>
-  <thead>
-    <th>{{ headers.itemId }}</th>
-    <th>{{ headers.accessoryItemStatus }}</th>
-    <th></th>
-  </thead>
 
-  <tbody>
-    @for (acc of accessoryItems; track acc.itemId) {
-    <tr>
-      <td>{{ acc.itemId }}</td>
-      <td>{{ acc.accessoryItemStatus }}</td>
-      <td>
-        <button (click)="deleteAccessoryItem(acc.itemId)">delete</button>
-      </td>
-    </tr>
-    }
-  </tbody>
-</table>
+<h3>Accessory Items</h3>
+@if (accessoryItems && accessoryItems.length) {
+<div class="overflow">
+
+  <table>
+    <thead>
+      <th></th>
+      <th>{{ headers.itemId }}</th>
+      <th>{{ headers.accessoryItemStatus }}</th>
+      <th></th>
+    </thead>
+
+    <tbody>
+      @for (acc of accessoryItems; track acc.itemId) {
+      <tr>
+        <td>
+          <svgicon [icon]="accessory.svgIcon" [className]="'table-icon'" />
+        </td>
+        <td>{{ acc.itemId }}</td>
+        <td>{{ acc.accessoryItemStatus }}</td>
+        <td>
+          <button (click)="deleteAccessoryItem(acc.itemId)">delete</button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
 } @else {
 <p>No Items</p>
 }

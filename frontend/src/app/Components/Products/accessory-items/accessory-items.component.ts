@@ -4,12 +4,14 @@ import { Accessory } from '../../../DTOs/Accessory/Accessory';
 import { AccessoryItem } from '../../../DTOs/Accessory/AccessoryItem';
 import { AccessoryService } from '../../../Services/accessory.service';
 import { headers } from '../../../Helpers/headers';
+import { SVGIconComponent } from "../../svgicon/svgicon.component";
 
 @Component({
   selector: 'accessory-items',
   imports: [
     RouterLink,
-  ],
+    SVGIconComponent
+],
   templateUrl: './accessory-items.component.html',
   styleUrl: './accessory-items.component.css'
 })

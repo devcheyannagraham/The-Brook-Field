@@ -12,15 +12,15 @@
 
   @if(authService.isAdmin() && (!window.location.href.includes("admindashboard")))
   {
-  <a routerLink="/admindashboard"><button>Admin Dashboard </button></a>
+  <button><a routerLink="/admindashboard">Admin Dashboard</a></button>
   }
 
   <p>Welcome, {{authService.user().email.toUpperCase()}}!</p>
   }
 
   @else {
-  <a routerLink="/login"><button>Login </button></a>
-  <a routerLink="/register"><button>Register </button></a>
+  <button><a routerLink="/login">Login </a></button>
+  <button><a routerLink="/register">Register </a></button>
   }
 
 </nav>

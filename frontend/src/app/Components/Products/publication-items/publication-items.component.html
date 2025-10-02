@@ -15,15 +15,12 @@
   <li>{{ headers.lastName }}: {{ publication.author.lastName }}</li>
 </ul>
 
-
-<a [routerLink]="['/publicationform',publication.publicationId]">
-  <button>Update Publication</button>
-</a>
+<button><a routerLink="/publications">View All Publications</a></button>
+<button><a routerLink="/publicationform">New Publication</a></button>
+<button><a [routerLink]="['/publicationform',publication.publicationId]">Update Publication</a></button>
+<button><a [routerLink]="['/publicationitemform/publication',publication.publicationId]">Add Items</a></button>
 <button [disabled]="!(publicationItems && publicationItems.length == 0)"
-  (click)="deletePublication(publication.publicationId)">
-  Delete Publication
-</button>
-<a [routerLink]="['/publicationitemform/publication',publication.publicationId]"><button>Add Items</button></a>
+  (click)="deletePublication(publication.publicationId)">Delete Publication</button>
 
 <h3>Books</h3>
 @if (books && books.length) {
@@ -53,7 +50,7 @@
         <td>{{ book.rentalRate }}</td>
         <td>{{ book.publicationItemStatus }}</td>
         <td>
-          <a [routerLink]="['/publicationitemform',book.itemId]"><button>Edit</button></a>
+          <button><a [routerLink]="['/publicationitemform',book.itemId]">Edit</a></button>
           <button (click)="deleteItem(book.itemId)">delete</button>
         </td>
       </tr>
@@ -96,7 +93,7 @@
         <td>{{ lp.rentalRate }}</td>
         <td>{{ lp.publicationItemStatus }}</td>
         <td>
-          <a [routerLink]="['/publicationitemform',lp.itemId]"><button>Edit</button></a>
+          <button><a [routerLink]="['/publicationitemform',lp.itemId]">Edit</a></button>
           <button (click)="deleteItem(lp.itemId)">delete</button>
         </td>
       </tr>
@@ -146,7 +143,7 @@
         <td>{{ journal.volume }}</td>
         <td>{{ journal.publicationItemStatus }}</td>
         <td>
-          <a [routerLink]="['/publicationitemform',journal.itemId]"><button>Edit</button></a>
+          <button><a [routerLink]="['/publicationitemform',journal.itemId]">Edit</a></button>
           <button (click)="deleteItem(journal.itemId)">delete</button>
         </td>
       </tr>
