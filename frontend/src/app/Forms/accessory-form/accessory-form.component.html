@@ -8,7 +8,7 @@
     <div class="error">Name is required.</div>
     }
     @if(accessoryForm.get("accessoryName").touched && accessoryForm.get("accessoryName")?.hasError("minlength")){
-    <div class="error">Min 5 Chars</div>
+    <div class="error">Min 5 chars</div>
     }
     @if(accessoryForm.get("accessoryName").touched && accessoryForm.get("accessoryName")?.hasError("maxlength")){
     <div class="error">Max 25 chars.</div>

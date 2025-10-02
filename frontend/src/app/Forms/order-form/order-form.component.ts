@@ -1,5 +1,5 @@
 import { Component, computed } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ShopService } from '../../Services/shop.service';
 import { Transaction } from '../../DTOs/Order/Transaction';
 import { headers } from '../../Helpers/headers';
@@ -42,15 +42,15 @@ export class OrderFormComponent {
 
   createForm() {
     this.orderForm = this.formBuilder.group({
-      firstName: [],
-      lastName: [],
-      address: [],
-      city: [],
-      state: [],
-      zipCode: [],
-      country: [],
-      email: [],
-      phoneNumber: [],
+      firstName: [, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      lastName: [, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      address: [, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      city: [, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      state: [, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      zipCode: [, [Validators.required, Validators.pattern("^[0-9]{5}")]],
+      country: [, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+      email: [, [Validators.required, Validators.email]],
+      phoneNumber: [, [Validators.required, Validators.pattern("^[0-9]{3}-[0-9]{3}-[0-9]{4}$")]],
     });
   }
 
@@ -68,9 +68,13 @@ export class OrderFormComponent {
 
 
   submitOrder() {
-    let customer = new Customer(this.orderForm.value);
-    this.shopService.submitOrder(customer)
-      .then(() => this.router.navigateByUrl("/shop"));
+    if (this.orderForm.valid) {
+      let customer = new Customer(this.orderForm.value);
+      this.shopService.submitOrder(customer)
+        .then(() => this.router.navigateByUrl("/shop"));
+    } else {
+      this.toaster.message.set({ class: "error", message: "Please complete form before submitting order." });
+    }
   }
 
   removeFromCart(trans: Transaction) {
