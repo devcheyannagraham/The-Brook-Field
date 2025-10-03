@@ -5,12 +5,14 @@ import { AccessoryItem } from '../../../DTOs/Accessory/AccessoryItem';
 import { AccessoryService } from '../../../Services/accessory.service';
 import { headers } from '../../../Helpers/headers';
 import { SVGIconComponent } from "../../svgicon/svgicon.component";
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'accessory-items',
   imports: [
     RouterLink,
-    SVGIconComponent
+    SVGIconComponent,
+    CurrencyPipe
 ],
   templateUrl: './accessory-items.component.html',
   styleUrl: './accessory-items.component.css'

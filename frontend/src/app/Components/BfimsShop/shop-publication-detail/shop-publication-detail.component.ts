@@ -1,5 +1,5 @@
 import { Component, computed, Input, signal } from '@angular/core';
-import { DatePipe } from "@angular/common";
+import { CurrencyPipe, DatePipe } from "@angular/common";
 import { ShopService } from '../../../Services/shop.service';
 import { PublicationService } from '../../../Services/publication.service';
 import { Book } from '../../../DTOs/Inventory/Book';
@@ -22,7 +22,8 @@ import { SVGIconComponent } from '../../svgicon/svgicon.component';
   imports: [
     DatePipe,
     CartComponent,
-    SVGIconComponent
+    SVGIconComponent,
+    CurrencyPipe
 ],
   templateUrl: './shop-publication-detail.component.html',
   styleUrl: './shop-publication-detail.component.css'

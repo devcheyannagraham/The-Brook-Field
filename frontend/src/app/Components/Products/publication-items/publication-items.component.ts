@@ -7,7 +7,7 @@ import { PublicationItemType } from '../../../Enums/PublicationItemType';
 import { LiteraryPiece } from '../../../DTOs/Inventory/LiteraryPiece';
 import { Book } from '../../../DTOs/Inventory/Book';
 import { headers } from '../../../Helpers/headers';
-import { DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { SVGIconComponent } from '../../svgicon/svgicon.component';
 
@@ -16,7 +16,8 @@ import { SVGIconComponent } from '../../svgicon/svgicon.component';
   imports: [
     DatePipe,
     RouterLink,
-    SVGIconComponent
+    SVGIconComponent,
+    CurrencyPipe
   ],
   templateUrl: './publication-items.component.html',
   styleUrl: './publication-items.component.css'

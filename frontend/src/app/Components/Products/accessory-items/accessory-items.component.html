@@ -4,7 +4,7 @@
 <ul>
   <li>{{ headers.accessoryName }}: {{ accessory.accessoryName }}</li>
   <li>{{ headers.accessoryType }}: {{ accessory.accessoryType }}</li>
-  <li>{{ headers.price }}: {{ accessory.price }}</li>
+  <li>{{ headers.price }}: {{ accessory.price | currency }}</li>
   <li>{{ headers.quantity }}: {{ accessoryItems ? accessoryItems.length : 0 }}</li>
 </ul>
 

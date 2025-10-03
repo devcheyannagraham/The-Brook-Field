@@ -10,13 +10,15 @@ import { Customer } from '../../DTOs/Order/Customer';
 import { Router } from '@angular/router';
 import { ToasterService } from '../../Services/toaster.service';
 import { AuthService } from '../../Services/auth.service';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'order-form',
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    TypeCast
+    TypeCast,
+    CurrencyPipe
   ],
   templateUrl: './order-form.component.html',
   styleUrl: './order-form.component.css'

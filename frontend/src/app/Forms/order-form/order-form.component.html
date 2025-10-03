@@ -21,14 +21,14 @@
         <td>{{ (trans.item | cast).accessory.accessoryName }}</td>
         }
 
-        <td>{{ trans.transactionPrice.toLocaleString('en-US',{style:'currency', currency: 'USD'}) }}</td>
+        <td>{{ trans.transactionPrice | currency }}</td>
         <td><button (click)="removeFromCart(trans)">Remove</button></td>
       </tr>
 
       }
       <tr>
         <td colspan="2">Order Total</td>
-        <td>{{orderTotal().toLocaleString('en-US',{style:'currency', currency: 'USD'})}}</td>
+        <td>{{orderTotal() | currency}}</td>
       </tr>
 
     </tbody>

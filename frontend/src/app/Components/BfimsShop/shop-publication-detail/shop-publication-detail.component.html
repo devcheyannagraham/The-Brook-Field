@@ -42,8 +42,8 @@
         <td>{{ book.publicationItemType }}</td>
         <td>{{ book.edition }}</td>
         <td>{{ book.format }}</td>
-        <td>{{ book.purchasePrice }}</td>
-        <td>{{ book.rentalRate }}</td>
+        <td>{{ book.purchasePrice| currency}}</td>
+        <td>{{ book.rentalRate | currency }}</td>
         <td>{{ book.publicationItemStatus }}</td>
         <td>
           @if(shopService.shoppingCart().has(book.itemId)){
@@ -96,8 +96,8 @@
         <td>{{ lp.literaryType }}</td>
         <td>{{ lp.edition }}</td>
         <td>{{ lp.format }}</td>
-        <td>{{ lp.purchasePrice }}</td>
-        <td>{{ lp.rentalRate }}</td>
+        <td>{{ lp.purchasePrice| currency}}</td>
+        <td>{{ lp.rentalRate | currency }}</td>
         <td>{{ lp.publicationItemStatus }}</td>
         <td>
           @if(shopService.shoppingCart().has(lp.itemId)){
@@ -152,8 +152,8 @@
         <td>{{ journal.publicationItemType }}</td>
         <td>{{ journal.edition }}</td>
         <td>{{ journal.format }}</td>
-        <td>{{ journal.purchasePrice }}</td>
-        <td>{{ journal.rentalRate }}</td>
+        <td>{{ journal.purchasePrice |currency}}</td>
+        <td>{{ journal.rentalRate  | currency}}</td>
         <td>{{ journal.publicationItemStatus }}</td>
         <td>{{ journal.issueDate | date : "mediumDate" }}</td>
         <td>{{ journal.issueNumber }}</td>

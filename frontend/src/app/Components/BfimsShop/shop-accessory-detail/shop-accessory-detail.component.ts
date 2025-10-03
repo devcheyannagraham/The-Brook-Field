@@ -1,19 +1,19 @@
 import { Component, Input, signal } from '@angular/core';
 import { AccessoryService } from '../../../Services/accessory.service';
 import { ShopService } from '../../../Services/shop.service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { Accessory } from '../../../DTOs/Accessory/Accessory';
 import { AccessoryItem } from '../../../DTOs/Accessory/AccessoryItem';
 import { headers } from '../../../Helpers/headers';
 import { Purchase } from '../../../DTOs/Order/Purchase';
-import { Location } from '@angular/common';
+import { CurrencyPipe, Location } from '@angular/common';
 import { CartComponent } from "../cart/cart.component";
 
 @Component({
   selector: 'shop-accessory-detail',
   imports: [
-    RouterLink,
-    CartComponent
+    CartComponent,
+    CurrencyPipe
 ],
   templateUrl: './shop-accessory-detail.component.html',
   styleUrl: './shop-accessory-detail.component.css'
