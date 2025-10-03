@@ -44,7 +44,7 @@ export class PublicationFormComponent {
 
   createForm() {
     this.publicationForm = this.formBuilder.group({
-      //Publciation fields
+      //Publcation fields
       publicationGroup: this.formBuilder.group({
         title: [,[Validators.required, Validators.minLength(3),Validators.maxLength(100)]],
         isbn: [,[Validators.required, Validators.pattern('^[0-9]{10}$|^[0-9]{13}$')]],

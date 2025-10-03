@@ -3,7 +3,7 @@ import {PublicationItemType} from '../../Enums/PublicationItemType';
 
 export class Journal extends PublicationItem {
   public issueDate: Date;
-  public issueNumber: number;
+  public issueNumber: string;
   public issueName: string;
   public volume: string;
 

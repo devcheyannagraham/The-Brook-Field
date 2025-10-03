@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { PublicationService } from '../../Services/publication.service';
 import { PublicationItemType } from '../../Enums/PublicationItemType';
 import { PublicationItem } from '../../DTOs/Inventory/PublicationItem';
@@ -13,6 +13,7 @@ import { LiteraryType } from '../../Enums/LiteraryType';
 import { Router } from '@angular/router';
 import { DatePipe, Location } from '@angular/common';
 import { headers } from '../../Helpers/headers';
+import { ToasterService } from '../../Services/toaster.service';
 
 @Component({
   selector: 'publication-item-form',
@@ -25,13 +26,15 @@ import { headers } from '../../Helpers/headers';
   styleUrl: './publication-item-form.component.css'
 })
 export class PublicationItemFormComponent {
-  publicationItemForm: FormGroup;
+  publicationForm: FormGroup;
+  journalForm: FormGroup;
+  literaryForm: FormGroup;
   @Input() pubItemId: number;
   @Input() publicationId: number;
   publicationItem: PublicationItem;
   publication: Publication;
 
-  constructor(public formBuilder: FormBuilder, public pubService: PublicationService, public router: Router, public location: Location) {
+  constructor(public formBuilder: FormBuilder, public pubService: PublicationService, public router: Router, public location: Location, public toasterService: ToasterService) {
   }
 
   ngOnInit() {
@@ -40,6 +43,7 @@ export class PublicationItemFormComponent {
     //Populate form on update
     if (this.pubItemId) {
       this.getPublicationItem();
+      this.publicationForm.get("quantity").clearValidators();
     }
 
     //Fetch Pub info to display
@@ -69,58 +73,84 @@ export class PublicationItemFormComponent {
 
 
   createForm() {
-    this.publicationItemForm = this.formBuilder.group({
-      //PublicationItem fields
-      publicationItemType: [],
-      quantity: [1],
-      edition: [''],
-      format: [''],
-      purchasePrice: [''],
-      rentalRate: [''],
-      publicationItemStatus: [''],
+    //PublicationItem fields
+    this.publicationForm = this.formBuilder.group({
+      publicationItemType: [, [Validators.required]],
+      quantity: [1, [Validators.required, Validators.min(0), Validators.max(99999)]],
+      edition: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(25)]],
+      format: ['', [Validators.required]],
+      purchasePrice: ['', [Validators.required, Validators.min(0.1), Validators.max(99999)]],
+      rentalRate: ['', [Validators.required, Validators.min(0.10), Validators.max(99999)]],
+      publicationItemStatus: ['']
+    });
 
-      //No additional Book Fields
-      //Journal Fields
-      issueDate: [''],
-      issueNumber: [''],
-      issueName: [''],
-      volume: [''],
 
-      //Literary Piece
-      literaryType: [''],
+    //No additional Book Fields
+    //Journal Fields
+    this.journalForm = this.formBuilder.group({
+      issueDate: ['', [Validators.required]],
+      issueNumber: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+      issueName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
+      volume: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(100)]]
+    });
+
+    //Literary Piece
+    this.literaryForm = this.formBuilder.group({
+      literaryType: ['', [Validators.required]],
     });
 
   }
 
   fillForm() {
     if (this.publicationItem) {
-      this.publicationItemForm.patchValue(this.publicationItem);
+      this.publicationForm.patchValue(this.publicationItem);
+      this.journalForm.patchValue(this.publicationItem);
+      this.literaryForm.patchValue(this.publicationItem);
     }
   }
 
   addPublicationItem() {
-    const formData = this.publicationItemForm.value;
-    const pubType = formData.publicationItemType;
-    let publicationItem = pubType === PublicationItemType.JOURNAL ? new Journal(formData) :
-      pubType == PublicationItemType.BOOK ? new Book(formData) :
-        pubType == PublicationItemType.LITERARY_PIECE ? new LiteraryPiece(formData) :
-          new PublicationItem(formData);
+    if (this.publicationForm.valid) {
+      let selectedItemType = this.publicationForm.get("publicationItemType").value;
+      let newPublicationItem = null;
 
-    if (this.pubItemId) {
-      publicationItem.itemId = this.pubItemId;
-      publicationItem.svgIcon = this.publicationItem.svgIcon;
+      if (selectedItemType == PublicationItemType.BOOK) {
+        newPublicationItem = new Book(this.publicationForm.value);
+      }
+
+      if (selectedItemType == PublicationItemType.JOURNAL && this.journalForm.valid) {
+        newPublicationItem = new Journal({ ...this.publicationForm.value, ...this.journalForm.value });
+      }
+
+      if (selectedItemType == PublicationItemType.LITERARY_PIECE && this.literaryForm.valid) {
+        newPublicationItem = new LiteraryPiece({ ...this.publicationForm.value, ...this.literaryForm.value });
+      }
+
+      if (newPublicationItem) {
+        if (this.pubItemId) {
+          newPublicationItem.itemId = this.pubItemId;
+          newPublicationItem.svgIcon = this.publicationItem.svgIcon;
+        }
+        newPublicationItem.publication = this.publication;
+        console.log("newItem", newPublicationItem);
+        this.createPublicationItem(newPublicationItem);
+      } else {
+        this.toasterService.message.set({ class: "error", "message": "Please complete form before submitting." });
+      }
+
+    } else {
+      this.toasterService.message.set({ class: "error", "message": "Please complete form before submitting." });
     }
-    publicationItem.publication = this.publication;
-
-    this.createPublicationItem(publicationItem);
   }
 
 
   createPublicationItem(item: any) {
     this.pubService.newPublicationItem(item)
       .then(resp => {
-        // @ts-ignore
-        this.router.navigateByUrl(`/publication/${resp[0]["publication"]["publicationId"]}`)
+        if (resp)
+          // @ts-ignore 7053
+          this.router.navigateByUrl(`/publication/${resp[0]["publication"]["publicationId"]}`)
+        console.log("resp", resp)
       })
   }
 

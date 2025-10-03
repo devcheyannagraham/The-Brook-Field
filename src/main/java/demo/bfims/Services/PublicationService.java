@@ -39,7 +39,8 @@ public class PublicationService {
             Publication publication = publicationRepo.findById(pubId).orElse(null);
             Publication managedPublication = entityManager.merge(publication);
             publicationItem.setPublication(managedPublication);
-            publicationItem.setPublicationItemStatus(PublicationItemStatus.AVAILABLE);
+            if (publicationItem.getPublicationItemStatus() == null)
+                publicationItem.setPublicationItemStatus(PublicationItemStatus.AVAILABLE);
             return new PublicationItemDto(itemRepo.save(publicationItem));
         }
         return null;

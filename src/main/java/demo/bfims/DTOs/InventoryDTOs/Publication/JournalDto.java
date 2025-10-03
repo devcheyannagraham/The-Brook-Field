@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public class JournalDto extends PublicationItemDto {
     private LocalDate issueDate;
-    private int issueNumber;
+    private String issueNumber;
     private String issueName;
     private String volume;
 
@@ -42,11 +42,11 @@ public class JournalDto extends PublicationItemDto {
         this.issueName = issueName;
     }
 
-    public int getIssueNumber() {
+    public String getIssueNumber() {
         return issueNumber;
     }
 
-    public void setIssueNumber(int issueNumber) {
+    public void setIssueNumber(String issueNumber) {
         this.issueNumber = issueNumber;
     }
 

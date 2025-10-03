@@ -127,11 +127,11 @@ public class Bootstrap implements CommandLineRunner {
         itemRepo.saveAll(List.of(b1, b2, b3, b4, b5, b6, b14, b15, b16, b20, b21, b22, b26, b27, b28));
 
         // Journal
-        Journal j7 = new Journal("Vol. 1", PublicationItemFormat.HARDCOPY, 10.99, 1.99, PublicationItemStatus.AVAILABLE, p3, LocalDate.of(1920, 1, 1), "Mystery Issue", 1, "I");
-        Journal j8 = new Journal("Vol. 1", PublicationItemFormat.AUDIOBOOK, 8.99, 1.19, PublicationItemStatus.AVAILABLE, p3, LocalDate.of(1920, 1, 1), "Mystery Issue Audio", 2, "I");
-        Journal j17 = new Journal("Vol. 1", PublicationItemFormat.HARDCOPY, 12.99, 1.99, PublicationItemStatus.AVAILABLE, p7, LocalDate.of(1960, 7, 11), "Mockingbird Issue", 1, "I");
-        Journal j18 = new Journal("Vol. 1", PublicationItemFormat.EBOOK, 9.99, 1.29, PublicationItemStatus.AVAILABLE, p7, LocalDate.of(1960, 7, 11), "Mockingbird Issue Digital", 2, "I");
-        Journal j19 = new Journal("Vol. 1", PublicationItemFormat.AUDIOBOOK, 10.99, 1.19, PublicationItemStatus.AVAILABLE, p7, LocalDate.of(1960, 7, 11), "Mockingbird Issue Audio", 3, "I");
+        Journal j7 = new Journal("Vol. 1", PublicationItemFormat.HARDCOPY, 10.99, 1.99, PublicationItemStatus.AVAILABLE, p3, LocalDate.of(1920, 1, 1), "Mystery Issue", "1", "I");
+        Journal j8 = new Journal("Vol. 1", PublicationItemFormat.AUDIOBOOK, 8.99, 1.19, PublicationItemStatus.AVAILABLE, p3, LocalDate.of(1920, 1, 1), "Mystery Issue Audio", "2", "I");
+        Journal j17 = new Journal("Vol. 1", PublicationItemFormat.HARDCOPY, 12.99, 1.99, PublicationItemStatus.AVAILABLE, p7, LocalDate.of(1960, 7, 11), "Mockingbird Issue", "1", "I");
+        Journal j18 = new Journal("Vol. 1", PublicationItemFormat.EBOOK, 9.99, 1.29, PublicationItemStatus.AVAILABLE, p7, LocalDate.of(1960, 7, 11), "Mockingbird Issue Digital", "2", "I");
+        Journal j19 = new Journal("Vol. 1", PublicationItemFormat.AUDIOBOOK, 10.99, 1.19, PublicationItemStatus.AVAILABLE, p7, LocalDate.of(1960, 7, 11), "Mockingbird Issue Audio", "3", "I");
         itemRepo.saveAll(List.of(j7, j8, j17, j18, j19));
 
         // LiteraryPiece

@@ -2,8 +2,6 @@
 <!-- Publication Fields -->
 <form [formGroup]="publicationForm" (ngSubmit)="addPublication()">
   <div formGroupName="publicationGroup">
-
-
     <div class="label-group">
       <label for="pub-title">Title<span class="required">*</span></label>
       <input id="pub-title" name="pub-title" formControlName="title" type="text">
