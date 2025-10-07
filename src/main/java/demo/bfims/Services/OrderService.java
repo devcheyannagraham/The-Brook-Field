@@ -47,12 +47,17 @@ public class OrderService {
             // Get customer by user email
             User user = this.userRepo.findByEmail(customer.getEmail()).orElse(null);
             if (user != null) {
-                Customer newCustomer = new Customer(user);
-                entityManager.persist(newCustomer);
-                managedCustomer = entityManager.merge(newCustomer);
+                Customer userCustomer = new Customer(user);
+                entityManager.persist(userCustomer);
+                managedCustomer = entityManager.merge(userCustomer);
+            }
+            // brand new customer
+            else {
+                entityManager.persist(customer);
+                managedCustomer = entityManager.merge(customer);
             }
         }
-        // customer couldnt be found return
+        // customer couldnt be found or created so return
         if (managedCustomer == null) return null;
 
         order.setCustomer(managedCustomer);
