@@ -14,15 +14,16 @@ import { CartComponent } from "../cart/cart.component";
   imports: [
     CartComponent,
     CurrencyPipe
-],
+  ],
   templateUrl: './shop-accessory-detail.component.html',
   styleUrl: './shop-accessory-detail.component.css'
 })
 export class ShopAccessoryDetailComponent {
   @Input() shopItemId: number;
   accessory: Accessory;
-  accessoryItems = signal(new Map<number, AccessoryItem>());
-  accessoryItemsInCart = new Map<number, number[]>;
+  accessoryItemsInCart = new Map<number, AccessoryItem>();;
+  accessoryItemsNotInCart = new Map<number, AccessoryItem>();
+  quantity = 0;
 
 
   constructor(public accessoryService: AccessoryService, public shopService: ShopService, public router: Router, public location: Location) { }
@@ -42,58 +43,48 @@ export class ShopAccessoryDetailComponent {
         })
         .then(items => {
           if (items) {
-            this.mapAccItems(items)
+            this.mapAccItems(items);
           }
         }
         );
     }
   }
 
-  mapAccItems(items: AccessoryItem[]) {
-    let accessItems = new Map<number, AccessoryItem>();
-    items.forEach(item => {
-      accessItems.set(item.itemId, item);
+  mapAccItems(accItems: AccessoryItem[]) {
+    accItems.forEach(item => {
 
       //Track cart access items by accessID
-      if (this.shopService.shoppingCart().has(item.itemId)) {
-        if (this.accessoryItemsInCart.has(this.accessory.accessoryId)) {
-          this.accessoryItemsInCart.get(this.accessory.accessoryId).push(item.itemId);
-        } else {
-          this.accessoryItemsInCart.set(this.accessory.accessoryId, [item.itemId]);
-
-        }
-      }
+      if (this.shopService.shoppingCart().has(item.itemId)) this.accessoryItemsInCart.set(item.itemId, item);
+      else this.accessoryItemsNotInCart.set(item.itemId, item);
+      this.getQuantity();
     });
-    this.accessoryItems.set(accessItems);
-
   }
 
   purchaseAccessoryItem() {
     const purchase = new Purchase();
-    // @ts-ignore 7053
-    const accItem = [...this.accessoryItems().values()].pop(); // still in map
-    purchase.item = new AccessoryItem(accItem);
-    purchase.transactionPrice = this.accessory.price;
-    this.shopService.addItemToCart(purchase);
-    if (this.accessoryItemsInCart.has(accItem.accessory.accessoryId)) {
-      this.accessoryItemsInCart.get(accItem.accessory.accessoryId).push(accItem.itemId);
-    } else {
-      this.accessoryItemsInCart.set(accItem.accessory.accessoryId, [accItem.itemId]);
-    }
+    const accItemId = this.accessoryItemsNotInCart.keys().next().value;
+    const accItem = this.accessoryItemsNotInCart.get(accItemId);
+    if (accItem) {
+      this.accessoryItemsNotInCart.delete(accItemId);
+      purchase.item = new AccessoryItem(accItem);
+      purchase.transactionPrice = this.accessory.price;
+      this.shopService.addItemToCart(purchase);
+      this.accessoryItemsInCart.set(accItem.itemId, accItem);
+      this.getQuantity();
+    } else alert("No accessory items available to add to cart.");
   }
 
   removeAccessoryItem() {
-    let accItemId = this.accessoryItemsInCart.get(this.accessory.accessoryId).pop();
-    this.shopService.removeFromCart(accItemId);
+    const accItemId = this.accessoryItemsInCart.keys().next().value;
+    let accItem = this.accessoryItemsInCart.get(accItemId)
+    this.shopService.removeFromCart(accItem.itemId);
+    this.accessoryItemsInCart.delete(accItemId);
+    this.accessoryItemsNotInCart.set(accItem.itemId, accItem);
+    this.getQuantity();
   }
 
   getQuantity() {
-    if (this.shopService.shoppingCart().size == 0) {
-      return this.accessoryItems().size;
-    }
-    else {
-      return [...this.accessoryItems().values()].filter(item => !this.shopService.shoppingCart().has(item.itemId)).length;
-    }
+    this.quantity = this.accessoryItemsNotInCart.size;
   }
 
 

@@ -6,7 +6,7 @@ export class Customer {
   public phoneNumber: string;
   public city: string;
   public state: string;
-  public zipCode: number;
+  public zipCode:string;
   public country: string;
   public address:string;
 
@@ -19,6 +19,6 @@ export class Customer {
     this.state = formData["state"];
     this.zipCode = formData["zipCode"];
     this.country = formData["country"];
-    this.address = formData["address"]
+    this.address = formData["address"];
   }
 }

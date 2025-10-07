@@ -6,22 +6,22 @@
   <li>{{ headers.accessoryName }}: {{ accessory.accessoryName }}</li>
   <li>{{ headers.accessoryType }}: {{ accessory.accessoryType }}</li>
   <li>{{ headers.price }}: {{ accessory.price | currency}}</li>
-  <li>{{ headers.quantity }}: {{ getQuantity() || "Out of Stock" }}</li>
+  <li>{{ headers.quantity }}: {{ quantity || "Out of Stock" }}</li>
 </ul>
 
-@if(accessoryItemsInCart.has(accessory.accessoryId)){
-<p>Total in cart: {{accessoryItemsInCart.get(accessory.accessoryId).length}}</p>
+@if(accessoryItemsInCart.size > 0) {
+<p>Total in cart: {{accessoryItemsInCart.size}}</p>
 
 
-<button (click)="purchaseAccessoryItem()" [disabled]="getQuantity() <= 0">
+<button (click)="purchaseAccessoryItem()" [disabled]="quantity <= 0">
   +
 </button>
-<button (click)="removeAccessoryItem()" [disabled]="!(accessoryItemsInCart.get(accessory.accessoryId).length > 0)">
+<button (click)="removeAccessoryItem()" [disabled]="accessoryItemsInCart.size <= 0">
   -
 </button>
 } @else {
 
-<button (click)="purchaseAccessoryItem()" [disabled]="accessoryItems().size == 0">
+<button (click)="purchaseAccessoryItem()" [disabled]="accessoryItemsNotInCart.size <= 0">
   Purchase
 </button>
 }

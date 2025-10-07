@@ -49,10 +49,10 @@ export class OrderFormComponent {
       address: [, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       city: [, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       state: [, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-      zipCode: [, [Validators.required, Validators.pattern("^[0-9]{5}")]],
+      zipCode: [, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       country: [, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
       email: [, [Validators.required, Validators.email]],
-      phoneNumber: [, [Validators.required, Validators.pattern("^[0-9]{3}-[0-9]{3}-[0-9]{4}$")]],
+      phoneNumber: [, [Validators.required, Validators.pattern("^\\+?[0-9\\s-]{1,20}$")]],
     });
   }
 
@@ -70,6 +70,7 @@ export class OrderFormComponent {
 
 
   submitOrder() {
+    this.orderForm.markAllAsTouched();
     if (this.orderForm.valid) {
       let customer = new Customer(this.orderForm.value);
       this.shopService.submitOrder(customer)
