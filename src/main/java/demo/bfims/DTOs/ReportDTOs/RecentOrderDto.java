@@ -1,6 +1,8 @@
 package demo.bfims.DTOs.ReportDTOs;
 
+import demo.bfims.Config.SVGIcon;
 import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
+import demo.bfims.Entities.Inventory.Publication.LiteraryPiece;
 import demo.bfims.Entities.Inventory.Publication.PublicationItem;
 import demo.bfims.Entities.Order.Order;
 import demo.bfims.Entities.Order.Transaction;
@@ -44,9 +46,11 @@ public class RecentOrderDto {
         private Genre genre;
         private String publicationTitle;
         private PublicationItemType publicationItemType;
+        private LiteraryType literaryType;
         private AccessoryType accessoryType;
         private String accessoryName;
         private Long AccessoryId;
+        private SVGIcon svgIcon;
 
         public RecentOrderTransaction(Transaction transaction) {
             this.transactionId = transaction.getTransactionId();
@@ -61,12 +65,18 @@ public class RecentOrderDto {
                 this.publicationItemType = pubItem.getPublicationItemType();
                 this.genre = pubItem.getPublication().getGenre();
                 this.publicationTitle = pubItem.getPublication().getTitle();
+                this.svgIcon = pubItem.getSvgIcon();
+                if(pubItem.getPublicationItemType().equals(PublicationItemType.LITERARY_PIECE)){
+                    LiteraryPiece lp =  (LiteraryPiece) pubItem;
+                    this.literaryType = lp.getLiteraryType();
+                }
             } else if (transaction.getItem().getItemType().equals(ItemType.ACCESSORY_ITEM)) {
                 AccessoryItem accItem = (AccessoryItem) transaction.getItem();
                 this.itemId = accItem.getItemId();
                 this.accessoryType = accItem.getAccessory().getAccessoryType();
                 this.accessoryName = accItem.getAccessory().getAccessoryName();
                 this.AccessoryId = accItem.getAccessory().getAccessoryId();
+                this.svgIcon = accItem.getAccessory().getSvgIcon();
             }
         }
 
@@ -174,6 +184,22 @@ public class RecentOrderDto {
             AccessoryId = accessoryId;
         }
 
+        public SVGIcon getSvgIcon() {
+            return svgIcon;
+        }
+
+        public void setSvgIcon(SVGIcon svgIcon) {
+            this.svgIcon = svgIcon;
+        }
+
+        public LiteraryType getLiteraryType() {
+            return literaryType;
+        }
+
+        public void setLiteraryType(LiteraryType literaryType) {
+            this.literaryType = literaryType;
+        }
+
         @Override
         public String toString() {
             return "RecentOrderTransaction{" +
@@ -187,9 +213,11 @@ public class RecentOrderDto {
                     ", genre=" + genre +
                     ", publicationTitle='" + publicationTitle + '\'' +
                     ", publicationItemType=" + publicationItemType +
+                    ", literaryType=" + literaryType +
                     ", accessoryType=" + accessoryType +
                     ", accessoryName='" + accessoryName + '\'' +
                     ", AccessoryId=" + AccessoryId +
+                    ", svgIcon=" + svgIcon +
                     '}';
         }
     }

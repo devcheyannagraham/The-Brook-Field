@@ -32,36 +32,33 @@
         <table>
             <thead>
                 <tr>
-                    <th>{{headers.transactionId}}</th>
-                    <th>{{headers.price}}</th>
-                    <th>{{headers.date}}</th>
-                    <th>{{headers.transactionType}}</th>
+                    <th></th>
 
                     @if(trans.publicationItemType ){
+                    <th>{{headers.title}}</th>
                     <th>{{headers.publicationItemType}}</th>
                     <th>{{headers.format}}</th>
                     <th>{{headers.genre}}</th>
-                    <th>{{headers.title}}</th>
                     }
 
                     @if(trans.accessoryType){
-                    <th>{{headers.accessoryType}}</th>
                     <th>{{headers.accessoryName}}</th>
+                    <th>{{headers.accessoryType}}</th>
                     }
+                    <th>{{headers.price}}</th>
+                    <th>{{headers.date}}</th>
+                    <th>{{headers.transactionType}}</th>
                 </tr>
             </thead>
             <tbody>
 
                 <tr>
-                    <td>{{trans.transactionId}}</td>
-                    <td>{{trans.transactionPrice| currency}}</td>
-                    <td>{{trans.transactionDate}}</td>
-                    <td>{{trans.transactionType}}</td>
+                    <td>
+                        <svgicon [className]="'table-icon'" [icon]="trans.svgIcon" />
+                    </td>
+
 
                     @if(trans.publicationItemType ){
-                    <td>{{trans.publicationItemType}}</td>
-                    <td>{{trans.publicationItemFormat}}</td>
-                    <td>{{trans.genre}}</td>
                     <td>
                         @if(authService.isAdmin()){
                         <a [routerLink]="['/publication/',trans.publicationId]">
@@ -74,12 +71,14 @@
                         </a>
                         }
                     </td>
+                    <td>{{trans.literaryType || trans.publicationItemType}}</td>
+                    <td>{{trans.publicationItemFormat}}</td>
+                    <td>{{trans.genre}}</td>
                     }
                     @if(trans.accessoryType){
-                    <td>{{trans.accessoryType}}</td>
                     <td>
 
-                         @if(authService.isAdmin()){
+                        @if(authService.isAdmin()){
                         <a [routerLink]="['/accessory/',trans.accessoryId]">
                             {{trans.accessoryName }}
                         </a>
@@ -90,7 +89,12 @@
                         </a>
                         }
                     </td>
+                    <td>{{trans.accessoryType}}</td>
                     }
+
+                    <td>{{trans.transactionPrice| currency}}</td>
+                    <td>{{trans.transactionDate}}</td>
+                    <td>{{trans.transactionType}}</td>
                 </tr>
             </tbody>
         </table>

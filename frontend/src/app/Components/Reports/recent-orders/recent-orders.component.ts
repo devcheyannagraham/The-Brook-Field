@@ -4,13 +4,13 @@ import { ReportsService } from '../../../Services/reports.service';
 import { headers } from '../../../Helpers/headers';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
 import { AuthService } from '../../../Services/auth.service';
+import { SVGIconComponent } from "../../svgicon/svgicon.component";
 
 
 @Component({
   selector: 'recent-orders',
-  imports: [CurrencyPipe, RouterLink],
+  imports: [CurrencyPipe, RouterLink, SVGIconComponent],
   templateUrl: './recent-orders.component.html',
   styleUrl: './recent-orders.component.css'
 })

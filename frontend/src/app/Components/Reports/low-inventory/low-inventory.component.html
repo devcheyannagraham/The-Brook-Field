@@ -11,7 +11,9 @@
         <tbody>
             @for(item of lowInventoryItems;track `${item.id}-${item.itemType}`){
             <tr>
-                <td>{{item.id}}</td>
+                <td>
+                    <svgicon [className]="'table-icon'" [icon]="item.svgIcon" />
+                </td>
                 <td>
                     @if(item.itemType == ItemType.PUBLICATION_ITEM){
 

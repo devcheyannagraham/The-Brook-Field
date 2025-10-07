@@ -1,5 +1,6 @@
 package demo.bfims.DTOs.ReportDTOs;
 
+import demo.bfims.Config.SVGIcon;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Publication.Publication;
 import demo.bfims.Enums.ItemType;
@@ -11,12 +12,14 @@ public class InventoryCountDto {
     ItemType itemType;
     String title;
     Integer count;
+    SVGIcon svgIcon;
 
     public InventoryCountDto(Publication pub, Integer count) {
         this.id = pub.getPublicationId();
         this.itemType = ItemType.PUBLICATION_ITEM;
         this.title = pub.getTitle();
         this.count = count;
+        this.svgIcon = pub.getSvgIcon();
     }
 
     public InventoryCountDto(Accessory acc, Integer count){
@@ -24,6 +27,7 @@ public class InventoryCountDto {
         this.itemType = ItemType.ACCESSORY_ITEM;
         this.title = acc.getAccessoryName();
         this.count = count;
+        this.svgIcon = acc.getSvgIcon();
     }
 
     public Long getId() {
@@ -58,6 +62,10 @@ public class InventoryCountDto {
         this.itemType = itemType;
     }
 
+    public SVGIcon getSvgIcon() {
+        return svgIcon;
+    }
+
     @Override
     public String toString() {
         return "InventoryCountDto{" +
@@ -65,6 +73,7 @@ public class InventoryCountDto {
                 ", itemType=" + itemType +
                 ", title='" + title + '\'' +
                 ", count=" + count +
+                ", svgIcon=" + svgIcon +
                 '}';
     }
 

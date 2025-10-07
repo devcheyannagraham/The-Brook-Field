@@ -2,14 +2,13 @@ import { Component,inject, DestroyRef } from '@angular/core';
 import { InventoryCountDto } from '../../../DTOs/Report/InventoryCountDto';
 import { headers } from '../../../Helpers/headers';
 import { ReportsService } from '../../../Services/reports.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { ItemType } from '../../../Enums/ItemType';
-
+import { SVGIconComponent } from "../../svgicon/svgicon.component";
 
 @Component({
   selector: 'low-inventory',
-  imports: [RouterLink],
+  imports: [RouterLink, SVGIconComponent],
   templateUrl: './low-inventory.component.html',
   styleUrl: './low-inventory.component.css'
 })

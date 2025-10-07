@@ -7,6 +7,7 @@
     <table>
         <thead>
             <tr>
+                <th></th>
                 <th>{{headers.title}}</th>
                 <th>{{headers.totalUnitsSold}}</th>
                 <th>{{headers.totalProfit}}</th>
@@ -16,6 +17,9 @@
 
             @for(item of popularItems;track `$${item.id}-${item.title}`){
             <tr>
+                <td>
+                    <svgicon [className]="'popular-item-icon'" [icon]="item.svgIcon" />
+                </td>
                 <td> @if(item.itemType == ItemType.PUBLICATION_ITEM){
 
                     <a [routerLink]="['/publication/',item.id]">

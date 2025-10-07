@@ -47,7 +47,7 @@ export class PublicationFormComponent {
       //Publcation fields
       publicationGroup: this.formBuilder.group({
         title: [,[Validators.required, Validators.minLength(3),Validators.maxLength(100)]],
-        isbn: [,[Validators.required, Validators.pattern('^[0-9]{10}$|^[0-9]{13}$')]],
+        isbn: [,[Validators.required, Validators.pattern('^[0-9]{10,13}$')]],
         datePublished: [,[Validators.required]],
         genre: [,[Validators.required]]
       }),

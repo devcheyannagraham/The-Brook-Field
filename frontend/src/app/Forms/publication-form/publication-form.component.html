@@ -40,7 +40,7 @@
       <div class="error">ISBN is required.</div>
       }
       @if(publicationForm.get("publicationGroup").get("isbn").touched && publicationForm.get("publicationGroup").get("isbn")?.hasError("pattern")){
-      <div class="error">ISBN's are 10 or 13 digits</div>
+      <div class="error">ISBN's are 10 - 13 digits</div>
       }
     </div>
 
