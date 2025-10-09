@@ -30,17 +30,15 @@ public class ReportService {
     private final TransactionRepo transactionRepo;
     private final AccessoryRepo accessoryRepo;
     private final AccessoryItemRepo accessoryItemRepo;
-    private final CustomerRepo customerRepo;
     private final UserRepo userRepo;
 
-    public ReportService(OrderRepo orderRepo, PublicationRepo publicationRepo, PublicationItemRepo publicationItemRepo, TransactionRepo transactionRepo, AccessoryRepo accessoryRepo, AccessoryItemRepo accessoryItemRepo, CustomerRepo customerRepo, UserRepo userRepo) {
+    public ReportService(OrderRepo orderRepo, PublicationRepo publicationRepo, PublicationItemRepo publicationItemRepo, TransactionRepo transactionRepo, AccessoryRepo accessoryRepo, AccessoryItemRepo accessoryItemRepo, UserRepo userRepo) {
         this.orderRepo = orderRepo;
         this.publicationRepo = publicationRepo;
         this.publicationItemRepo = publicationItemRepo;
         this.transactionRepo = transactionRepo;
         this.accessoryRepo = accessoryRepo;
         this.accessoryItemRepo = accessoryItemRepo;
-        this.customerRepo = customerRepo;
         this.userRepo = userRepo;
     }
 
@@ -150,6 +148,7 @@ public class ReportService {
     }
 
     public Set<InventoryCountDto> searchItems(String terms) {
+        if(terms == null || terms.isBlank()) return null;
         Set<InventoryCountDto> foundItems = new HashSet<>();
         List<Publication> publicationsContainAuthor = publicationRepo.getPublicationsByAuthor_FirstNameContainingOrAuthor_LastNameContaining(terms, terms).orElse(null);
         List<Publication> publicationsContainTitle = publicationRepo.getPublicationsByTitleContaining(terms).orElse(null);

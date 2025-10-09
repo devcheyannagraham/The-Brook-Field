@@ -2,7 +2,6 @@ package demo.bfims.Services;
 
 import demo.bfims.DTOs.InventoryDTOs.Publication.*;
 import demo.bfims.Entities.Inventory.Publication.*;
-import demo.bfims.Enums.ItemType;
 import demo.bfims.Enums.PublicationItemStatus;
 import demo.bfims.Repo.ItemRepo;
 import demo.bfims.Repo.PublicationItemRepo;
@@ -29,6 +28,7 @@ public class PublicationService {
 
     @Transactional
     public PublicationItemDto newPublicationItem(PublicationItemDto publicationItemDto) {
+        if (publicationItemDto == null) return null;
         PublicationItem publicationItem = PublicationItem.mapToPublicationItemSubclass(publicationItemDto);
         Long pubId = null;
         if (publicationItem != null) {
@@ -46,8 +46,8 @@ public class PublicationService {
         return null;
     }
 
-    //
     public PublicationItemDto getPublicationItemById(Long id) {
+        if (id == null) return null;
         Item item = itemRepo.findById(id).orElse(null);
         if (item != null) {
             return PublicationItemDto.mapToPublicationItemDtoSubclass((PublicationItem) item);
@@ -55,23 +55,13 @@ public class PublicationService {
         return null;
     }
 
-    //
-    public List<PublicationItemDto> getPublicationItems() {
-        List<Item> items = itemRepo.findItemsByItemType(ItemType.PUBLICATION_ITEM).orElse(null);
-        if (items != null) {
-            return items.stream().map(PublicationItemDto::new).toList();
-        }
-        return null;
-    }
-
     @Transactional
     public Boolean deletePublicationItem(Long id) {
+        if (id == null) return null;
         try {
             itemRepo.deleteItemByItemId(id);
             return true;
-        }
-        //Need to send error someway
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -107,19 +97,18 @@ public class PublicationService {
     }
 
     public PublicationDto newPublication(PublicationDto publicationDto) {
+        if (publicationDto == null) return null;
         Publication publication = new Publication(publicationDto);
         return new PublicationDto(publicationRepo.save(publication));
     }
 
     @Transactional
     public Boolean deletePublicationById(Long id) {
-        if (id == null) return false;
+        if (id == null) return null;
         try {
-            Integer deleteResult = publicationRepo.deletePublicationByPublicationId(id);
+            publicationRepo.deletePublicationByPublicationId(id);
             return true;
-        }
-        //Need to send error someway
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
 

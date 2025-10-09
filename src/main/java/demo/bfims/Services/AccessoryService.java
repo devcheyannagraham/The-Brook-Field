@@ -38,6 +38,7 @@ public class AccessoryService {
 
 
     public AccessoryDto getAccessoryById(Long id) {
+        if(id == null) return null;
         Accessory accessory = accessoryRepo.findById(id).orElse(null);
         if (accessory != null) {
             return new AccessoryDto(accessory);
@@ -46,12 +47,14 @@ public class AccessoryService {
     }
 
     public List<AccessoryItemDto> getAvailableAccessoryItemsByAccessoryId(Long accessoryId) {
+        if(accessoryId == null) return null;
         List<AccessoryItem> items = accessoryItemRepo.findAccessoryItemByAccessory_AccessoryIdAndAccessoryItemStatus(accessoryId, AccessoryItemStatus.AVAILABLE);
         if (items == null) return null;
         return items.stream().map(AccessoryItemDto::new).toList();
     }
 
     public List<AccessoryItemDto> getAccessoryItemsByAccessoryId(Long accessoryId) {
+        if(accessoryId == null) return null;
         List<AccessoryItem> items = accessoryItemRepo.findAccessoryItemsByAccessory_AccessoryId(accessoryId);
         if (items == null) return null;
         return items.stream().map(AccessoryItemDto::new).toList();
@@ -59,6 +62,7 @@ public class AccessoryService {
 
 
     public AccessoryDto newAccessory(AccessoryDto accessoryDto) {
+        if(accessoryDto == null) return null;
         Accessory accessory = new Accessory(accessoryDto);
         Accessory savedAccessory = accessoryRepo.save(accessory);
         //create items
@@ -75,11 +79,13 @@ public class AccessoryService {
 
     @Transactional
     public Integer deleteAccessoryItemById(Long id) {
+        if(id == null) return null;
         return itemRepo.deleteItemByItemId(id);
     }
 
     @Transactional
     public Integer deleteAccessory(Long id) {
+        if(id == null) return null;
         return accessoryRepo.deleteByAccessoryId(id);
     }
 

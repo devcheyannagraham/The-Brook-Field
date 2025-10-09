@@ -9,6 +9,7 @@ import demo.bfims.Entities.Order.Transaction;
 import demo.bfims.Enums.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class RecentOrderDto {
@@ -17,6 +18,7 @@ public class RecentOrderDto {
     private String customerLastName;
     private String customerEmail;
     private double orderTotal;
+    private LocalDateTime orderDate;
     private List<RecentOrderTransaction> recentOrderTransactions;
 
     public RecentOrderDto() {
@@ -28,6 +30,7 @@ public class RecentOrderDto {
         this.customerLastName = order.getCustomer().getLastName();
         this.customerEmail = order.getCustomer().getEmail();
         this.orderTotal = order.getOrderTotal();
+        this.orderDate = order.getOrderDate();
         this.recentOrderTransactions = order
                 .getTransactions()
                 .stream()
@@ -35,7 +38,6 @@ public class RecentOrderDto {
     }
 
     public static class RecentOrderTransaction {
-
         private Long transactionId;
         private TransactionType transactionType;
         private Double transactionPrice;
@@ -270,6 +272,14 @@ public class RecentOrderDto {
         this.orderTotal = orderTotal;
     }
 
+    public LocalDateTime getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
+    }
+
     @Override
     public String toString() {
         return "RecentOrderDto{" +
@@ -278,6 +288,7 @@ public class RecentOrderDto {
                 ", customerLastName='" + customerLastName + '\'' +
                 ", customerEmail='" + customerEmail + '\'' +
                 ", orderTotal=" + orderTotal +
+                ", orderDate=" + orderDate +
                 ", recentOrderTransactions=" + recentOrderTransactions +
                 '}';
     }

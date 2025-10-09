@@ -29,6 +29,9 @@ public class OrderService {
 
     @Transactional
     public OrderDto newOrder(OrderDto orderDto) {
+        if(orderDto == null) return null;
+        if(orderDto.getCustomer() == null) return null;
+
         Order order = new Order(orderDto);
         Customer managedCustomer = null;
 

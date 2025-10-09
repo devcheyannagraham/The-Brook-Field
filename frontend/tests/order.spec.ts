@@ -4,11 +4,11 @@ test('test', async ({ page }) => {
     await page.goto('https://localhost:4200/');
     await page.getByRole('button', { name: 'Login' }).click();
     await page.locator('input[type="email"]').click();
-    await page.locator('input[type="email"]').fill('admin');
+    await page.locator('input[type="email"]').fill('bfadmin');
     await page.locator('input[type="email"]').press('Tab');
-    await page.locator('input[type="password"]').fill('admin');
+    await page.locator('input[type="password"]').fill('bfadmin');
     await page.getByRole('main').getByRole('button', { name: 'Login' }).click();
-    await expect(page.getByText('BFIMSbackLogout')).toBeVisible();
+    await expect(page.getByText('Logout')).toBeVisible();
     await page.goto('https://localhost:4200/shop');
     await expect(page.getByText('BFIMSbackLogin Register')).toBeVisible();
     await page.getByRole('link', { name: 'The Great Gatsby' }).click();

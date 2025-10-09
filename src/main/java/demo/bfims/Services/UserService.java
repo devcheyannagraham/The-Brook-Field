@@ -9,6 +9,8 @@ import demo.bfims.Repo.CustomerRepo;
 import demo.bfims.Repo.UserRepo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +30,7 @@ public class UserService {
 
     //add user
     public Long newUser(UserDto userDto) {
-        if (userDto.getPassword() == null || userDto.getEmail() == null) {
+        if (userDto == null || userDto.getPassword() == null || userDto.getEmail() == null) {
             return null;
         }
         User user = new User(userDto);
@@ -53,9 +55,16 @@ public class UserService {
         return userRepo.save(user).getUserId();
     }
 
-    public void saveAdminUser(User admin) {
-        if (admin != null) {
-            userRepo.save(admin);
+    public void saveAdminUser(UserDto userDto) {
+        if (userDto != null) {
+            Long userId = this.newUser(userDto);
+            if(userId == null) return;
+
+            User newAdmin = this.findUserById(userId);
+            if (newAdmin == null) return;
+
+            newAdmin.setUserRole(UserRole.ADMIN);
+            userRepo.save(newAdmin);
         }
     }
 
@@ -80,7 +89,7 @@ public class UserService {
     }
 
     public User authenticateUser(UserDto userDto) {
-        if (userDto.getEmail() == null || userDto.getPassword() == null) return null;
+        if (userDto == null|| userDto.getEmail() == null || userDto.getPassword() == null) return null;
         User foundUser = userRepo.findByEmail(userDto.getEmail()).orElse(null);
         if (foundUser != null) {
             byte[] hashedPassword = User.hashPassword(userDto.getPassword(), foundUser.getSalt());
@@ -93,6 +102,7 @@ public class UserService {
     }
 
     public User findUserById(Long userId) {
+        if(userId == null) return null;
         return userRepo.findById(userId).orElse(null);
     }
 

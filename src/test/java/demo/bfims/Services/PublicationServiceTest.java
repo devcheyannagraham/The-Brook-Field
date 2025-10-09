@@ -1,16 +1,14 @@
 package demo.bfims.Services;
 
-import demo.bfims.DTOs.InventoryDTOs.Publication.ItemDto;
 import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
-import demo.bfims.Entities.Inventory.Publication.Author;
-import demo.bfims.Entities.Inventory.Publication.Book;
-import demo.bfims.Entities.Inventory.Publication.Publication;
-import demo.bfims.Entities.Inventory.Publication.PublicationItem;
+import demo.bfims.Entities.Inventory.Publication.*;
 import demo.bfims.Enums.Genre;
+import demo.bfims.Enums.PublicationItemStatus;
+import demo.bfims.Repo.PublicationRepo;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,52 +17,98 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PublicationServiceTest {
 
-    static PublicationItem publicationItem;
+    static PublicationItem availablePublicationItem;
+    static PublicationItem unavailablePublicationItem;
+    static Publication publication;
 
     @Autowired
     PublicationService publicationService;
 
-    @BeforeAll
-    static void setUp() {
-        Author author = new Author();
-        author.setFirstName("John");
-        author.setLastName("Doe");
-
-        Publication publication = new Publication();
-        publication.setAuthor(author);
-        publication.setTitle("Book Title 1");
-        publication.setGenre(Genre.FANTASY);
-
-        Book book = new Book();
-        book.setPublication(publication);
-        publicationItem = book;
-    }
-
+    @Autowired
+    PublicationRepo publicationRepo;
 
     @Test
     @Order(1)
-    void newPublicationItem() {
-        ItemDto newItem = publicationService.newPublicationItem(new PublicationItemDto(publicationItem));
-        assertNotNull(publicationService.getPublicationItemById(newItem.getItemId()));
+    void newPublication() {
+        Publication pub = new Publication();
+        pub.setAuthor(new Author("John", "Doe"));
+        pub.setTitle("Book Title 1");
+        pub.setGenre(Genre.FANTASY);
+        publication =  publicationRepo.save(pub);
+        assertNotNull(publication);
+        assertNull(this.publicationService.newPublication(null));
     }
 
     @Test
-    @Transactional
     @Order(2)
-    void getPublicationByIdItem() {
-        assertNotNull(publicationService.getPublicationItemById(publicationItem.getItemId()));
+    void newPublicationItem() {
+        Book availableBook = new Book();
+        availableBook.setPublication(publication);
+        availableBook.setPublicationItemStatus(PublicationItemStatus.AVAILABLE);
+        availablePublicationItem = new Book(publicationService.newPublicationItem(new PublicationItemDto(availableBook)));
+        assertNotNull(availablePublicationItem);
+
+        Journal unavailableJournal = new Journal();
+        unavailableJournal.setPublication(publication);
+        unavailableJournal.setPublicationItemStatus(PublicationItemStatus.RENTED);
+        unavailablePublicationItem = new Journal(publicationService.newPublicationItem(new PublicationItemDto(unavailableJournal)));
+        assertNotNull(unavailablePublicationItem);
+
+        assertNull(this.publicationService.newPublicationItem(null));
     }
 
     @Test
     @Order(3)
-    void getPublicationByIdItems() {
-        assertNotNull(publicationService.getPublicationItems());
+    void getPublicationItemById() {
+        assertNotNull(this.publicationService.getPublicationItemById(availablePublicationItem.getItemId()));
+        assertNull(this.publicationService.getPublicationItemById(null));
     }
 
     @Test
     @Order(4)
+    void getPublications() {
+        assertNotNull(this.publicationService.getPublications());
+    }
+
+    @Test
+    @Order(5)
+    void getPublicationById() {
+        assertNotNull(this.publicationService.getPublicationById(publication.getPublicationId()));
+        assertNull(this.publicationService.getPublicationById(null));
+    }
+
+    @Test
+    @Order(6)
+    void getPublicationItemsByPublicationId() {
+        assertEquals(2,this.publicationService.getPublicationItemsByPublicationId(publication.getPublicationId()).size());
+        assertNull(this.publicationService.getPublicationItemsByPublicationId(null));
+    }
+
+    @Test
+    @Order(7)
+    void getAvailablePublicationItemsByPublicationId() {
+        assertEquals(1,this.publicationService.getAvailablePublicationItemsByPublicationId(publication.getPublicationId()).size());
+        assertNull(this.publicationService.getAvailablePublicationItemsByPublicationId(null));
+    }
+
+
+    @Test
+    @Order(8)
     void deletePublicationItem() {
-        publicationService.deletePublicationItem(publicationItem.getItemId());
-        assertNull(publicationService.getPublicationItemById(publicationItem.getItemId()));
+        publicationService.deletePublicationItem(availablePublicationItem.getItemId());
+        assertNull(publicationService.getPublicationItemById(availablePublicationItem.getItemId()));
+
+        assertNull(this.publicationService.deletePublicationItem(null));
+    }
+
+
+    @Test
+    @Order(9)
+    void deletePublicationById() {
+        assertThrows(DataIntegrityViolationException.class, ()-> this.publicationService.deletePublicationById(publication.getPublicationId()));
+        this.publicationService.deletePublicationItem(unavailablePublicationItem.getItemId());
+        this.publicationService.deletePublicationById(publication.getPublicationId());
+        assertNull(this.publicationService.getPublicationById(publication.getPublicationId()));
+        assertNull(this.publicationService.deletePublicationItem(null));
     }
 }

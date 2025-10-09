@@ -2,14 +2,8 @@ package demo.bfims.Services;
 
 import demo.bfims.DTOs.OrderDTOs.CustomerDto;
 import demo.bfims.DTOs.OrderDTOs.OrderDto;
-import demo.bfims.Entities.Order.Customer;
-import demo.bfims.Entities.Order.Order;
 import demo.bfims.Repo.CustomerRepo;
-import demo.bfims.Repo.OrderRepo;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,12 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Transactional
 class OrderServiceTest {
-
-    @Autowired
-    private OrderRepo orderRepo;
 
     @Autowired
     private OrderService orderService;
@@ -32,26 +22,15 @@ class OrderServiceTest {
     private CustomerRepo customerRepo;
 
     @Test
-    @org.junit.jupiter.api.Order(1)
     void newOrder() {
-        CustomerDto customer = new CustomerDto();
-        customer.setEmail("teest@test.com");
-
+        assertNull(this.orderService.newOrder(null));
         OrderDto order = new OrderDto();
-        order.setCustomer(customer);
-        Long orderId = orderService.newOrder(order).getId();
-        assertNotNull(orderRepo.findById(orderId));
-    }
+        assertNull(this.orderService.newOrder(order));
 
-    @Test
-    @org.junit.jupiter.api.Order(4)
-    void getCustomerOrders() {
-        Order order = new Order();
-        Customer c = customerRepo.save(new Customer());
-        order.setCustomer(c);
-        orderRepo.save(order);
-//        assertEquals(orderService.getCustomerOrders(c.getId()).size(),
-//                orderRepo.getOrdersByCustomerId(c.getId()).get().size());
+        CustomerDto customer = new CustomerDto();
+        customer.setEmail("test@test.com");
+        order.setCustomer(customer);
+        assertNotNull(orderService.newOrder(order));
     }
 
 }

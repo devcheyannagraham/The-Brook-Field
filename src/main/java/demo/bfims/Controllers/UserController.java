@@ -40,11 +40,7 @@ public class UserController {
             return null;
 
         if (userService.isSessionUserAdmin(request, uuid)) {
-            Long newAdminId = userService.newUser(userDto);
-            User newAdmin = userService.findUserById(newAdminId);
-            if (newAdmin == null) return new ResponseEntity<>("Username Unavailable", HttpStatus.NOT_FOUND);
-            newAdmin.setUserRole(UserRole.ADMIN);
-            userService.saveAdminUser(newAdmin);
+            this.userService.saveAdminUser(userDto);
             return new ResponseEntity<>("Admin User Added", HttpStatus.OK);
         }
         return new ResponseEntity<>("Username Unavailable", HttpStatus.NOT_FOUND);

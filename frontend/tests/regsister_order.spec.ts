@@ -1,0 +1,31 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://localhost:4200/');
+  await page.getByRole('button', { name: 'Register' }).click();
+  await page.locator('input[type="email"]').click();
+  await page.locator('input[type="email"]').fill('john.doe@email.com');
+  await page.getByRole('textbox').nth(1).click();
+  await page.getByRole('textbox').nth(1).fill('user');
+  await page.getByRole('textbox').nth(1).press('Tab');
+  await page.locator('form div').filter({ hasText: 'Confirm Password' }).getByRole('textbox').fill('user');
+  await page.getByRole('main').getByRole('button', { name: 'Register' }).click();
+  await page.locator('div:nth-child(4) > svgicon').click();
+  await page.getByRole('link', { name: 'The Hidden Locker: A School' }).click();
+  await page.getByRole('row', { name: 'BOOK 1th Edition HARDCOPY $15' }).getByRole('button').first().click();
+  await page.getByRole('link', { name: 'Checkout' }).click();
+  await expect(page.getByRole('textbox', { name: 'First Name*' })).toBeVisible();
+  await page.getByRole('textbox', { name: 'Last Name*' }).click();
+  await page.getByRole('textbox', { name: 'Street address*' }).click();
+  await page.getByRole('textbox', { name: 'City*' }).click();
+  await page.getByRole('textbox', { name: 'State*' }).click();
+  await page.getByRole('textbox', { name: 'ZipCode*' }).click();
+  await page.getByRole('textbox', { name: 'Country*' }).click();
+  await page.getByRole('textbox', { name: 'Email*' }).click();
+  await page.getByRole('textbox', { name: 'Phone*' }).click();
+  await page.getByRole('button', { name: 'Submit Order' }).click();
+  await page.goto('https://localhost:4200/shop');
+  await expect(page.getByText('Order Submitted!')).toBeVisible();
+  await page.getByRole('link', { name: 'Home' }).click();
+  await expect(page.getByRole('cell', { name: 'The Hidden Locker: A School' })).toBeVisible();
+});

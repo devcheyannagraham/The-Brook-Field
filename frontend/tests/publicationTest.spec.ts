@@ -3,9 +3,9 @@ import { test, expect } from '@playwright/test';
 test('test', async ({ page }) => {
 await page.goto('https://localhost:4200/publicationform');
 await page.locator('input[type="email"]').click();
-await page.locator('input[type="email"]').fill('admin');
+await page.locator('input[type="email"]').fill('bfadmin');
 await page.locator('input[type="email"]').press('Tab');
-await page.locator('input[type="password"]').fill('admin');
+await page.locator('input[type="password"]').fill('bfadmin');
 await page.getByRole('main').getByRole('button', { name: 'Login' }).click();
 await page.getByRole('link', { name: 'Add Publication' }).click();
   await page.getByRole('textbox', { name: 'Title' }).click();
