@@ -1,0 +1,34 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://localhost:4200/');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await page.locator('input[type="email"]').click();
+  await page.locator('input[type="email"]').fill('bfadmin');
+  await page.locator('input[type="email"]').press('Tab');
+  await page.locator('input[type="password"]').fill('bfadmin');
+  await page.getByRole('main').getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('link', { name: 'Admin Dashboard' }).click();
+  await page.getByRole('cell', { name: 'Classic Bookmark' }).click();
+  await page.getByRole('link', { name: 'Classic Bookmark' }).click();
+  await page.getByRole('link', { name: 'Update Accessory' }).click();
+  await page.getByRole('textbox', { name: 'Accessory Name*' }).click();
+  await page.getByRole('textbox', { name: 'Accessory Name*' }).fill('Classic Bookmark1');
+  await page.getByRole('button', { name: 'Update Accessory' }).click();
+  await expect(page.getByText('Accessory Name: Classic')).toBeVisible();
+  await page.getByRole('link', { name: 'New Accessory' }).click();
+  await page.getByRole('textbox', { name: 'Accessory Name*' }).click();
+  await page.getByRole('textbox', { name: 'Accessory Name*' }).fill('PlayWright');
+  await page.getByLabel('Accessory Type*').selectOption('BOOKMARK');
+  await page.getByRole('textbox', { name: 'Price*' }).click();
+  await page.getByRole('textbox', { name: 'Price*' }).fill('2.56');
+  await page.getByRole('textbox', { name: 'Quantity*' }).click();
+  await page.getByRole('textbox', { name: 'Quantity*' }).fill('2');
+  await page.getByRole('button', { name: 'Add Accessory' }).click();
+  await expect(page.getByText('Accessory Name: PlayWright')).toBeVisible();
+  await page.getByRole('row', { name: 'AVAILABLE delete' }).nth(0).getByRole('button').click();
+  await page.getByRole('button', { name: 'delete', exact: true }).nth(0).click();
+  await page.getByRole('row', { name: 'AVAILABLE delete' }).nth(1).getByRole('button').click();
+  await page.getByRole('button', { name: 'Delete Accessory' }).nth(0).click();
+  await page.getByRole('button', { name: 'Logout' }).click();
+});
