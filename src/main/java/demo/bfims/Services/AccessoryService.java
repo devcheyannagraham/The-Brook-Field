@@ -84,7 +84,7 @@ public class AccessoryService {
     }
 
     @Transactional
-    public Integer deleteAccessory(Long id) {
+    public Integer deleteAccessoryById(Long id) {
         if(id == null) return null;
         return accessoryRepo.deleteByAccessoryId(id);
     }

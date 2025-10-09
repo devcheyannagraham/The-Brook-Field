@@ -63,7 +63,7 @@ public class AccessoryController {
     //Delete accessoryitem
     // Requires Admin access
     @DeleteMapping("/accessoryitem/{id}")
-    public Integer deleteAccessoryItem(HttpServletRequest request, @PathVariable Long id, @RequestHeader("user-uuid") String uuid) {
+    public Integer deleteAccessoryItemById(HttpServletRequest request, @PathVariable Long id, @RequestHeader("user-uuid") String uuid) {
         if (id != null && uuid != null && this.userService.isSessionUserAdmin(request, uuid))
             return accessoryService.deleteAccessoryItemById(id);
         else return null;
@@ -72,9 +72,9 @@ public class AccessoryController {
     //Delete 1 accessory
     // Requires Admin access
     @DeleteMapping("/accessory/{id}")
-    public Integer deleteAccessory(HttpServletRequest request, @PathVariable Long id, @RequestHeader("user-uuid") String uuid) {
+    public Integer deleteAccessoryById(HttpServletRequest request, @PathVariable Long id, @RequestHeader("user-uuid") String uuid) {
         if (id != null && uuid != null && this.userService.isSessionUserAdmin(request, uuid))
-            return accessoryService.deleteAccessory(id);
+            return accessoryService.deleteAccessoryById(id);
         else return null;
     }
 }

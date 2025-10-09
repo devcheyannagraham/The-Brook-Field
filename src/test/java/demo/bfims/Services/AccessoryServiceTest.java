@@ -1,7 +1,6 @@
 package demo.bfims.Services;
 
 import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryDto;
-import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryItemDto;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Inventory.Accessory.AccessoryItem;
 import demo.bfims.Enums.AccessoryItemStatus;
@@ -9,12 +8,9 @@ import demo.bfims.Enums.AccessoryType;
 import demo.bfims.Repo.AccessoryRepo;
 import demo.bfims.Repo.ItemRepo;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
@@ -77,17 +73,17 @@ class AccessoryServiceTest {
 
     @Test
     @Order(6)
-    void deleteAccessoryItemById() {
+    void deleteAccessoryByIdItemById() {
         this.accessoryService.deleteAccessoryItemById(unavailableAccessoryItem.getItemId());
         assertNull(this.accessoryService.getAccessoryById(unavailableAccessoryItem.getItemId()));
     }
 
     @Test
     @Order(7)
-    void deleteAccessory() {
-        assertThrows(DataIntegrityViolationException.class, () -> accessoryService.deleteAccessory(accessory.getAccessoryId()));
+    void deleteAccessoryById() {
+        assertThrows(DataIntegrityViolationException.class, () -> accessoryService.deleteAccessoryById(accessory.getAccessoryId()));
         itemRepo.deleteById(availableAccessoryItem.getItemId());
-        this.accessoryService.deleteAccessory(accessory.getAccessoryId());
+        this.accessoryService.deleteAccessoryById(accessory.getAccessoryId());
         assertNull(this.accessoryService.getAccessoryById(accessory.getAccessoryId()));
     }
 }
