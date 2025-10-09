@@ -45,14 +45,7 @@ class PublicationControllerTest {
     public PublicationControllerTest(MockMvc mockMvc, UserService userService) {
         this.mockMvc = mockMvc;
         this.userService = userService;
-    }
 
-    @BeforeAll
-    static void beforeAll() {
-    }
-
-    @BeforeEach
-    void setUp() {
         UserDto au = new UserDto();
         au.setEmail("admin");
         au.setPassword("password");

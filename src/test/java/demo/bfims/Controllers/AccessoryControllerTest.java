@@ -8,7 +8,6 @@ import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Entities.Users.User;
 import demo.bfims.Services.AccessoryService;
 import demo.bfims.Services.UserService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,11 +60,6 @@ class AccessoryControllerTest {
         userService.newUser(ru);
         regUser = userService.authenticateUser(ru);
         regUuid = UUID.randomUUID();
-    }
-
-    @BeforeEach
-    void setUp() {
-
     }
 
     @Test

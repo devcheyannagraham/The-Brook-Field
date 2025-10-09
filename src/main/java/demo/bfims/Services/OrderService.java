@@ -33,7 +33,7 @@ public class OrderService {
         if(orderDto.getCustomer() == null) return null;
 
         Order order = new Order(orderDto);
-        Customer managedCustomer = null;
+        Customer managedCustomer;
 
         Customer customer = order.getCustomer();
         if (customer == null) return null;
