@@ -64,7 +64,7 @@ export class AuthService {
 
   getUserRole() {
     if (this.user() == null) return null;
-    return firstValueFrom(this.http.post(`${this.baseUrl}isadmin`, this.user() && this.user().userId, { responseType: 'text', withCredentials: true }))
+    return firstValueFrom(this.http.get(`${this.baseUrl}isadmin`,  { responseType: 'text', withCredentials: true }))
       .then(role => {
         if (role == UserRole.ADMIN) {
           this.isAdmin.set(true);
@@ -79,7 +79,7 @@ export class AuthService {
 
   newAdminUser(user: UserDto) {
     if (user == null || this.user() == null) return null;
-    return firstValueFrom(this.http.post(`${this.baseUrl}newadminuser/${this.user().userId}`, user, { responseType: "text", withCredentials: true }))
+    return firstValueFrom(this.http.post(`${this.baseUrl}newadminuser`, user, { responseType: "text", withCredentials: true }))
       .then(result => {
         if (result) this.toaster.message.set({ class: "success", message: result });
       })
@@ -89,14 +89,14 @@ export class AuthService {
 
   getAdminUsers() {
     if (this.user() == null) return null;
-    return firstValueFrom(this.http.get(`${this.baseUrl}adminusers/${this.user().userId}`, { withCredentials: true }))
+    return firstValueFrom(this.http.get(`${this.baseUrl}adminusers`, { withCredentials: true }))
       .then(users => users)
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
 
   deleteUser(userId: string) {
     if (userId == null || this.user() == null) return null;
-    return firstValueFrom(this.http.delete(`${this.baseUrl}deleteuser/${userId}/${this.user().userId}`, { responseType: "text", withCredentials: true }))
+    return firstValueFrom(this.http.delete(`${this.baseUrl}deleteuser/${userId}`, { responseType: "text", withCredentials: true }))
       .then(result => {
         if (result) this.toaster.message.set({ class: "success", message: result });
       })
@@ -106,7 +106,7 @@ export class AuthService {
 
   setUser(uuid: string, user: UserDto) {
     user.password = null;
-    user.userId = uuid;
+    user.uuid = uuid;
     this.user.set(user);
 
     if (this.storageAvailable) {

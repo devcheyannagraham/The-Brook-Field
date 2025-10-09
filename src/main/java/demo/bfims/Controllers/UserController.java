@@ -34,7 +34,7 @@ public class UserController {
         return new ResponseEntity<>(uuid.toString(), HttpStatus.OK);
     }
 
-    @PostMapping("/newadminuser/{uuid}")
+    @PostMapping("/newadminuser")
     public ResponseEntity<String> newAdminUser(HttpServletRequest request, @RequestBody UserDto userDto, @PathVariable String uuid) {
         if (userDto == null || uuid == null || userDto.getEmail().isBlank() || userDto.getPassword().isBlank())
             return null;
@@ -46,7 +46,7 @@ public class UserController {
         return new ResponseEntity<>("Username Unavailable", HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/adminusers/{uuid}")
+    @GetMapping("/adminusers")
     public List<UserDto> getAdminUsers(HttpServletRequest request, @PathVariable String uuid) {
         if (uuid == null) return null;
         if (userService.isSessionUserAdmin(request, uuid)) {
@@ -55,13 +55,15 @@ public class UserController {
         return null;
     }
 
-    @DeleteMapping("/deleteuser/{userId}/{uuid}")
+    @DeleteMapping("/deleteuser/{userId}")
     public ResponseEntity<String> deleteUser(HttpServletRequest request, @PathVariable Long userId, @PathVariable String uuid) {
-        if(uuid == null || userId == null) return new ResponseEntity<>("Username Unavailable", HttpStatus.NOT_FOUND);
+        if (uuid == null || userId == null) return new ResponseEntity<>("Username Unavailable", HttpStatus.NOT_FOUND);
         if (userService.isSessionUserAdmin(request, uuid)) {
-            if(userService.deleteUser(userId) > 0) return new ResponseEntity<>("User Deleted Successfully", HttpStatus.OK);
+            if (userService.deleteUser(userId) > 0)
+                return new ResponseEntity<>("User Deleted Successfully", HttpStatus.OK);
             else return new ResponseEntity<>("User Unavailable", HttpStatus.NOT_FOUND);
-        } return null;
+        }
+        return null;
     }
 
     @PostMapping("/authenticateuser")
@@ -80,7 +82,7 @@ public class UserController {
     }
 
     @PostMapping("/reinstateuser")
-    public ResponseEntity<String> reinstateUser(HttpServletRequest request, @RequestBody String uuid) {
+    public ResponseEntity<String> reinstateUser(HttpServletRequest request, @RequestHeader("user-uuid") String uuid) {
         Long userId = this.userService.getUserId(request, uuid);
         if (userId == null)
             return new ResponseEntity<>("User not signed in", HttpStatus.NOT_FOUND);
@@ -92,8 +94,8 @@ public class UserController {
         return new ResponseEntity<>(reinstatedUser.getEmail(), HttpStatus.OK);
     }
 
-    @PostMapping("/isadmin")
-    public ResponseEntity<String> getRole(HttpServletRequest request, @RequestBody String uuid) {
+    @GetMapping("/isadmin")
+    public ResponseEntity<String> getRole(HttpServletRequest request, @RequestHeader("user-uuid") String uuid) {
         if (request == null || uuid == null)
             return new ResponseEntity<>("Missing Credentials", HttpStatus.BAD_REQUEST);
 
@@ -110,7 +112,7 @@ public class UserController {
     }
 
     @PostMapping("/getcustomer")
-    public CustomerDto getCustomer(HttpServletRequest request, @RequestBody String uuid) {
+    public CustomerDto getCustomer(HttpServletRequest request, @RequestHeader("user-uuid") String uuid) {
         if (request.getSession(false) == null) return null;
         if (uuid == null) return null;
         Long userId = userService.getUserId(request, uuid);

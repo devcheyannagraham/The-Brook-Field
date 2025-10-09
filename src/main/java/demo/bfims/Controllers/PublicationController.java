@@ -22,8 +22,8 @@ public class PublicationController {
     }
 
     //get pubItems for a pub
-    @GetMapping("/publicationitems/{pubId}/{uuid}")
-    public List<PublicationItemDto> getPublicationItemsByPublicationId(HttpServletRequest request, @PathVariable Long pubId, @PathVariable String uuid) {
+    @GetMapping("/publicationitems/{pubId}")
+    public List<PublicationItemDto> getPublicationItemsByPublicationId(HttpServletRequest request, @PathVariable Long pubId, @RequestHeader("user-uuid") String uuid) {
         if (pubId != null && uuid != null && this.userService.isSessionUserAdmin(request, uuid))
             return publicationService.getPublicationItemsByPublicationId(pubId);
         else return null;
@@ -52,16 +52,16 @@ public class PublicationController {
     }
 
     //Get 1 pubitem
-    @GetMapping("/publicationitem/{id}/{uuid}")
-    public PublicationItemDto getPublicationItemById(HttpServletRequest request, @PathVariable String uuid, @PathVariable Long id) {
+    @GetMapping("/publicationitem/{id}")
+    public PublicationItemDto getPublicationItemById(HttpServletRequest request, @RequestHeader("user-uuid") String uuid, @PathVariable Long id) {
         if (id != null && uuid != null && this.userService.isSessionUserAdmin(request, uuid))
             return publicationService.getPublicationItemById(id);
         else return null;
     }
 
     // new PublicationItem
-    @PostMapping("/publicationitem/{uuid}")
-    public List<PublicationItemDto> newPublicationItem(HttpServletRequest request, @PathVariable String uuid, @RequestBody PublicationItemDto publicationItemDto) {
+    @PostMapping("/publicationitem")
+    public List<PublicationItemDto> newPublicationItem(HttpServletRequest request, @RequestHeader("user-uuid") String uuid, @RequestBody PublicationItemDto publicationItemDto) {
         if (uuid != null && publicationItemDto != null && this.userService.isSessionUserAdmin(request, uuid)) {
             List<PublicationItemDto> newItems = new ArrayList<>();
 
@@ -80,8 +80,8 @@ public class PublicationController {
     }
 
     // New Publication
-    @PostMapping("/publication/{uuid}")
-    public PublicationDto newPublication(HttpServletRequest request, @PathVariable String uuid, @RequestBody PublicationDto publicationDto) {
+    @PostMapping("/publication")
+    public PublicationDto newPublication(HttpServletRequest request, @RequestHeader("user-uuid") String uuid, @RequestBody PublicationDto publicationDto) {
         if (uuid != null && publicationDto != null && this.userService.isSessionUserAdmin(request, uuid))
             return publicationService.newPublication(publicationDto);
         else return null;
@@ -89,15 +89,15 @@ public class PublicationController {
 
 
     // delete 1 pub item
-    @DeleteMapping("/publicationitem/{id}/{uuid}")
-    public Boolean deletePublicationItem(HttpServletRequest request, @PathVariable String uuid, @PathVariable Long id) {
+    @DeleteMapping("/publicationitem/{id}")
+    public Boolean deletePublicationItem(HttpServletRequest request, @RequestHeader("user-uuid") String uuid, @PathVariable Long id) {
         if (uuid != null && id != null && this.userService.isSessionUserAdmin(request, uuid))
             return publicationService.deletePublicationItem(id);
         else return false;
     }
 
-    @DeleteMapping("/publication/{id}/{uuid}")
-    public Boolean deletePublicationById(HttpServletRequest request, @PathVariable String uuid, @PathVariable Long id) {
+    @DeleteMapping("/publication/{id}")
+    public Boolean deletePublicationById(HttpServletRequest request, @RequestHeader("user-uuid") String uuid, @PathVariable Long id) {
         if (uuid != null && id != null && this.userService.isSessionUserAdmin(request, uuid))
             return publicationService.deletePublicationById(id);
         else return false;

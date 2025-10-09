@@ -7,10 +7,7 @@ import demo.bfims.DTOs.ReportDTOs.ShopPopularItemDto;
 import demo.bfims.Services.ReportService;
 import demo.bfims.Services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
@@ -29,10 +26,10 @@ public class ReportController {
 
     //Popular items
 //    item id in order items the most
-    @GetMapping("/popularitems/{userUid}")
-    public List<PopularItemDto> getPopularItems(HttpServletRequest request, @PathVariable String userUid) {
-        if (userUid == null || request == null) return null;
-        if (this.userService.isSessionUserAdmin(request, userUid))
+    @GetMapping("/popularitems")
+    public List<PopularItemDto> getPopularItems(HttpServletRequest request, @RequestHeader("user-uuid") String uuid) {
+        if (uuid == null || request == null) return null;
+        if (this.userService.isSessionUserAdmin(request, uuid))
             return reportService.getPopularItems();
         else return null;
     }
@@ -43,20 +40,20 @@ public class ReportController {
     }
 
     //low inventory items
-    @GetMapping("/lowinventory/{userUid}")
-    public List<InventoryCountDto> getLowInventoryItems(HttpServletRequest request, @PathVariable String userUid) {
-        if (userUid == null || request == null) return null;
-        if (this.userService.isSessionUserAdmin(request, userUid))
+    @GetMapping("/lowinventory")
+    public List<InventoryCountDto> getLowInventoryItems(HttpServletRequest request, @RequestHeader("user-uuid") String uuid) {
+        if (uuid == null || request == null) return null;
+        if (this.userService.isSessionUserAdmin(request, uuid))
             return reportService.getLowInventoryItems();
         else return null;
     }
 
-    @GetMapping("/recentorders/{userUid}")
-    public List<RecentOrderDto> getRecentOrders(HttpServletRequest request, @PathVariable String userUid) {
-        if (userUid == null || request == null) return null;
-        if (this.userService.isSessionUserAdmin(request, userUid))
+    @GetMapping("/recentorders")
+    public List<RecentOrderDto> getRecentOrders(HttpServletRequest request, @RequestHeader("user-uuid") String uuid) {
+        if (uuid == null || request == null) return null;
+        if (this.userService.isSessionUserAdmin(request, uuid))
             return reportService.getRecentOrders();
-        else return reportService.getRecentOrders(this.userService.getUserId(request, userUid));
+        else return reportService.getRecentOrders(this.userService.getUserId(request, uuid));
     }
 
     @GetMapping("/search/{terms}")

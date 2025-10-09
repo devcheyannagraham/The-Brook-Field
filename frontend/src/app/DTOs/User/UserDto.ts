@@ -1,4 +1,5 @@
 export class UserDto {
+    uuid: string;
     userId:string;
     email: string;
     password:string;

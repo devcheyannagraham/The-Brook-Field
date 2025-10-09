@@ -18,7 +18,7 @@ export class PublicationService {
 
   //Get all pub items for specific pub
   getPublicationItemsByPublicationId(pubId: number) {
-    return firstValueFrom(this.http.get<any[]>(`${this.baseUrl}publicationitems/${pubId}/${this.authService.user().userId}`, { withCredentials: true }))
+    return firstValueFrom(this.http.get<any[]>(`${this.baseUrl}publicationitems/${pubId}`, { withCredentials: true }))
       .then(items => items)
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
@@ -47,14 +47,14 @@ export class PublicationService {
 
   // Get 1 pub item
   getPublicationItemById(pubItemId: number) {
-    return firstValueFrom(this.http.get<PublicationItem>(`${this.baseUrl}publicationitem/${pubItemId}/${this.authService.user().userId}`, { withCredentials: true }))
+    return firstValueFrom(this.http.get<PublicationItem>(`${this.baseUrl}publicationitem/${pubItemId}`, { withCredentials: true }))
       .then(items => items)
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
 
 
   newPublication(pub: any) {
-    return firstValueFrom(this.http.post(`${this.baseUrl}publication/${this.authService.user().userId}`, pub, { withCredentials: true }))
+    return firstValueFrom(this.http.post(`${this.baseUrl}publication`, pub, { withCredentials: true }))
       .then(items => {
         this.toaster.message.set({ class: "success", message: "Publication Added." })
         return items;
@@ -63,7 +63,7 @@ export class PublicationService {
   }
 
   newPublicationItem(pubItem: any) {
-    return firstValueFrom(this.http.post(`${this.baseUrl}publicationitem/${this.authService.user().userId}`, pubItem, { withCredentials: true }))
+    return firstValueFrom(this.http.post(`${this.baseUrl}publicationitem`, pubItem, { withCredentials: true }))
       .then(items => {
         this.toaster.message.set({ class: "success", message: "Publication Item Added." })
         return items;
@@ -72,7 +72,7 @@ export class PublicationService {
   }
 
   deletePublicationItem(itemId: number) {
-    return firstValueFrom(this.http.delete(`${this.baseUrl}publicationitem/${itemId}/${this.authService.user().userId}`, { withCredentials: true }))
+    return firstValueFrom(this.http.delete(`${this.baseUrl}publicationitem/${itemId}`, { withCredentials: true }))
       .then(items => {
         this.toaster.message.set({ class: "success", message: "Publication Item Deleted." })
         return items;
@@ -81,7 +81,7 @@ export class PublicationService {
   }
 
   deletePublication(pubId: number) {
-    return firstValueFrom(this.http.delete(`${this.baseUrl}publication/${pubId}/${this.authService.user().userId}`, { withCredentials: true }))
+    return firstValueFrom(this.http.delete(`${this.baseUrl}publication/${pubId}`, { withCredentials: true }))
       .then(items => {
         this.toaster.message.set({ class: "success", message: "Publication Deleted." })
         return items;

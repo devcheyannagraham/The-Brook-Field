@@ -36,7 +36,7 @@ export class AccessoryService {
   }
 
   getAccessoryItemsByAccessoryId(accessId: number) {
-    return firstValueFrom(this.http.get<AccessoryItem[]>(`${this.baseUrl}accessory/accessoryitems/${accessId}/${this.authService.user().userId}`, { withCredentials: true }))
+    return firstValueFrom(this.http.get<AccessoryItem[]>(`${this.baseUrl}accessory/accessoryitems/${accessId}`, { withCredentials: true }))
       .then(items => items)
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
@@ -45,7 +45,7 @@ export class AccessoryService {
   // CREATE
 
   newAccessory(accessory: Accessory) {
-    return firstValueFrom(this.http.post(`${this.baseUrl}accessory/${this.authService.user().userId}`, accessory, { withCredentials: true }))
+    return firstValueFrom(this.http.post(`${this.baseUrl}accessory`, accessory, { withCredentials: true }))
        .then(items => {
         this.toaster.message.set({ class: "success", message: "Accessory Added."})
         return items;
@@ -57,7 +57,7 @@ export class AccessoryService {
   // DELETE
 
   deleteAccessoryItem(accessItemId: number) {
-    return firstValueFrom(this.http.delete(`${this.baseUrl}accessoryitem/${accessItemId}/${this.authService.user().userId}`, { withCredentials: true }))
+    return firstValueFrom(this.http.delete(`${this.baseUrl}accessoryitem/${accessItemId}`, { withCredentials: true }))
        .then(items => {
         this.toaster.message.set({ class: "success", message: "Accessory Item Deleted."})
         return items;
@@ -66,7 +66,7 @@ export class AccessoryService {
   }
 
   deleteAccessory(accessId: number) {
-    return firstValueFrom(this.http.delete(`${this.baseUrl}accessory/${accessId}/${this.authService.user().userId}`, { withCredentials: true }))
+    return firstValueFrom(this.http.delete(`${this.baseUrl}accessory/${accessId}`, { withCredentials: true }))
        .then(items => {
         this.toaster.message.set({ class: "success", message: "Accessory Deleted."})
         return items;
