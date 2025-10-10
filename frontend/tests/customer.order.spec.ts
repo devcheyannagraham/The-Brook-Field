@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
 
-//run once after db starts, subsequent runs will fail due to item already purchased
+// limited by inventory, if fails, reset db and try again
 
 test("customer completes order", async ({ page }) => {
   await page.goto('https://localhost:4200/');
   await page.getByRole('button', { name: 'Shop' }).click();
   await page.getByRole('link', { name: 'Laugh Lines: A Satirical' }).click();
-  await page.getByRole('row', { name: 'BOOK 1th Edition HARDCOPY $15' }).getByRole('button').first().click();
+  await page.getByRole('row').getByRole('button').first().click();
   await page.getByRole('button', { name: 'Shop' }).click();
   await page.getByRole('link', { name: 'Insulated Mug' }).click();
   await page.getByRole('button', { name: 'Purchase' }).click();

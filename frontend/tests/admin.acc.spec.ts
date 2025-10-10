@@ -26,9 +26,8 @@ test("admin creates, reads, updates, deletes accesssories and accessory items", 
   await page.getByRole('textbox', { name: 'Quantity*' }).fill('2');
   await page.getByRole('button', { name: 'Add Accessory' }).click();
   await expect(page.getByText('Accessory Name: PlayWright')).toBeVisible();
-  await page.getByRole('row', { name: 'AVAILABLE delete' }).nth(0).getByRole('button').click();
-  await page.getByRole('button', { name: 'delete', exact: true }).nth(0).click();
-  await page.getByRole('row', { name: 'AVAILABLE delete' }).nth(1).getByRole('button').click();
-  await page.getByRole('button', { name: 'Delete Accessory' }).nth(0).click();
+  await page.getByRole('row', { name: 'AVAILABLE delete' }).first().getByRole('button').click();
+  await page.getByRole('row', { name: 'AVAILABLE delete' }).first().getByRole('button').click();
+  await page.getByRole('button', { name: 'Delete Accessory' }).first().click();
   await page.getByRole('button', { name: 'Logout' }).click();
 });
