@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 //run once after db starts, subsequent runs will fail due to item already purchased
 
-test('test', async ({ page }) => {
+test("customer completes order", async ({ page }) => {
   await page.goto('https://localhost:4200/');
   await page.getByRole('button', { name: 'Shop' }).click();
   await page.getByRole('link', { name: 'Laugh Lines: A Satirical' }).click();

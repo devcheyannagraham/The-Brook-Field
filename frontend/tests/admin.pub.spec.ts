@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('test', async ({ page }) => {
+test("admin creates, reads, updates, deletes publications and publicationItems", async ({ page }) => {
   await page.goto('https://localhost:4200/');
   await page.getByRole('link', { name: 'Login' }).click();
   await page.locator('input[type="email"]').click();

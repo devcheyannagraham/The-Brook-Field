@@ -1,0 +1,41 @@
+import { test, expect } from '@playwright/test';
+import { once } from 'events';
+
+// cannot be ran more than once wihtout db reset
+test('unique user can register', async ({ page }) => {
+  await page.goto('https://localhost:4200/');
+  await page.getByText('backShopLogin Register').click();
+  await page.getByRole('link', { name: 'Register' }).click();
+  await page.locator('input[type="email"]').click();
+  await page.locator('input[type="email"]').fill('playwright');
+  await page.getByRole('textbox').nth(1).click();
+  await page.getByRole('textbox').nth(1).fill('play');
+  await page.getByRole('textbox').nth(1).press('Tab');
+  await page.locator('form div').filter({ hasText: 'Confirm Password' }).getByRole('textbox').fill('play');
+  await page.getByRole('main').getByRole('button', { name: 'Register' }).click();
+  await page.getByRole('button', { name: 'Logout' }).click();
+  await page.locator('input[type="email"]').click();
+  await page.getByRole('main').getByRole('button', { name: 'Login' }).click();
+  await page.locator('input[type="email"]').click();
+  await page.locator('input[type="email"]').fill('playwright2');
+  await page.getByRole('main').getByRole('button', { name: 'Login' }).click();
+  await page.locator('input[type="password"]').click();
+  await page.locator('input[type="password"]').fill('play');
+  await page.getByRole('main').getByRole('button', { name: 'Login' }).click();
+  await expect(page.getByText('User does not exist')).toBeVisible();
+  await page.getByRole('link', { name: 'Register' }).click();
+  await page.locator('input[type="email"]').click();
+  await page.locator('input[type="email"]').fill('playwright');
+  await page.getByRole('main').getByRole('button', { name: 'Register' }).click();
+  await page.locator('form div').filter({ hasText: 'PasswordInvalid password' }).getByRole('textbox').click();
+  await page.locator('form div').filter({ hasText: 'PasswordInvalid password' }).getByRole('textbox').fill('play');
+  await page.getByRole('main').getByRole('button', { name: 'Register' }).click();
+  await expect(page.getByText('Passwords don\'t match!')).toBeVisible();
+  await page.locator('form div').filter({ hasText: 'Confirm PasswordPasswords don' }).getByRole('textbox').click();
+  await page.locator('form div').filter({ hasText: 'Confirm PasswordPasswords don' }).getByRole('textbox').fill('play');
+  await page.getByRole('main').getByRole('button', { name: 'Register' }).click();
+  await expect(page.getByText('Username Unavailable')).toBeVisible();
+  await page.locator('input[type="email"]').click();
+  await page.locator('input[type="email"]').fill('playwright2');
+  await page.getByRole('main').getByRole('button', { name: 'Register' }).click();
+});
