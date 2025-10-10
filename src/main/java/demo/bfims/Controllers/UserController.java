@@ -35,9 +35,9 @@ public class UserController {
     }
 
     @PostMapping("/newadminuser")
-    public ResponseEntity<String> newAdminUser(HttpServletRequest request, @RequestBody UserDto userDto, @PathVariable String uuid) {
+    public ResponseEntity<String> newAdminUser(HttpServletRequest request, @RequestBody UserDto userDto, @RequestHeader("user-uuid") String uuid) {
         if (userDto == null || uuid == null || userDto.getEmail().isBlank() || userDto.getPassword().isBlank())
-            return null;
+            return new ResponseEntity<>("Username Unavailable", HttpStatus.NOT_FOUND);
 
         if (userService.isSessionUserAdmin(request, uuid)) {
             this.userService.saveAdminUser(userDto);
@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @GetMapping("/adminusers")
-    public List<UserDto> getAdminUsers(HttpServletRequest request, @PathVariable String uuid) {
+    public List<UserDto> getAdminUsers(HttpServletRequest request, @RequestHeader("user-uuid") String uuid) {
         if (uuid == null) return null;
         if (userService.isSessionUserAdmin(request, uuid)) {
             return userService.getAdminUsers();
@@ -56,12 +56,12 @@ public class UserController {
     }
 
     @DeleteMapping("/deleteuser/{userId}")
-    public ResponseEntity<String> deleteUser(HttpServletRequest request, @PathVariable Long userId, @PathVariable String uuid) {
+    public ResponseEntity<String> deleteUser(HttpServletRequest request, @RequestHeader("user-uuid") String uuid, @PathVariable("userId") Long userId) {
         if (uuid == null || userId == null) return new ResponseEntity<>("Username Unavailable", HttpStatus.NOT_FOUND);
         if (userService.isSessionUserAdmin(request, uuid)) {
             if (userService.deleteUser(userId) > 0)
                 return new ResponseEntity<>("User Deleted Successfully", HttpStatus.OK);
-            else return new ResponseEntity<>("User Unavailable", HttpStatus.NOT_FOUND);
+            else return new ResponseEntity<>("User Unavailable", HttpStatus.OK);
         }
         return null;
     }
