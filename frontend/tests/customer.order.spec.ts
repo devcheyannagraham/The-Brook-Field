@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 // limited by inventory, if fails, reset db and try again
 
 test("customer completes order", async ({ page }) => {
-  await page.goto('https://localhost:4200/');
+  await page.goto('https://localhost:8080/');
   await page.getByRole('button', { name: 'Shop' }).click();
   await page.getByRole('link', { name: 'Laugh Lines: A Satirical' }).click();
   await page.getByRole('row').getByRole('button').first().click();

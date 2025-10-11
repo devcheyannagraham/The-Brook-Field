@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 const username = `user_${Date.now()}@example.com`;
 
 test('unique user can register', async ({ page }) => {
-  await page.goto('https://localhost:4200/');
+  await page.goto('https://localhost:8080/');
   await page.getByText('backShopLogin Register').click();
   await page.getByRole('link', { name: 'Register' }).click();
   await page.locator('input[type="email"]').click();

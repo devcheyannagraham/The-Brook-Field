@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test("admin creates, reads, updates, deletes accesssories and accessory items", async ({ page }) => {
-  await page.goto('https://localhost:4200/');
+  await page.goto('https://localhost:8080/');
   await page.getByRole('button', { name: 'Login' }).click();
   await page.locator('input[type="email"]').click();
   await page.locator('input[type="email"]').fill('bfadmin');
