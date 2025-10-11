@@ -35,7 +35,7 @@ class OrderControllerTest {
     @Test
     void newOrder() throws Exception {
         Mockito.when(orderService.newOrder(Mockito.any(OrderDto.class))).thenReturn(new OrderDto());
-        mockMvc.perform(post("/order")
+        mockMvc.perform(post("/api/order")
                         .contentType(String.valueOf(MediaType.APPLICATION_JSON))
                         .content(objectMapper.writeValueAsString(new OrderDto())))
                 .andDo(print())

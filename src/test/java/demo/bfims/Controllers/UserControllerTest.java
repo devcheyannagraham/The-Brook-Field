@@ -60,7 +60,7 @@ class UserControllerTest {
         ru.setEmail("reg2");
         ru.setPassword("password");
 
-        String result = mockMvc.perform(post("/newuser")
+        String result = mockMvc.perform(post("/api/newuser")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(ru)))
                 .andDo(print())
@@ -76,7 +76,7 @@ class UserControllerTest {
         au.setEmail("admin2");
         au.setPassword("password");
 
-        mockMvc.perform(post("/newadminuser")
+        mockMvc.perform(post("/api/newadminuser")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -92,7 +92,7 @@ class UserControllerTest {
         au.setEmail("admin2");
         au.setPassword("password");
 
-        mockMvc.perform(post("/newadminuser")
+        mockMvc.perform(post("/api/newadminuser")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -104,7 +104,7 @@ class UserControllerTest {
 
     @Test
     void getAdminUsersAuthorized() throws Exception {
-        String result = mockMvc.perform(get("/adminusers")
+        String result = mockMvc.perform(get("/api/adminusers")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())
@@ -117,7 +117,7 @@ class UserControllerTest {
 
     @Test
     void getAdminUsersUnauthorized() throws Exception {
-        String result = mockMvc.perform(get("/adminusers")
+        String result = mockMvc.perform(get("/api/adminusers")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -128,7 +128,7 @@ class UserControllerTest {
 
     @Test
     void deleteUserAuthorized() throws Exception {
-        String result = mockMvc.perform(delete("/deleteuser/" + regUser.getUserId())
+        String result = mockMvc.perform(delete("/api/deleteuser/" + regUser.getUserId())
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())
@@ -139,7 +139,7 @@ class UserControllerTest {
 
     @Test
     void deleteUserUnauthorized() throws Exception {
-        String result = mockMvc.perform(delete("/deleteuser/" + regUser.getUserId())
+        String result = mockMvc.perform(delete("/api/deleteuser/" + regUser.getUserId())
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -156,7 +156,7 @@ class UserControllerTest {
         ru.setPassword("password");
         userService.newUser(ru);
 
-        String result = mockMvc.perform(post("/authenticateuser")
+        String result = mockMvc.perform(post("/api/authenticateuser")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(ru)))
                 .andDo(print())
@@ -167,7 +167,7 @@ class UserControllerTest {
 
     @Test
     void reinstateUser() throws Exception {
-        String result = mockMvc.perform(post("/reinstateuser")
+        String result = mockMvc.perform(post("/api/reinstateuser")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -180,7 +180,7 @@ class UserControllerTest {
 
     @Test
     void getRole() throws Exception {
-        String userResult = mockMvc.perform(get("/isadmin")
+        String userResult = mockMvc.perform(get("/api/isadmin")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -188,7 +188,7 @@ class UserControllerTest {
                 .andReturn().getResponse().getContentAsString();
         assertEquals(userResult, regUser.getUserRole().toString());
 
-        String adminResult = mockMvc.perform(get("/isadmin")
+        String adminResult = mockMvc.perform(get("/api/isadmin")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())
@@ -199,7 +199,7 @@ class UserControllerTest {
 
     @Test
     void logout() throws Exception {
-        var resp = mockMvc.perform(post("/logout")
+        var resp = mockMvc.perform(post("/api/logout")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())

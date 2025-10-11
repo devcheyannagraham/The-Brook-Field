@@ -67,7 +67,7 @@ class ReportControllerTest {
     @Test
     void getPopularItemsAuthorized() throws Exception {
         Mockito.when(reportService.getPopularItems()).thenReturn(List.of(new PopularItemDto(), new PopularItemDto()));
-        mockMvc.perform(get("/popularitems")
+        mockMvc.perform(get("/api/popularitems")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())
@@ -78,7 +78,7 @@ class ReportControllerTest {
     @Test
     void getPopularItemsUnauthorized() throws Exception {
         Mockito.when(reportService.getPopularItems()).thenReturn(null);
-        mockMvc.perform(get("/popularitems")
+        mockMvc.perform(get("/api/popularitems")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -89,7 +89,7 @@ class ReportControllerTest {
     @Test
     void getShopPopularItems() throws Exception {
         Mockito.when(reportService.getShopPopularItems()).thenReturn(List.of(new ShopPopularItemDto(new PopularItemDto()), new ShopPopularItemDto(new PopularItemDto())));
-        mockMvc.perform(get("/shop/popularitems")
+        mockMvc.perform(get("/api/shop/popularitems")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -100,7 +100,7 @@ class ReportControllerTest {
     @Test
     void getLowInventoryItemsAuthorized() throws Exception {
         Mockito.when(reportService.getLowInventoryItems()).thenReturn(List.of(new InventoryCountDto(new Publication(), 2), new InventoryCountDto(new Accessory(), 3)));
-        mockMvc.perform(get("/lowinventory")
+        mockMvc.perform(get("/api/lowinventory")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())
@@ -111,7 +111,7 @@ class ReportControllerTest {
     @Test
     void getLowInventoryItemsUnauthorized() throws Exception {
         Mockito.when(reportService.getLowInventoryItems()).thenReturn(null);
-        mockMvc.perform(get("/lowinventory")
+        mockMvc.perform(get("/api/lowinventory")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -129,7 +129,7 @@ class ReportControllerTest {
         Mockito.when(reportService.getRecentOrders()).thenReturn(List.of(rco1, rco2));
 
         //Admin gets all users recent orders
-        mockMvc.perform(get("/recentorders")
+        mockMvc.perform(get("/api/recentorders")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())
@@ -137,7 +137,7 @@ class ReportControllerTest {
                 .andExpect(jsonPath("$", hasSize(2)));
 
         //User has no orders in mocked service so expect 0;
-        mockMvc.perform(get("/recentorders")
+        mockMvc.perform(get("/api/recentorders")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -149,7 +149,7 @@ class ReportControllerTest {
     @Test
     void searchItems() throws Exception {
         Mockito.when(reportService.searchItems(Mockito.any())).thenReturn(Set.of(new InventoryCountDto(new Accessory(), 2), new InventoryCountDto(new Accessory(), 3)));
-        mockMvc.perform(get("/search/a")
+        mockMvc.perform(get("/api/search/a")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())

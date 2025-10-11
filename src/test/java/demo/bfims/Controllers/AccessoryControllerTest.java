@@ -65,7 +65,7 @@ class AccessoryControllerTest {
     @Test
     void getAccessories() throws Exception {
         Mockito.when(accessoryService.getAccessories()).thenReturn(List.of(new AccessoryDto(), new AccessoryDto()));
-        mockMvc.perform(get("/accessories")
+        mockMvc.perform(get("/api/accessories")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -76,7 +76,7 @@ class AccessoryControllerTest {
     @Test
     void getAccessoryByIdAuthorized() throws Exception {
         Mockito.when(accessoryService.getAccessoryById(Mockito.any())).thenReturn(new AccessoryDto());
-        mockMvc.perform(get("/accessory/1")
+        mockMvc.perform(get("/api/accessory/1")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())
@@ -87,7 +87,7 @@ class AccessoryControllerTest {
     @Test
     void getAccessoryByIdUnauthorized() throws Exception {
         Mockito.when(accessoryService.getAccessoryById(Mockito.any())).thenReturn(null);
-        mockMvc.perform(get("/accessory/1")
+        mockMvc.perform(get("/api/accessory/1")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -99,7 +99,7 @@ class AccessoryControllerTest {
     @Test
     void getAvailableAccessoryItemsByAccessoryId() throws Exception {
         Mockito.when(accessoryService.getAvailableAccessoryItemsByAccessoryId(Mockito.any())).thenReturn(List.of(new AccessoryItemDto(), new AccessoryItemDto()));
-        mockMvc.perform(get("/shop/accessory/accessoryitems/1")
+        mockMvc.perform(get("/api/shop/accessory/accessoryitems/1")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -110,7 +110,7 @@ class AccessoryControllerTest {
     @Test
     void getAccessoryItemsByAccessoryIdAuthorized() throws Exception {
         Mockito.when(accessoryService.getAccessoryItemsByAccessoryId(Mockito.any())).thenReturn(List.of(new AccessoryItemDto(), new AccessoryItemDto()));
-        mockMvc.perform(get("/accessory/accessoryitems/1")
+        mockMvc.perform(get("/api/accessory/accessoryitems/1")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())
@@ -122,7 +122,7 @@ class AccessoryControllerTest {
     @Test
     void getAccessoryItemsByAccessoryIdUnauthorized() throws Exception {
         Mockito.when(accessoryService.getAccessoryItemsByAccessoryId(Mockito.any())).thenReturn(null);
-        mockMvc.perform(get("/accessory/accessoryitems/1")
+        mockMvc.perform(get("/api/accessory/accessoryitems/1")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -133,7 +133,7 @@ class AccessoryControllerTest {
     @Test
     void newAccessoryAuthorized() throws Exception {
         Mockito.when(accessoryService.newAccessory(Mockito.any(AccessoryDto.class))).thenReturn(new AccessoryDto());
-        mockMvc.perform(post("/accessory")
+        mockMvc.perform(post("/api/accessory")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new Accessory()))
                         .header("user-uuid", adminUuid.toString())
@@ -146,7 +146,7 @@ class AccessoryControllerTest {
     @Test
     void newAccessoryUnauthorized() throws Exception {
         Mockito.when(accessoryService.newAccessory(Mockito.any(AccessoryDto.class))).thenReturn(null);
-        mockMvc.perform(post("/accessory")
+        mockMvc.perform(post("/api/accessory")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new Accessory()))
                         .header("user-uuid", regUuid.toString())
@@ -159,7 +159,7 @@ class AccessoryControllerTest {
     @Test
     void deleteAccessoryItemByIdAuthorized() throws Exception {
         Mockito.when(accessoryService.deleteAccessoryItemById(Mockito.any())).thenReturn(1);
-        mockMvc.perform(delete("/accessoryitem/1")
+        mockMvc.perform(delete("/api/accessoryitem/1")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())
@@ -170,7 +170,7 @@ class AccessoryControllerTest {
     @Test
     void deleteAccessoryItemByIdUnauthorized() throws Exception {
         Mockito.when(accessoryService.deleteAccessoryItemById(Mockito.any())).thenReturn(null);
-        mockMvc.perform(delete("/accessoryitem/1")
+        mockMvc.perform(delete("/api/accessoryitem/1")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -181,7 +181,7 @@ class AccessoryControllerTest {
     @Test
     void deleteAccessoryByIdAuthorized() throws Exception {
         Mockito.when(accessoryService.deleteAccessoryById(Mockito.any())).thenReturn(1);
-        mockMvc.perform(delete("/accessory/1")
+        mockMvc.perform(delete("/api/accessory/1")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())
@@ -193,7 +193,7 @@ class AccessoryControllerTest {
     @Test
     void deleteAccessoryByIdunAuthorizedById() throws Exception {
         Mockito.when(accessoryService.deleteAccessoryById(Mockito.any())).thenReturn(null);
-        mockMvc.perform(delete("/accessory/1")
+        mockMvc.perform(delete("/api/accessory/1")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())

@@ -62,7 +62,7 @@ class PublicationControllerTest {
     @Test
     void getPublicationItemsByPublicationIdAuthorized() throws Exception {
         Mockito.when(publicationService.getPublicationItemsByPublicationId(Mockito.any())).thenReturn(List.of(new BookDto(), new JournalDto(), new LiteraryPieceDto()));
-        mockMvc.perform(get("/publicationitems/1")
+        mockMvc.perform(get("/api/publicationitems/1")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())
@@ -73,7 +73,7 @@ class PublicationControllerTest {
     @Test
     void getPublicationItemsByPublicationIdUnauthorized() throws Exception {
         Mockito.when(publicationService.getPublicationItemsByPublicationId(Mockito.any())).thenReturn(null);
-        mockMvc.perform(get("/publicationitems/1")
+        mockMvc.perform(get("/api/publicationitems/1")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -84,7 +84,7 @@ class PublicationControllerTest {
     @Test
     void getAvailablePublicationItemsByPublicationId() throws Exception {
         Mockito.when(publicationService.getAvailablePublicationItemsByPublicationId(Mockito.any())).thenReturn(List.of(new BookDto(), new JournalDto(), new LiteraryPieceDto()));
-        mockMvc.perform(get("/shop/publicationitems/1")
+        mockMvc.perform(get("/api/shop/publicationitems/1")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -95,7 +95,7 @@ class PublicationControllerTest {
     @Test
     void getPublications() throws Exception {
         Mockito.when(publicationService.getPublications()).thenReturn(List.of(new PublicationDto(), new PublicationDto()));
-        mockMvc.perform(get("/publications")
+        mockMvc.perform(get("/api/publications")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -106,7 +106,7 @@ class PublicationControllerTest {
     @Test
     void getPublicationById() throws Exception {
         Mockito.when(publicationService.getPublicationById(Mockito.any())).thenReturn(new PublicationDto());
-        mockMvc.perform(get("/publication/1")
+        mockMvc.perform(get("/api/publication/1")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -117,7 +117,7 @@ class PublicationControllerTest {
     @Test
     void getPublicationItemByIdAuthorized() throws Exception {
         Mockito.when(publicationService.getPublicationItemById(Mockito.any())).thenReturn(new PublicationItemDto());
-        mockMvc.perform(get("/publication/1")
+        mockMvc.perform(get("/api/publication/1")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())
@@ -128,7 +128,7 @@ class PublicationControllerTest {
     @Test
     void getPublicationItemByIdUnauthorized() throws Exception {
         Mockito.when(publicationService.getPublicationItemById(Mockito.any())).thenReturn(new PublicationItemDto());
-        mockMvc.perform(get("/publication/1")
+        mockMvc.perform(get("/api/publication/1")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -139,7 +139,7 @@ class PublicationControllerTest {
     @Test
     void newPublicationItemAuthorized() throws Exception {
         Mockito.when(publicationService.newPublicationItem(Mockito.any(PublicationItemDto.class))).thenReturn(new BookDto());
-        mockMvc.perform(post("/publicationitem")
+        mockMvc.perform(post("/api/publicationitem")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new BookDto()))
                         .header("user-uuid", adminUuid.toString())
@@ -152,7 +152,7 @@ class PublicationControllerTest {
     @Test
     void newPublicationItemUnauthorized() throws Exception {
         Mockito.when(publicationService.newPublicationItem(Mockito.any(PublicationItemDto.class))).thenReturn(null);
-        mockMvc.perform(post("/publicationitem")
+        mockMvc.perform(post("/api/publicationitem")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new BookDto()))
                         .header("user-uuid", regUuid.toString())
@@ -165,7 +165,7 @@ class PublicationControllerTest {
     @Test
     void newPublicationAuthorized() throws Exception {
         Mockito.when(publicationService.newPublication(Mockito.any(PublicationDto.class))).thenReturn(new PublicationDto());
-        mockMvc.perform(post("/publication")
+        mockMvc.perform(post("/api/publication")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new PublicationDto()))
                         .header("user-uuid", adminUuid.toString())
@@ -178,7 +178,7 @@ class PublicationControllerTest {
     @Test
     void newPublicationUnauthorized() throws Exception {
         Mockito.when(publicationService.newPublication(Mockito.any(PublicationDto.class))).thenReturn(null);
-        mockMvc.perform(post("/publication")
+        mockMvc.perform(post("/api/publication")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new PublicationDto()))
                         .header("user-uuid", regUuid.toString())
@@ -191,7 +191,7 @@ class PublicationControllerTest {
     @Test
     void deletePublicationItemAuthorized() throws Exception {
         Mockito.when(publicationService.deletePublicationItem(Mockito.any())).thenReturn(true);
-        mockMvc.perform(delete("/publicationitem/1")
+        mockMvc.perform(delete("/api/publicationitem/1")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())
@@ -202,7 +202,7 @@ class PublicationControllerTest {
     @Test
     void deletePublicationItemUnAuthorized() throws Exception {
         Mockito.when(publicationService.deletePublicationItem(Mockito.any())).thenReturn(false);
-        mockMvc.perform(delete("/publicationitem/1")
+        mockMvc.perform(delete("/api/publicationitem/1")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
@@ -213,7 +213,7 @@ class PublicationControllerTest {
     @Test
     void deletePublicationByIdAuthenticated() throws Exception{
         Mockito.when(publicationService.deletePublicationById(Mockito.any())).thenReturn(true);
-        mockMvc.perform(delete("/publication/1")
+        mockMvc.perform(delete("/api/publication/1")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())
@@ -224,7 +224,7 @@ class PublicationControllerTest {
     @Test
     void deletePublicationByIdUnauthenticated() throws Exception{
         Mockito.when(publicationService.deletePublicationById(Mockito.any())).thenReturn(false);
-        mockMvc.perform(delete("/publication/1")
+        mockMvc.perform(delete("/api/publication/1")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
