@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import {RedirectCommand, Router, Routes, UrlSerializer, UrlTree} from '@angular/router';
 import { PublicationFormComponent } from './Forms/publication-form/publication-form.component';
 import { AccessoryFormComponent } from './Forms/accessory-form/accessory-form.component';
 import { PublicationItemsComponent } from './Components/Products/publication-items/publication-items.component';
@@ -20,6 +20,8 @@ import { AdminDashboardComponent } from './Components/Auth/admin-dashboard/admin
 import { authenticatedUserGuard } from './authenticated-user.guard';
 import { adminGuard } from './admin.guard';
 import { UserManagementComponent } from './Components/Auth/user-management/user-management.component';
+import {inject} from '@angular/core';
+
 
 export const routes: Routes = [
   {
@@ -148,7 +150,14 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: "/",
+    redirectTo: () => {
+      const urlSerializer = inject(UrlSerializer);
+      const urlTree = urlSerializer.parse('/');
+      urlTree.queryParams = {
+        redirected: "true",
+      };
+      return urlTree;
+    },
     pathMatch: 'full'
   },
 ];
