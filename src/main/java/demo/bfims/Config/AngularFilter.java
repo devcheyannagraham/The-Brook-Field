@@ -17,13 +17,12 @@ public class AngularFilter implements Filter {
         String requestPath = request.getServletPath();
         System.out.println("REQUEST PATH " + req);
 
-        //potential for tests
+        //tests have blank servlett path
         if (!requestPath.isBlank() && !requestPath.contains("api") && !requestPath.contains(".")) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/index.html");
             dispatcher.forward(req, res);
             return;
         }
-
         chain.doFilter(req, res);
     }
 }

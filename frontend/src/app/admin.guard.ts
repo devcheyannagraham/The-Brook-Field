@@ -11,7 +11,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
 
 
   return authService.getUser()
-  // @ts-ignore
+    // @ts-ignore
     .then(() => {
       if (authService.user()) {
         return authService.getUserRole()
@@ -19,14 +19,12 @@ export const adminGuard: CanActivateFn = (route, state) => {
             if (isAdmin) return true;
             else {
               toaster.message.set({class: "error", message: "Unauthorized"});
-              return false;
+              return new RedirectCommand(router.parseUrl("/"));
             }
           });
       } else {
         toaster.message.set({class: "error", message: "Not Signed In"});
-        return false;
-        // return new RedirectCommand(router.parseUrl(""),
-        //   {skipLocationChange: true});
+        return new RedirectCommand(router.parseUrl("/"));
       }
     });
 }

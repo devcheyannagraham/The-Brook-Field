@@ -144,9 +144,11 @@ export const routes: Routes = [
   {
     path: '',
     component: LandingPageComponent,
+    pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: "",
+    redirectTo: "/",
+    pathMatch: 'full'
   },
 ];
