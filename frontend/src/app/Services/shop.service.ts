@@ -10,7 +10,7 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root'
 })
 export class ShopService {
-  baseUrl: string = "https://localhost:8080/";
+  baseUrl: string = "/api/";
   shoppingCart = signal(new Map<number, Transaction>());
   cartTotal = signal(0);
 

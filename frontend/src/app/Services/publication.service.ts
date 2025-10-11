@@ -10,7 +10,7 @@ import { ToasterService } from './toaster.service';
   providedIn: 'root',
 })
 export class PublicationService {
-  baseUrl: string = 'https://localhost:8080/';
+  baseUrl: string = '/api/';
 
 
   constructor(private http: HttpClient, private authService: AuthService, public toaster: ToasterService) {

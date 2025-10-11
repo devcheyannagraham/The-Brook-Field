@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "https://localhost:4200", allowCredentials = "true")
+@RequestMapping("/api")
 public class PublicationController {
     PublicationService publicationService;
     UserService userService;

@@ -11,7 +11,7 @@ import { ToasterService } from './toaster.service';
   providedIn: 'root'
 })
 export class ReportsService {
-  baseUrl: string = 'https://localhost:8080/';
+  baseUrl: string = '/api/';
   searchResults = signal<InventoryCountDto[] | null>(null);
 
   constructor(private http: HttpClient, private authSerivce: AuthService, public toaster: ToasterService) {

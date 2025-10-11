@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@CrossOrigin(origins = "https://localhost:4200", allowCredentials = "true")
+@RequestMapping("/api")
 public class ReportController {
 
     private final ReportService reportService;

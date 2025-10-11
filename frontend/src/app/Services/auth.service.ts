@@ -14,7 +14,7 @@ import { Customer } from '../DTOs/Order/Customer';
 })
 export class AuthService {
   destroyRef = inject(DestroyRef);
-  baseUrl: string = 'https://localhost:8080/';
+  baseUrl: string = '/api/';
   user = signal<UserDto>(null);
   storageAvailable = false;
   static SESSION_STORAGE: string = "sessionStorage";
