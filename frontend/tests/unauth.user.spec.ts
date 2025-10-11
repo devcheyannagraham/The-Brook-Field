@@ -2,8 +2,8 @@ import { test, expect } from '@playwright/test';
 
 const username = `user_${Date.now()}@example.com`;
 
+const port = "8080";
 
-const port = "8080"
 test("unauth user cannot access authorized routes", async ({ page }) => {
   await page.goto(`https://localhost:${port}/`);
   await page.getByRole('link', { name: 'Register' }).click();

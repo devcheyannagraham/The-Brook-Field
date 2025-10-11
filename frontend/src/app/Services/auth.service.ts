@@ -73,8 +73,10 @@ export class AuthService {
         if (role == UserRole.ADMIN) {
           this.isAdmin.set(true);
           return true;
-        } else this.isAdmin.set(false);
-        return false;
+        } else {
+          this.isAdmin.set(false);
+          return false;
+        }
       })
       .catch(error => this.toaster.message.set({class: "error", message: error.error}));
 

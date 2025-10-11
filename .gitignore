@@ -39,3 +39,4 @@ build/
 package-lock.json
 *.db
 /playwright-report/
+/test-results/
