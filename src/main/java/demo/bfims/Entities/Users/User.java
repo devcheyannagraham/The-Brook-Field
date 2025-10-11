@@ -12,6 +12,7 @@ import java.security.spec.KeySpec;
 
 
 @Entity
+@Table(name="users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -27,7 +27,12 @@ test("admin creates, reads, updates, deletes accesssories and accessory items", 
   await page.getByRole('button', { name: 'Add Accessory' }).click();
   await expect(page.getByText('Accessory Name: PlayWright')).toBeVisible();
   await page.getByRole('row', { name: 'AVAILABLE delete' }).first().getByRole('button').click();
+
+  await expect(page.getByRole('list')).toContainText('Quantity: 1');
+  
+  
   await page.getByRole('row', { name: 'AVAILABLE delete' }).first().getByRole('button').click();
+  await expect(page.getByRole('list')).toContainText('Quantity: 0');
   await page.getByRole('button', { name: 'Delete Accessory' }).first().click();
   await page.getByRole('button', { name: 'Logout' }).click();
 });
