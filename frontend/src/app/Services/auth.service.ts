@@ -1,12 +1,12 @@
-import { DestroyRef, Injectable, signal, inject, computed } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { UserDto } from '../DTOs/User/UserDto';
-import { UserRole } from '../Enums/UserRole';
-import { Router } from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { firstValueFrom } from 'rxjs';
-import { ToasterService } from './toaster.service';
-import { Customer } from '../DTOs/Order/Customer';
+import {DestroyRef, Injectable, signal, inject, computed} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {UserDto} from '../DTOs/User/UserDto';
+import {UserRole} from '../Enums/UserRole';
+import {Router} from '@angular/router';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {firstValueFrom} from 'rxjs';
+import {ToasterService} from './toaster.service';
+import {Customer} from '../DTOs/Order/Customer';
 
 
 @Injectable({
@@ -30,77 +30,86 @@ export class AuthService {
   }
 
   register(user: UserDto) {
-    this.http.post(`${this.baseUrl}newuser`, user, { responseType: 'text', withCredentials: true })
+    this.http.post(`${this.baseUrl}newuser`, user, {responseType: 'text', withCredentials: true})
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: uuid => {
           this.setUser(uuid, user);
           this.navigateUser();
         },
-        error: error => this.toaster.message.set({ class: "error", message: error.error })
+        error: error => this.toaster.message.set({class: "error", message: error.error})
       });
   }
 
 
   login(user: UserDto) {
-    this.http.post(`${this.baseUrl}authenticateuser`, user, { responseType: 'text', withCredentials: true })
+    this.http.post(`${this.baseUrl}authenticateuser`, user, {responseType: 'text', withCredentials: true})
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: uuid => {
           this.setUser(uuid, user);
           this.navigateUser();
         },
-        error: error => this.toaster.message.set({ class: "error", message: error.error })
+        error: error => this.toaster.message.set({class: "error", message: error.error})
       });
   }
 
   async reinstateUser(userUid: string) {
     if (this.user() != null) return;
-    return firstValueFrom(this.http.post(`${this.baseUrl}reinstateuser`, userUid, { responseType: 'text', withCredentials: true }))
+    return firstValueFrom(this.http.post(`${this.baseUrl}reinstateuser`, null, {
+      headers: {"user-uuid": userUid.toString()},
+      responseType: 'text',
+      withCredentials: true
+    }))
       .then(email => email)
-      .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
+      .catch(error => this.toaster.message.set({class: "error", message: error.error}));
   }
 
 
   getUserRole() {
     if (this.user() == null) return null;
-    return firstValueFrom(this.http.get(`${this.baseUrl}isadmin`,  { responseType: 'text', withCredentials: true }))
+    return firstValueFrom(this.http.get(`${this.baseUrl}isadmin`, {responseType: 'text', withCredentials: true}))
       .then(role => {
         if (role == UserRole.ADMIN) {
           this.isAdmin.set(true);
           return true;
-        }
-        else this.isAdmin.set(false);
+        } else this.isAdmin.set(false);
         return false;
       })
-      .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
+      .catch(error => this.toaster.message.set({class: "error", message: error.error}));
 
   }
 
   newAdminUser(user: UserDto) {
     if (user == null || this.user() == null) return null;
-    return firstValueFrom(this.http.post(`${this.baseUrl}newadminuser`, user, { responseType: "text", withCredentials: true }))
+    return firstValueFrom(this.http.post(`${this.baseUrl}newadminuser`, user, {
+      responseType: "text",
+      withCredentials: true
+    }))
       .then(result => {
-        if (result) this.toaster.message.set({ class: "success", message: result });
+        if (result) this.toaster.message.set({class: "success", message: result});
       })
-      .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
+      .catch(error => this.toaster.message.set({class: "error", message: error.error}));
   }
 
 
   getAdminUsers() {
     if (this.user() == null) return null;
-    return firstValueFrom(this.http.get(`${this.baseUrl}adminusers`, { withCredentials: true }))
+    return firstValueFrom(this.http.get(`${this.baseUrl}adminusers`, {withCredentials: true}))
       .then(users => users)
-      .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
+      .catch(error => this.toaster.message.set({class: "error", message: error.error}));
   }
 
   deleteUser(userId: string) {
     if (userId == null || this.user() == null) return null;
-    return firstValueFrom(this.http.delete(`${this.baseUrl}deleteuser/${userId}`, { responseType: "text", withCredentials: true }))
+    return firstValueFrom(this.http.delete(`${this.baseUrl}deleteuser/${userId}`, {
+      responseType: "text",
+      withCredentials: true
+    }))
       .then(result => {
-        if (result) this.toaster.message.set({ class: "success", message: result });
+        if (result) this.toaster.message.set({class: "success", message: result});
       })
-      .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
+      .catch(error => this.toaster.message.set({class: "error", message: error.error}));
   }
 
 
@@ -129,9 +138,9 @@ export class AuthService {
       storage.removeItem(AuthService.USER_UUID);
     }
 
-    this.http.post(`${this.baseUrl}logout`, null, { responseType: 'text', withCredentials: true })
+    this.http.post(`${this.baseUrl}logout`, null, {responseType: 'text', withCredentials: true})
       .subscribe(result => {
-        this.toaster.message.set({ class: "info", message: result });
+        this.toaster.message.set({class: "info", message: result});
         this.router.navigateByUrl("/login");
       });
   }
@@ -144,7 +153,8 @@ export class AuthService {
       storage.setItem(key, "success");
       storage.removeItem(key);
       this.storageAvailable = true;
-    } catch (e) { }
+    } catch (e) {
+    }
 
   }
 
@@ -165,9 +175,12 @@ export class AuthService {
   getCustomerInfo() {
     if (this.user() == null) return null;
 
-    return firstValueFrom(this.http.post(`${this.baseUrl}getcustomer`, this.user().userId, { responseType: "text", withCredentials: true }))
+    return firstValueFrom(this.http.post(`${this.baseUrl}getcustomer`, this.user().userId, {
+      responseType: "text",
+      withCredentials: true
+    }))
       .then(customer => customer)
-      .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
+      .catch(error => this.toaster.message.set({class: "error", message: error.error}));
 
   }
 

@@ -132,7 +132,6 @@ export class PublicationItemFormComponent {
           newPublicationItem.svgIcon = this.publicationItem.svgIcon;
         }
         newPublicationItem.publication = this.publication;
-        console.log("newItem", newPublicationItem);
         this.createPublicationItem(newPublicationItem);
       } else {
         this.toasterService.message.set({ class: "error", "message": "Please complete form before submitting." });
@@ -150,7 +149,6 @@ export class PublicationItemFormComponent {
         if (resp)
           // @ts-ignore 7053
           this.router.navigateByUrl(`/publication/${resp[0]["publication"]["publicationId"]}`)
-        console.log("resp", resp)
       })
   }
 
