@@ -1,11 +1,10 @@
 import { test, expect } from '@playwright/test';
+import {url} from './port';
 
 const username = `user_${Date.now()}@example.com`;
 
-const port = "8080";
-
 test("unauth user cannot access authorized routes", async ({ page }) => {
-  await page.goto(`https://localhost:${port}/`);
+  await page.goto(url);
   await page.getByRole('link', { name: 'Register' }).click();
   await page.locator('input[type="email"]').click();
   await page.locator('input[type="email"]').fill(username);
@@ -15,17 +14,17 @@ test("unauth user cannot access authorized routes", async ({ page }) => {
   await page.locator('form div').filter({ hasText: 'Confirm Password' }).getByRole('textbox').fill('user');
   await page.getByRole('main').getByRole('button', { name: 'Register' }).click();
   await expect(page.getByText(`Welcome, ${username.toUpperCase()}`)).toBeVisible();
-  await page.goto(`https://localhost:${port}/publications`);
+  await page.goto(`${url}/publications`);
   await expect(page.getByText('Unauthorized')).toBeVisible();
-  await page.goto(`https://localhost:${port}/publicationform`);
+  await page.goto(`${url}/publicationform`);
   await expect(page.getByText('Unauthorized')).toBeVisible();
-  await page.goto(`https://localhost:${port}/admindashboard`);
+  await page.goto(`${url}/accessories`);
   await expect(page.getByText('Unauthorized')).toBeVisible();
-  await page.goto(`https://localhost:${port}/accessories`);
+  await page.goto(`${url}/accessoryform`);
   await expect(page.getByText('Unauthorized')).toBeVisible();
-  await page.goto(`https://localhost:${port}/accessoryform`);
+  await page.goto(`${url}/admindashboard`);
   await expect(page.getByText('Unauthorized')).toBeVisible();
-  await page.goto(`https://localhost:${port}/`);
+  await page.goto(`${url}/login`);
   await page.getByRole('link', { name: 'Login' }).click();
   await page.locator('input[type="email"]').click();
   await page.locator('input[type="email"]').fill(username);
@@ -33,7 +32,7 @@ test("unauth user cannot access authorized routes", async ({ page }) => {
   await page.locator('input[type="password"]').fill('user');
   await page.getByRole('main').getByRole('button', { name: 'Login' }).click();
   await expect(page.getByText(`Welcome, ${username.toUpperCase()}`)).toBeVisible();
-  await page.goto(`https://localhost:${port}/report/lowinventory`);
+  await page.goto(`${url}/report/lowinventory`);
   await expect(page.locator('#toaster')).toBeVisible();
   await page.getByText('Unauthorized').click();
 });

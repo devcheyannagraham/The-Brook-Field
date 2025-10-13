@@ -1,9 +1,10 @@
 import { test, expect } from '@playwright/test';
+import {url} from './port';
 
 const username = `user_${Date.now()}@example.com`;
 
 test('unique user can register', async ({ page }) => {
-  await page.goto('https://localhost:8080/');
+  await page.goto(url);
   await page.getByText('backShopLogin Register').click();
   await page.getByRole('link', { name: 'Register' }).click();
   await page.locator('input[type="email"]').click();

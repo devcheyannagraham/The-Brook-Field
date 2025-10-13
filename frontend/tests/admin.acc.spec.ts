@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
+import {url} from './port';
 
 test("admin creates, reads, updates, deletes accesssories and accessory items", async ({ page }) => {
-  await page.goto('https://localhost:8080/');
+  await page.goto(url);
   await page.getByRole('button', { name: 'Login' }).click();
   await page.locator('input[type="email"]').click();
   await page.locator('input[type="email"]').fill('bfadmin');
@@ -29,8 +30,8 @@ test("admin creates, reads, updates, deletes accesssories and accessory items", 
   await page.getByRole('row', { name: 'AVAILABLE delete' }).first().getByRole('button').click();
 
   await expect(page.getByRole('list')).toContainText('Quantity: 1');
-  
-  
+
+
   await page.getByRole('row', { name: 'AVAILABLE delete' }).first().getByRole('button').click();
   await expect(page.getByRole('list')).toContainText('Quantity: 0');
   await page.getByRole('button', { name: 'Delete Accessory' }).first().click();

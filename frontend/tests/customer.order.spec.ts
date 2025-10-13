@@ -1,15 +1,28 @@
 import { test, expect } from '@playwright/test';
+import {url} from './port';
 
 // limited by inventory, if fails, reset db and try again
 
 test("customer completes order", async ({ page }) => {
-  await page.goto('https://localhost:8080/');
+  await page.goto(url);
   await page.getByRole('button', { name: 'Shop' }).click();
-  await page.getByRole('link', { name: 'Laugh Lines: A Satirical' }).click();
-  await page.getByRole('row').getByRole('button').first().click();
+  await page.locator(".shop-section").nth(0).locator(".shop-item").first().locator('a').click();
+  await page.locator("table").first().locator("tbody").locator("tr").first().locator("button").getByText("Purchase").click();
   await page.getByRole('button', { name: 'Shop' }).click();
-  await page.getByRole('link', { name: 'Insulated Mug' }).click();
+
+
+  await page.locator(".shop-section").nth(1).locator(".shop-item").first().locator('a').click();
   await page.getByRole('button', { name: 'Purchase' }).click();
+    await page.getByRole('button', { name: 'Shop' }).click();
+
+  await page.locator(".shop-section").nth(2).locator(".shop-item").first().locator('a').click();
+  await page.getByRole('button', { name: 'Purchase' }).click();
+    await page.getByRole('button', { name: 'Shop' }).click();
+
+  await page.locator(".shop-section").nth(3).locator(".shop-item").first().locator('a').click();
+  await page.getByRole('button', { name: 'Purchase' }).click();
+
+
   await page.getByRole('link', { name: 'Checkout' }).click();
   await page.getByRole('textbox', { name: 'First Name*' }).click();
   await page.getByRole('textbox', { name: 'First Name*' }).fill('Playwright');
