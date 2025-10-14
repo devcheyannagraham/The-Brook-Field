@@ -15,7 +15,6 @@ public class AngularFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         String requestPath = request.getServletPath();
-        System.out.println("REQUEST PATH " + req);
 
         //tests have blank servlett path
         if (!requestPath.isBlank() && !requestPath.contains("api") && !requestPath.contains(".")) {

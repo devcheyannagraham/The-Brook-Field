@@ -29,41 +29,28 @@ public class OrderService {
 
     @Transactional
     public OrderDto newOrder(OrderDto orderDto) {
-        if(orderDto == null) return null;
-        if(orderDto.getCustomer() == null) return null;
+        if (orderDto == null) return null;
+        if (orderDto.getCustomer() == null) return null;
 
         Order order = new Order(orderDto);
-        Customer managedCustomer;
 
-        Customer customer = order.getCustomer();
-        if (customer == null) return null;
+        //find customer or create new one
+        if (orderDto.getCustomer().getId() == null) {
+            // find by username
+            User foundUser = userRepo.findByEmail(orderDto.getCustomer().getEmail()).orElse(null);
+            if (foundUser != null) {
+                Customer userCustomer = customerRepo.save(order.getCustomer());
+                foundUser.setCustomer(userCustomer);
+                userRepo.save(foundUser);
+                order.setCustomer(userCustomer);
+            } else {
+                //Brand new customer & not a user
+                Customer newCustomer = new Customer(orderDto.getCustomer());
+                order.setCustomer(customerRepo.save(newCustomer));
+            }
 
-        // Get customer by Id
-        if (customer.getId() != null) {
-            managedCustomer = entityManager.merge(customer);
-        } else if (customer.getEmail().isBlank()) return null;
-        // Get custome by Email
-        Customer foundCustomer = customerRepo.getCustomerByEmail(customer.getEmail()).orElse(null);
-        if (foundCustomer != null) {
-            managedCustomer = entityManager.merge(foundCustomer);
-        } else {
-            // Get customer by user email
-            User user = this.userRepo.findByEmail(customer.getEmail()).orElse(null);
-            if (user != null) {
-                Customer userCustomer = new Customer(user);
-                entityManager.persist(userCustomer);
-                managedCustomer = entityManager.merge(userCustomer);
-            }
-            // brand new customer
-            else {
-                entityManager.persist(customer);
-                managedCustomer = entityManager.merge(customer);
-            }
+
         }
-        // customer couldnt be found or created so return
-        if (managedCustomer == null) return null;
-
-        order.setCustomer(managedCustomer);
 
         // persist item status
         List<Item> items = order.getTransactions().stream().map(Transaction::getItem).toList();
