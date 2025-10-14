@@ -14,6 +14,9 @@ export class AppComponent {
   window = window;
   constructor(public authService: AuthService) {
   }
+  ngOnInit() {
+    this.authService.getUser();
+  }
 
   logout(){
     this.authService.logout();
