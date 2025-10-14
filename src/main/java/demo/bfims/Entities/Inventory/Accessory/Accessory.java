@@ -23,8 +23,8 @@ public class Accessory {
         return accessoryId;
     }
 
-    public Accessory(String accessoryName,AccessoryType accessoryType, double price) {
-        this.accessoryType = accessoryType;
+    public Accessory(String accessoryName, AccessoryType accessoryType, double price) {
+        this.setAccessoryType(accessoryType);
         this.accessoryName = accessoryName;
         this.price = price;
     }
@@ -33,16 +33,11 @@ public class Accessory {
     }
 
     public Accessory(AccessoryDto accessoryDto) {
-        this.accessoryType = accessoryDto.getAccessoryType();
+        this.svgIcon = accessoryDto.getSvgIcon();
         this.accessoryName = accessoryDto.getAccessoryName();
         this.price = accessoryDto.getPrice();
         this.accessoryId = accessoryDto.getAccessoryId();
-        this.svgIcon = accessoryDto.getSvgIcon();
-    }
-
-    @PrePersist
-    private void prePersist() {
-        this.svgIcon = SVGIconFactory.CreateAccessoryItemIcon(this.accessoryType);
+        this.setAccessoryType(accessoryDto.getAccessoryType());
     }
 
     public void setAccessoryId(Long accessoryId) {
@@ -54,7 +49,10 @@ public class Accessory {
     }
 
     public void setAccessoryType(AccessoryType accessoryType) {
-        this.accessoryType = accessoryType;
+        if (this.accessoryType == null || !(this.accessoryType.equals(accessoryType))) {
+            this.svgIcon = SVGIconFactory.CreateAccessoryItemIcon(accessoryType);
+            this.accessoryType = accessoryType;
+        }
     }
 
     public String getAccessoryName() {
