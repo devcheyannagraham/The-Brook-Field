@@ -40,28 +40,29 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
     @Embedded
     private SVGIcon svgIcon;
 
+
     public PublicationItem(String edition, PublicationItemFormat format, Double purchasePrice, Double rentalRate, PublicationItemStatus publicationItemStatus, Publication publication) {
+        this.setItemType(ItemType.PUBLICATION_ITEM);
         this.format = format;
         this.publicationItemStatus = publicationItemStatus;
         this.publication = publication;
         this.purchasePrice = purchasePrice;
         this.rentalRate = rentalRate;
         this.edition = edition;
-        this.setItemType(ItemType.PUBLICATION_ITEM);
     }
 
     //    Construct PubItem from PubItemDto
     public PublicationItem(ItemDto itemDto) {
         super(itemDto);
         if (itemDto instanceof PublicationItemDto publicationItemDto) {
+            this.svgIcon = publicationItemDto.getSvgIcon();
             this.format = publicationItemDto.getFormat();
             this.publicationItemStatus = publicationItemDto.getPublicationItemStatus();
             this.purchasePrice = publicationItemDto.getPurchasePrice();
             this.rentalRate = publicationItemDto.getRentalRate();
             this.edition = publicationItemDto.getEdition();
-            this.publicationItemType = publicationItemDto.getPublicationItemType();
             this.publication = new Publication(publicationItemDto.getPublication());
-            this.svgIcon = publicationItemDto.getSvgIcon();
+            this.setPublicationItemType(publicationItemDto.getPublicationItemType());
         }
     }
 
@@ -72,14 +73,6 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
         if (type.equals(PublicationItemType.JOURNAL)) return new Journal(publicationItemDto);
         if (type.equals(PublicationItemType.LITERARY_PIECE)) return new LiteraryPiece(publicationItemDto);
         return null;
-    }
-
-    @PrePersist
-    public void prePersist() {
-        if (this.publicationItemType.equals(PublicationItemType.LITERARY_PIECE)) {
-            this.svgIcon = SVGIconFactory.CreateLiteraryPieceIcon(((LiteraryPiece) this).getLiteraryType());
-        } else
-            this.svgIcon = SVGIconFactory.CreatePublicationItemIcon(this.publicationItemType);
     }
 
     public PublicationItem() {
@@ -139,6 +132,12 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
     }
 
     public void setPublicationItemType(PublicationItemType publicationItemType) {
+        // update svg icon when type is added or changed
+        if (this.publicationItemType == null || !(this.publicationItemType.equals(publicationItemType))) {
+            if (!publicationItemType.equals(PublicationItemType.LITERARY_PIECE)) {
+                this.svgIcon = SVGIconFactory.CreatePublicationItemIcon(publicationItemType);
+            }
+        }
         this.publicationItemType = publicationItemType;
     }
 

@@ -51,8 +51,8 @@ public class Accessory {
     public void setAccessoryType(AccessoryType accessoryType) {
         if (this.accessoryType == null || !(this.accessoryType.equals(accessoryType))) {
             this.svgIcon = SVGIconFactory.CreateAccessoryItemIcon(accessoryType);
-            this.accessoryType = accessoryType;
         }
+        this.accessoryType = accessoryType;
     }
 
     public String getAccessoryName() {

@@ -1,5 +1,7 @@
 package demo.bfims.Entities.Inventory.Publication;
 
+import demo.bfims.Config.SVGIcon;
+import demo.bfims.Config.SVGIconFactory;
 import demo.bfims.DTOs.InventoryDTOs.Publication.LiteraryPieceDto;
 import demo.bfims.DTOs.InventoryDTOs.Publication.PublicationItemDto;
 import demo.bfims.Enums.LiteraryType;
@@ -20,13 +22,13 @@ public class LiteraryPiece extends PublicationItem {
     public LiteraryPiece(String edition, PublicationItemFormat format, Double purchasePrice, Double rentalRate, PublicationItemStatus status, Publication publication, LiteraryType literaryType) {
         super(edition, format, purchasePrice, rentalRate, status, publication);
         this.setPublicationItemType(PublicationItemType.LITERARY_PIECE);
-        this.literaryType = literaryType;
+        this.setLiteraryType(literaryType);
     }
 
     public LiteraryPiece(PublicationItemDto publicationItemDto) {
         super(publicationItemDto);
         if (publicationItemDto instanceof LiteraryPieceDto literaryPieceDto) {
-            this.literaryType = literaryPieceDto.getLiteraryType();
+            this.setLiteraryType(literaryPieceDto.getLiteraryType());
         }
     }
 
@@ -35,6 +37,10 @@ public class LiteraryPiece extends PublicationItem {
     }
 
     public void setLiteraryType(LiteraryType type) {
+//        no literary type set or its modified
+        if (this.literaryType == null || !(this.literaryType.equals(type))) {
+            this.setSvgIcon(SVGIconFactory.CreateLiteraryPieceIcon(type));
+        }
         this.literaryType = type;
     }
 
