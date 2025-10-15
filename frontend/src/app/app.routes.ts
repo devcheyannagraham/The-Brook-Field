@@ -98,7 +98,8 @@ export const routes: Routes = [
   },
   {
     path: 'report/popularitems',
-    component: PopularItemsComponent
+    component: PopularItemsComponent,
+    canActivate: [adminGuard]
   },
   {
     path: 'report/lowinventory',

@@ -5,9 +5,9 @@ test("admin creates, reads, updates, deletes accesssories and accessory items", 
   await page.goto(url);
   await page.getByRole('button', { name: 'Login' }).click();
   await page.locator('input[type="email"]').click();
-  await page.locator('input[type="email"]').fill('bfadmin');
+  await page.locator('input[type="email"]').fill('bfadmin@mail.com');
   await page.locator('input[type="email"]').press('Tab');
-  await page.locator('input[type="password"]').fill('bfadmin');
+  await page.locator('input[type="password"]').fill('bfadministrator');
   await page.getByRole('main').getByRole('button', { name: 'Login' }).click();
   await page.getByRole('link', { name: 'Admin Dashboard' }).click();
   await page.getByRole('cell', { name: 'Classic Bookmark' }).click();
