@@ -14,7 +14,7 @@ export class Customer {
     this.firstName = formData["firstName"];
     this.lastName = formData["lastName"];
     this.email = formData["email"];
-    this.phoneNumber = formData["firstName"];
+    this.phoneNumber = formData["phoneNumber"];
     this.city = formData["city"];
     this.state = formData["state"];
     this.zipCode = formData["zipCode"];
