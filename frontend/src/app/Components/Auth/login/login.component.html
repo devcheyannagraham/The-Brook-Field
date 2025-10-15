@@ -6,24 +6,43 @@
             <label for="email"> Email</label>
             <input type="email" required [formControl]="email">
 
-            @if(emailError){
-            <p class="error">Invalid Email</p>
-            }
+          @if(email.touched && email.hasError("required")){
+            <div class="error">Email is required.</div>
+          }
+          @if(email.touched && email.hasError("minlength")){
+            <div class="error">Min 8 chars</div>
+          }
+          @if(email.touched && email.hasError("maxlength")){
+            <div class="error">Max 100 chars.</div>
+          }
         </div>
         <div class="label-group">
             <label for="pwd"> Password</label>
             <input type="password" required [formControl]="pwd">
-            @if(pwdError){
-            <p class="error">Invalid password</p>
-            }
+
+          @if(pwd.touched && pwd.hasError("required")){
+            <div class="error">Password is required.</div>
+          }
+          @if(pwd.touched && pwd.hasError("minlength")){
+            <div class="error">Min 8 chars</div>
+          }
+          @if(pwd.touched && pwd.hasError("maxlength")){
+            <div class="error">Max 100 chars.</div>
+          }
         </div>
         @if(actionType == "REGISTER"){
         <div class="label-group">
             <label for="pwdConf"> Confirm Password</label>
             <input type="password" required [formControl]="pwdConf">
-            @if(pwdConfError){
-            <p class="error">Passwords don't match!</p>
-            }
+          @if(pwdConf.touched && pwdConf.hasError("required")){
+            <div class="error">Please confirm your password</div>
+          }
+          @if(pwdConf.touched && pwdConf.hasError("minlength")){
+            <div class="error">Min 8 chars</div>
+          }
+          @if(pwdConf.touched && pwdConf.hasError("maxlength")){
+            <div class="error">Max 100 chars.</div>
+          }
         </div>
 
         }

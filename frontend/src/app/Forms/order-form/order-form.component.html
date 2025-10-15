@@ -46,13 +46,13 @@
     <label for="firstName">First Name<span class="required">*</span></label>
     <input type="text" id="firstName" name="firstName" formControlName="firstName">
 
-    @if(orderForm.get("firstName").touched && orderForm.get("firstName")?.hasError("required")){
+    @if(orderForm.get("firstName").touched && orderForm.get("firstName").hasError("required")){
     <div class="error">First Name is required.</div>
     }
-    @if(orderForm.get("firstName").touched && orderForm.get("firstName")?.hasError("minlength")){
+    @if(orderForm.get("firstName").touched && orderForm.get("firstName").hasError("minlength")){
     <div class="error">Min 3 chars</div>
     }
-    @if(orderForm.get("firstName").touched && orderForm.get("firstName")?.hasError("maxlength")){
+    @if(orderForm.get("firstName").touched && orderForm.get("firstName").hasError("maxlength")){
     <div class="error">Max 100 chars.</div>
     }
   </div>
@@ -61,13 +61,13 @@
     <label for="lastName">Last Name<span class="required">*</span></label>
     <input type="text" id="lastName" name="lastName" formControlName="lastName">
 
-    @if(orderForm.get("lastName").touched && orderForm.get("lastName")?.hasError("required")){
+    @if(orderForm.get("lastName").touched && orderForm.get("lastName").hasError("required")){
     <div class="error">Last Name is required.</div>
     }
-    @if(orderForm.get("lastName").touched && orderForm.get("lastName")?.hasError("minlength")){
+    @if(orderForm.get("lastName").touched && orderForm.get("lastName").hasError("minlength")){
     <div class="error">Min 3 chars</div>
     }
-    @if(orderForm.get("lastName").touched && orderForm.get("lastName")?.hasError("maxlength")){
+    @if(orderForm.get("lastName").touched && orderForm.get("lastName").hasError("maxlength")){
     <div class="error">Max 100 chars.</div>
     }
   </div>
@@ -76,13 +76,13 @@
     <label for="address">Street address<span class="required">*</span></label>
     <input type="text" id="address" name="address" formControlName="address">
 
-    @if(orderForm.get("address").touched && orderForm.get("address")?.hasError("required")){
+    @if(orderForm.get("address").touched && orderForm.get("address").hasError("required")){
     <div class="error">Address is required.</div>
     }
-    @if(orderForm.get("address").touched && orderForm.get("address")?.hasError("minlength")){
+    @if(orderForm.get("address").touched && orderForm.get("address").hasError("minlength")){
     <div class="error">Min 5 chars</div>
     }
-    @if(orderForm.get("address").touched && orderForm.get("address")?.hasError("maxlength")){
+    @if(orderForm.get("address").touched && orderForm.get("address").hasError("maxlength")){
     <div class="error">Max 100 chars.</div>
     }
   </div>
@@ -91,13 +91,13 @@
     <label for="city">City<span class="required">*</span></label>
     <input type="text" id="city" name="city" formControlName="city">
 
-    @if(orderForm.get("city").touched && orderForm.get("city")?.hasError("required")){
+    @if(orderForm.get("city").touched && orderForm.get("city").hasError("required")){
     <div class="error">City is required.</div>
     }
-    @if(orderForm.get("city").touched && orderForm.get("city")?.hasError("minlength")){
+    @if(orderForm.get("city").touched && orderForm.get("city").hasError("minlength")){
     <div class="error">Min 3 chars</div>
     }
-    @if(orderForm.get("city").touched && orderForm.get("city")?.hasError("maxlength")){
+    @if(orderForm.get("city").touched && orderForm.get("city").hasError("maxlength")){
     <div class="error">Max 100 chars.</div>
     }
   </div>
@@ -106,13 +106,13 @@
     <label for="state">State<span class="required">*</span></label>
     <input type="text" id="state" name="state" formControlName="state">
 
-    @if(orderForm.get("state").touched && orderForm.get("state")?.hasError("required")){
+    @if(orderForm.get("state").touched && orderForm.get("state").hasError("required")){
     <div class="error">State is required.</div>
     }
-    @if(orderForm.get("state").touched && orderForm.get("state")?.hasError("minlength")){
+    @if(orderForm.get("state").touched && orderForm.get("state").hasError("minlength")){
     <div class="error">Min 3 chars</div>
     }
-    @if(orderForm.get("state").touched && orderForm.get("state")?.hasError("maxlength")){
+    @if(orderForm.get("state").touched && orderForm.get("state").hasError("maxlength")){
     <div class="error">Max 100 chars.</div>
     }
   </div>
@@ -121,10 +121,10 @@
     <label for="zipCode">ZipCode<span class="required">*</span></label>
     <input type="text" id="zipCode" name="zipCode" formControlName="zipCode">
 
-    @if(orderForm.get("zipCode").touched && orderForm.get("zipCode")?.hasError("required")){
+    @if(orderForm.get("zipCode").touched && orderForm.get("zipCode").hasError("required")){
     <div class="error">Zip code is required.</div>
     }
-    @if(orderForm.get("zipCode").touched && orderForm.get("zipCode")?.hasError("pattern")){
+    @if(orderForm.get("zipCode").touched && orderForm.get("zipCode").hasError("pattern")){
     <div class="error">Please enter a valid zip code.</div>
     }
   </div>
@@ -133,13 +133,13 @@
     <label for="country">Country<span class="required">*</span></label>
     <input type="text" id="country" name="country" formControlName="country">
 
-    @if(orderForm.get("country").touched && orderForm.get("country")?.hasError("required")){
+    @if(orderForm.get("country").touched && orderForm.get("country").hasError("required")){
     <div class="error">Country is required.</div>
     }
-    @if(orderForm.get("country").touched && orderForm.get("country")?.hasError("minlength")){
+    @if(orderForm.get("country").touched && orderForm.get("country").hasError("minlength")){
     <div class="error">Min 2 chars</div>
     }
-    @if(orderForm.get("country").touched && orderForm.get("country")?.hasError("maxlength")){
+    @if(orderForm.get("country").touched && orderForm.get("country").hasError("maxlength")){
     <div class="error">Max 100 chars.</div>
     }
   </div>
@@ -148,10 +148,10 @@
     <label for="email">Email<span class="required">*</span></label>
     <input type="email" id="email" name="email" formControlName="email">
 
-    @if(orderForm.get("email").touched && orderForm.get("email")?.hasError("required")){
+    @if(orderForm.get("email").touched && orderForm.get("email").hasError("required")){
     <div class="error">Email is required.</div>
     }
-    @if(orderForm.get("email").touched && orderForm.get("email")?.hasError("email")){
+    @if(orderForm.get("email").touched && orderForm.get("email").hasError("email")){
     <div class="error">Please enter a valid email.</div>
     }
   </div>
@@ -160,10 +160,10 @@
     <label for="phoneNumber">Phone<span class="required">*</span></label>
     <input type="text" id="phoneNumber" name="phoneNumber" formControlName="phoneNumber">
 
-    @if(orderForm.get("phoneNumber").touched && orderForm.get("phoneNumber")?.hasError("required")){
+    @if(orderForm.get("phoneNumber").touched && orderForm.get("phoneNumber").hasError("required")){
     <div class="error">Phone Number is required.</div>
     }
-    @if(orderForm.get("phoneNumber").touched && orderForm.get("phoneNumber")?.hasError("pattern")){
+    @if(orderForm.get("phoneNumber").touched && orderForm.get("phoneNumber").hasError("pattern")){
     <div class="error">Unrecognized format.</div>
     }
   </div>

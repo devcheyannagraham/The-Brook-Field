@@ -1,8 +1,8 @@
-import { Component, DestroyRef, inject } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../../../Services/auth.service';
-import { UserDto } from '../../../DTOs/User/UserDto';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, DestroyRef, inject} from '@angular/core';
+import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {AuthService} from '../../../Services/auth.service';
+import {UserDto} from '../../../DTOs/User/UserDto';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'login',
@@ -11,63 +11,40 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  email = new FormControl();
-  pwd = new FormControl();
-  pwdConf = new FormControl();
-  destroyRef = inject(DestroyRef)
-  emailError = false;
-  pwdError = false;
-  pwdConfError = false;
+  email = new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(100)]);
+  pwd = new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(100)]);
+  pwdConf = new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(100)]);
   actionType: "LOGIN" | "REGISTER";
 
-  constructor(private authService: AuthService, public route: ActivatedRoute, public router: Router) { }
+  constructor(private authService: AuthService, public route: ActivatedRoute, public router: Router) {
+  }
 
   ngOnInit() {
     let actionType = this.route.snapshot.data["actionType"];
-    this.actionType = actionType == "login"? "LOGIN": "REGISTER";
+    this.actionType = actionType == "login" ? "LOGIN" : "REGISTER";
   }
 
 
   submitForm() {
+    this.email.markAsTouched();
+    this.pwd.markAsTouched();
     if (this.actionType == "LOGIN") {
-      this.login();
+      if (this.email.valid && this.pwd.valid) this.login();
+    } else {
+      this.pwdConf.markAsTouched();
+      if (this.email.valid && this.pwd.valid && this.pwdConf.valid && (this.pwd.value == this.pwdConf.value)) {
+        this.register();
+      }
     }
-    else this.register();
   }
 
   login() {
-    if (this.validated()) {
-      let user = new UserDto(this.email.value, this.pwd.value);
-      this.authService.login(user);
-    }
+    let user = new UserDto(this.email.value, this.pwd.value);
+    this.authService.login(user);
   }
 
   register() {
-    if (this.validated()) {
-      let user = new UserDto(this.email.value, this.pwd.value);
-      this.authService.register(user);
-    }
+    let user = new UserDto(this.email.value, this.pwd.value);
+    this.authService.register(user);
   }
-
-  validated() {
-    let emailValue = this.email.value;
-    let pwdValue = this.pwd.value;
-    if (emailValue == null || emailValue.trim() == '') {
-      this.emailError = true;
-    }
-    else this.emailError = false;
-
-    if (pwdValue == null || pwdValue.trim() == '') {
-      this.pwdError = true;
-    }
-    else this.pwdError = false;
-
-    if(this.actionType == "REGISTER"){
-      if(this.pwdConf.value == null || this.pwdConf.value.trim() == '' || this.pwdConf.value != this.pwd.value)
-        this.pwdConfError = true;
-      else this.pwdConfError = false;
-    }
-    return !this.emailError && !this.pwdError && !this.pwdConfError;
-  }
-
 }

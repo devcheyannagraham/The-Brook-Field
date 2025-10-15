@@ -57,9 +57,9 @@ public class Bootstrap implements CommandLineRunner {
 
         //Create admin user
         User admin = new User();
-        admin.setEmail("bfadmin");
+        admin.setEmail("bfadmin@mail.com");
         admin.setSalt(User.generateSalt());
-        admin.setPassword(User.hashPassword("bfadmin", admin.getSalt()));
+        admin.setPassword(User.hashPassword("bfadministrator", admin.getSalt()));
         admin.setUserRole(UserRole.ADMIN);
         userRepo.save(admin);
 
