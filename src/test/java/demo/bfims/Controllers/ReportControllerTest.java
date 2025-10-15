@@ -121,6 +121,21 @@ class ReportControllerTest {
 
     @Test
     void getUserRecentOrders() throws Exception {
+        RecentOrderDto rco2 = new RecentOrderDto();
+        rco2.setCustomerEmail(regUser.getEmail());
+
+        Mockito.when(reportService.getRecentOrders(Mockito.any())).thenReturn(List.of(rco2));
+
+        mockMvc.perform(get("/api/userrecentorders")
+                        .header("user-uuid", regUuid.toString())
+                        .sessionAttr(regUuid.toString(), regUser.getUserId()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)));
+    }
+
+    @Test
+    void getRecentOrdersReportAuthorized() throws Exception {
         RecentOrderDto rco1 = new RecentOrderDto();
         RecentOrderDto rco2 = new RecentOrderDto();
         rco1.setCustomerEmail(adminUser.getEmail());
@@ -128,21 +143,30 @@ class ReportControllerTest {
 
         Mockito.when(reportService.getRecentOrders()).thenReturn(List.of(rco1, rco2));
 
-        //Admin gets all users recent orders
-        mockMvc.perform(get("/api/userrecentorders")
+        mockMvc.perform(get("/api/recentordersreport")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
 
-        //User has no orders in mocked service so expect 0;
-        mockMvc.perform(get("/api/userrecentorders")
+    }
+
+    @Test
+    void getRecentOrdersReportUnAuthorized() throws Exception {
+        RecentOrderDto rco1 = new RecentOrderDto();
+        RecentOrderDto rco2 = new RecentOrderDto();
+        rco1.setCustomerEmail(adminUser.getEmail());
+        rco2.setCustomerEmail(regUser.getEmail());
+
+        Mockito.when(reportService.getRecentOrders()).thenReturn(List.of(rco1, rco2));
+
+        mockMvc.perform(get("/api/recentordersreport")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(0)));
+                .andExpect(jsonPath("$").doesNotExist());
     }
 
 
