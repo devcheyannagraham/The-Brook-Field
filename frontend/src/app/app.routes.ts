@@ -109,7 +109,8 @@ export const routes: Routes = [
   {
     path: 'report/recentorders',
     component: RecentOrdersComponent,
-    canActivate: [authenticatedUserGuard]
+    canActivate: [adminGuard],
+    data: {report: true}
   },
   {
     path: 'home',

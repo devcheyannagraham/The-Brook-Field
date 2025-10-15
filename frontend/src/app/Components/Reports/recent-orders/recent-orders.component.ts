@@ -1,11 +1,11 @@
-import { Component, DestroyRef, inject } from '@angular/core';
-import { RecentOrderDto } from '../../../DTOs/Report/RecentOrderDto';
-import { ReportsService } from '../../../Services/reports.service';
-import { headers } from '../../../Helpers/headers';
-import { CurrencyPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { AuthService } from '../../../Services/auth.service';
-import { SVGIconComponent } from "../../svgicon/svgicon.component";
+import {Component} from '@angular/core';
+import {RecentOrderDto} from '../../../DTOs/Report/RecentOrderDto';
+import {ReportsService} from '../../../Services/reports.service';
+import {headers} from '../../../Helpers/headers';
+import {CurrencyPipe} from '@angular/common';
+import {ActivatedRoute, RouterLink} from '@angular/router';
+import {AuthService} from '../../../Services/auth.service';
+import {SVGIconComponent} from "../../svgicon/svgicon.component";
 
 
 @Component({
@@ -15,21 +15,28 @@ import { SVGIconComponent } from "../../svgicon/svgicon.component";
   styleUrl: './recent-orders.component.css'
 })
 export class RecentOrdersComponent {
-  destroyRef = inject(DestroyRef);
   recentOrders: RecentOrderDto[] | void;
   headers = headers;
 
-  constructor(public reportService: ReportsService, public authService:AuthService) { }
+  constructor(public reportService: ReportsService, public authService: AuthService, public route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.getRecentOrders();
   }
 
   getRecentOrders() {
-    this.reportService.getRecentOrders()
-    .then(orders => {
-      this.recentOrders = orders;
-    });
+    if (this.route.snapshot.data["report"] == true) {
+      this.reportService.getRecentOrdersReport()
+        .then(orders => {
+          this.recentOrders = orders;
+        });
+    } else {
+      this.reportService.getUserRecentOrders()
+        .then(orders => {
+          this.recentOrders = orders;
+        });
+    }
   }
 
 }

@@ -48,12 +48,18 @@ public class ReportController {
         else return null;
     }
 
-    @GetMapping("/recentorders")
-    public List<RecentOrderDto> getRecentOrders(HttpServletRequest request, @RequestHeader("user-uuid") String uuid) {
+    @GetMapping("/userrecentorders")
+    public List<RecentOrderDto> getUserRecentOrders(HttpServletRequest request, @RequestHeader("user-uuid") String uuid) {
+        if (uuid == null || request == null) return null;
+        return reportService.getRecentOrders(this.userService.getUserId(request, uuid));
+    }
+
+    @GetMapping("/recentordersreport")
+    public List<RecentOrderDto> getRecentOrdersReport(HttpServletRequest request, @RequestHeader("user-uuid") String uuid) {
         if (uuid == null || request == null) return null;
         if (this.userService.isSessionUserAdmin(request, uuid))
             return reportService.getRecentOrders();
-        else return reportService.getRecentOrders(this.userService.getUserId(request, uuid));
+        else return null;
     }
 
     @GetMapping("/search/{terms}")

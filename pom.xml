@@ -68,7 +68,7 @@
                         <goals>
                             <goal>exec</goal>
                         </goals>
-                        <phase>initialize</phase>
+                        <phase>validate</phase>
                         <configuration>
                             <executable>npm</executable>
                             <arguments>
@@ -83,7 +83,7 @@
                         <goals>
                             <goal>exec</goal>
                         </goals>
-                        <phase>initialize</phase>
+                        <phase>validate</phase>
                         <configuration>
                             <executable>npm</executable>
                             <arguments>
@@ -106,7 +106,7 @@
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
-                        <phase>initialize</phase>
+                        <phase>validate</phase>
                         <configuration>
                             <outputDirectory>${project.build.directory}/classes/static</outputDirectory>
                             <resources>

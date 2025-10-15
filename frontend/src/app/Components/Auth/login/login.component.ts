@@ -11,7 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  email = new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(100)]);
+  email = new FormControl(null, [Validators.email, Validators.required]);
   pwd = new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(100)]);
   pwdConf = new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(100)]);
   actionType: "LOGIN" | "REGISTER";

@@ -30,9 +30,16 @@ export class ReportsService {
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
 
-  getRecentOrders() {
+  getUserRecentOrders() {
     if (this.authSerivce.user() == null) return null;
-    return firstValueFrom(this.http.get<RecentOrderDto[]>(`${this.baseUrl}recentorders`, { withCredentials: true }))
+    return firstValueFrom(this.http.get<RecentOrderDto[]>(`${this.baseUrl}userrecentorders`, { withCredentials: true }))
+      .then(items => items)
+      .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
+  }
+
+  getRecentOrdersReport() {
+    if (this.authSerivce.user() == null) return null;
+    return firstValueFrom(this.http.get<RecentOrderDto[]>(`${this.baseUrl}recentordersreport`, { withCredentials: true }))
       .then(items => items)
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }

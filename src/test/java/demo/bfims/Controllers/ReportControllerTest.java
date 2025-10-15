@@ -120,7 +120,7 @@ class ReportControllerTest {
     }
 
     @Test
-    void getRecentOrders() throws Exception {
+    void getUserRecentOrders() throws Exception {
         RecentOrderDto rco1 = new RecentOrderDto();
         RecentOrderDto rco2 = new RecentOrderDto();
         rco1.setCustomerEmail(adminUser.getEmail());
@@ -129,7 +129,7 @@ class ReportControllerTest {
         Mockito.when(reportService.getRecentOrders()).thenReturn(List.of(rco1, rco2));
 
         //Admin gets all users recent orders
-        mockMvc.perform(get("/api/recentorders")
+        mockMvc.perform(get("/api/userrecentorders")
                         .header("user-uuid", adminUuid.toString())
                         .sessionAttr(adminUuid.toString(), adminUser.getUserId()))
                 .andDo(print())
@@ -137,7 +137,7 @@ class ReportControllerTest {
                 .andExpect(jsonPath("$", hasSize(2)));
 
         //User has no orders in mocked service so expect 0;
-        mockMvc.perform(get("/api/recentorders")
+        mockMvc.perform(get("/api/userrecentorders")
                         .header("user-uuid", regUuid.toString())
                         .sessionAttr(regUuid.toString(), regUser.getUserId()))
                 .andDo(print())
