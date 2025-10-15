@@ -2,20 +2,23 @@ import { test, expect } from '@playwright/test';
 import {url} from './port';
 
 test("admin creates, reads, updates, deletes publications and publicationItems", async ({ page }) => {
-  await page.goto('https://bfims-26f76b84e56f.herokuapp.com/');
+  await page.goto(url);
+
+  //Login
   await expect(page.locator('h1')).toContainText('The Brook & Field');
   await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
   await page.getByRole('link', { name: 'Login' }).click();
   await expect(page.getByRole('heading', { name: 'Login' })).toBeVisible();
   await page.locator('input[type="email"]').click();
-  await page.locator('input[type="email"]').fill('bfadmin');
+  await page.locator('input[type="email"]').fill('bfadmin@mail.com');
   await page.locator('input[type="email"]').press('Tab');
-  await page.locator('input[type="password"]').fill('bfadmin');
+  await page.locator('input[type="password"]').fill('bfadministrator');
   await page.getByRole('main').getByRole('button', { name: 'Login' }).click();
-  await expect(page.getByText('Welcome, BFADMIN!')).toBeVisible();
+  await expect(page.getByText('Welcome, BFADMIN@MAIL.COM!')).toBeVisible();
+
+  //update publication
   await page.locator("table").first().locator("tbody").locator("tr").first().locator("a").click();
   await expect(page.getByRole('heading', { name: 'Books' })).toBeVisible();
-
   await expect(page.getByRole('button', { name: 'Update Publication' })).toBeVisible();
   await page.getByRole('link', { name: 'Update Publication' }).click();
   await expect(page.getByRole('heading', { name: 'Update Publication' })).toBeVisible();
@@ -23,9 +26,6 @@ test("admin creates, reads, updates, deletes publications and publicationItems",
   await page.getByRole('textbox', { name: 'Title*' }).fill('Wings of Myth: Fantasy Essaysplaywright');
   await expect(page.getByRole('button', { name: 'Submit' })).toBeVisible();
   await page.getByRole('button', { name: 'Submit' }).click();
-
-  // await expect(page.getByText('Title: Wings of Myth: Fantasy')).toBeVisible();
-
   await expect(page.getByRole('button', { name: 'Update Publication' })).toBeVisible();
   await page.getByRole('link', { name: 'Update Publication' }).click();
   await page.getByRole('textbox', { name: 'Title*' }).click();
@@ -33,11 +33,10 @@ test("admin creates, reads, updates, deletes publications and publicationItems",
   await page.getByRole('textbox', { name: 'Title*' }).fill('Wings of Myth: Fantasy Essays');
   await page.getByRole('button', { name: 'Submit' }).click();
 
+  //create new publication
   await expect(page.getByRole('button', { name: 'New Publication' })).toBeVisible();
   await page.getByRole('link', { name: 'New Publication' }).click();
   await expect(page.getByRole('heading', { name: 'New Publication' })).toBeVisible();
-
-
   await page.getByRole('textbox', { name: 'Title*' }).click();
   await page.getByRole('textbox', { name: 'Title*' }).fill('Playwright');
   await page.getByLabel('Genre*').selectOption('COMEDY');
@@ -55,7 +54,7 @@ test("admin creates, reads, updates, deletes publications and publicationItems",
   await expect(page.getByRole('button', { name: 'Submit' })).toBeVisible();
   await page.getByRole('button', { name: 'Submit' }).click();
 
-
+//add publication items
   await expect(page.getByRole('heading', { name: 'Playwright' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Add Items' })).toBeVisible();
   await page.getByRole('link', { name: 'Add Items' }).click();
@@ -78,6 +77,8 @@ test("admin creates, reads, updates, deletes publications and publicationItems",
   await page.getByRole('textbox', { name: 'Volume*' }).fill('vpe');
   await expect(page.getByRole('button', { name: 'Submit' })).toBeVisible();
   await page.getByRole('button', { name: 'Submit' }).click();
+
+  //delete publication items
   await expect(page.getByText('Quantity:')).toBeVisible();
   await expect(page.getByRole('button', { name: 'delete' }).nth(1)).toBeVisible();
   await page.getByRole('button', { name: 'delete' }).nth(1).click();
@@ -89,10 +90,14 @@ test("admin creates, reads, updates, deletes publications and publicationItems",
   await page.getByRole('button', { name: 'delete', exact: true }).click();
   await expect(page.getByText('Quantity:')).toBeVisible();
   await expect(page.getByText('No Books')).toBeVisible();
+
+  //delete publication
   await expect(page.getByRole('button', { name: 'Delete Publication' })).toBeVisible();
   await page.getByRole('button', { name: 'Delete Publication' }).click();
   await page.getByRole('button', { name: 'back' }).click();
-  await expect(page.getByText('Welcome, BFADMIN!')).toBeVisible();
+
+  //logout
+  await expect(page.getByText('Welcome, BFADMIN@MAIL.COM!')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Logout' })).toBeVisible();
   await page.getByRole('button', { name: 'Logout' }).click();
   await expect(page.getByRole('heading', { name: 'Login' })).toBeVisible();

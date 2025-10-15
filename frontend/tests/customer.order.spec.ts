@@ -5,24 +5,23 @@ import {url} from './port';
 
 test("customer completes order", async ({ page }) => {
   await page.goto(url);
+
+  //add items to cart
   await page.getByRole('button', { name: 'Shop' }).click();
   await page.locator(".shop-section").nth(0).locator(".shop-item").first().locator('a').click();
   await page.locator("table").first().locator("tbody").locator("tr").first().locator("button").getByText("Purchase").click();
   await page.getByRole('button', { name: 'Shop' }).click();
-
-
   await page.locator(".shop-section").nth(1).locator(".shop-item").first().locator('a').click();
   await page.getByRole('button', { name: 'Purchase' }).click();
     await page.getByRole('button', { name: 'Shop' }).click();
-
   await page.locator(".shop-section").nth(2).locator(".shop-item").first().locator('a').click();
   await page.getByRole('button', { name: 'Purchase' }).click();
     await page.getByRole('button', { name: 'Shop' }).click();
-
   await page.locator(".shop-section").nth(3).locator(".shop-item").first().locator('a').click();
   await page.getByRole('button', { name: 'Purchase' }).click();
 
 
+  //complete checkout order form
   await page.getByRole('link', { name: 'Checkout' }).click();
   await page.getByRole('textbox', { name: 'First Name*' }).click();
   await page.getByRole('textbox', { name: 'First Name*' }).fill('Playwright');
