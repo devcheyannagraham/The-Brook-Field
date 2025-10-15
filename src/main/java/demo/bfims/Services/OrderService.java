@@ -57,9 +57,6 @@ public class OrderService {
         itemRepo.saveAll(items);
 
         Order savedOrder = orderRepo.save(order);
-        System.out.println("\nORDER SAVED -" + savedOrder);
-        OrderDto newOrderDto = new OrderDto(savedOrder);
-        System.out.println("\nORDERDTO SAVED -" + newOrderDto);
-        return newOrderDto;
+        return new OrderDto(savedOrder);
     }
 }
