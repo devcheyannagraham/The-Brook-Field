@@ -3,6 +3,9 @@
     @if(recentOrders && recentOrders.length > 0){
     @for(order of recentOrders;track order.orderId){
     <div class="overflow">
+      @if(report == true){
+        <p>{{date | date:"full"}}</p>
+      }
         <table>
             <thead>
                 <tr>

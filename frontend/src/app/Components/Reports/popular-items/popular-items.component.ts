@@ -1,7 +1,7 @@
-import { Component, DestroyRef, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ReportsService } from '../../../Services/reports.service';
 import { PopularItemDto } from '../../../DTOs/Report/PopularItemDto';
-import { CurrencyPipe } from '@angular/common';
+import {CurrencyPipe, DatePipe} from '@angular/common';
 import { headers } from '../../../Helpers/headers';
 import { ItemType } from '../../../Enums/ItemType';
 import { RouterLink } from '@angular/router';
@@ -10,16 +10,16 @@ import { SVGIconComponent } from "../../svgicon/svgicon.component";
 
 @Component({
   selector: 'popular-items',
-  imports: [CurrencyPipe, RouterLink, SVGIconComponent],
+  imports: [CurrencyPipe, RouterLink, SVGIconComponent, DatePipe],
   templateUrl: './popular-items.component.html',
   styleUrl: './popular-items.component.css'
 })
 export class PopularItemsComponent {
-  destroyRef = inject(DestroyRef);
   popularItems: PopularItemDto[] | void;
   headers = headers;
   ItemType = ItemType;
   isAdmin: void | boolean = false;
+  date = new Date();
 
   constructor(public reportService: ReportsService, public authService: AuthService) {
   }
