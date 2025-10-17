@@ -2,7 +2,6 @@ import {Component, Input} from '@angular/core';
 import {PublicationService} from '../../../Services/publication.service';
 import {PublicationItem} from '../../../DTOs/Inventory/PublicationItem';
 import {Publication} from '../../../DTOs/Inventory/Publication';
-import {Journal} from '../../../DTOs/Inventory/Journal';
 import {PublicationItemType} from '../../../Enums/PublicationItemType';
 import {headers} from '../../../Helpers/headers';
 import {DatePipe} from '@angular/common';
@@ -35,7 +34,6 @@ export class PublicationItemsComponent {
 
   //For Template
   PublicationItemType = PublicationItemType;
-  Journal = Journal;
   headers = headers;
 
   constructor(public pubService: PublicationService, public router: Router) {
