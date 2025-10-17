@@ -14,6 +14,7 @@
 
         <td>{{ trans.transactionType }}</td>
 
+        // NOT SCALABLE! fix, then continue to next fend enum
         @if (trans.item.itemType == ItemType.PUBLICATION_ITEM) {
         <td>{{ (trans.item | cast).publication.title }}</td>
         }

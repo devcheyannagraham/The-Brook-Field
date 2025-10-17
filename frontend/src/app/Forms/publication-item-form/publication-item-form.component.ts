@@ -157,4 +157,5 @@ export class PublicationItemFormComponent {
   protected readonly LiteraryType = LiteraryType;
   protected readonly headers = headers;
   protected readonly PublicationItemStatus = PublicationItemStatus;
+  protected readonly Object = Object;
 }

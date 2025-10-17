@@ -1,20 +1,26 @@
-import { Component, computed, Input, signal } from '@angular/core';
-import { CurrencyPipe, DatePipe } from "@angular/common";
-import { ShopService } from '../../../Services/shop.service';
-import { PublicationService } from '../../../Services/publication.service';
-import { Book } from '../../../DTOs/Inventory/Book';
-import { LiteraryPiece } from '../../../DTOs/Inventory/LiteraryPiece';
-import { PublicationItem } from '../../../DTOs/Inventory/PublicationItem';
-import { Publication } from '../../../DTOs/Inventory/Publication';
-import { Journal } from '../../../DTOs/Inventory/Journal';
-import { PublicationItemType } from '../../../Enums/PublicationItemType';
-import { headers } from '../../../Helpers/headers';
-import { Rental } from '../../../DTOs/Order/Rental';
-import { Purchase } from '../../../DTOs/Order/Purchase';
-import { Router} from '@angular/router';
-import { Location } from '@angular/common';
-import { CartComponent } from "../cart/cart.component";
-import { SVGIconComponent } from '../../svgicon/svgicon.component';
+import {Component, computed, Input, signal} from '@angular/core';
+import {CurrencyPipe, DatePipe} from "@angular/common";
+import {ShopService} from '../../../Services/shop.service';
+import {PublicationService} from '../../../Services/publication.service';
+import {Book} from '../../../DTOs/Inventory/Book';
+import {LiteraryPiece} from '../../../DTOs/Inventory/LiteraryPiece';
+import {PublicationItem} from '../../../DTOs/Inventory/PublicationItem';
+import {Publication} from '../../../DTOs/Inventory/Publication';
+import {Journal} from '../../../DTOs/Inventory/Journal';
+import {PublicationItemType} from '../../../Enums/PublicationItemType';
+import {headers} from '../../../Helpers/headers';
+import {Rental} from '../../../DTOs/Order/Rental';
+import {Purchase} from '../../../DTOs/Order/Purchase';
+import {Router} from '@angular/router';
+import {Location} from '@angular/common';
+import {CartComponent} from "../cart/cart.component";
+import {SVGIconComponent} from '../../svgicon/svgicon.component';
+import {
+  FACTORY_TYPES,
+  ITEM_TYPE_TABLE_HEADERS_SHOP,
+  PUBLICATION_ITEM_TYPE_TABLE_HEADERS_SHOP
+} from '../../../Helpers/globals';
+import {ItemType} from '../../../Enums/ItemType';
 
 
 @Component({
@@ -23,8 +29,7 @@ import { SVGIconComponent } from '../../svgicon/svgicon.component';
     DatePipe,
     CartComponent,
     SVGIconComponent,
-    CurrencyPipe
-],
+  ],
   templateUrl: './shop-publication-detail.component.html',
   styleUrl: './shop-publication-detail.component.css'
 })
@@ -32,18 +37,7 @@ export class ShopPublicationDetailComponent {
   publication: Publication;
   publicationItems = signal(new Map<number, PublicationItem>());
   publicationItemsInCart = new Map<number, number>();
-
-  books = computed(() => [...this.publicationItems().values()]
-    .filter(item => item.publicationItemType === PublicationItemType.BOOK)
-    .map(item => item as Book));
-
-  journals = computed(() => [...this.publicationItems().values()]
-    .filter(item => item.publicationItemType === PublicationItemType.JOURNAL)
-    .map(item => item as Journal));
-
-  literaryPieces = computed(() => [...this.publicationItems().values()]
-    .filter(item => item.publicationItemType === PublicationItemType.LITERARY_PIECE)
-    .map(item => item as LiteraryPiece));
+  filteredPublicationItems = new Map<PublicationItemType, PublicationItem[]>();
 
   @Input() shopItemId: number;
 
@@ -80,8 +74,19 @@ export class ShopPublicationDetailComponent {
               }
             });
             this.publicationItems.set(items)
+            this.filterPublicationItems();
           }
         });
+    }
+  }
+
+  filterPublicationItems() {
+    for (let itemType of Object.values(PublicationItemType)) {
+      this.filteredPublicationItems.set(itemType, []);
+    }
+    for (let item of this.publicationItems().values()) {
+      let itemGroup = this.filteredPublicationItems.get(item.publicationItemType);
+      itemGroup.push(item);
     }
   }
 
@@ -103,18 +108,8 @@ export class ShopPublicationDetailComponent {
   }
 
   getItemType(item: PublicationItem) {
-    let type = item.publicationItemType;
-    if (type == PublicationItemType.BOOK) {
-      return new Book(item);
-    }
-    else if (type == PublicationItemType.JOURNAL) {
-      return new Journal(item);
-    }
-    else if (type == PublicationItemType.LITERARY_PIECE) {
-      return new LiteraryPiece(item);
-    }
-
-    return item;
+    let typeClass = FACTORY_TYPES.get(item.publicationItemType);
+    return new typeClass(item);
   }
 
   removeItemFromCart(item: PublicationItem) {
@@ -132,8 +127,7 @@ export class ShopPublicationDetailComponent {
   getQuantity() {
     if (this.shopService.shoppingCart().size == 0) {
       return this.publicationItems().size;
-    }
-    else {
+    } else {
       return [...this.publicationItems().values()].filter(item => !this.shopService.shoppingCart().has(item.itemId)).length;
     }
   }
@@ -141,8 +135,7 @@ export class ShopPublicationDetailComponent {
   updatePublicationItemTotals(item: PublicationItem) {
     if (this.publicationItemsInCart.has(item.publication.publicationId)) {
       this.publicationItemsInCart.set(item.publication.publicationId, this.publicationItemsInCart.get(item.publication.publicationId) + 1);
-    }
-    else {
+    } else {
       this.publicationItemsInCart.set(item.publication.publicationId, 1);
     }
 
@@ -150,4 +143,9 @@ export class ShopPublicationDetailComponent {
 
 
   protected readonly headers = headers;
+  protected readonly PublicationItemType = PublicationItemType;
+  protected readonly Object = Object;
+  protected readonly ITEM_TYPE_TABLE_HEADERS_SHOP = ITEM_TYPE_TABLE_HEADERS_SHOP;
+  protected readonly ItemType = ItemType;
+  protected readonly PUBLICATION_ITEM_TYPE_TABLE_HEADERS_SHOP = PUBLICATION_ITEM_TYPE_TABLE_HEADERS_SHOP;
 }

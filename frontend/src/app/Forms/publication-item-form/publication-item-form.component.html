@@ -1,14 +1,14 @@
 @if (publication) {
-<h3> {{ publication.title }} </h3>
-<ul>
-  <li>{{ headers.genre }}: {{ publication.genre }}</li>
-  <li>{{ headers.title }}: {{ publication.title }}</li>
-  <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
-  <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
-  @if (pubItemId != null) {
-  <li> {{ headers.publicationItemType }}: {{ publicationItem.publicationItemType }}</li>
-  }
-</ul>
+  <h3> {{ publication.title }} </h3>
+  <ul>
+    <li>{{ headers.genre }}: {{ publication.genre }}</li>
+    <li>{{ headers.title }}: {{ publication.title }}</li>
+    <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
+    <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
+    @if (pubItemId != null) {
+      <li> {{ headers.publicationItemType }}: {{ publicationItem.publicationItemType }}</li>
+    }
+  </ul>
 }
 
 
@@ -16,72 +16,72 @@
 
 <form id="publicationItemForm" [formGroup]="publicationForm" (ngSubmit)="addPublicationItem()">
   @if (pubItemId == null && publicationItem == null) {
-  <div class="label-group">
-    <label for="publicationItemType">Publication Item Type<span class="required">*</span></label>
-    <select id="publicationItemType" name="publicationItemType" formControlName="publicationItemType">
-      <option value="{{PublicationItemType.BOOK}}">Book</option>
-      <option value="{{PublicationItemType.JOURNAL}}">Journal</option>
-      <option value="{{PublicationItemType.LITERARY_PIECE}}">Literary Piece</option>
-    </select>
+    <div class="label-group">
+      <label for="publicationItemType">Publication Item Type<span class="required">*</span></label>
+      <select id="publicationItemType" name="publicationItemType" formControlName="publicationItemType">
+        @for(itemType of Object.values(PublicationItemType);track itemType){
+          <option value="{{itemType}}">{{itemType}}</option>
+        }
+      </select>
 
-    @if(publicationForm.get("publicationItemType").touched &&
-    publicationForm.get("publicationItemType").hasError("required")){
-    <div class="error">Type is required.</div>
-    }
-  </div>
+      @if (publicationForm.get("publicationItemType").touched &&
+      publicationForm.get("publicationItemType").hasError("required")) {
+        <div class="error">Type is required.</div>
+      }
+    </div>
   }
 
 
   <!-- Publication Item Fields -->
   @if (pubItemId == null) {
-  <div class="label-group">
-    <label for="quantity">Quantity<span class="required">*</span></label>
-    <input type="number" id="quantity" name="quantity" formControlName="quantity">
+    <div class="label-group">
+      <label for="quantity">Quantity<span class="required">*</span></label>
+      <input type="number" id="quantity" name="quantity" formControlName="quantity">
 
-    @if(publicationForm.get("quantity").touched &&
-    publicationForm.get("quantity").hasError("required")){
-    <div class="error">Quantity is required.</div>
-    }
-    @if(publicationForm.get("quantity").touched &&
-    publicationForm.get("quantity").hasError("min")){
-    <div class="error">Min 0.</div>
-    }
-    @if(publicationForm.get("quantity").touched &&
-    publicationForm.get("quantity").hasError("max")){
-    <div class="error">Max 99,999.</div>
-    }
-  </div>
+      @if (publicationForm.get("quantity").touched &&
+      publicationForm.get("quantity").hasError("required")) {
+        <div class="error">Quantity is required.</div>
+      }
+      @if (publicationForm.get("quantity").touched &&
+      publicationForm.get("quantity").hasError("min")) {
+        <div class="error">Min 0.</div>
+      }
+      @if (publicationForm.get("quantity").touched &&
+      publicationForm.get("quantity").hasError("max")) {
+        <div class="error">Max 99,999.</div>
+      }
+    </div>
   }
 
   <div class="label-group">
     <label for="edition">Edition<span class="required">*</span></label>
     <input type="text" id="edition" name="edition" formControlName="edition">
 
-    @if(publicationForm.get("edition").touched &&
-    publicationForm.get("edition").hasError("required")){
-    <div class="error">Edition is required.</div>
+    @if (publicationForm.get("edition").touched &&
+    publicationForm.get("edition").hasError("required")) {
+      <div class="error">Edition is required.</div>
     }
-    @if(publicationForm.get("edition").touched &&
-    publicationForm.get("edition").hasError("minlength")){
-    <div class="error">Min 1</div>
+    @if (publicationForm.get("edition").touched &&
+    publicationForm.get("edition").hasError("minlength")) {
+      <div class="error">Min 1</div>
     }
-    @if(publicationForm.get("edition").touched &&
-    publicationForm.get("edition").hasError("maxlength")){
-    <div class="error">Max 25</div>
+    @if (publicationForm.get("edition").touched &&
+    publicationForm.get("edition").hasError("maxlength")) {
+      <div class="error">Max 25</div>
     }
   </div>
 
   <div class="label-group">
     <label for="format">Format<span class="required">*</span></label>
     <select id="format" name="format" formControlName="format">
-      <option value="{{PublicationItemFormat.AUDIOBOOK}}">AudioBook</option>d
-      <option value="{{PublicationItemFormat.HARDCOPY}}">HardCopy</option>
-      <option value="{{PublicationItemFormat.EBOOK}}">EBook</option>
+      @for(format of Object.values(PublicationItemFormat);track format){
+        <option value="{{format}}">{{format}}</option>
+      }
     </select>
 
-    @if(publicationForm.get("format").touched &&
-    publicationForm.get("format").hasError("required")){
-    <div class="error">Format is required.</div>
+    @if (publicationForm.get("format").touched &&
+    publicationForm.get("format").hasError("required")) {
+      <div class="error">Format is required.</div>
     }
   </div>
 
@@ -90,17 +90,17 @@
     <input type="number" id="purchasePrice" name="purchasePrice" formControlName="purchasePrice">
 
 
-    @if(publicationForm.get("purchasePrice").touched &&
-    publicationForm.get("purchasePrice").hasError("required")){
-    <div class="error">Price is required.</div>
+    @if (publicationForm.get("purchasePrice").touched &&
+    publicationForm.get("purchasePrice").hasError("required")) {
+      <div class="error">Price is required.</div>
     }
-    @if(publicationForm.get("purchasePrice").touched &&
-    publicationForm.get("purchasePrice").hasError("min")){
-    <div class="error">Min $0.10</div>
+    @if (publicationForm.get("purchasePrice").touched &&
+    publicationForm.get("purchasePrice").hasError("min")) {
+      <div class="error">Min $0.10</div>
     }
-    @if(publicationForm.get("purchasePrice").touched &&
-    publicationForm.get("purchasePrice").hasError("max")){
-    <div class="error">Max $99,999.00</div>
+    @if (publicationForm.get("purchasePrice").touched &&
+    publicationForm.get("purchasePrice").hasError("max")) {
+      <div class="error">Max $99,999.00</div>
     }
 
   </div>
@@ -110,125 +110,121 @@
     <input type="number" id="rentalRate" name="rentalRate" formControlName="rentalRate">
 
 
-    @if(publicationForm.get("rentalRate").touched &&
-    publicationForm.get("rentalRate").hasError("required")){
-    <div class="error">Rate is required.</div>
+    @if (publicationForm.get("rentalRate").touched &&
+    publicationForm.get("rentalRate").hasError("required")) {
+      <div class="error">Rate is required.</div>
     }
-    @if(publicationForm.get("rentalRate").touched &&
-    publicationForm.get("rentalRate").hasError("min")){
-    <div class="error">Min $0.10</div>
+    @if (publicationForm.get("rentalRate").touched &&
+    publicationForm.get("rentalRate").hasError("min")) {
+      <div class="error">Min $0.10</div>
     }
-    @if(publicationForm.get("rentalRate").touched &&
-    publicationForm.get("rentalRate").hasError("max")){
-    <div class="error">Max $99,999.00</div>
+    @if (publicationForm.get("rentalRate").touched &&
+    publicationForm.get("rentalRate").hasError("max")) {
+      <div class="error">Max $99,999.00</div>
     }
 
   </div>
 
-  @if(pubItemId) {
-  <div class="label-group">
-    <label for="publicationItemStatus">Status<span class="required">*</span></label>
-    <select id="publicationItemStatus" name="publicationItemStatus" formControlName="publicationItemStatus">
-      <option value="{{PublicationItemStatus.AVAILABLE}}">Available</option>d
-      <option value="{{PublicationItemStatus.PURCHASED}}">Purchased</option>
-      <option value="{{PublicationItemStatus.RENTED}}">Rented</option>
-    </select>
-  </div>
+  @if (pubItemId) {
+    <div class="label-group">
+      <label for="publicationItemStatus">Status<span class="required">*</span></label>
+      <select id="publicationItemStatus" name="publicationItemStatus" formControlName="publicationItemStatus">
+        @for(status of Object.values(PublicationItemStatus);track status){
+        <option value="{{status}}">{{status}}</option>
+        }
+      </select>
+    </div>
   }
 </form>
 
 <!-- Journal Fields -->
 <form [formGroup]="journalForm">
   @if (publicationForm.get("publicationItemType").value === PublicationItemType.JOURNAL) {
-  <div class="label-group">
-    <label for="issueDate">Issue Date<span class="required">*</span></label>
-    <input type="date" id="issueDate" name="issueDate" formControlName="issueDate">
+    <div class="label-group">
+      <label for="issueDate">Issue Date<span class="required">*</span></label>
+      <input type="date" id="issueDate" name="issueDate" formControlName="issueDate">
 
-    @if(journalForm.get("issueDate").touched &&
-    journalForm.get("issueDate").hasError("required")){
-    <div class="error">Date is required.</div>
-    }
-  </div>
+      @if (journalForm.get("issueDate").touched &&
+      journalForm.get("issueDate").hasError("required")) {
+        <div class="error">Date is required.</div>
+      }
+    </div>
 
-  <div class="label-group">
-    <label for="issueNumber">Issue Number<span class="required">*</span></label>
-    <input type="text" id="issueNumber" name="issueNumber" formControlName="issueNumber">
+    <div class="label-group">
+      <label for="issueNumber">Issue Number<span class="required">*</span></label>
+      <input type="text" id="issueNumber" name="issueNumber" formControlName="issueNumber">
 
-    @if(journalForm.get("issueNumber").touched &&
-    journalForm.get("issueNumber").hasError("required")){
-    <div class="error">Issue Number is required.</div>
-    }
-    @if(journalForm.get("issueNumber").touched &&
-    journalForm.get("issueNumber").hasError("minlength")){
-    <div class="error">Min 1 char</div>
-    }
-    @if(journalForm.get("issueNumber").touched &&
-    journalForm.get("issueNumber").hasError("maxlength")){
-    <div class="error">Max 50 chars.</div>
-    }
-  </div>
+      @if (journalForm.get("issueNumber").touched &&
+      journalForm.get("issueNumber").hasError("required")) {
+        <div class="error">Issue Number is required.</div>
+      }
+      @if (journalForm.get("issueNumber").touched &&
+      journalForm.get("issueNumber").hasError("minlength")) {
+        <div class="error">Min 1 char</div>
+      }
+      @if (journalForm.get("issueNumber").touched &&
+      journalForm.get("issueNumber").hasError("maxlength")) {
+        <div class="error">Max 50 chars.</div>
+      }
+    </div>
 
-  <div class="label-group">
-    <label for="issueName">Issue Name<span class="required">*</span></label>
-    <input type="text" id="issueName" name="issueName" formControlName="issueName">
+    <div class="label-group">
+      <label for="issueName">Issue Name<span class="required">*</span></label>
+      <input type="text" id="issueName" name="issueName" formControlName="issueName">
 
-    @if(journalForm.get("issueName").touched &&
-    journalForm.get("issueName").hasError("required")){
-    <div class="error">Issue Name is required.</div>
-    }
-    @if(journalForm.get("issueName").touched &&
-    journalForm.get("issueName").hasError("minlength")){
-    <div class="error">Min 1 chars</div>
-    }
-    @if(journalForm.get("issueName").touched &&
-    journalForm.get("issueName").hasError("maxlength")){
-    <div class="error">Max 100 chars.</div>
-    }
+      @if (journalForm.get("issueName").touched &&
+      journalForm.get("issueName").hasError("required")) {
+        <div class="error">Issue Name is required.</div>
+      }
+      @if (journalForm.get("issueName").touched &&
+      journalForm.get("issueName").hasError("minlength")) {
+        <div class="error">Min 1 chars</div>
+      }
+      @if (journalForm.get("issueName").touched &&
+      journalForm.get("issueName").hasError("maxlength")) {
+        <div class="error">Max 100 chars.</div>
+      }
 
-  </div>
+    </div>
 
-  <div class="label-group">
-    <label for="volume">Volume<span class="required">*</span></label>
-    <input type="text" id="volume" name="volume" formControlName="volume">
+    <div class="label-group">
+      <label for="volume">Volume<span class="required">*</span></label>
+      <input type="text" id="volume" name="volume" formControlName="volume">
 
-    @if(journalForm.get("volume").touched &&
-    journalForm.get("volume").hasError("required")){
-    <div class="error">Volume is required.</div>
-    }
-    @if(journalForm.get("volume").touched &&
-    journalForm.get("volume").hasError("minlength")){
-    <div class="error">Min 1 char</div>
-    }
-    @if(journalForm.get("volume").touched &&
-    journalForm.get("volume").hasError("maxlength")){
-    <div class="error">Max 100 chars</div>
-    }
+      @if (journalForm.get("volume").touched &&
+      journalForm.get("volume").hasError("required")) {
+        <div class="error">Volume is required.</div>
+      }
+      @if (journalForm.get("volume").touched &&
+      journalForm.get("volume").hasError("minlength")) {
+        <div class="error">Min 1 char</div>
+      }
+      @if (journalForm.get("volume").touched &&
+      journalForm.get("volume").hasError("maxlength")) {
+        <div class="error">Max 100 chars</div>
+      }
 
-  </div>
+    </div>
   }
 </form>
 
 <form [formGroup]="literaryForm">
   <!-- Literary Piece fields -->
   @if (publicationForm.get("publicationItemType").value ===
-  PublicationItemType.LITERARY_PIECE)
-  {
-  <div class="label-group">
-    <label for="literaryType">Literary Type<span class="required">*</span></label>
-    <select id="literaryType" name="literaryType" formControlName="literaryType">
-      <option value="{{LiteraryType.ARTICLE}}">Article</option>
-      <option value="{{LiteraryType.ESSAY}}">Essay</option>
-      <option value="{{LiteraryType.POEM}}">Poem</option>
-      <option value="{{LiteraryType.STORY}}">Story</option>
-      <option value="{{LiteraryType.REVIEW}}">Review</option>
-    </select>
+  PublicationItemType.LITERARY_PIECE) {
+    <div class="label-group">
+      <label for="literaryType">Literary Type<span class="required">*</span></label>
+      <select id="literaryType" name="literaryType" formControlName="literaryType">
+        @for (litType of Object.values(LiteraryType); track litType) {
+          <option value="{{litType}}">{{ litType }}</option>
+        }
+      </select>
 
-
-    @if(literaryForm.get("literaryType").touched &&
-    literaryForm.get("literayType").hasError("required")){
-    <div class="error">Type is required.</div>
-    }
-  </div>
+      @if (literaryForm.get("literaryType").touched &&
+      literaryForm.get("literayType").hasError("required")) {
+        <div class="error">Type is required.</div>
+      }
+    </div>
   }
 </form>
 <button type="submit" form="publicationItemForm">Submit</button>

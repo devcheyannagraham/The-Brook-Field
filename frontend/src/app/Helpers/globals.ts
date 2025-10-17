@@ -1,2 +1,27 @@
 // export const BASE_URL = "/api/";
+import {PublicationItemType} from '../Enums/PublicationItemType';
+import {Book} from '../DTOs/Inventory/Book';
+import {Journal} from '../DTOs/Inventory/Journal';
+import {LiteraryPiece} from '../DTOs/Inventory/LiteraryPiece';
+import {ItemType} from '../Enums/ItemType';
+
 export const BASE_URL = "https://localhost:8080/api/";
+
+
+export const FACTORY_TYPES = new Map([
+  [PublicationItemType.BOOK, Book],
+  [PublicationItemType.JOURNAL, Journal],
+  [PublicationItemType.LITERARY_PIECE, LiteraryPiece],
+]);
+
+export const PUBLICATION_ITEM_TYPE_TABLE_HEADERS_SHOP = new Map([
+  [PublicationItemType.BOOK, []],
+  [PublicationItemType.JOURNAL, ["issueDate","issueNumber","issueName", "volume"]],
+  [PublicationItemType.LITERARY_PIECE, ["literaryType"]]
+]);
+
+export const ITEM_TYPE_TABLE_HEADERS_SHOP = new Map([
+  [ItemType.PUBLICATION_ITEM, ["publicationItemType", "edition","format","purchasePrice","rentalRate", "publicationItemStatus"]],
+]);
+
+

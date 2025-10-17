@@ -10,6 +10,7 @@ export const headers = {
   purchasePrice: "Purchase Price",
   rentalRate: "Rental Rate",
   status: "Status",
+  publicationItemStatus: "Status",
   literaryType: "LiteraryType",
   issueDate: "Issue Date",
   issueNumber: "Issue Number",

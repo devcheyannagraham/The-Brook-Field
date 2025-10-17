@@ -1,187 +1,81 @@
-<cart />
+<cart/>
 
 @if (publication) {
 
-<h3> {{ publication.title }} </h3>
-<ul>
-  <li>{{ headers.genre }}: {{ publication.genre }}</li>
-  <li>{{ headers.title }}: {{ publication.title }}</li>
-  <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
-  <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
-  <li>{{ headers.quantity }}: {{ getQuantity() || "Out of Stock" }}</li>
-</ul>
-<h3> Author </h3>
-<ul>
-  <li>{{ headers.firstName }}: {{ publication.author.firstName }}</li>
-  <li>{{ headers.lastName }}: {{ publication.author.lastName }}</li>
-</ul>
-<p>Total in cart: {{publicationItemsInCart.get(publication.publicationId) || 0}}</p>
+  <h3> {{ publication.title }} </h3>
+  <ul>
+    <li>{{ headers.genre }}: {{ publication.genre }}</li>
+    <li>{{ headers.title }}: {{ publication.title }}</li>
+    <li>{{ headers.datePublished }}: {{ publication.datePublished | date:"mediumDate" }}</li>
+    <li>{{ headers.isbn }}: {{ publication.isbn }}</li>
+    <li>{{ headers.quantity }}: {{ getQuantity() || "Out of Stock" }}</li>
+  </ul>
+  <h3> Author </h3>
+  <ul>
+    <li>{{ headers.firstName }}: {{ publication.author.firstName }}</li>
+    <li>{{ headers.lastName }}: {{ publication.author.lastName }}</li>
+  </ul>
+  <p>Total in cart: {{ publicationItemsInCart.get(publication.publicationId) || 0 }}</p>
 
 
-<h3>Books</h3>
-@if (books() && books().length) {
-<div class="overflow">
-  <table>
-    <thead>
-      <th></th>
-      <th>{{ headers.publicationItemType }}</th>
-      <th>{{ headers.edition }}</th>
-      <th>{{ headers.format }}</th>
-      <th>{{ headers.purchasePrice }}</th>
-      <th>{{ headers.rentalRate }}</th>
-      <th>{{ headers.status }}</th>
-      <th></th>
-    </thead>
+  @if (publicationItems().size > 0) {
+    @for (itemType of Object.values(PublicationItemType); track itemType) {
+      <h3>{{ itemType }}</h3>
+      @if (filteredPublicationItems.get(itemType).length > 0) {
 
-    <tbody>
-      @for (book of books(); track book.itemId) {
-      <tr>
-        <td>
-          <svgicon [icon]="book.svgIcon" [className]="'table-icon'" />
-        </td>
-        <td>{{ book.publicationItemType }}</td>
-        <td>{{ book.edition }}</td>
-        <td>{{ book.format }}</td>
-        <td>{{ book.purchasePrice| currency}}</td>
-        <td>{{ book.rentalRate | currency }}</td>
-        <td>{{ book.publicationItemStatus }}</td>
-        <td>
-          @if(shopService.shoppingCart().has(book.itemId)){
+        <div class="overflow">
+          <table>
+            <thead>
+            <th></th>
+              @for (itemHeader of ITEM_TYPE_TABLE_HEADERS_SHOP.get(ItemType.PUBLICATION_ITEM); track itemHeader) {
+                <th>{{ $any(headers)[itemHeader] }}</th>
+              }
+              @for (itemHeader of PUBLICATION_ITEM_TYPE_TABLE_HEADERS_SHOP.get(itemType).values(); track itemHeader) {
+                <th>{{ $any(headers)[itemHeader] }}</th>
+              }
+            <th>Action</th>
+            </thead>
 
-          <button (click)="removeItemFromCart(book)">
-            Remove from Cart
-          </button>
-          }
-          @else {
+            <tbody>
+              @for (item of filteredPublicationItems.get(itemType); track item.itemId) {
+                <tr>
+                  <td>
+                    <svgicon [icon]="item.svgIcon" [className]="'table-icon'"/>
+                  </td>
 
-          <button (click)="purchaseItem(book)">
-            Purchase
-          </button>
-          <button (click)="rentItem(book)">
-            Rent
-          </button>
-          }
-        </td>
-      </tr>
+                  @for (itemHeader of ITEM_TYPE_TABLE_HEADERS_SHOP.get(ItemType.PUBLICATION_ITEM); track itemHeader) {
+                    <td>{{ $any(item)[itemHeader] }}</td>
+                  }
+                  @for (
+                    itemHeader of PUBLICATION_ITEM_TYPE_TABLE_HEADERS_SHOP.get(itemType).values(); track itemHeader) {
+                    <td>{{ $any(item)[itemHeader] }}</td>
+                  }
+                  <td>
+                    @if (shopService.shoppingCart().has(item.itemId)) {
+                      <button (click)="removeItemFromCart(item)">
+                        Remove from Cart
+                      </button>
+                    } @else {
+                      <button (click)="purchaseItem(item)">
+                        Purchase
+                      </button>
+                      <button (click)="rentItem(item)">
+                        Rent
+                      </button>
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+      } @else {
+        <p>No Items.</p>
       }
-    </tbody>
-  </table>
-</div>
-} @else {
-<p> No Books</p>
-}
+    }
 
-<h3>Literary Pieces</h3>
-@if (literaryPieces() && literaryPieces().length) {
-<div class="overflow">
-  <table>
-    <thead>
-      <th></th>
-      <th>{{ headers.publicationItemType }}</th>
-      <th>{{ headers.literaryType }}</th>
-      <th>{{ headers.edition }}</th>
-      <th>{{ headers.format }}</th>
-      <th>{{ headers.purchasePrice }}</th>
-      <th>{{ headers.rentalRate }}</th>
-      <th>{{ headers.status }}</th>
-      <th></th>
-    </thead>
-    <tbody>
-      @for (lp of literaryPieces(); track lp.itemId) {
-      <tr>
-        <td>
-          <svgicon [icon]="lp.svgIcon" [className]="'table-icon'" />
-        </td>
-        <td>{{ lp.publicationItemType }}</td>
-        <td>{{ lp.literaryType }}</td>
-        <td>{{ lp.edition }}</td>
-        <td>{{ lp.format }}</td>
-        <td>{{ lp.purchasePrice| currency}}</td>
-        <td>{{ lp.rentalRate | currency }}</td>
-        <td>{{ lp.publicationItemStatus }}</td>
-        <td>
-          @if(shopService.shoppingCart().has(lp.itemId)){
-
-          <button (click)="removeItemFromCart(lp)">
-            Remove from Cart
-          </button>
-          }
-          @else {
-
-          <button (click)="purchaseItem(lp)">
-            Purchase
-          </button>
-          <button (click)="rentItem(lp)">
-            Rent
-          </button>
-          }
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
-</div>
-} @else {
-<p> No Literary Pieces</p>
-}
-
-<h3>Journals</h3>
-@if (journals() && journals().length) {
-<div class="overflow">
-  <table>
-    <thead>
-      <th></th>
-      <th>{{ headers.publicationItemType }}</th>
-      <th>{{ headers.edition }}</th>
-      <th>{{ headers.format }}</th>
-      <th>{{ headers.purchasePrice }}</th>
-      <th>{{ headers.rentalRate }}</th>
-      <th>{{ headers.status }}</th>
-      <th>{{ headers.issueDate }}</th>
-      <th>{{ headers.issueNumber }}</th>
-      <th>{{ headers.issueName }}</th>
-      <th>{{ headers.volume }}</th>
-      <th></th>
-    </thead>
-    <tbody>
-      @for (journal of journals(); track journal.itemId) {
-      <tr>
-        <td>
-          <svgicon [icon]="journal.svgIcon" [className]="'table-icon'" />
-        </td>
-        <td>{{ journal.publicationItemType }}</td>
-        <td>{{ journal.edition }}</td>
-        <td>{{ journal.format }}</td>
-        <td>{{ journal.purchasePrice |currency}}</td>
-        <td>{{ journal.rentalRate  | currency}}</td>
-        <td>{{ journal.publicationItemStatus }}</td>
-        <td>{{ journal.issueDate | date : "mediumDate" }}</td>
-        <td>{{ journal.issueNumber }}</td>
-        <td>{{ journal.issueName }}</td>
-        <td>{{ journal.volume }}</td>
-        <td>
-          @if(shopService.shoppingCart().has(journal.itemId)){
-
-          <button (click)="removeItemFromCart(journal)">
-            Remove from Cart
-          </button>
-          }
-          @else {
-
-          <button (click)="purchaseItem(journal)">
-            Purchase
-          </button>
-          <button (click)="rentItem(journal)">
-            Rent
-          </button>
-          }
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
-  </div>
   } @else {
-  <p>No Journals</p>
+    <p>No Items.</p>
   }
-  }
+}
