@@ -68,7 +68,7 @@ public class ReportService {
                     // times sold or rented id:totaltransactions
                     publicationCountMap.put(publicationId, publicationCountMap.getOrDefault(publicationId, 0) + 1);
                     //id:total sales
-                    publicationProfitMap.put(publicationId, publicationProfitMap.getOrDefault(publicationId, 0.0) + trans.getTransactionPrice());
+                    publicationProfitMap.put(publicationId, publicationProfitMap.getOrDefault(publicationId, 0.0) + trans.getTransactionPrice().doubleValue());
 
                 } else if (itemType.equals(ItemType.ACCESSORY_ITEM)) {
                     AccessoryItem accessoryItem = (AccessoryItem) trans.getItem();
@@ -76,7 +76,7 @@ public class ReportService {
 
                     // times sold
                     accessoryCountMap.put(accessoryId, accessoryCountMap.getOrDefault(accessoryId, 0) + 1);
-                    accessoryProfitMap.put(accessoryId, accessoryProfitMap.getOrDefault(accessoryId, 0.0) + trans.getTransactionPrice());
+                    accessoryProfitMap.put(accessoryId, accessoryProfitMap.getOrDefault(accessoryId, 0.0) + trans.getTransactionPrice().doubleValue());
                 }
             });
         }

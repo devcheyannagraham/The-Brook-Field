@@ -7,6 +7,9 @@ import demo.bfims.DTOs.InventoryDTOs.Accessory.AccessoryDto;
 import demo.bfims.Enums.AccessoryType;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @Entity
 public class Accessory {
     @Id
@@ -15,7 +18,7 @@ public class Accessory {
     @Enumerated(EnumType.STRING)
     private AccessoryType accessoryType;
     private String accessoryName;
-    private double price;
+    private BigDecimal price;
     @Embedded
     private SVGIcon svgIcon;
 
@@ -23,10 +26,16 @@ public class Accessory {
         return accessoryId;
     }
 
-    public Accessory(String accessoryName, AccessoryType accessoryType, double price) {
+    public Accessory(String accessoryName, AccessoryType accessoryType, BigDecimal price) {
         this.setAccessoryType(accessoryType);
         this.accessoryName = accessoryName;
-        this.price = price;
+        this.setPrice(price);
+    }
+
+    public Accessory(String accessoryName, AccessoryType accessoryType, Double price) {
+        this.setAccessoryType(accessoryType);
+        this.accessoryName = accessoryName;
+        this.setPrice(price);
     }
 
     public Accessory() {
@@ -35,7 +44,7 @@ public class Accessory {
     public Accessory(AccessoryDto accessoryDto) {
         this.svgIcon = accessoryDto.getSvgIcon();
         this.accessoryName = accessoryDto.getAccessoryName();
-        this.price = accessoryDto.getPrice();
+        this.setPrice(accessoryDto.getPrice());
         this.accessoryId = accessoryDto.getAccessoryId();
         this.setAccessoryType(accessoryDto.getAccessoryType());
     }
@@ -63,12 +72,16 @@ public class Accessory {
         this.accessoryName = accessoryName;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPrice(BigDecimal price) {
+        this.price = price.setScale(2, RoundingMode.HALF_UP);
+    }
+
+    public void setPrice(Double price) {
+        this.price = BigDecimal.valueOf(price).setScale(2, RoundingMode.HALF_UP);
     }
 
     public SVGIcon getSvgIcon() {
@@ -85,8 +98,8 @@ public class Accessory {
                 "accessoryId=" + accessoryId +
                 ", accessoryType=" + accessoryType +
                 ", accessoryName='" + accessoryName + '\'' +
-                ", price=" + price +
-                ", icon=" + svgIcon +
+                ", price=" + price.doubleValue() +
+                ", svgIcon=" + svgIcon +
                 '}';
     }
 }

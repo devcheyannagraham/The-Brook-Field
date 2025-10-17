@@ -5,6 +5,7 @@ import demo.bfims.Entities.Inventory.Publication.Item;
 import demo.bfims.Enums.TransactionType;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
@@ -19,7 +20,7 @@ public class Purchase extends Transaction {
     }
 
     // for bootstrap
-    public Purchase(Item item, double price) {
+    public Purchase(Item item, BigDecimal price) {
         this.setTransactionType(TransactionType.PURCHASE);
         this.setTransactionDate(LocalDate.now());
         this.setItem(item);

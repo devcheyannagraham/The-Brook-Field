@@ -8,6 +8,7 @@ import demo.bfims.Enums.RentalStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -51,7 +52,7 @@ public class Rental extends Transaction { //is publication
     }
 
 //    For Bootstrap
-    public Rental(Item item, double price) {
+    public Rental(Item item, BigDecimal price) {
         this.setTransactionType(TransactionType.RENTAL);
         this.setTransactionDate(LocalDate.now());
         this.setRentalStatus(RentalStatus.RENTED);
@@ -89,7 +90,7 @@ public class Rental extends Transaction { //is publication
         return "Rental{" +
                 "startDate=" + startDate +
                 ", dueDate=" + dueDate +
-                ", status=" + rentalStatus +
+                ", rentalStatus=" + rentalStatus +
                 "} " + super.toString();
     }
 

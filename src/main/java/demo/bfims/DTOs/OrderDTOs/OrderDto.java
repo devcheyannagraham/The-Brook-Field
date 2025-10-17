@@ -2,6 +2,8 @@ package demo.bfims.DTOs.OrderDTOs;
 
 import demo.bfims.Entities.Order.Order;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +12,7 @@ public class OrderDto {
     private Long id;
     private CustomerDto customer;
     private List<TransactionDto> transactions = new ArrayList<>();
-    private Double orderTotal;
+    private BigDecimal orderTotal;
     private LocalDateTime orderDate;
 
 
@@ -54,12 +56,12 @@ public class OrderDto {
         this.transactions = orderItems;
     }
 
-    public Double getOrderTotal() {
+    public BigDecimal getOrderTotal() {
         return orderTotal;
     }
 
-    public void setOrderTotal(Double orderTotal) {
-        this.orderTotal = orderTotal;
+    public void setOrderTotal(BigDecimal orderTotal) {
+        this.orderTotal = orderTotal.setScale(2, RoundingMode.HALF_UP);
     }
 
     public LocalDateTime getOrderDate() {

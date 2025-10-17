@@ -6,15 +6,16 @@ import demo.bfims.Enums.PublicationItemStatus;
 import demo.bfims.Enums.PublicationItemType;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
-//REmove
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Book extends PublicationItem {
     public Book() {
         this.setPublicationItemType(PublicationItemType.BOOK);
     }
 
-    public Book(String edition, PublicationItemFormat format, Double purchasePrice, Double rentalRate, PublicationItemStatus status, Publication publication) {
+    public Book(String edition, PublicationItemFormat format, BigDecimal purchasePrice, BigDecimal rentalRate, PublicationItemStatus status, Publication publication) {
         super(edition, format, purchasePrice, rentalRate, status, publication);
         this.setPublicationItemType(PublicationItemType.BOOK);
     }

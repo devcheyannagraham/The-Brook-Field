@@ -18,6 +18,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -122,21 +123,21 @@ public class Bootstrap implements CommandLineRunner {
         for (Publication pub : publications) {
             for (int i = 1; i <= 5; i++) {
                 // Book
-                books.add(new Book(i + "th Edition", PublicationItemFormat.HARDCOPY, 14.99 + i, 2.49 + i * 0.1, PublicationItemStatus.AVAILABLE, pub));
+                books.add(new Book(i + "th Edition", PublicationItemFormat.HARDCOPY, BigDecimal.valueOf(14.99 + i), BigDecimal.valueOf(2.49 + i * 0.1), PublicationItemStatus.AVAILABLE, pub));
 
                 // Journal
-                journals.add(new Journal("Vol. " + i, PublicationItemFormat.EBOOK, 9.99 + i, 1.49 + i * 0.1, PublicationItemStatus.AVAILABLE, pub, LocalDate.of(2020 + (i % 5), (i % 12) + 1, (i % 28) + 1), String.valueOf(i), "ISSUE" + i, "Volume " + i % 3));
+                journals.add(new Journal("Vol. " + i, PublicationItemFormat.EBOOK, BigDecimal.valueOf(9.99 + i), BigDecimal.valueOf(1.49 + i * 0.1), PublicationItemStatus.AVAILABLE, pub, LocalDate.of(2020 + (i % 5), (i % 12) + 1, (i % 28) + 1), String.valueOf(i), "ISSUE" + i, "Volume " + i % 3));
 
                 // LiteraryPiece subtypes
-                literaryPieces.add(new LiteraryPiece("Essay Edition " + i, PublicationItemFormat.EBOOK, 7.99 + i, 1.19 + i * 0.1, PublicationItemStatus.AVAILABLE, pub, LiteraryType.ESSAY));
+                literaryPieces.add(new LiteraryPiece("Essay Edition " + i, PublicationItemFormat.EBOOK, BigDecimal.valueOf(7.99 + i), BigDecimal.valueOf(1.19 + i * 0.1), PublicationItemStatus.AVAILABLE, pub, LiteraryType.ESSAY));
                 if (i == 1)
-                    literaryPieces.add(new LiteraryPiece("Poem Edition " + i, PublicationItemFormat.EBOOK, 7.49 + i, 1.09 + i * 0.1, PublicationItemStatus.AVAILABLE, pub, LiteraryType.POEM));
+                    literaryPieces.add(new LiteraryPiece("Poem Edition " + i, PublicationItemFormat.EBOOK, BigDecimal.valueOf(7.49 + i), BigDecimal.valueOf(1.09 + i * 0.1), PublicationItemStatus.AVAILABLE, pub, LiteraryType.POEM));
                 if (i == 2)
-                    literaryPieces.add(new LiteraryPiece("Article Edition " + i, PublicationItemFormat.EBOOK, 7.29 + i, 1.05 + i * 0.1, PublicationItemStatus.AVAILABLE, pub, LiteraryType.ARTICLE));
+                    literaryPieces.add(new LiteraryPiece("Article Edition " + i, PublicationItemFormat.EBOOK, BigDecimal.valueOf(7.29 + i), BigDecimal.valueOf(1.05 + i * 0.1), PublicationItemStatus.AVAILABLE, pub, LiteraryType.ARTICLE));
                 if (i == 3)
-                    literaryPieces.add(new LiteraryPiece("Story Edition " + i, PublicationItemFormat.EBOOK, 7.89 + i, 1.15 + i * 0.1, PublicationItemStatus.AVAILABLE, pub, LiteraryType.STORY));
+                    literaryPieces.add(new LiteraryPiece("Story Edition " + i, PublicationItemFormat.EBOOK, BigDecimal.valueOf(7.89 + i), BigDecimal.valueOf(1.15 + i * 0.1), PublicationItemStatus.AVAILABLE, pub, LiteraryType.STORY));
                 if (i == 4)
-                    literaryPieces.add(new LiteraryPiece("Review Edition " + i, PublicationItemFormat.EBOOK, 7.59 + i, 1.11 + i * 0.1, PublicationItemStatus.AVAILABLE, pub, LiteraryType.REVIEW));
+                    literaryPieces.add(new LiteraryPiece("Review Edition " + i, PublicationItemFormat.EBOOK, BigDecimal.valueOf(7.59 + i), BigDecimal.valueOf(1.11 + i * 0.1), PublicationItemStatus.AVAILABLE, pub, LiteraryType.REVIEW));
             }
         }
         itemRepo.saveAll(books);

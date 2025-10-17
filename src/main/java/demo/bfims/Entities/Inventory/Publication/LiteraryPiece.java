@@ -10,6 +10,8 @@ import demo.bfims.Enums.PublicationItemStatus;
 import demo.bfims.Enums.PublicationItemType;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 public class LiteraryPiece extends PublicationItem {
     @Enumerated(EnumType.STRING)
@@ -19,7 +21,7 @@ public class LiteraryPiece extends PublicationItem {
         this.setPublicationItemType(PublicationItemType.LITERARY_PIECE);
     }
 
-    public LiteraryPiece(String edition, PublicationItemFormat format, Double purchasePrice, Double rentalRate, PublicationItemStatus status, Publication publication, LiteraryType literaryType) {
+    public LiteraryPiece(String edition, PublicationItemFormat format, BigDecimal purchasePrice, BigDecimal rentalRate, PublicationItemStatus status, Publication publication, LiteraryType literaryType) {
         super(edition, format, purchasePrice, rentalRate, status, publication);
         this.setPublicationItemType(PublicationItemType.LITERARY_PIECE);
         this.setLiteraryType(literaryType);

@@ -1,7 +1,9 @@
 package demo.bfims.Interfaces;
 
+import java.math.BigDecimal;
+
 public interface Rentable {
-    public Double getRentalRate();
-    public void setRentalRate(Double rentalPrice);
+    public BigDecimal getRentalRate();
+    public void setRentalRate(BigDecimal rentalPrice);
 }
 

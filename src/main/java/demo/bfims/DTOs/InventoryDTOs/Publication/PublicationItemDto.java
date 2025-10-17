@@ -6,6 +6,9 @@ import demo.bfims.Config.SVGIcon;
 import demo.bfims.Entities.Inventory.Publication.*;
 import demo.bfims.Enums.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -21,8 +24,8 @@ public class PublicationItemDto extends ItemDto {
     private PublicationItemStatus publicationItemStatus;
     private PublicationDto publication;
     private PublicationItemType publicationItemType;
-    private Double purchasePrice;
-    private Double rentalRate;
+    private BigDecimal purchasePrice;
+    private BigDecimal rentalRate;
     private String edition;
     private SVGIcon svgIcon;
 
@@ -83,20 +86,20 @@ public class PublicationItemDto extends ItemDto {
         this.publication = publication;
     }
 
-    public Double getPurchasePrice() {
+    public BigDecimal getPurchasePrice() {
         return purchasePrice;
     }
 
-    public void setPurchasePrice(Double purchasePrice) {
-        this.purchasePrice = purchasePrice;
+    public void setPurchasePrice(BigDecimal purchasePrice) {
+        this.purchasePrice = purchasePrice.setScale(2, RoundingMode.HALF_UP);
     }
 
-    public Double getRentalRate() {
+    public BigDecimal getRentalRate() {
         return rentalRate;
     }
 
-    public void setRentalRate(Double rentalRate) {
-        this.rentalRate = rentalRate;
+    public void setRentalRate(BigDecimal rentalRate) {
+        this.rentalRate = rentalRate.setScale(2, RoundingMode.HALF_UP);
     }
 
     public String getEdition() {

@@ -8,6 +8,8 @@ import demo.bfims.Enums.ItemType;
 import demo.bfims.Interfaces.Purchaseable;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 public class AccessoryItem extends Item implements Purchaseable {
     @ManyToOne()
@@ -52,12 +54,12 @@ public class AccessoryItem extends Item implements Purchaseable {
     }
 
     @Override
-    public Double getPurchasePrice() {
+    public BigDecimal getPurchasePrice() {
         return this.getAccessory().getPrice();
     }
 
     @Override
-    public void setPurchasePrice(Double purchasePrice) {
+    public void setPurchasePrice(BigDecimal purchasePrice) {
         this.getAccessory().setPrice(purchasePrice);
     }
 

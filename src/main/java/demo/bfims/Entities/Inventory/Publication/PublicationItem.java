@@ -13,6 +13,9 @@ import demo.bfims.Interfaces.Purchaseable;
 import demo.bfims.Interfaces.Rentable;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @Entity
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
@@ -32,8 +35,8 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "publication_id")
     Publication publication;
-    private Double purchasePrice;
-    private Double rentalRate;
+    private BigDecimal purchasePrice;
+    private BigDecimal rentalRate;
     private String edition;
     @Enumerated(EnumType.STRING)
     private PublicationItemType publicationItemType;
@@ -41,13 +44,14 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
     private SVGIcon svgIcon;
 
 
-    public PublicationItem(String edition, PublicationItemFormat format, Double purchasePrice, Double rentalRate, PublicationItemStatus publicationItemStatus, Publication publication) {
+    //For bootstrap
+    public PublicationItem(String edition, PublicationItemFormat format, BigDecimal purchasePrice, BigDecimal rentalRate, PublicationItemStatus publicationItemStatus, Publication publication) {
         this.setItemType(ItemType.PUBLICATION_ITEM);
         this.format = format;
         this.publicationItemStatus = publicationItemStatus;
         this.publication = publication;
-        this.purchasePrice = purchasePrice;
-        this.rentalRate = rentalRate;
+        this.setPurchasePrice(purchasePrice);
+        this.setRentalRate(rentalRate);
         this.edition = edition;
     }
 
@@ -58,8 +62,8 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
             this.svgIcon = publicationItemDto.getSvgIcon();
             this.format = publicationItemDto.getFormat();
             this.publicationItemStatus = publicationItemDto.getPublicationItemStatus();
-            this.purchasePrice = publicationItemDto.getPurchasePrice();
-            this.rentalRate = publicationItemDto.getRentalRate();
+            this.setPurchasePrice(publicationItemDto.getPurchasePrice());
+            this.setRentalRate(publicationItemDto.getRentalRate());
             this.edition = publicationItemDto.getEdition();
             this.publication = new Publication(publicationItemDto.getPublication());
             this.setPublicationItemType(publicationItemDto.getPublicationItemType());
@@ -103,20 +107,28 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
         this.publication = publication;
     }
 
-    public Double getPurchasePrice() {
+    public BigDecimal getPurchasePrice() {
         return purchasePrice;
     }
 
-    public void setPurchasePrice(Double purchasePrice) {
-        this.purchasePrice = purchasePrice;
+    public void setPurchasePrice(BigDecimal purchasePrice) {
+        this.purchasePrice = purchasePrice.setScale(2,RoundingMode.HALF_UP);
     }
 
-    public Double getRentalRate() {
+    public void setPurchasePrice(Double purchasePrice) {
+        this.purchasePrice = BigDecimal.valueOf(purchasePrice).setScale(2, RoundingMode.HALF_UP);
+    }
+
+    public BigDecimal getRentalRate() {
         return rentalRate;
     }
 
+    public void setRentalRate(BigDecimal rentalRate) {
+        this.rentalRate = rentalRate.setScale(2, RoundingMode.HALF_UP);
+    }
+
     public void setRentalRate(Double rentalRate) {
-        this.rentalRate = rentalRate;
+        this.rentalRate = BigDecimal.valueOf(rentalRate).setScale(2, RoundingMode.HALF_UP);
     }
 
     public String getEdition() {
@@ -155,8 +167,8 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
                 "format=" + format +
                 ", publicationItemStatus=" + publicationItemStatus +
                 ", publication=" + publication +
-                ", purchasePrice=" + purchasePrice +
-                ", rentalRate=" + rentalRate +
+                ", purchasePrice=" + purchasePrice.doubleValue() +
+                ", rentalRate=" + rentalRate.doubleValue() +
                 ", edition='" + edition + '\'' +
                 ", publicationItemType=" + publicationItemType +
                 ", svgIcon=" + svgIcon +

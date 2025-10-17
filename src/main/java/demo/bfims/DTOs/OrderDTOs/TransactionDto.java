@@ -8,6 +8,8 @@ import demo.bfims.Entities.Order.Rental;
 import demo.bfims.Entities.Order.Transaction;
 import demo.bfims.Enums.TransactionType;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 @JsonTypeInfo(
@@ -24,7 +26,7 @@ public class TransactionDto {
     private TransactionType transactionType;
     private LocalDate transactionDate;
     private ItemDto item;
-    private Double transactionPrice;
+    private BigDecimal transactionPrice;
 
     public TransactionDto() {
     }
@@ -77,12 +79,12 @@ public class TransactionDto {
         this.item = item;
     }
 
-    public Double getTransactionPrice() {
+    public BigDecimal getTransactionPrice() {
         return transactionPrice;
     }
 
-    public void setTransactionPrice(Double transactionPrice) {
-        this.transactionPrice = transactionPrice;
+    public void setTransactionPrice(BigDecimal transactionPrice) {
+        this.transactionPrice = transactionPrice.setScale(2, RoundingMode.HALF_UP);
     }
 
     @Override

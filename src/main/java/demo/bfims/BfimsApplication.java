@@ -14,6 +14,7 @@ public class BfimsApplication {
         SpringApplication.run(BfimsApplication.class, args);
     }
 
+//     for local host dev only w/ sep server
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {

@@ -1,6 +1,8 @@
 package demo.bfims.Interfaces;
 
+import java.math.BigDecimal;
+
 public interface Purchaseable {
-    public Double getPurchasePrice();
-    public void setPurchasePrice(Double purchasePrice);
+    public BigDecimal getPurchasePrice();
+    public void setPurchasePrice(BigDecimal purchasePrice);
 }

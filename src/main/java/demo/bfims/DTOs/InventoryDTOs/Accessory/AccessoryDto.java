@@ -4,11 +4,14 @@ import demo.bfims.Config.SVGIcon;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Enums.AccessoryType;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class AccessoryDto {
     private Long accessoryId;
     private AccessoryType accessoryType;
     private String accessoryName;
-    private double price;
+    private BigDecimal price;
     // needed to create items on new accessory
     private int quantity;
     private SVGIcon svgIcon;
@@ -56,12 +59,16 @@ public class AccessoryDto {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPrice(BigDecimal price) {
+        this.price = price.setScale(2,RoundingMode.HALF_UP);
+    }
+
+    public void setPrice(Double price) {
+        this.price = BigDecimal.valueOf(price).setScale(2, RoundingMode.HALF_UP);
     }
 
     public SVGIcon getSvgIcon() {

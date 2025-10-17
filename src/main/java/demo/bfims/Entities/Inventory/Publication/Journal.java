@@ -7,6 +7,7 @@ import demo.bfims.Enums.PublicationItemStatus;
 import demo.bfims.Enums.PublicationItemType;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -21,7 +22,7 @@ public class Journal extends PublicationItem {
         this.setPublicationItemType(PublicationItemType.JOURNAL);
     }
 
-    public Journal(String edition, PublicationItemFormat format, Double purchasePrice, Double rentalRate, PublicationItemStatus status, Publication publication, LocalDate issueDate, String issueName, String issueNumber, String volume) {
+    public Journal(String edition, PublicationItemFormat format, BigDecimal purchasePrice, BigDecimal rentalRate, PublicationItemStatus status, Publication publication, LocalDate issueDate, String issueName, String issueNumber, String volume) {
         super(edition, format, purchasePrice, rentalRate, status, publication);
         this.issueDate = issueDate;
         this.issueNumber = issueNumber;

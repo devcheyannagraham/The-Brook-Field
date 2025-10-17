@@ -8,6 +8,8 @@ import demo.bfims.Entities.Order.Order;
 import demo.bfims.Entities.Order.Transaction;
 import demo.bfims.Enums.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,7 +19,7 @@ public class RecentOrderDto {
     private String customerFirstName;
     private String customerLastName;
     private String customerEmail;
-    private double orderTotal;
+    private BigDecimal orderTotal;
     private LocalDateTime orderDate;
     private List<RecentOrderTransaction> recentOrderTransactions;
 
@@ -40,7 +42,7 @@ public class RecentOrderDto {
     public static class RecentOrderTransaction {
         private Long transactionId;
         private TransactionType transactionType;
-        private Double transactionPrice;
+        private BigDecimal transactionPrice;
         private LocalDate transactionDate;
         private Long itemId;
         private PublicationItemFormat publicationItemFormat;
@@ -98,12 +100,12 @@ public class RecentOrderDto {
             this.transactionType = transactionType;
         }
 
-        public Double getTransactionPrice() {
+        public BigDecimal getTransactionPrice() {
             return transactionPrice;
         }
 
-        public void setTransactionPrice(Double transactionPrice) {
-            this.transactionPrice = transactionPrice;
+        public void setTransactionPrice(BigDecimal transactionPrice) {
+            this.transactionPrice = transactionPrice.setScale(2, RoundingMode.HALF_UP);
         }
 
         public LocalDate getTransactionDate() {
@@ -264,12 +266,12 @@ public class RecentOrderDto {
         this.recentOrderTransactions = recentOrderTransactions;
     }
 
-    public double getOrderTotal() {
+    public BigDecimal getOrderTotal() {
         return orderTotal;
     }
 
-    public void setOrderTotal(double orderTotal) {
-        this.orderTotal = orderTotal;
+    public void setOrderTotal(BigDecimal orderTotal) {
+        this.orderTotal = orderTotal.setScale(2,RoundingMode.HALF_UP);
     }
 
     public LocalDateTime getOrderDate() {

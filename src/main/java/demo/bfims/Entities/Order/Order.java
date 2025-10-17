@@ -9,7 +9,8 @@ import demo.bfims.Enums.PublicationItemStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Order {
     private LocalDateTime orderDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<Transaction> transactions = new ArrayList<>();
-    private Double orderTotal = 0.0;
+    private BigDecimal orderTotal = BigDecimal.valueOf(0.0);
 
 
     public Order() {
@@ -38,7 +39,7 @@ public class Order {
         this.id = orderDto.getId();
         this.customer = new Customer(orderDto.getCustomer());
         this.orderDate = LocalDateTime.now();
-        this.orderTotal = orderDto.getOrderTotal();
+        this.setOrderTotal(orderDto.getOrderTotal());
         this.setTransactions(orderDto.getTransactions().stream()
                 .map(Transaction::mapToTransactionSubclass).toList());
     }
@@ -66,12 +67,16 @@ public class Order {
         this.customer = customer;
     }
 
-    public Double getOrderTotal() {
+    public BigDecimal getOrderTotal() {
         return orderTotal;
     }
 
-    public void setOrderTotal(Double orderTotal) {
-        this.orderTotal = orderTotal;
+    public void setOrderTotal(BigDecimal orderTotal) {
+        this.orderTotal = orderTotal.setScale(2, RoundingMode.HALF_UP);
+    }
+
+    public void addToOrderTotal(BigDecimal orderTotal) {
+        this.orderTotal = this.orderTotal.add(orderTotal).setScale(2, RoundingMode.HALF_UP);
     }
 
     public List<Transaction> getTransactions() {
@@ -79,13 +84,13 @@ public class Order {
     }
 
     public void setTransactions(List<Transaction> transactions) {
-        this.orderTotal = 0.0;
+        this.orderTotal = BigDecimal.valueOf(0.0);
         transactions.forEach(this::addTransaction);
     }
 
     public void addTransaction(Transaction transaction) {
         transaction.setOrder(this);
-        this.orderTotal += transaction.getTransactionPrice();
+        this.addToOrderTotal(transaction.getTransactionPrice());
 
         if (transaction instanceof Purchase purchase) {
             Item item = purchase.getItem();
@@ -124,7 +129,7 @@ public class Order {
                 ", customer=" + customer +
                 ", orderDate=" + orderDate +
                 ", orderItems=" + transactions +
-                ", orderTotal=" + orderTotal +
+                ", orderTotal=" + orderTotal.doubleValue() +
                 '}';
     }
 }

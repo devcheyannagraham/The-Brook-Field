@@ -10,6 +10,8 @@ import demo.bfims.Enums.TransactionType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 @Entity
@@ -38,14 +40,14 @@ public abstract class Transaction {
     @ManyToOne()
     @JoinColumn(name = "item_id")
     private Item item;
-    private double transactionPrice;
+    private BigDecimal transactionPrice;
 
-    public double getTransactionPrice() {
+    public BigDecimal getTransactionPrice() {
         return transactionPrice;
     }
 
-    public void setTransactionPrice(double transactionPrice) {
-        this.transactionPrice = transactionPrice;
+    public void setTransactionPrice(BigDecimal transactionPrice) {
+        this.transactionPrice = transactionPrice.setScale(2, RoundingMode.HALF_UP);
     }
 
     public Item getItem() {
@@ -60,7 +62,7 @@ public abstract class Transaction {
         this.transactionId = transDto.getTransactionId();
         this.transactionType = transDto.getTransactionType();
         this.transactionDate = transDto.getTransactionDate();
-        this.transactionPrice = transDto.getTransactionPrice();
+        this.setTransactionPrice(transDto.getTransactionPrice());
         //Item is abstract
         this.item = Item.mapToItemSubclass(transDto.getItem());
     }
@@ -80,7 +82,7 @@ public abstract class Transaction {
                 ", transactionType=" + transactionType +
                 ", transactionDate=" + transactionDate +
                 ", item=" + item +
-                ", transactionPrice=" + transactionPrice +
+                ", transactionPrice=" + transactionPrice.doubleValue() +
                 '}';
     }
 
