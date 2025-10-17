@@ -7,6 +7,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {firstValueFrom} from 'rxjs';
 import {ToasterService} from './toaster.service';
 import {Customer} from '../DTOs/Order/Customer';
+import {BASE_URL} from '../Helpers/globals';
 
 
 @Injectable({
@@ -14,7 +15,6 @@ import {Customer} from '../DTOs/Order/Customer';
 })
 export class AuthService {
   destroyRef = inject(DestroyRef);
-  baseUrl: string = '/api/';
   user = signal<UserDto>(null);
   storageAvailable = false;
   static SESSION_STORAGE: string = "sessionStorage";
@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   register(user: UserDto) {
-    this.http.post(`${this.baseUrl}newuser`, user, {responseType: 'text', withCredentials: true})
+    this.http.post(`${BASE_URL}newuser`, user, {responseType: 'text', withCredentials: true})
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: uuid => {
@@ -43,7 +43,7 @@ export class AuthService {
 
 
   login(user: UserDto) {
-    this.http.post(`${this.baseUrl}authenticateuser`, user, {responseType: 'text', withCredentials: true})
+    this.http.post(`${BASE_URL}authenticateuser`, user, {responseType: 'text', withCredentials: true})
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: uuid => {
@@ -56,7 +56,7 @@ export class AuthService {
 
   async reinstateUser(userUid: string) {
     if (this.user() != null) return;
-    return firstValueFrom(this.http.post(`${this.baseUrl}reinstateuser`, null, {
+    return firstValueFrom(this.http.post(`${BASE_URL}reinstateuser`, null, {
       headers: {"user-uuid": userUid.toString()},
       responseType: 'text',
       withCredentials: true
@@ -68,7 +68,7 @@ export class AuthService {
 
   getUserRole() {
     if (this.user() == null) return null;
-    return firstValueFrom(this.http.get(`${this.baseUrl}isadmin`, {responseType: 'text', withCredentials: true}))
+    return firstValueFrom(this.http.get(`${BASE_URL}isadmin`, {responseType: 'text', withCredentials: true}))
       .then(role => {
         if (role == UserRole.ADMIN) {
           this.isAdmin.set(true);
@@ -84,7 +84,7 @@ export class AuthService {
 
   newAdminUser(user: UserDto) {
     if (user == null || this.user() == null) return null;
-    return firstValueFrom(this.http.post(`${this.baseUrl}newadminuser`, user, {
+    return firstValueFrom(this.http.post(`${BASE_URL}newadminuser`, user, {
       responseType: "text",
       withCredentials: true
     }))
@@ -97,14 +97,14 @@ export class AuthService {
 
   getAdminUsers() {
     if (this.user() == null) return null;
-    return firstValueFrom(this.http.get(`${this.baseUrl}adminusers`, {withCredentials: true}))
+    return firstValueFrom(this.http.get(`${BASE_URL}adminusers`, {withCredentials: true}))
       .then(users => users)
       .catch(error => this.toaster.message.set({class: "error", message: error.error}));
   }
 
   deleteUser(userId: string) {
     if (userId == null || this.user() == null) return null;
-    return firstValueFrom(this.http.delete(`${this.baseUrl}deleteuser/${userId}`, {
+    return firstValueFrom(this.http.delete(`${BASE_URL}deleteuser/${userId}`, {
       responseType: "text",
       withCredentials: true
     }))
@@ -140,7 +140,7 @@ export class AuthService {
       storage.removeItem(AuthService.USER_UUID);
     }
 
-    this.http.post(`${this.baseUrl}logout`, null, {responseType: 'text', withCredentials: true})
+    this.http.post(`${BASE_URL}logout`, null, {responseType: 'text', withCredentials: true})
       .subscribe(result => {
         this.toaster.message.set({class: "info", message: result});
         this.router.navigateByUrl("/login");
@@ -177,7 +177,7 @@ export class AuthService {
   getCustomerInfo() {
     if (this.user() == null) return null;
 
-    return firstValueFrom(this.http.post(`${this.baseUrl}getcustomer`, this.user().userId, {
+    return firstValueFrom(this.http.post(`${BASE_URL}getcustomer`, this.user().userId, {
       responseType: "text",
       withCredentials: true
     }))

@@ -5,12 +5,12 @@ import { Transaction } from '../DTOs/Order/Transaction';
 import { Customer } from '../DTOs/Order/Customer';
 import { ToasterService } from './toaster.service';
 import { firstValueFrom } from 'rxjs';
+import {BASE_URL} from '../Helpers/globals';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShopService {
-  baseUrl: string = "/api/";
   shoppingCart = signal(new Map<number, Transaction>());
   cartTotal = signal(0);
 
@@ -35,7 +35,7 @@ export class ShopService {
     this.shoppingCart.update(old => new Map<number, Transaction>())
     this.cartTotal.set(0);
 
-    return firstValueFrom(this.http.post(`${this.baseUrl}order`, newOrder))
+    return firstValueFrom(this.http.post(`${BASE_URL}order`, newOrder))
       .then(() => this.toaster.message.set({ class: "success", message: "Order Submitted!"}))
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }))
 

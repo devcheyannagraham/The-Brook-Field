@@ -5,12 +5,12 @@ import { PublicationItem } from '../DTOs/Inventory/PublicationItem';
 import { AuthService } from './auth.service';
 import { firstValueFrom } from 'rxjs';
 import { ToasterService } from './toaster.service';
+import {BASE_URL} from '../Helpers/globals';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PublicationService {
-  baseUrl: string = '/api/';
 
 
   constructor(private http: HttpClient, private authService: AuthService, public toaster: ToasterService) {
@@ -18,28 +18,28 @@ export class PublicationService {
 
   //Get all pub items for specific pub
   getPublicationItemsByPublicationId(pubId: number) {
-    return firstValueFrom(this.http.get<any[]>(`${this.baseUrl}publicationitems/${pubId}`, { withCredentials: true }))
+    return firstValueFrom(this.http.get<any[]>(`${BASE_URL}publicationitems/${pubId}`, { withCredentials: true }))
       .then(items => items)
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
 
   //Get available pub items for specific pub
   getAvailablePublicationItemsByPublicationId(pubId: number) {
-    return firstValueFrom(this.http.get<any[]>(`${this.baseUrl}shop/publicationitems/${pubId}`))
+    return firstValueFrom(this.http.get<any[]>(`${BASE_URL}shop/publicationitems/${pubId}`))
       .then(items => items)
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
 
   //Get all pubs for list view
   getPublications() {
-    return firstValueFrom(this.http.get<Publication[]>(`${this.baseUrl}publications`))
+    return firstValueFrom(this.http.get<Publication[]>(`${BASE_URL}publications`))
       .then(items => items)
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
 
   //Get 1 publication
   getPublicationById(id: number) {
-    return firstValueFrom(this.http.get<Publication>(`${this.baseUrl}publication/${id}`))
+    return firstValueFrom(this.http.get<Publication>(`${BASE_URL}publication/${id}`))
       .then(items => items)
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
@@ -47,14 +47,14 @@ export class PublicationService {
 
   // Get 1 pub item
   getPublicationItemById(pubItemId: number) {
-    return firstValueFrom(this.http.get<PublicationItem>(`${this.baseUrl}publicationitem/${pubItemId}`, { withCredentials: true }))
+    return firstValueFrom(this.http.get<PublicationItem>(`${BASE_URL}publicationitem/${pubItemId}`, { withCredentials: true }))
       .then(items => items)
       .catch(error => this.toaster.message.set({ class: "error", message: error.error }));
   }
 
 
   newPublication(pub: any) {
-    return firstValueFrom(this.http.post(`${this.baseUrl}publication`, pub, { withCredentials: true }))
+    return firstValueFrom(this.http.post(`${BASE_URL}publication`, pub, { withCredentials: true }))
       .then(items => {
         this.toaster.message.set({ class: "success", message: "Publication Added." })
         return items;
@@ -63,7 +63,7 @@ export class PublicationService {
   }
 
   newPublicationItem(pubItem: any) {
-    return firstValueFrom(this.http.post(`${this.baseUrl}publicationitem`, pubItem, { withCredentials: true }))
+    return firstValueFrom(this.http.post(`${BASE_URL}publicationitem`, pubItem, { withCredentials: true }))
       .then(items => {
         this.toaster.message.set({ class: "success", message: "Publication Item Added." })
         return items;
@@ -72,7 +72,7 @@ export class PublicationService {
   }
 
   deletePublicationItem(itemId: number) {
-    return firstValueFrom(this.http.delete(`${this.baseUrl}publicationitem/${itemId}`, { withCredentials: true }))
+    return firstValueFrom(this.http.delete(`${BASE_URL}publicationitem/${itemId}`, { withCredentials: true }))
       .then(items => {
         this.toaster.message.set({ class: "success", message: "Publication Item Deleted." })
         return items;
@@ -81,7 +81,7 @@ export class PublicationService {
   }
 
   deletePublication(pubId: number) {
-    return firstValueFrom(this.http.delete(`${this.baseUrl}publication/${pubId}`, { withCredentials: true }))
+    return firstValueFrom(this.http.delete(`${BASE_URL}publication/${pubId}`, { withCredentials: true }))
       .then(items => {
         this.toaster.message.set({ class: "success", message: "Publication Deleted." })
         return items;
