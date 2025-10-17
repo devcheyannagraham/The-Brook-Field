@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { ShopService } from '../../Services/shop.service';
 import { Transaction } from '../../DTOs/Order/Transaction';
 import { headers } from '../../Helpers/headers';
-import { ItemType } from '../../Enums/ItemType';
-import { AccessoryItem } from '../../DTOs/Accessory/AccessoryItem';
 import { TypeCast } from '../../Pipes/TypeCast';
 import { Customer } from '../../DTOs/Order/Customer';
 import { Router } from '@angular/router';
@@ -85,6 +83,4 @@ export class OrderFormComponent {
   }
 
   protected readonly headers = headers;
-  protected readonly ItemType = ItemType;
-  protected readonly AccessoryItem = AccessoryItem;
 }
