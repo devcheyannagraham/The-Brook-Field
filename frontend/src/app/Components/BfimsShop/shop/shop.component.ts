@@ -29,8 +29,6 @@ import {SVGIconComponent} from "../../svgicon/svgicon.component";
 export class ShopComponent {
   accessoryData: Accessory[];
   protected readonly headers = headers;
-  itemType = ItemType;
-
   publications: Publication[];
 
   constructor(public accessoryService: AccessoryService, public publicationService: PublicationService, public reportService: ReportsService) {
@@ -63,4 +61,5 @@ export class ShopComponent {
 
   protected readonly Object = Object;
   protected readonly AccessoryType = AccessoryType;
+  protected readonly ItemType = ItemType;
 }

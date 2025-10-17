@@ -1,75 +1,59 @@
 <h2>Popular Items</h2>
 
-@if(popularItems && popularItems.length > 0){
+@if (popularItems && popularItems.length > 0) {
 
-@if(isAdmin){
-<div>
-  <p>{{date | date:"full"}}</p>
-    <table>
+  @if (isAdmin) {
+    <div>
+      <p>{{ date | date:"full" }}</p>
+      <table>
         <thead>
-            <tr>
-                <th></th>
-                <th>{{headers.title}}</th>
-                <th>{{headers.totalUnitsSold}}</th>
-                <th>{{headers.totalProfit}}</th>
-            </tr>
+        <tr>
+          <th></th>
+          <th>{{ headers.title }}</th>
+          <th>{{ headers.totalUnitsSold }}</th>
+          <th>{{ headers.totalProfit }}</th>
+        </tr>
         </thead>
         <tbody>
 
-            @for(item of popularItems;track `$${item.id}-${item.title}`){
+          @for (item of popularItems; track `$${item.id}-${item.title}`) {
             <tr>
-                <td>
-                    <svgicon [className]="'popular-item-icon'" [icon]="item.svgIcon" />
-                </td>
-                <td> @if(item.itemType == ItemType.PUBLICATION_ITEM){
-
-                    <a [routerLink]="['/publication/',item.id]">
-                        {{item.title }}
-                    </a>
-                    }
-                    @if(item.itemType == ItemType.ACCESSORY_ITEM){
-                    <a [routerLink]="['/accessory/',item.id]">
-                        {{item.title }}
-                    </a>
-
-                    }
-                </td>
-                <td>{{item.totalUnitsSold}}</td>
-                <td>{{item.totalProfit | currency}}</td>
+              <td>
+                <svgicon [className]="'popular-item-icon'" [icon]="item.svgIcon"/>
+              </td>
+              <td>
+                <a [routerLink]="[`/${item.itemType.split('_')[0].toLowerCase()}/`,item.id]">
+                  {{ item.title }}
+                </a>
+              </td>
+              <td>{{ item.totalUnitsSold }}</td>
+              <td>{{ item.totalProfit | currency }}</td>
             </tr>
-            }
+          }
 
         </tbody>
-    </table>
-</div>
-
-} @else {
-<div class="book-card-holder">
-
-    @for(item of popularItems;track `$${item.id}-${item.title}`){
-
-    <div class="book-card">
-
-        <svgicon [className]="'popular-item-icon'" [icon]="item.svgIcon" />
-        <p>
-            @if(item.itemType == ItemType.PUBLICATION_ITEM){
-
-            <a [routerLink]="['shop/publication/',item.id]">
-                {{item.title }}
-            </a>
-            }
-            @if(item.itemType == ItemType.ACCESSORY_ITEM){
-            <a [routerLink]="['shop/accessory/',item.id]">
-                {{item.title }}
-            </a>
-            }
-        </p>
+      </table>
     </div>
 
-    }
-</div>
+  } @else {
+    <div class="book-card-holder">
 
-}
-}@else {
-<p>No items to display</p>
+      @for (item of popularItems; track `$${item.id}-${item.title}`) {
+
+        <div class="book-card">
+
+          <svgicon [className]="'popular-item-icon'" [icon]="item.svgIcon"/>
+          <p>
+            <a [routerLink]="[`shop/${item.itemType.split('_')[0].toLowerCase()}/`,item.id]">
+              {{ item.title }}
+            </a>
+          </p>
+        </div>
+
+      }
+    </div>
+
+  }
+} @else {
+  <p>No items to display</p>
 }

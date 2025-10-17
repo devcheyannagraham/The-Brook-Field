@@ -34,4 +34,5 @@ export class LowInventoryComponent {
   }
 
 
+  protected readonly Object = Object;
 }

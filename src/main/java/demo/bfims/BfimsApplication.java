@@ -24,6 +24,7 @@ public class BfimsApplication {
                 registry
                         .addMapping("/**")
                         .allowedOrigins("http://localhost:4200","https://localhost:4200")
+                        .allowedMethods("*")
                         .allowCredentials(true);
             }
         };
