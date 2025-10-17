@@ -1,12 +1,9 @@
-import {Component, computed, Input, signal} from '@angular/core';
+import {Component, Input, signal} from '@angular/core';
 import {CurrencyPipe, DatePipe} from "@angular/common";
 import {ShopService} from '../../../Services/shop.service';
 import {PublicationService} from '../../../Services/publication.service';
-import {Book} from '../../../DTOs/Inventory/Book';
-import {LiteraryPiece} from '../../../DTOs/Inventory/LiteraryPiece';
 import {PublicationItem} from '../../../DTOs/Inventory/PublicationItem';
 import {Publication} from '../../../DTOs/Inventory/Publication';
-import {Journal} from '../../../DTOs/Inventory/Journal';
 import {PublicationItemType} from '../../../Enums/PublicationItemType';
 import {headers} from '../../../Helpers/headers';
 import {Rental} from '../../../DTOs/Order/Rental';

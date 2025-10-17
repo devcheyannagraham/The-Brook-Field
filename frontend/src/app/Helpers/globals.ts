@@ -24,4 +24,14 @@ export const ITEM_TYPE_TABLE_HEADERS_SHOP = new Map([
   [ItemType.PUBLICATION_ITEM, ["publicationItemType", "edition","format","purchasePrice","rentalRate", "publicationItemStatus"]],
 ]);
 
+export const ITEM_TYPE_TABLE_HEADERS_REPORT = new Map([
+  [ItemType.PUBLICATION_ITEM, ["publicationItemType", "edition","format","purchasePrice","rentalRate", "publicationItemStatus"]],
+]);
+
+export const PUBLICATION_ITEM_TYPE_TABLE_HEADERS_REPORT = new Map([
+  [PublicationItemType.BOOK, []],
+  [PublicationItemType.JOURNAL, ["issueDate","issueNumber","issueName", "volume"]],
+  [PublicationItemType.LITERARY_PIECE, ["literaryType"]]
+]);
+
 
