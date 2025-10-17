@@ -4,7 +4,7 @@
     --rich-black: #051014;
     --tyrian-purple: #5f1a37;
     --platinum: #D8DDDE;
-    --ivory: ##FFFFF0;
+    --ivory: #FFFFF0;
     --chinese-violet: #71677c;
     /* ICON COLORS */
     --powder-blue: #9EADC8;
@@ -18,7 +18,7 @@
     --palatinate:#531253;
     --paynes-gray:#555B6E;
     --apricot:#FFD6BA;
-    --eggplant:#5E4C5A; 
+    --eggplant:#5E4C5A;
 }
 
 body {

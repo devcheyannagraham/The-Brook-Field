@@ -21,7 +21,7 @@ import { CartComponent } from "../cart/cart.component";
 export class ShopAccessoryDetailComponent {
   @Input() shopItemId: number;
   accessory: Accessory;
-  accessoryItemsInCart = new Map<number, AccessoryItem>();;
+  accessoryItemsInCart = new Map<number, AccessoryItem>();
   accessoryItemsNotInCart = new Map<number, AccessoryItem>();
   quantity = 0;
 
