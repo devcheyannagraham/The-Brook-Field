@@ -91,7 +91,7 @@ public class PublicationItemDto extends ItemDto {
     }
 
     public void setPurchasePrice(BigDecimal purchasePrice) {
-        this.purchasePrice = purchasePrice.setScale(2, RoundingMode.HALF_UP);
+        if (purchasePrice != null) this.purchasePrice = purchasePrice.setScale(2, RoundingMode.HALF_UP);
     }
 
     public BigDecimal getRentalRate() {
@@ -99,7 +99,7 @@ public class PublicationItemDto extends ItemDto {
     }
 
     public void setRentalRate(BigDecimal rentalRate) {
-        this.rentalRate = rentalRate.setScale(2, RoundingMode.HALF_UP);
+        if (rentalRate != null) this.rentalRate = rentalRate.setScale(2, RoundingMode.HALF_UP);
     }
 
     public String getEdition() {
@@ -141,8 +141,8 @@ public class PublicationItemDto extends ItemDto {
                 ", publicationItemStatus=" + publicationItemStatus +
                 ", publication=" + publication +
                 ", publicationItemType=" + publicationItemType +
-                ", purchasePrice=" + purchasePrice +
-                ", rentalRate=" + rentalRate +
+                ", purchasePrice=" + purchasePrice.doubleValue() +
+                ", rentalRate=" + rentalRate.doubleValue() +
                 ", edition='" + edition + '\'' +
                 ", svgIcon=" + svgIcon +
                 ", quantity=" + quantity +

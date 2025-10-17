@@ -47,7 +47,7 @@ public abstract class Transaction {
     }
 
     public void setTransactionPrice(BigDecimal transactionPrice) {
-        this.transactionPrice = transactionPrice.setScale(2, RoundingMode.HALF_UP);
+        if (transactionPrice != null) this.transactionPrice = transactionPrice.setScale(2, RoundingMode.HALF_UP);
     }
 
     public Item getItem() {
@@ -57,7 +57,7 @@ public abstract class Transaction {
     public Transaction() {
     }
 
-//    Construct Trans from TransDto
+    //    Construct Trans from TransDto
     public Transaction(TransactionDto transDto) {
         this.transactionId = transDto.getTransactionId();
         this.transactionType = transDto.getTransactionType();

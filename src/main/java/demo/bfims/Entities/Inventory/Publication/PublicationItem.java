@@ -112,11 +112,12 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
     }
 
     public void setPurchasePrice(BigDecimal purchasePrice) {
-        this.purchasePrice = purchasePrice.setScale(2,RoundingMode.HALF_UP);
+        if (purchasePrice != null) this.purchasePrice = purchasePrice.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void setPurchasePrice(Double purchasePrice) {
-        this.purchasePrice = BigDecimal.valueOf(purchasePrice).setScale(2, RoundingMode.HALF_UP);
+        if (purchasePrice != null)
+            this.purchasePrice = BigDecimal.valueOf(purchasePrice).setScale(2, RoundingMode.HALF_UP);
     }
 
     public BigDecimal getRentalRate() {
@@ -124,11 +125,11 @@ public abstract class PublicationItem extends Item implements Rentable, Purchase
     }
 
     public void setRentalRate(BigDecimal rentalRate) {
-        this.rentalRate = rentalRate.setScale(2, RoundingMode.HALF_UP);
+        if (rentalRate != null) this.rentalRate = rentalRate.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void setRentalRate(Double rentalRate) {
-        this.rentalRate = BigDecimal.valueOf(rentalRate).setScale(2, RoundingMode.HALF_UP);
+        if (rentalRate != null) this.rentalRate = BigDecimal.valueOf(rentalRate).setScale(2, RoundingMode.HALF_UP);
     }
 
     public String getEdition() {

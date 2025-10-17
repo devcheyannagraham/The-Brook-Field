@@ -60,7 +60,7 @@ public class AccessoryItem extends Item implements Purchaseable {
 
     @Override
     public void setPurchasePrice(BigDecimal purchasePrice) {
-        this.getAccessory().setPrice(purchasePrice);
+        if (purchasePrice != null) this.getAccessory().setPrice(purchasePrice);
     }
 
     @Override

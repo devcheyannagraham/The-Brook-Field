@@ -77,11 +77,11 @@ public class Accessory {
     }
 
     public void setPrice(BigDecimal price) {
-        this.price = price.setScale(2, RoundingMode.HALF_UP);
+        if (price != null) this.price = price.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void setPrice(Double price) {
-        this.price = BigDecimal.valueOf(price).setScale(2, RoundingMode.HALF_UP);
+        if (price != null) this.price = BigDecimal.valueOf(price).setScale(2, RoundingMode.HALF_UP);
     }
 
     public SVGIcon getSvgIcon() {

@@ -70,8 +70,8 @@ public class RecentOrderDto {
                 this.genre = pubItem.getPublication().getGenre();
                 this.publicationTitle = pubItem.getPublication().getTitle();
                 this.svgIcon = pubItem.getSvgIcon();
-                if(pubItem.getPublicationItemType().equals(PublicationItemType.LITERARY_PIECE)){
-                    LiteraryPiece lp =  (LiteraryPiece) pubItem;
+                if (pubItem.getPublicationItemType().equals(PublicationItemType.LITERARY_PIECE)) {
+                    LiteraryPiece lp = (LiteraryPiece) pubItem;
                     this.literaryType = lp.getLiteraryType();
                 }
             } else if (transaction.getItem().getItemType().equals(ItemType.ACCESSORY_ITEM)) {
@@ -105,7 +105,7 @@ public class RecentOrderDto {
         }
 
         public void setTransactionPrice(BigDecimal transactionPrice) {
-            this.transactionPrice = transactionPrice.setScale(2, RoundingMode.HALF_UP);
+            if (transactionPrice != null) this.transactionPrice = transactionPrice.setScale(2, RoundingMode.HALF_UP);
         }
 
         public LocalDate getTransactionDate() {
@@ -271,7 +271,7 @@ public class RecentOrderDto {
     }
 
     public void setOrderTotal(BigDecimal orderTotal) {
-        this.orderTotal = orderTotal.setScale(2,RoundingMode.HALF_UP);
+        if (orderTotal != null) this.orderTotal = orderTotal.setScale(2, RoundingMode.HALF_UP);
     }
 
     public LocalDateTime getOrderDate() {

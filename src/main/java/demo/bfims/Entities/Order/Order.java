@@ -45,7 +45,7 @@ public class Order {
     }
 
     // For bootstrap
-    public Order(List<Transaction> trans, Customer customer){
+    public Order(List<Transaction> trans, Customer customer) {
         this.orderDate = LocalDateTime.now();
         trans.forEach(this::addTransaction);
         this.customer = customer;
@@ -72,11 +72,11 @@ public class Order {
     }
 
     public void setOrderTotal(BigDecimal orderTotal) {
-        this.orderTotal = orderTotal.setScale(2, RoundingMode.HALF_UP);
+        if (orderTotal != null) this.orderTotal = orderTotal.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void addToOrderTotal(BigDecimal orderTotal) {
-        this.orderTotal = this.orderTotal.add(orderTotal).setScale(2, RoundingMode.HALF_UP);
+        if (orderTotal != null) this.orderTotal = this.orderTotal.add(orderTotal).setScale(2, RoundingMode.HALF_UP);
     }
 
     public List<Transaction> getTransactions() {

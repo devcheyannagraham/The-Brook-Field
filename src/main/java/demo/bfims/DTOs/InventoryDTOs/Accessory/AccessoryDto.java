@@ -1,5 +1,6 @@
 package demo.bfims.DTOs.InventoryDTOs.Accessory;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
 import demo.bfims.Config.SVGIcon;
 import demo.bfims.Entities.Inventory.Accessory.Accessory;
 import demo.bfims.Enums.AccessoryType;
@@ -63,12 +64,13 @@ public class AccessoryDto {
         return price;
     }
 
+    @JsonSetter // for Json Deserilizer conflict with double method
     public void setPrice(BigDecimal price) {
-        this.price = price.setScale(2,RoundingMode.HALF_UP);
+        if (price != null) this.price = price.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void setPrice(Double price) {
-        this.price = BigDecimal.valueOf(price).setScale(2, RoundingMode.HALF_UP);
+        if (price != null) this.price = BigDecimal.valueOf(price).setScale(2, RoundingMode.HALF_UP);
     }
 
     public SVGIcon getSvgIcon() {

@@ -61,7 +61,7 @@ public class OrderDto {
     }
 
     public void setOrderTotal(BigDecimal orderTotal) {
-        this.orderTotal = orderTotal.setScale(2, RoundingMode.HALF_UP);
+        if (orderTotal != null) this.orderTotal = orderTotal.setScale(2, RoundingMode.HALF_UP);
     }
 
     public LocalDateTime getOrderDate() {
