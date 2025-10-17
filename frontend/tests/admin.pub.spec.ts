@@ -18,7 +18,7 @@ test("admin creates, reads, updates, deletes publications and publicationItems",
 
   //update publication
   await page.locator("table").first().locator("tbody").locator("tr").first().locator("a").click();
-  await expect(page.getByRole('heading', { name: 'Books' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'BOOK' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Update Publication' })).toBeVisible();
   await page.getByRole('link', { name: 'Update Publication' }).click();
   await expect(page.getByRole('heading', { name: 'Update Publication' })).toBeVisible();
@@ -89,7 +89,7 @@ test("admin creates, reads, updates, deletes publications and publicationItems",
   await expect(page.getByRole('button', { name: 'delete', exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'delete', exact: true }).click();
   await expect(page.getByText('Quantity:')).toBeVisible();
-  await expect(page.getByText('No Books')).toBeVisible();
+  await expect(page.getByText('No Items.')).toBeVisible();
 
   //delete publication
   await expect(page.getByRole('button', { name: 'Delete Publication' })).toBeVisible();
