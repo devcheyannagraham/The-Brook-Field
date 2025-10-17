@@ -78,5 +78,5 @@ export class AccessoryFormComponent {
       });
   }
 
-
+  protected readonly Object = Object;
 }

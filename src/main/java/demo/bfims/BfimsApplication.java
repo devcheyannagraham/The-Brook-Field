@@ -21,7 +21,10 @@ public class BfimsApplication {
 
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:4200","https://localhost:4200");
+                registry
+                        .addMapping("/**")
+                        .allowedOrigins("http://localhost:4200","https://localhost:4200")
+                        .allowCredentials(true);
             }
         };
     }

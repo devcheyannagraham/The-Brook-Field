@@ -1,7 +1,7 @@
 import {inject} from '@angular/core';
 import {CanActivateFn, Router, RedirectCommand} from '@angular/router';
-import {AuthService} from './Services/auth.service';
-import {ToasterService} from './Services/toaster.service';
+import {AuthService} from '../Services/auth.service';
+import {ToasterService} from '../Services/toaster.service';
 
 export const adminGuard: CanActivateFn = (route, state) => {
 

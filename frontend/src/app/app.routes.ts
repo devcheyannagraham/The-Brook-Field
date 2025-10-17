@@ -17,8 +17,8 @@ import { LandingPageComponent } from './Components/landing-page/landing-page.com
 import { LoginComponent } from './Components/Auth/login/login.component';
 import { HomeComponent } from './Components/Auth/home/home.component';
 import { AdminDashboardComponent } from './Components/Auth/admin-dashboard/admin-dashboard.component';
-import { authenticatedUserGuard } from './authenticated-user.guard';
-import { adminGuard } from './admin.guard';
+import { authenticatedUserGuard } from './RouteGuards/authenticated-user.guard';
+import { adminGuard } from './RouteGuards/admin.guard';
 import { UserManagementComponent } from './Components/Auth/user-management/user-management.component';
 import {inject} from '@angular/core';
 

@@ -1,7 +1,7 @@
 import {inject,} from '@angular/core';
 import {CanActivateFn, RedirectCommand, Router} from '@angular/router';
-import {AuthService} from './Services/auth.service';
-import {ToasterService} from './Services/toaster.service';
+import {AuthService} from '../Services/auth.service';
+import {ToasterService} from '../Services/toaster.service';
 
 export const authenticatedUserGuard: CanActivateFn = (route, state) => {
 
