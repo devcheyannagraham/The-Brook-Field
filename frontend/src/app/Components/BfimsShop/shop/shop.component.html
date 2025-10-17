@@ -1,151 +1,112 @@
 <h2>Our Shop</h2>
 
 <div class="top-items">
-  <cart />
+  <cart/>
   <search title="store items">
-    <search-component />
+    <search-component/>
   </search>
 </div>
 
 <!-- DISPLAY SEARCH RESULTS -->
-@if(reportService.searchResults()){
-<div class="search-results">
+@if (reportService.searchResults()) {
+  <div class="search-results">
 
-  <h3>SEARCH RESULTS</h3>
-  @if(reportService.searchResults()?.length == 0){
-  <p>No Results Found.</p>
-  }
-  @else {
+    <h3>SEARCH RESULTS</h3>
+    @if (reportService.searchResults()?.length == 0) {
+      <p>No Results Found.</p>
+    } @else {
 
-  <table>
-    <thead>
-      <th>Item</th>
-    </thead>
-    <tbody>
-      @for(item of reportService.searchResults(); track `${item.id}-${item.itemType}`){
-      <tr>
-        <td>
-          @if(item.itemType == itemType.PUBLICATION_ITEM){
+      <table>
+        <thead>
+        <th>Item</th>
+        </thead>
+        <tbody>
+          @for (item of reportService.searchResults(); track `${item.id}-${item.itemType}`) {
+            <tr>
+              <td>
+                @if (item.itemType == itemType.PUBLICATION_ITEM) {
 
-          <a [routerLink]="['/shop/publication/',item.id]">
-            {{item.title }}
-          </a>
+                  <a [routerLink]="['/shop/publication/',item.id]">
+                    {{ item.title }}
+                  </a>
+                }
+                @if (item.itemType == itemType.ACCESSORY_ITEM) {
+                  <a [routerLink]="['/shop/accessory/',item.id]">
+                    {{ item.title }}
+                  </a>
+                }
+              </td>
+            </tr>
           }
-          @if(item.itemType == itemType.ACCESSORY_ITEM){
-          <a [routerLink]="['/shop/accessory/',item.id]">
-            {{item.title }}
-          </a>
-          }
-        </td>
-      </tr>
-      }
-    <tfoot>
+        <tfoot>
 
-      <button (click)="closeSearch()">Close Search</button>
-    </tfoot>
-  </table>
-  }
-</div>
+        <button (click)="closeSearch()">Close Search</button>
+        </tfoot>
+      </table>
+    }
+  </div>
 }
 
 
 
 
 <!-- SHOP ITEMS -->
+
+<!-- PUBLICATIONS-->
 @if (publications) {
-<div>
-  <h3>PUBLICATIONS</h3>
-  <section class="shop-section">
-    @for (pub of publications; track pub.publicationId) {
-    <div class="shop-item">
-      <svgicon [icon]="pub.svgIcon" [className]="'shop-icon'" />
-      <div>
-        <p class="title">
-          <a [routerLink]="['/shop/publication',pub.publicationId]">
-            {{ pub.title }}
-          </a>
-        </p>
-        <ul>
-          <li>{{ headers.genre }}: {{ pub.genre }}</li>
-          <li>{{ headers.title }}: {{ pub.title }}</li>
-          <li>{{ headers.datePublished }}: {{ pub.datePublished | date:"mediumDate" }}</li>
-          <li>{{ headers.isbn }}: {{ pub.isbn }}</li>
-        </ul>
-      </div>
-    </div>
-    }
-  </section>
-</div>
+  <div>
+    <h3>PUBLICATIONS</h3>
+    <section class="shop-section">
+      @for (pub of publications; track pub.publicationId) {
+        <div class="shop-item">
+          <svgicon [icon]="pub.svgIcon" [className]="'shop-icon'"/>
+          <div>
+            <p class="title">
+              <a [routerLink]="['/shop/publication',pub.publicationId]">
+                {{ pub.title }}
+              </a>
+            </p>
+            <ul>
+              <li>{{ headers.genre }}: {{ pub.genre }}</li>
+              <li>{{ headers.title }}: {{ pub.title }}</li>
+              <li>{{ headers.datePublished }}: {{ pub.datePublished | date:"mediumDate" }}</li>
+              <li>{{ headers.isbn }}: {{ pub.isbn }}</li>
+            </ul>
+          </div>
+        </div>
+      }
+    </section>
+  </div>
 }
 
-@if (mugs) {
-<div>
-  <h3>MUGS</h3>
-  <section class="shop-section">
-    @for (mug of mugs; track mug.accessoryId) {
-    <div class="shop-item">
-      <svgicon [icon]="mug.svgIcon" [className]="'shop-icon'" />
-      <div>
-        <p class="title">
-          <a [routerLink]="['/shop/accessory',mug.accessoryId]">
-            {{ mug.accessoryName }}
-          </a>
-        </p>
-        <ul>
-          <li>{{ headers.accessoryName }}: {{ mug.accessoryName }}</li>
-          <li>{{ headers.price }}: {{ mug.price | currency }}</li>
-        </ul>
-      </div>
-    </div>
-    }
-  </section>
-</div>
-}
 
-@if (pens) {
-<div>
-  <h3>PENS</h3>
-  <section class="shop-section">
-    @for (pen of pens; track pen.accessoryId) {
-    <div class="shop-item">
-      <svgicon [icon]="pen.svgIcon" [className]="'shop-icon'" />
-      <div>
-        <p class="title">
-          <a [routerLink]="['/shop/accessory',pen.accessoryId]">
-            {{ pen.accessoryName }}
-          </a>
-        </p>
-        <ul>
-          <li>{{ headers.accessoryName }}: {{ pen.accessoryName }}</li>
-          <li>{{ headers.price }}: {{ pen.price |currency}}</li>
-        </ul>
-      </div>
-    </div>
-    }
-  </section>
-</div>
-}
+<!-- ACCESSORIES-->
 
-@if (bookmarks) {
-<div>
-  <h3>BOOKMARKS</h3>
-  <section class="shop-section">
-    @for (bookmark of bookmarks; track bookmark.accessoryId) {
-    <div class="shop-item">
-      <svgicon [icon]="bookmark.svgIcon" [className]="'shop-icon'" />
-      <div>
-        <p class="title">
-          <a [routerLink]="['/shop/accessory',bookmark.accessoryId]">
-            {{ bookmark.accessoryName }}
-          </a>
-        </p>
-        <ul>
-          <li>{{ headers.accessoryName }}: {{ bookmark.accessoryName }}</li>
-          <li>{{ headers.price }}: {{ bookmark.price|currency}}</li>
-        </ul>
-      </div>
+@if (accessoryData) {
+  @for (accType of Object.values(AccessoryType); track accType) {
+    <h3>{{ accType }}</h3>
+    <div>
+      <section class="shop-section">
+        @for (acc of accessoryData; track acc.accessoryId) {
+          @if (acc.accessoryType == accType) {
+            <div class="shop-item">
+              <svgicon [icon]="acc.svgIcon" [className]="'shop-icon'"/>
+              <div>
+                <p class="title">
+                  <a [routerLink]="['/shop/accessory',acc.accessoryId]">
+                    {{ acc.accessoryName }}
+                  </a>
+                </p>
+                <ul>
+                  <li>{{ headers.accessoryName }}: {{ acc.accessoryName }}</li>
+                  <li>{{ headers.price }}: {{ acc.price | currency }}</li>
+                </ul>
+              </div>
+            </div>
+          }
+        }
+      </section>
     </div>
-    }
-  </section>
-</div>
+
+  }
 }

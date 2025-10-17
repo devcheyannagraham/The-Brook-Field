@@ -3,7 +3,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from './Services/auth.service';
 import { BackComponent } from "./Components/back/back.component";
 import { ToasterComponent } from "./Components/toaster/toaster.component";
-import {BFIMSTypesService} from './Services/bfimstypes.service';
 
 @Component({
   selector: 'app-root',
@@ -13,12 +12,10 @@ import {BFIMSTypesService} from './Services/bfimstypes.service';
 })
 export class AppComponent {
   window = window;
-  constructor(public authService: AuthService, public typeService:BFIMSTypesService) {
+  constructor(public authService: AuthService) {
   }
   ngOnInit() {
-
     this.authService.getUser();
-    this.typeService.getTypes();
   }
 
   logout(){
