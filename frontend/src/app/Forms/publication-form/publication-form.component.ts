@@ -16,7 +16,6 @@ import { ToasterService } from '../../Services/toaster.service';
 })
 export class PublicationFormComponent {
   publicationForm: FormGroup;
-  Genre = Genre;
   publication: Publication;
   author: Author;
 
@@ -75,7 +74,7 @@ export class PublicationFormComponent {
       publication.author.id = this.author?.id || null;
       //add icon if pub already exists
       if(this.publication) publication.svgIcon = this.publication.svgIcon;
-      
+
       this.createPublication(publication);
     } else {
       this.toasterService.message.set({class:"error", message:"Please complete form before submitting form."})
@@ -90,4 +89,6 @@ export class PublicationFormComponent {
       });
   }
 
+  protected readonly Object = Object;
+  protected readonly Genre = Genre;
 }
