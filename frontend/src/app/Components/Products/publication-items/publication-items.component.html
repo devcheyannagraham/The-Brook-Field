@@ -26,7 +26,11 @@
 
 
   @if (publicationItems && publicationItems.length > 0) {
+    @let pubHeaderMap = ITEM_TYPE_TABLE_HEADERS_REPORT.get(ItemType.PUBLICATION_ITEM);
+
     @for (itemType of Object.values(PublicationItemType); track itemType) {
+      @let pubItemKeyMap = PUBLICATION_ITEM_TYPE_TABLE_HEADERS_REPORT.get(itemType);
+
       <h3>{{ itemType }}</h3>
       @if (filteredPublicationItems.get(itemType).length > 0) {
 
@@ -34,11 +38,11 @@
           <table>
             <thead>
             <th></th>
-              @for (itemHeader of ITEM_TYPE_TABLE_HEADERS_SHOP.get(ItemType.PUBLICATION_ITEM); track itemHeader) {
-                <th>{{ $any(headers)[itemHeader] }}</th>
+              @for (header of pubHeaderMap.keys(); track header) {
+                <th>{{ $any(headers)[header] }}</th>
               }
-              @for (itemHeader of PUBLICATION_ITEM_TYPE_TABLE_HEADERS_SHOP.get(itemType).values(); track itemHeader) {
-                <th>{{ $any(headers)[itemHeader] }}</th>
+              @for (itemKey of pubItemKeyMap.keys(); track itemKey) {
+                <th>{{ $any(headers)[itemKey] }}</th>
               }
             <th>Action</th>
             </thead>
@@ -49,12 +53,11 @@
                     <svgicon [icon]="item.svgIcon" [className]="'table-icon'"/>
                   </td>
 
-                  @for (itemHeader of ITEM_TYPE_TABLE_HEADERS_REPORT.get(ItemType.PUBLICATION_ITEM); track itemHeader) {
-                    <td>{{ $any(item)[itemHeader] }}</td>
+                  @for (header of pubHeaderMap.keys(); track header) {
+                    <td>{{ $any(item)[header] | formatDataPipe:pubHeaderMap:header }}</td>
                   }
-                  @for (
-                    itemHeader of PUBLICATION_ITEM_TYPE_TABLE_HEADERS_REPORT.get(itemType).values(); track itemHeader) {
-                    <td>{{ $any(item)[itemHeader] }}</td>
+                  @for (itemKey of pubItemKeyMap.keys(); track itemKey) {
+                    <td>{{ $any(item)[itemKey] | formatDataPipe: pubItemKeyMap:itemKey }}</td>
                   }
                   <td>
                     <button><a [routerLink]="['/publicationitemform',item.itemId]">Edit</a></button>
@@ -65,7 +68,7 @@
             </tbody>
           </table>
         </div>
-      }@else {
+      } @else {
         <p>No Items.</p>
       }
     }

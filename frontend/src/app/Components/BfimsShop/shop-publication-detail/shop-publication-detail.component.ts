@@ -18,6 +18,7 @@ import {
   PUBLICATION_ITEM_TYPE_TABLE_HEADERS_SHOP
 } from '../../../Helpers/globals';
 import {ItemType} from '../../../Enums/ItemType';
+import {FormatDataPipe} from '../../../Pipes/FormatDataPipe';
 
 
 @Component({
@@ -26,6 +27,7 @@ import {ItemType} from '../../../Enums/ItemType';
     DatePipe,
     CartComponent,
     SVGIconComponent,
+    FormatDataPipe
   ],
   templateUrl: './shop-publication-detail.component.html',
   styleUrl: './shop-publication-detail.component.css'

@@ -1,241 +1,221 @@
 :root {
-    --myrtle-green: #587B7F;
-    --eggshell: #faf3dd;
-    --rich-black: #051014;
-    --tyrian-purple: #5f1a37;
-    --platinum: #D8DDDE;
-    --ivory: #FFFFF0;
-    --chinese-violet: #71677c;
-    /* ICON COLORS */
-    --powder-blue: #9EADC8;
-    --copper: #c27028;
-    --ecru: #A89F68;
-    --sunglow: #FFCB47;
-    --reseda-green: #89937C;
-    --verdigris:#56A3A6;
-    --rose-taupe:#945D5E;
-    --cambridge-blue:#91C7B1;
-    --palatinate:#531253;
-    --paynes-gray:#555B6E;
-    --apricot:#FFD6BA;
-    --eggplant:#5E4C5A;
+  --myrtle-green: #587B7F;
+  --eggshell: #faf3dd;
+  --rich-black: #051014;
+  --tyrian-purple: #5f1a37;
+  --platinum: #D8DDDE;
+  --white: #FFF;
+  --chinese-violet: #71677c;
+  /* ICON COLORS */
+  --powder-blue: #9EADC8;
+  --copper: #c27028;
+  --ecru: #A89F68;
+  --sunglow: #FFCB47;
+  --reseda-green: #89937C;
+  --verdigris: #56A3A6;
+  --rose-taupe: #945D5E;
+  --cambridge-blue: #91C7B1;
+  --palatinate: #531253;
+  --paynes-gray: #555B6E;
+  --apricot: #FFD6BA;
+  --eggplant: #5E4C5A;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.2rem;
-    background-color: var(--ivory);
-    color: var(--rich-black);
-    letter-spacing: 1px;
-    max-width: 1750px;
-    margin: auto;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 150px;
-    overflow-x: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  background-color: var(--white);
+  color: var(--rich-black);
+  letter-spacing: 1px;
+  max-width: 1750px;
+  margin: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 150px;
+  overflow-x: hidden;
 }
 
 main {
-    margin: auto;
-    max-width: 1500px;
-    padding-left: 20px;
-    padding-right: 20px;
+  margin: auto;
+  max-width: 1500px;
+  padding-left: 20px;
+  padding-right: 20px;
 
 }
 
 a {
-    color: var(--reseda-green);
-    text-transform: capitalize;
-    font-weight: bold;
+  color: var(--reseda-green);
+  text-transform: capitalize;
+  font-weight: bold;
 }
 
 a:hover {
-    color: var(--tyrian-purple)
+  color: var(--tyrian-purple)
 }
 
 button {
-    cursor: pointer;
-    background-color: var(--myrtle-green);
-    color: white;
-    border-radius: 5px;
-    margin: 5px;
-    padding: 10px;
-    border: 1px solid var(--platinum);
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  cursor: pointer;
+  background-color: var(--myrtle-green);
+  color: white;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid var(--platinum);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 button a {
-    color: white;
-    text-transform: uppercase;
-    text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
 }
 
 button:hover,
 button a:hover,
 button:hover:not(disabled) {
-    color: var(--rich-black);
+  color: var(--rich-black);
 }
 
 button:disabled {
-    opacity: 0.5;
-    cursor: unset;
-    color: initial;
+  opacity: 0.5;
+  cursor: unset;
+  color: initial;
 }
-
-
-
-
-
 
 
 /* ICON STYLES */
 
 .popular-item-icon {
-    max-width: 75px;
-    height: 75px;
+  max-width: 75px;
+  height: 75px;
 }
 
 .shop-icon {
-    max-width: 100px;
-    height: 100px;
-    margin: 5px;
+  max-width: 100px;
+  height: 100px;
+  margin: 5px;
 }
 
 .table-icon {
-    width: 50px;
+  width: 50px;
 }
 
 .pen-icon {
-    fill: var(--powder-blue);
+  fill: var(--powder-blue);
 }
 
 .mug-icon {
-    fill: var(--ecru);
+  fill: var(--ecru);
 }
 
 .bookmark-icon {
-    fill: var(--sunglow);
+  fill: var(--sunglow);
 }
 
 .publication-icon {
-    fill: var(--copper);
+  fill: var(--copper);
 }
 
 .book-icon {
-    fill: var(--verdigris);
+  fill: var(--verdigris);
 
 }
 
 .review-icon {
-    fill: var(--rose-taupe);
+  fill: var(--rose-taupe);
 
 }
 
 .essay-icon {
-    fill: var(--cambridge-blue);
+  fill: var(--cambridge-blue);
 
 }
 
 .poem-icon {
-    fill: var(--palatinate);
+  fill: var(--palatinate);
 
 }
 
 .story-icon {
-    fill: var(--paynes-gray);
+  fill: var(--paynes-gray);
 
 }
 
 .article-icon {
-    fill: var(--apricot);
+  fill: var(--apricot);
 
 }
 
 .journal-icon {
-    fill: var(--eggplant);
+  fill: var(--eggplant);
 
 }
-
-
-
-
-
-
-
-
-
 
 
 /* TABLE STYLES */
 table {
-    width: 100%;
-    margin: auto;
-    padding: 20px;
-    border-bottom: 5px solid var(--platinum);
+  width: 100%;
+  margin: auto;
+  padding: 20px;
+  border-bottom: 5px solid var(--platinum);
 }
 
 thead th {
-    background: var(--tyrian-purple);
-    color: white;
+  background: var(--tyrian-purple);
+  color: white;
 }
 
 th {
-    border-radius: 5px;
-    margin: 20px;
-    padding: 10px;
+  border-radius: 5px;
+  margin: 20px;
+  padding: 10px;
 }
 
 
 tr,
 td,
 tbody {
-    padding: 15px;
-    margin: 15px;
+  padding: 15px;
+  margin: 15px;
+  text-align: center;
 }
 
 tr:nth-child(even) {
-    background-color: #f9ffdb;
+  background-color: #f9ffdb;
 }
 
 .search-results table {
-    width: 50%;
+  width: 50%;
 }
 
 .overflow {
-    overflow-x: auto;
-    width: 100%;
+  overflow-x: auto;
+  width: 100%;
 }
-
-
-
-
-
-
-
 
 
 /* FORM STYLES */
 
 .label-group {
-    display: grid;
-    margin: 10px;
-    padding: 10px;
+  display: grid;
+  margin: 10px;
+  padding: 10px;
 }
 
 input,
 select {
-    padding: 15px;
-    margin: 15px;
+  padding: 15px;
+  margin: 15px;
 }
 
 .error {
-    font-size: smaller;
-    font-style: italic;
-    color: red;
+  font-size: smaller;
+  font-style: italic;
+  color: red;
 }
 
-.required{
-    color:red;
+.required {
+  color: red;
 }

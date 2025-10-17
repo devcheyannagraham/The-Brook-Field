@@ -13,6 +13,7 @@ import {
   PUBLICATION_ITEM_TYPE_TABLE_HEADERS_REPORT, PUBLICATION_ITEM_TYPE_TABLE_HEADERS_SHOP
 } from '../../../Helpers/globals';
 import {ItemType} from '../../../Enums/ItemType';
+import {FormatDataPipe} from '../../../Pipes/FormatDataPipe';
 
 @Component({
   selector: 'publication-items',
@@ -20,6 +21,7 @@ import {ItemType} from '../../../Enums/ItemType';
     DatePipe,
     RouterLink,
     SVGIconComponent,
+    FormatDataPipe,
   ],
   templateUrl: './publication-items.component.html',
   styleUrl: './publication-items.component.css'

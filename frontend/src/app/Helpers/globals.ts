@@ -16,24 +16,47 @@ export const FACTORY_TYPES = new Map([
   [PublicationItemType.LITERARY_PIECE, LiteraryPiece],
 ]);
 
-export const PUBLICATION_ITEM_TYPE_TABLE_HEADERS_SHOP = new Map([
-  [PublicationItemType.BOOK, []],
-  [PublicationItemType.JOURNAL, ["issueDate","issueNumber","issueName", "volume"]],
-  [PublicationItemType.LITERARY_PIECE, ["literaryType"]]
-]);
-
 export const ITEM_TYPE_TABLE_HEADERS_SHOP = new Map([
-  [ItemType.PUBLICATION_ITEM, ["publicationItemType", "edition","format","purchasePrice","rentalRate", "publicationItemStatus"]],
+  [ItemType.PUBLICATION_ITEM, new Map([
+    ["publicationItemType", []],
+    ["edition", []],
+    ["format", []],
+    ["purchasePrice", ["currency"]],
+    ["rentalRate", ["currency"]],
+    ["publicationItemStatus", []]])
+  ]]);
+
+export const PUBLICATION_ITEM_TYPE_TABLE_HEADERS_SHOP = new Map([
+  [PublicationItemType.BOOK, new Map()],
+  [PublicationItemType.JOURNAL, new Map([
+    ["issueDate", ["date"]],
+    ["issueNumber", []],
+    ["issueName", []],
+    ["volume", []]])],
+  [PublicationItemType.LITERARY_PIECE, new Map([["literaryType", []]])]
 ]);
 
 export const ITEM_TYPE_TABLE_HEADERS_REPORT = new Map([
-  [ItemType.PUBLICATION_ITEM, ["publicationItemType", "edition","format","purchasePrice","rentalRate", "publicationItemStatus"]],
-]);
+  [ItemType.PUBLICATION_ITEM, new Map([
+    ["publicationItemType", []],
+    ["edition", []],
+    ["format", []],
+    ["purchasePrice", ["currency"]],
+    ["rentalRate", ["currency"]],
+    ["publicationItemStatus", []]
+  ])
+  ]]);
+
 
 export const PUBLICATION_ITEM_TYPE_TABLE_HEADERS_REPORT = new Map([
-  [PublicationItemType.BOOK, []],
-  [PublicationItemType.JOURNAL, ["issueDate","issueNumber","issueName", "volume"]],
-  [PublicationItemType.LITERARY_PIECE, ["literaryType"]]
+  [PublicationItemType.BOOK, new Map()],
+  [PublicationItemType.JOURNAL, new Map([
+    ["issueDate", ["date"]],
+    ["issueNumber", []],
+    ["issueName", []],
+    ["volume", []]])],
+  [PublicationItemType.LITERARY_PIECE, new Map([["literaryType", []]])]
 ]);
+
 
 
