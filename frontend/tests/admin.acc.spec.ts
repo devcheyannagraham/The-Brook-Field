@@ -15,7 +15,6 @@ test("admin creates, reads, updates, deletes accesssories and accessory items", 
   //view and update accessory
   await page.getByRole('link', { name: 'Admin Dashboard' }).click();
   await page.getByRole('cell', { name: 'Classic Bookmark' }).click();
-  await page.getByRole('link', { name: 'Classic Bookmark' }).click();
   await page.getByRole('link', { name: 'Update Accessory' }).click();
   await page.getByRole('textbox', { name: 'Accessory Name*' }).click();
   await page.getByRole('textbox', { name: 'Accessory Name*' }).fill('Classic Bookmark1');
