@@ -15,20 +15,20 @@ public class BfimsApplication {
     }
 
 //     for local host dev only w/ sep server
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-
-
-            @Override
-            public void addCorsMappings(@NonNull CorsRegistry registry) {
-                registry
-                        .addMapping("/**")
-                        .allowedOrigins("http://localhost:4200","https://localhost:4200")
-                        .allowedMethods("*")
-                        .allowCredentials(true);
-            }
-        };
-    }
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurer() {
+//
+//
+//            @Override
+//            public void addCorsMappings(@NonNull CorsRegistry registry) {
+//                registry
+//                        .addMapping("/**")
+//                        .allowedOrigins("http://localhost:4200","https://localhost:4200")
+//                        .allowedMethods("*")
+//                        .allowCredentials(true);
+//            }
+//        };
+//    }
 
 }

@@ -5,10 +5,10 @@ import {LiteraryPiece} from '../DTOs/Inventory/LiteraryPiece';
 import {ItemType} from '../Enums/ItemType';
 
 //dev
-export const BASE_URL = "https://localhost:8080/api/";
+// export const BASE_URL = "https://localhost:8080/api/";
 
 // prod
-// export const BASE_URL = "/api/";
+export const BASE_URL = "/api/";
 
 export const FACTORY_TYPES = new Map([
   [PublicationItemType.BOOK, Book],
