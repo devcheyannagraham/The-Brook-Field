@@ -32,11 +32,35 @@ build/
 ### VS Code ###
 .vscode/
 
+### Environment / secrets ###
+.env
+.env.*
+*.env
 *.p12
 *.crt
 *.pem
+
+### Logs and temp files ###
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+### Node / Angular ###
 /node_modules/
 package-lock.json
-*.db
+/frontend/.angular/
+/frontend/dist/
+/frontend/coverage/
+/frontend/playwright-report/
+/frontend/test-results/
 /playwright-report/
 /test-results/
+
+### Local databases ###
+*.db
+*.mv.db
+*.trace.db
+bfims.*
