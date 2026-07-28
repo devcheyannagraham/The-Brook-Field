@@ -36,9 +36,17 @@ build/
 .env
 .env.*
 *.env
+*.local
+*.key
+*.pfx
 *.p12
 *.crt
+*.cer
 *.pem
+*.jks
+*.keystore
+application-local.properties
+application-*.local.properties
 
 ### Logs and temp files ###
 *.log
@@ -47,6 +55,16 @@ build/
 *.swp
 .DS_Store
 Thumbs.db
+*.orig
+
+### Build and generated output ###
+/frontend/.angular/cache/
+/frontend/.sass-cache/
+/frontend/dist/
+/frontend/coverage/
+/target/
+/classes/
+/out/
 
 ### Node / Angular ###
 /node_modules/
@@ -64,3 +82,20 @@ package-lock.json
 *.mv.db
 *.trace.db
 bfims.*
+*.sqlite
+*.sqlite3
+
+### Local app state ###
+*.pid
+*.seed
+*.snapshot
+
+### Documents and archives ###
+*.docx
+*.pdf
+*.pptx
+*.xlsx
+*.zip
+*.tar
+*.tar.gz
+*.7z
