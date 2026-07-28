@@ -1,6 +1,6 @@
 # BFIMS
 
-BFIMS is a full-stack inventory and retail management application for handling books, publications, accessories, customers, orders, and basic reporting. It was created as a capstone-style project to bring together a modern Spring Boot backend and an Angular frontend in one working system.
+The Brook & Field Inventory Management System is a full-stack inventory and retail management application for handling books, publications, accessories, customers, orders, and basic reporting. It was created as my capstone project, bringing together a modern Spring Boot backend and an Angular frontend in one working system.
 
 ## What it does
 
@@ -24,6 +24,7 @@ The app uses:
 - Java 21 and Spring Boot for the backend API and business logic
 - Spring Data JPA with an H2 database for local development
 - Angular 19 for the frontend interface
+- JUnit tests for backend logic
 - Playwright-based tests for UI flows
 
 The backend also seeds example data on startup, so a fresh local run already has sample content to explore.
@@ -45,6 +46,25 @@ From the project root:
 ```bash
 ./mvnw -DskipTests spring-boot:run
 ```
+
+The app uses Spring profiles to choose its configuration. The active profile is set in [src/main/resources/application.properties](src/main/resources/application.properties).
+
+### Spring profiles
+
+The active profile is selected in [src/main/resources/application.properties](src/main/resources/application.properties).
+
+- Use the development profile by setting `spring.profiles.active=dev` to load settings from [src/main/resources/application-dev.properties](src/main/resources/application-dev.properties).
+- Use the production profile by setting `spring.profiles.active=prod` to load settings from [src/main/resources/application-prod.properties](src/main/resources/application-prod.properties).
+
+Only change values in the profile-specific files when they need to differ from the other environment. Common settings to review are:
+
+- `spring.datasource.url`
+- `spring.datasource.username`
+- `spring.datasource.password`
+- `server.port`
+- `spring.jpa.hibernate.ddl-auto`
+
+The production file also uses the Heroku-style `PORT` environment variable for the web port.
 
 The API will start on http://localhost:8080.
 
@@ -71,6 +91,3 @@ Default seeded admin credentials:
 
 You can change these values in [src/main/java/demo/bfims/Config/Bootstrap.java](src/main/java/demo/bfims/Config/Bootstrap.java) if you want to use different local test credentials.
 
-## Notes
-
-This README is intentionally concise. It focuses on the purpose of the project, the technologies used, and the quickest path to running it locally from a fresh clone.
