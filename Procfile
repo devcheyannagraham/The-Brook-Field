@@ -1,1 +1,3 @@
-web: java -Dserver.port=$PORT -jar target/BFIMS-0.0.1-SNAPSHOT.jar --spring.config.activate.on-profile=prod
+web: java -Dserver.port=$PORT -jar target/*.jar --spring.config.activate.on-profile=prod
+
+# web: java -Dserver.port=$PORT -jar target/*.jar
